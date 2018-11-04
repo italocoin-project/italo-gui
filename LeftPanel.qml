@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import moneroComponents.Wallet 1.0
-import moneroComponents.NetworkType 1.0
+import italocoinComponents.Wallet 1.0
+import italocoinComponents.NetworkType 1.0
 import "components"
 
 Rectangle {
@@ -91,7 +91,7 @@ Rectangle {
         z: 1
     }
 
-    // card with monero logo
+    // card with italocoin logo
     Column {
         visible: true
         z: 2

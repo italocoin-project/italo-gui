@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import QtQuick 2.0
 
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 Item {
     id: item
@@ -36,10 +36,10 @@ Item {
 
     property alias placeholderText: placeholderLabel.text
     property bool placeholderCenter: false
-    property string placeholderFontFamily: MoneroComponents.Style.fontRegular.name
+    property string placeholderFontFamily: ItalocoinComponents.Style.fontRegular.name
     property bool placeholderFontBold: false
     property int placeholderFontSize: 18 * scaleRatio
-    property string placeholderColor: MoneroComponents.Style.defaultFontColor
+    property string placeholderColor: ItalocoinComponents.Style.defaultFontColor
     property real placeholderOpacity: 0.35
 
     property alias validator: input.validator
@@ -54,9 +54,9 @@ Item {
     property bool borderDisabled: false
     property string borderColor: {
         if(input.activeFocus){
-            return MoneroComponents.Style.inputBorderColorActive;
+            return ItalocoinComponents.Style.inputBorderColorActive;
         } else {
-            return MoneroComponents.Style.inputBorderColorInActive;
+            return ItalocoinComponents.Style.inputBorderColorInActive;
         }
     }
 
@@ -107,11 +107,11 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.topMargin: 2 * scaleRatio
-        font.family: MoneroComponents.Style.fontLight.name
+        font.family: ItalocoinComponents.Style.fontLight.name
         font.pixelSize: labelFontSize
         font.bold: labelFontBold
         textFormat: Text.RichText
-        color: MoneroComponents.Style.defaultFontColor
+        color: ItalocoinComponents.Style.defaultFontColor
         onLinkActivated: item.labelLinkActivated()
 
         MouseArea {
@@ -121,7 +121,7 @@ Item {
         }
     }
 
-    MoneroComponents.LabelButton {
+    ItalocoinComponents.LabelButton {
         id: copyButtonId
         text: qsTr("Copy")
         anchors.right: parent.right
@@ -189,11 +189,11 @@ Item {
             anchors.topMargin: 8 * scaleRatio
             anchors.left: parent.left
             anchors.leftMargin: 12 * scaleRatio
-            source: "../images/moneroIcon-28x28.png"
+            source: "../images/italocoinIcon-28x28.png"
             visible: false
         }
 
-        MoneroComponents.Input {
+        ItalocoinComponents.Input {
             id: input
             anchors.fill: parent
             anchors.leftMargin: inlineIcon.visible ? 44 * scaleRatio : 0
@@ -206,7 +206,7 @@ Item {
             bottomPadding: 10 * scaleRatio
         }
 
-        MoneroComponents.InlineButton {
+        ItalocoinComponents.InlineButton {
             id: inlineButtonId
             visible: item.inlineButtonText ? true : false
             anchors.right: parent.right

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 RowLayout {
     id: radioButton
@@ -84,8 +84,8 @@ RowLayout {
             id: label
             anchors.left: button.right
             anchors.leftMargin: !isMobile ? 10 : 8
-            color: MoneroComponents.Style.defaultFontColor
-            font.family: MoneroComponents.Style.fontRegular.name
+            color: ItalocoinComponents.Style.defaultFontColor
+            font.family: ItalocoinComponents.Style.fontRegular.name
             font.pixelSize: radioButton.fontSize
             wrapMode: Text.Wrap
 

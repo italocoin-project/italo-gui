@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -33,10 +33,10 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import "../../js/Windows.js" as Windows
 import "../../js/Utils.js" as Utils
-import "../../components" as MoneroComponents
+import "../../components" as ItalocoinComponents
 import "../../pages"
 import "."
-import moneroComponents.Clipboard 1.0
+import italocoinComponents.Clipboard 1.0
 
 Rectangle {
     Layout.fillWidth: true
@@ -56,7 +56,7 @@ Rectangle {
             property string fontColor: "white"
             property int fontSize: 13 * scaleRatio
             property bool fontBold: true
-            property var fontFamily: MoneroComponents.Style.fontRegular.name
+            property var fontFamily: ItalocoinComponents.Style.fontRegular.name
             property string borderColor: "#808080"
             property int textMargin: {
                 // left-right margins for a given cell

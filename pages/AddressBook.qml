@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import "../components"
-import moneroComponents.AddressBook 1.0
-import moneroComponents.AddressBookModel 1.0
+import italocoinComponents.AddressBook 1.0
+import italocoinComponents.AddressBookModel 1.0
 
 Rectangle {
     id: root

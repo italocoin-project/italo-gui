@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -31,7 +31,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
 import "../../js/Utils.js" as Utils
-import "../../components" as MoneroComponents
+import "../../components" as ItalocoinComponents
 
 
 Rectangle {
@@ -56,15 +56,15 @@ Rectangle {
 //            Layout.preferredHeight: 1 * scaleRatio
 //            Layout.fillWidth: true
 //            Layout.bottomMargin: 8 * scaleRatio
-//            color: MoneroComponents.Style.dividerColor
-//            opacity: MoneroComponents.Style.dividerOpacity
+//            color: ItalocoinComponents.Style.dividerColor
+//            opacity: ItalocoinComponents.Style.dividerOpacity
 //        }
 
         Text {
             Layout.bottomMargin: 2 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItalocoinComponents.Style.defaultFontColor
             font.pixelSize: 18 * scaleRatio
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItalocoinComponents.Style.fontRegular.name
             text: qsTr("Log level") + translationManager.emptyString
         }
 
@@ -89,7 +89,7 @@ Rectangle {
                      ListElement { column1: "custom"; }
                 }
 
-                MoneroComponents.StandardDropdown {
+                ItalocoinComponents.StandardDropdown {
                     id: logLevelDropdown
                     dataModel: logLevel
                     itemTopMargin: 2 * scaleRatio
@@ -114,7 +114,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.LineEdit {
+            ItalocoinComponents.LineEdit {
                 id: logCategories
                 visible: persistentSettings.logLevel === 5
                 Layout.fillWidth: true
@@ -137,9 +137,9 @@ Rectangle {
         Text {
             Layout.topMargin: 10 * scaleRatio
             Layout.bottomMargin: 2 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItalocoinComponents.Style.defaultFontColor
             font.pixelSize: 18 * scaleRatio
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItalocoinComponents.Style.fontRegular.name
             text: qsTr("Daemon log") + translationManager.emptyString
         }
 
@@ -151,8 +151,8 @@ Rectangle {
             TextArea.flickable: TextArea {
                 id : consoleArea
                 anchors.fill: parent
-                color: MoneroComponents.Style.defaultFontColor
-                selectionColor: MoneroComponents.Style.dimmedFontColor
+                color: ItalocoinComponents.Style.defaultFontColor
+                selectionColor: ItalocoinComponents.Style.dimmedFontColor
                 textFormat: TextEdit.RichText
                 selectByMouse: true
                 selectByKeyboard: true
@@ -219,7 +219,7 @@ Rectangle {
             }
         }
 
-        MoneroComponents.LineEdit {
+        ItalocoinComponents.LineEdit {
             id: sendCommandText
             Layout.fillWidth: true
             fontBold: false

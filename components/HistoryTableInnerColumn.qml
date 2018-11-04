@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Monero Project
+// Copyright (c) 2014-2015, The Italocoin Project
 //
 // All rights reserved.
 //
@@ -29,11 +29,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import moneroComponents.Clipboard 1.0
-import moneroComponents.PendingTransaction 1.0
-import moneroComponents.Wallet 1.0
+import italocoinComponents.Clipboard 1.0
+import italocoinComponents.PendingTransaction 1.0
+import italocoinComponents.Wallet 1.0
 
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 
 Rectangle{
@@ -50,20 +50,20 @@ Rectangle{
     Text {
         id: label1
         anchors.left: parent.left
-        font.family: MoneroComponents.Style.fontRegular.name
+        font.family: ItalocoinComponents.Style.fontRegular.name
         font.pixelSize: 14 * scaleRatio
         text: labelHeader
-        color: MoneroComponents.Style.dimmedFontColor
+        color: ItalocoinComponents.Style.dimmedFontColor
     }
 
     Text {
         id: label2
         anchors.left: parent.left
         anchors.top: label1.bottom
-        font.family: MoneroComponents.Style.fontRegular.name
+        font.family: ItalocoinComponents.Style.fontRegular.name
         font.pixelSize: 14 * scaleRatio
         text: labelValue
-        color: MoneroComponents.Style.dimmedFontColor
+        color: ItalocoinComponents.Style.dimmedFontColor
     }
 
     // hover effect / copy value
@@ -73,12 +73,12 @@ Rectangle{
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onEntered: {
-            label1.color = MoneroComponents.Style.defaultFontColor;
-            label2.color = MoneroComponents.Style.defaultFontColor;
+            label1.color = ItalocoinComponents.Style.defaultFontColor;
+            label2.color = ItalocoinComponents.Style.defaultFontColor;
         }
         onExited: {
-            label1.color = MoneroComponents.Style.dimmedFontColor
-            label2.color = MoneroComponents.Style.dimmedFontColor;
+            label1.color = ItalocoinComponents.Style.dimmedFontColor
+            label2.color = ItalocoinComponents.Style.dimmedFontColor;
         }
         onClicked: {
             if(copyValue){

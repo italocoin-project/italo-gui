@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Monero Project
+// Copyright (c) 2014-2015, The Italocoin Project
 //
 // All rights reserved.
 //
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 ColumnLayout {
     id: item
@@ -43,26 +43,26 @@ ColumnLayout {
     property alias placeholderText: placeholderLabel.text
 
     property bool placeholderCenter: false
-    property string placeholderFontFamily: MoneroComponents.Style.fontRegular.name
+    property string placeholderFontFamily: ItalocoinComponents.Style.fontRegular.name
     property bool placeholderFontBold: false
     property int placeholderFontSize: 18 * scaleRatio
-    property string placeholderColor: MoneroComponents.Style.defaultFontColor
+    property string placeholderColor: ItalocoinComponents.Style.defaultFontColor
     property real placeholderOpacity: 0.35
 
     property bool borderDisabled: false
     property string borderColor: {
         if(input.error && input.text !== ""){
-            return MoneroComponents.Style.inputBorderColorInvalid;
+            return ItalocoinComponents.Style.inputBorderColorInvalid;
         } else if(input.activeFocus){
-            return MoneroComponents.Style.inputBorderColorActive;
+            return ItalocoinComponents.Style.inputBorderColorActive;
         } else {
-            return MoneroComponents.Style.inputBorderColorInActive;
+            return ItalocoinComponents.Style.inputBorderColorInActive;
         }
     }
 
     property bool error: false
 
-    property string labelFontColor: MoneroComponents.Style.defaultFontColor
+    property string labelFontColor: ItalocoinComponents.Style.defaultFontColor
     property bool labelFontBold: false
     property int labelFontSize: 16 * scaleRatio
     property bool labelButtonVisible: false
@@ -95,7 +95,7 @@ ColumnLayout {
             id: inputLabel
             anchors.top: parent.top
             anchors.left: parent.left
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItalocoinComponents.Style.fontRegular.name
             font.pixelSize: item.labelFontSize
             font.bold: labelFontBold
             textFormat: Text.RichText
@@ -109,13 +109,13 @@ ColumnLayout {
             }
         }
 
-        MoneroComponents.LabelButton {
+        ItalocoinComponents.LabelButton {
             id: labelButton
             onClicked: labelButtonClicked()
             visible: labelButtonVisible
         }
 
-        MoneroComponents.LabelButton {
+        ItalocoinComponents.LabelButton {
             id: copyButtonId
             visible: copyButton && input.text !== ""
             text: qsTr("Copy")
@@ -131,7 +131,7 @@ ColumnLayout {
         }
     }
 
-    MoneroComponents.InputMulti {
+    ItalocoinComponents.InputMulti {
         id: input
         readOnly: false
         addressValidation: false

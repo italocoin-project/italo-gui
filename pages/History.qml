@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -29,11 +29,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import moneroComponents.Wallet 1.0
-import moneroComponents.WalletManager 1.0
-import moneroComponents.TransactionHistory 1.0
-import moneroComponents.TransactionInfo 1.0
-import moneroComponents.TransactionHistoryModel 1.0
+import italocoinComponents.Wallet 1.0
+import italocoinComponents.WalletManager 1.0
+import italocoinComponents.TransactionHistory 1.0
+import italocoinComponents.TransactionInfo 1.0
+import italocoinComponents.TransactionHistoryModel 1.0
 
 import "../components"
 

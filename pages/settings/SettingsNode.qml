@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
-import "../../components" as MoneroComponents
+import "../../components" as ItalocoinComponents
 
 Rectangle{
     color: "transparent"
@@ -64,8 +64,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItalocoinComponents.Style.dividerColor
+                opacity: ItalocoinComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -109,7 +109,7 @@ Rectangle{
                     anchors.top: parent.top
                     color: "white"
                     font.bold: true
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItalocoinComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Local node") + translationManager.emptyString
                 }
@@ -120,8 +120,8 @@ Rectangle{
                     anchors.topMargin: 4 * scaleRatio
                     anchors.left: localNodeIcon.right
                     anchors.leftMargin: 14 * scaleRatio
-                    color: MoneroComponents.Style.dimmedFontColor
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    color: ItalocoinComponents.Style.dimmedFontColor
+                    font.family: ItalocoinComponents.Style.fontRegular.name
                     font.pixelSize: 15 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -163,8 +163,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItalocoinComponents.Style.dividerColor
+                opacity: ItalocoinComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -208,7 +208,7 @@ Rectangle{
                     anchors.top: parent.top
                     color: "white"
                     font.bold: true
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItalocoinComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Remote node") + translationManager.emptyString
                 }
@@ -219,8 +219,8 @@ Rectangle{
                     anchors.topMargin: 4 * scaleRatio
                     anchors.left: remoteNodeIcon.right
                     anchors.leftMargin: 14 * scaleRatio
-                    color: MoneroComponents.Style.dimmedFontColor
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    color: ItalocoinComponents.Style.dimmedFontColor
+                    font.family: ItalocoinComponents.Style.fontRegular.name
                     font.pixelSize: 15 * scaleRatio
                     activeFocusOnPress: false
                     horizontalAlignment: TextInput.AlignLeft
@@ -229,7 +229,7 @@ Rectangle{
                     textMargin: 0
                     leftPadding: 0
                     topPadding: 0
-                    text: qsTr("Uses a third-party server to connect to the Monero network. Less secure, but easier on your computer.") + translationManager.emptyString
+                    text: qsTr("Uses a third-party server to connect to the Italocoin network. Less secure, but easier on your computer.") + translationManager.emptyString
                     width: parent.width - (remoteNodeIcon.width + remoteNodeIcon.anchors.leftMargin + anchors.leftMargin)
 
                     // @TODO: Legacy. Remove after Qt 5.8.
@@ -258,8 +258,8 @@ Rectangle{
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 height: 1
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItalocoinComponents.Style.dividerColor
+                opacity: ItalocoinComponents.Style.dividerOpacity
             }
         }
 
@@ -271,13 +271,13 @@ Rectangle{
             Layout.topMargin: 20
             visible: !isMobile && persistentSettings.useRemoteNode
 
-            MoneroComponents.WarningBox {
+            ItalocoinComponents.WarningBox {
                 Layout.topMargin: 26 * scaleRatio
                 Layout.bottomMargin: 6 * scaleRatio
-                text: qsTr("To find a remote node, type 'Monero remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
+                text: qsTr("To find a remote node, type 'Italocoin remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
             }
 
-            MoneroComponents.RemoteNodeEdit {
+            ItalocoinComponents.RemoteNodeEdit {
                 id: remoteNodeEdit
                 Layout.minimumWidth: 100 * scaleRatio
 
@@ -293,7 +293,7 @@ Rectangle{
 
                 property var rna: persistentSettings.remoteNodeAddress
                 daemonAddrText: rna.search(":") != -1 ? rna.split(":")[0].trim() : ""
-                daemonPortText: rna.search(":") != -1 ? (rna.split(":")[1].trim() == "") ? "18081" : rna.split(":")[1] : ""
+                daemonPortText: rna.search(":") != -1 ? (rna.split(":")[1].trim() == "") ? "13102" : rna.split(":")[1] : ""
                 onEditingFinished: {
                     persistentSettings.remoteNodeAddress = remoteNodeEdit.getAddress();
                     console.log("setting remote node to " + persistentSettings.remoteNodeAddress)
@@ -304,7 +304,7 @@ Rectangle{
                 columns: (isMobile) ? 1 : 2
                 columnSpacing: 32
 
-                MoneroComponents.LineEdit {
+                ItalocoinComponents.LineEdit {
                     id: daemonUsername
                     Layout.fillWidth: true
                     labelText: "Daemon username"
@@ -315,7 +315,7 @@ Rectangle{
                     fontSize: 15 * scaleRatio
                 }
 
-                MoneroComponents.LineEdit {
+                ItalocoinComponents.LineEdit {
                     id: daemonPassword
                     Layout.fillWidth: true
                     labelText: "Daemon password"
@@ -331,7 +331,7 @@ Rectangle{
             Rectangle {
                 id: rectConnectRemote
                 Layout.topMargin: 12 * scaleRatio
-                color: MoneroComponents.Style.buttonBackgroundColorDisabled
+                color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
                 width: btnConnectRemote.width + 40
                 height: 26
                 radius: 2
@@ -340,8 +340,8 @@ Rectangle{
                     id: btnConnectRemote
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: MoneroComponents.Style.defaultFontColor
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    color: ItalocoinComponents.Style.defaultFontColor
+                    font.family: ItalocoinComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     font.bold: true
                     text: qsTr("Connect") + translationManager.emptyString
@@ -383,7 +383,7 @@ Rectangle{
 
                 Rectangle {
                     id: rectStopNode
-                    color: MoneroComponents.Style.buttonBackgroundColorDisabled
+                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
                     width: btnStopNode.width + 40
                     height: 24
                     radius: 2
@@ -392,8 +392,8 @@ Rectangle{
                         id: btnStopNode
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: MoneroComponents.Style.defaultFontColor
-                        font.family: MoneroComponents.Style.fontRegular.name
+                        color: ItalocoinComponents.Style.defaultFontColor
+                        font.family: ItalocoinComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Stop local node") + translationManager.emptyString
@@ -410,7 +410,7 @@ Rectangle{
             }
 
             RowLayout {
-                MoneroComponents.LineEditMulti {
+                ItalocoinComponents.LineEditMulti {
                     id: blockchainFolder
                     Layout.preferredWidth: 200
                     Layout.fillWidth: true
@@ -440,7 +440,7 @@ Rectangle{
             RowLayout {
                 id: daemonFlagsRow
 
-                MoneroComponents.LineEditMulti {
+                ItalocoinComponents.LineEditMulti {
                     id: daemonFlags
                     Layout.preferredWidth:  200
                     Layout.fillWidth: true
@@ -460,14 +460,14 @@ Rectangle{
                 ColumnLayout {
                     Layout.fillWidth: true
 
-                    MoneroComponents.RemoteNodeEdit {
+                    ItalocoinComponents.RemoteNodeEdit {
                         id: bootstrapNodeEdit
                         Layout.minimumWidth: 100 * scaleRatio
                         Layout.bottomMargin: 20 * scaleRatio
     
                         lineEditBackgroundColor: "transparent"
                         lineEditFontColor: "white"
-                        lineEditBorderColor: MoneroComponents.Style.inputBorderColorActive
+                        lineEditBorderColor: ItalocoinComponents.Style.inputBorderColorActive
                         placeholderFontSize: 15 * scaleRatio
                         labelFontSize: 14 * scaleRatio
                         lineEditFontBold: false
@@ -479,7 +479,7 @@ Rectangle{
                         daemonPortText: {
                             var node_split = persistentSettings.bootstrapNodeAddress.split(":");
                             if(node_split.length == 2){
-                                (node_split[1].trim() == "") ? "18081" : node_split[1];
+                                (node_split[1].trim() == "") ? "13102" : node_split[1];
                             } else {
                                 return ""
                             }

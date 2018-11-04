@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Monero Project
+// Copyright (c) 2014-2015, The Italocoin Project
 //
 // All rights reserved.
 //
@@ -30,26 +30,26 @@ import QtQuick.Controls 2.0
 import QtQuick 2.7
 
 import "../js/TxUtils.js" as TxUtils
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 TextArea {
     property int fontSize: 18 * scaleRatio
     property bool fontBold: false
-    property string fontColor: MoneroComponents.Style.defaultFontColor
+    property string fontColor: ItalocoinComponents.Style.defaultFontColor
 
     property bool mouseSelection: true
     property bool error: false
     property bool addressValidation: false
 
     id: textArea
-    font.family: MoneroComponents.Style.fontRegular.name
+    font.family: ItalocoinComponents.Style.fontRegular.name
     color: fontColor
     font.pixelSize: fontSize
     font.bold: fontBold
     horizontalAlignment: TextInput.AlignLeft
     selectByMouse: mouseSelection
-    selectionColor: MoneroComponents.Style.dimmedFontColor
-    selectedTextColor: MoneroComponents.Style.defaultFontColor
+    selectionColor: ItalocoinComponents.Style.dimmedFontColor
+    selectedTextColor: ItalocoinComponents.Style.defaultFontColor
 
     onTextChanged: {
         if(addressValidation){

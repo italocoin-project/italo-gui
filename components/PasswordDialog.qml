@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 //
 // All rights reserved.
 //
@@ -33,7 +33,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.0
 
-import "../components" as MoneroComponents
+import "../components" as ItalocoinComponents
 
 Item {
     id: root
@@ -88,9 +88,9 @@ Item {
                 Layout.fillWidth: true
 
                 font.pixelSize: 16 * scaleRatio
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItalocoinComponents.Style.fontLight.name
 
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItalocoinComponents.Style.defaultFontColor
             }
 
             TextField {
@@ -100,16 +100,16 @@ Item {
                 anchors.left: parent.left
                 horizontalAlignment: TextInput.AlignLeft
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItalocoinComponents.Style.fontLight.name
                 font.pixelSize: 24 * scaleRatio
                 echoMode: TextInput.Password
                 KeyNavigation.tab: okButton
                 bottomPadding: 10
                 leftPadding: 10
                 topPadding: 10
-                color: MoneroComponents.Style.defaultFontColor
-                selectionColor: MoneroComponents.Style.dimmedFontColor
-                selectedTextColor: MoneroComponents.Style.defaultFontColor
+                color: ItalocoinComponents.Style.defaultFontColor
+                selectionColor: ItalocoinComponents.Style.dimmedFontColor
+                selectedTextColor: ItalocoinComponents.Style.defaultFontColor
 
                 background: Rectangle {
                     radius: 2
@@ -147,7 +147,7 @@ Item {
                 Layout.topMargin: 16
                 Layout.alignment: Qt.AlignRight
 
-                MoneroComponents.StandardButton {
+                ItalocoinComponents.StandardButton {
                     id: cancelButton
                     small: true
                     text: qsTr("Cancel") + translationManager.emptyString
@@ -158,7 +158,7 @@ Item {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItalocoinComponents.StandardButton {
                     id: okButton
                     small: true
                     text: qsTr("Continue")

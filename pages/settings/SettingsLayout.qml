@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italocoin Project
 // 
 // All rights reserved.
 // 
@@ -33,7 +33,7 @@ import QtQuick.Dialogs 1.2
 
 import "../../js/Utils.js" as Utils
 import "../../js/Windows.js" as Windows
-import "../../components" as MoneroComponents
+import "../../components" as ItalocoinComponents
 
 Rectangle {
     color: "transparent"
@@ -51,7 +51,7 @@ Rectangle {
         anchors.topMargin: 0
         spacing: 0
 
-        MoneroComponents.CheckBox {
+        ItalocoinComponents.CheckBox {
             visible: !isMobile
             id: customDecorationsCheckBox
             checked: persistentSettings.customDecorations
@@ -59,7 +59,7 @@ Rectangle {
             text: qsTr("Custom decorations") + translationManager.emptyString
         }
 
-        MoneroComponents.TextBlock {
+        ItalocoinComponents.TextBlock {
             visible: isMobile
             font.pixelSize: 14
             textFormat: Text.RichText

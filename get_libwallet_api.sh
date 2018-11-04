@@ -17,7 +17,7 @@ if [ ! -d $MONERO_DIR/src ]; then
 fi
 git submodule update --remote
 git -C $MONERO_DIR fetch
-git -C $MONERO_DIR checkout master
+git -C $MONERO_DIR checkout merge2
 
 # get italocoin core tag
 get_tag
@@ -213,16 +213,16 @@ fi
 # Build libwallet_merged
 pushd $MONERO_DIR/build/$BUILD_TYPE/src/wallet
 eval $make_exec version -C ../..
-eval $make_exec  -j$CPU_CORE_COUNT
-eval $make_exec  install -j$CPU_CORE_COUNT
+eval $make_exec  -j3
+eval $make_exec  install -j3
 popd
 
 # Build italocoind
 # win32 need to build daemon manually with msys2 toolchain
 if [ "$platform" != "mingw32" ] && [ "$ANDROID" != true ]; then
     pushd $MONERO_DIR/build/$BUILD_TYPE/src/daemon
-    eval make  -j$CPU_CORE_COUNT
-    eval make install -j$CPU_CORE_COUNT
+    eval make  -j3
+    eval make install -j3
     popd
 fi
 
@@ -239,8 +239,8 @@ eval make -C $MONERO_DIR/build/$BUILD_TYPE/external/db_drivers/liblmdb all insta
 echo "Installing libunbound..."
 pushd $MONERO_DIR/build/$BUILD_TYPE/external/unbound
 # no need to make, it was already built as dependency for libwallet
-# make -j$CPU_CORE_COUNT
-$make_exec install -j$CPU_CORE_COUNT
+# make -j3
+$make_exec install -j3
 popd
 
 

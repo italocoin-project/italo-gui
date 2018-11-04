@@ -66,7 +66,7 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MONERO_DIR=italocoin
 MONEROD_EXEC=italocoind
 
-MAKE='make'
+MAKE='make -j3'
 if [[ $platform == *bsd* ]]; then
     MAKE='gmake'
 fi

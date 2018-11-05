@@ -2195,8 +2195,8 @@ I fallet med spenderbevis behöver du inte ange mottagaradressen.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>För varje transaktion tas en liten transaktionsavgift ut. Detta alternativ låter dig lägga till ett ytterligare belopp till din transaktion, angivet som en procent av transaktionsavgiften, för att stödja utvecklingen av Italocoin. Till exempel, en 50 % automatisk donation tar en transaktionsavgift på 0,005 XMR och lägger på 0,0025 XMR för att stödja utvecklingen av Italocoin.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>För varje transaktion tas en liten transaktionsavgift ut. Detta alternativ låter dig lägga till ett ytterligare belopp till din transaktion, angivet som en procent av transaktionsavgiften, för att stödja utvecklingen av Italocoin. Till exempel, en 50 % automatisk donation tar en transaktionsavgift på 0,005 ITA och lägger på 0,0025 ITA för att stödja utvecklingen av Italocoin.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

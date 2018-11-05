@@ -2198,8 +2198,8 @@ Pour le cas d&apos;une preuve de dépense, il n&apos;est pas nécessaire de spé
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Pour chaque transaction, de petits frais de transaction doivent être payés. Cette option vous laisse ajouter un montant additionnel, un pourcentage de ces frais, à votre transaction pour soutenir le développement de Italocoin. Par exemple, un auto-don de 50% avec des frais de transaction de 0.005 XMR ajoutera 0.0025 XMR pour soutenir le développement de Italocoin.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Pour chaque transaction, de petits frais de transaction doivent être payés. Cette option vous laisse ajouter un montant additionnel, un pourcentage de ces frais, à votre transaction pour soutenir le développement de Italocoin. Par exemple, un auto-don de 50% avec des frais de transaction de 0.005 ITA ajoutera 0.0025 ITA pour soutenir le développement de Italocoin.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

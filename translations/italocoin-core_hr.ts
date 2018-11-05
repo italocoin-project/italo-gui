@@ -2189,8 +2189,8 @@ U slučaju &quot;dokaza potrošnje&quot;, adresa primatelja ne mora se navesti.<
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Za svaku transakciju se naplaćuje mala provizija. Ova opcija omogućava dodavanje dodatnog iznosa, kao postotka te provizije, vašoj transakciji u svrhu podrške razvoja Monera. Na primjer, postavka od 50% automatske donacije uzima transakcijsku proviziju od 0.005 XMR i dodaje 0.0025 XMR za podršku razvoja Monera.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Za svaku transakciju se naplaćuje mala provizija. Ova opcija omogućava dodavanje dodatnog iznosa, kao postotka te provizije, vašoj transakciji u svrhu podrške razvoja Monera. Na primjer, postavka od 50% automatske donacije uzima transakcijsku proviziju od 0.005 ITA i dodaje 0.0025 ITA za podršku razvoja Monera.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

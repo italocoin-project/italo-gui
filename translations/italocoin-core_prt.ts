@@ -2182,8 +2182,8 @@ Fer the case wit&apos; Spend Proof, you don&apos;t be needin&apos; to specify th
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Fer every XM-ARGHHH transact&apos;on, a wee transaction fee be charg&apos;d. T&apos;is option be lettin&apos; ye add an additional amount, as a percent&apos;ge o&apos; that fee, to ye transaction to supp&apos;rt Italocoin developm&apos;nt. For instanc&apos;, a 50% autodonation be takin&apos; a transaction fee o&apos; 0.005 XMR and addin&apos; a 0.0025 XMR to support thee Italocoin development ye tight-arsed lobst&apos;r.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Fer every XM-ARGHHH transact&apos;on, a wee transaction fee be charg&apos;d. T&apos;is option be lettin&apos; ye add an additional amount, as a percent&apos;ge o&apos; that fee, to ye transaction to supp&apos;rt Italocoin developm&apos;nt. For instanc&apos;, a 50% autodonation be takin&apos; a transaction fee o&apos; 0.005 ITA and addin&apos; a 0.0025 ITA to support thee Italocoin development ye tight-arsed lobst&apos;r.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

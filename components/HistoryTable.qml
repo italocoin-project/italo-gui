@@ -173,7 +173,7 @@ ListView {
                         _amount = (_amount *1);
                     }
 
-                    return _amount + " XMR";
+                    return _amount + " ITA";
                 }
                 color: isOut ? "white" : "#2eb358"
             }
@@ -311,7 +311,7 @@ ListView {
                     if(!isOut && !fee){
                         return "-";
                     } else if(isOut && fee){
-                        return fee + " XMR";
+                        return fee + " ITA";
                     } else {
                         return "Unknown"
                     }

@@ -130,7 +130,7 @@ pushd $MONERO_DIR/build/$BUILD_TYPE
 # reusing function from "utils.sh"
 platform=$(get_platform)
 # default make executable
-make_exec="make"
+make_exec="make -j3"
 
 ## OS X
 if [ "$platform" == "darwin" ]; then

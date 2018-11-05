@@ -2186,8 +2186,8 @@ Egyszerű költési bizonylat esetén nem kell megadni a kedvezményezett címé
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Minden tranzakció tartalmaz egy tranzakciós díjat. Ehhez a díjhoz hozzáadhatsz egy kisebb adományt a Italocoin fejlesztőinek. Pl: ha 50%-os adomány van beállítva és a Tx díja 0,005 XMR akkor egy 0,0025 XMR adomány kerül pluszban levonásra, aminek a kedvezményezettjei a Italocoin fejlesztők.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Minden tranzakció tartalmaz egy tranzakciós díjat. Ehhez a díjhoz hozzáadhatsz egy kisebb adományt a Italocoin fejlesztőinek. Pl: ha 50%-os adomány van beállítva és a Tx díja 0,005 ITA akkor egy 0,0025 ITA adomány kerül pluszban levonásra, aminek a kedvezményezettjei a Italocoin fejlesztők.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

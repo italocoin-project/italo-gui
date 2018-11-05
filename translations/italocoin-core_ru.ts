@@ -2197,8 +2197,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>За каждую транзакцию взимается небольшая комиссия. Эта опция позволяет вам добавить дополнительную сумму в процентах от этой комиссии к транзакции для поддержки разработки Italocoin. Например, 50% автодотации берут плату за транзакцию 0,005 XMR и добавляют 0,0025 XMR в пользу поддержки разработки Italocoin.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>За каждую транзакцию взимается небольшая комиссия. Эта опция позволяет вам добавить дополнительную сумму в процентах от этой комиссии к транзакции для поддержки разработки Italocoin. Например, 50% автодотации берут плату за транзакцию 0,005 ITA и добавляют 0,0025 ITA в пользу поддержки разработки Italocoin.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>
@@ -2786,7 +2786,7 @@ Spending address index: </source>
     <message>
         <location filename="../main.qml" line="874"/>
         <source>This address received %1 italocoin, with %2 confirmation(s).</source>
-        <translation>Этот адрес получил %1 XMR, с %2 подтверждениями</translation>
+        <translation>Этот адрес получил %1 ITA, с %2 подтверждениями</translation>
     </message>
     <message>
         <location filename="../main.qml" line="885"/>
@@ -2861,7 +2861,7 @@ Spending address index: </source>
     <message>
         <location filename="../main.qml" line="871"/>
         <source>This address received %1 italocoin, but the transaction is not yet mined</source>
-        <translation>Этот адрес получил %1 XMR, но транзакции еще не подтверждены майнерами</translation>
+        <translation>Этот адрес получил %1 ITA, но транзакции еще не подтверждены майнерами</translation>
     </message>
     <message>
         <location filename="../main.qml" line="878"/>

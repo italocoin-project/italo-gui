@@ -2190,8 +2190,8 @@ In caso di prova di spesa, non serve specificare l&apos;indirizzo del ricevente.
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Per ogni transazione si paga una piccola commissione. Questa opzione ti permette di aggiungere un importo addizionale per supportare lo sviluppo di Italocoin. Per esempio, con una autodonazione del 50% si pagano 0,005 XMR di commissioni ed altri 0,0025 per il supporto allo sviluppo di Italocoin.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Per ogni transazione si paga una piccola commissione. Questa opzione ti permette di aggiungere un importo addizionale per supportare lo sviluppo di Italocoin. Per esempio, con una autodonazione del 50% si pagano 0,005 ITA di commissioni ed altri 0,0025 per il supporto allo sviluppo di Italocoin.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

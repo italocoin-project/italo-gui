@@ -2193,8 +2193,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>在每一笔交易中 Italocoin 系统都会收取小额的手续费, 而这个选项则是让你可以增加额外的金额捐赠 Italocoin 的开发, 比例以当次交易的手续费为基础计算, 譬如 50% 的自动捐赠意味着如果转账手续费为 0.005XMR时将会额外捐赠 0.0025 XMR 给 Italocoin 开发团队. </translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>在每一笔交易中 Italocoin 系统都会收取小额的手续费, 而这个选项则是让你可以增加额外的金额捐赠 Italocoin 的开发, 比例以当次交易的手续费为基础计算, 譬如 50% 的自动捐赠意味着如果转账手续费为 0.005ITA时将会额外捐赠 0.0025 ITA 给 Italocoin 开发团队. </translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

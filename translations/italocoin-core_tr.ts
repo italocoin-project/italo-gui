@@ -2190,8 +2190,8 @@ Harcama Kanıtı ile ilgili davada, alıcı adresini belirtmeniz gerekmez. </tra
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Her işlem için küçük bir işlem ücreti alınır. Bu seçenek, Italocoin&apos;nun geliştirilmesini desteklemek için işleminize, bu ücretin bir yüzdesi olarak ek bir miktar eklemenize izin verir. Örneğin 50% otomatik bağış, 0.005 XMR işlem ücreti alır ve Italocoin gelişimini desteklemek için 0.0025 XMR ekler.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Her işlem için küçük bir işlem ücreti alınır. Bu seçenek, Italocoin&apos;nun geliştirilmesini desteklemek için işleminize, bu ücretin bir yüzdesi olarak ek bir miktar eklemenize izin verir. Örneğin 50% otomatik bağış, 0.005 ITA işlem ücreti alır ve Italocoin gelişimini desteklemek için 0.0025 ITA ekler.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

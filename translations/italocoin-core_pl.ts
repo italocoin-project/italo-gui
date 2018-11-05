@@ -2197,8 +2197,8 @@ W przypadku &apos;Dowodu wydania&apos; nie musisz podawać adresu odbiorcy.</tra
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>Od każdej transakcji, pobierana jest niewielka prowizja. Ta opcja pozwala ją powiększyć o pewien procent, aby wspierać rozwój Italocoin. Dla przykładu, 50% dotacja automatyczna pobiera prowizję 0,005 XMR oraz 0,0025 XMR na wsparcie rozwoju Italocoin.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>Od każdej transakcji, pobierana jest niewielka prowizja. Ta opcja pozwala ją powiększyć o pewien procent, aby wspierać rozwój Italocoin. Dla przykładu, 50% dotacja automatyczna pobiera prowizję 0,005 ITA oraz 0,0025 ITA na wsparcie rozwoju Italocoin.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

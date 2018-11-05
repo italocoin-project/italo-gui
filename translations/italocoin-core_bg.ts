@@ -2177,8 +2177,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="162"/>
-        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 XMR and add a 0.0025 XMR to support Italocoin development.</source>
-        <translation>За всяка транзакция, се удържа малка трансферна такса. Тази опция ви позволява да добавите допълнителна сума, като процент от таксата, към ваша транзакция за да подпомагате развитието на Монеро. Например: 50% автоматично дарение взима трансферна такса от 0.005 XMR и добавя 0.0025 XMR за подпомагане развитието на Монеро.</translation>
+        <source>For every transaction, a small transaction fee is charged. This option lets you add an additional amount, as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.</source>
+        <translation>За всяка транзакция, се удържа малка трансферна такса. Тази опция ви позволява да добавите допълнителна сума, като процент от таксата, към ваша транзакция за да подпомагате развитието на Монеро. Например: 50% автоматично дарение взима трансферна такса от 0.005 ITA и добавя 0.0025 ITA за подпомагане развитието на Монеро.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="174"/>

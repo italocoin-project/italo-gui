@@ -9,9 +9,9 @@ class NetworkType : public QObject
 
 public:
     enum Type : uint8_t {
-        MAINNET = Italocoin::MAINNET,
-        TESTNET = Italocoin::TESTNET,
-        STAGENET = Italocoin::STAGENET
+        MAINNET = Italo::MAINNET,
+        TESTNET = Italo::TESTNET,
+        STAGENET = Italo::STAGENET
     };
     Q_ENUM(Type)
 };

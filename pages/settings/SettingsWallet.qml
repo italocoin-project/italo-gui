@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -32,7 +32,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Dialogs 1.2
 
 import "../../js/Utils.js" as Utils
-import "../../components" as ItalocoinComponents
+import "../../components" as ItaloComponents
 
 Rectangle {
     color: "transparent"
@@ -55,8 +55,8 @@ Rectangle {
             Layout.preferredHeight: 1 * scaleRatio
             Layout.fillWidth: true
             Layout.bottomMargin: 8 * scaleRatio
-            color: ItalocoinComponents.Style.dividerColor
-            opacity: ItalocoinComponents.Style.dividerOpacity
+            color: ItaloComponents.Style.dividerColor
+            opacity: ItaloComponents.Style.dividerOpacity
         }
 
         GridLayout {
@@ -75,15 +75,15 @@ Rectangle {
                     Layout.topMargin: 8 * scaleRatio
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Close this wallet") + translationManager.emptyString
                 }
 
                 TextArea {
                     Layout.fillWidth: true
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -116,14 +116,14 @@ Rectangle {
                     radius: 2 * scaleRatio
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
 
                     Text {
                         id: closeWalletText
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItalocoinComponents.Style.defaultFontColor
-                        font.family: ItalocoinComponents.Style.fontRegular.name
+                        color: ItaloComponents.Style.defaultFontColor
+                        font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Close wallet") + translationManager.emptyString
@@ -146,8 +146,8 @@ Rectangle {
             Layout.fillWidth: true
             Layout.topMargin: 8 * scaleRatio
             Layout.bottomMargin: 8 * scaleRatio
-            color: ItalocoinComponents.Style.dividerColor
-            opacity: ItalocoinComponents.Style.dividerOpacity
+            color: ItaloComponents.Style.dividerColor
+            opacity: ItaloComponents.Style.dividerOpacity
         }
 
         GridLayout {
@@ -166,15 +166,15 @@ Rectangle {
                     Layout.topMargin: 8 * scaleRatio
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Create a view-only wallet") + translationManager.emptyString
                 }
 
                 TextArea {
                     Layout.fillWidth: true
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -207,14 +207,14 @@ Rectangle {
                     radius: 2 * scaleRatio
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
 
                     Text {
                         id: createViewOnlyText
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItalocoinComponents.Style.defaultFontColor
-                        font.family: ItalocoinComponents.Style.fontRegular.name
+                        color: ItaloComponents.Style.defaultFontColor
+                        font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Create wallet") + translationManager.emptyString
@@ -237,8 +237,8 @@ Rectangle {
             Layout.fillWidth: true
             Layout.topMargin: 8 * scaleRatio
             Layout.bottomMargin: 8 * scaleRatio
-            color: ItalocoinComponents.Style.dividerColor
-            opacity: ItalocoinComponents.Style.dividerOpacity
+            color: ItaloComponents.Style.dividerColor
+            opacity: ItaloComponents.Style.dividerOpacity
         }
 
         GridLayout {
@@ -257,15 +257,15 @@ Rectangle {
                     Layout.topMargin: 8 * scaleRatio
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Show seed & keys") + translationManager.emptyString
                 }
 
                 TextArea {
                     Layout.fillWidth: true
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -298,14 +298,14 @@ Rectangle {
                     radius: 2 * scaleRatio
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
 
                     Text {
                         id: showSeedText
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItalocoinComponents.Style.defaultFontColor
-                        font.family: ItalocoinComponents.Style.fontRegular.name
+                        color: ItaloComponents.Style.defaultFontColor
+                        font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Show seed") + translationManager.emptyString
@@ -326,8 +326,8 @@ Rectangle {
             Layout.fillWidth: true
             Layout.topMargin: 8 * scaleRatio
             Layout.bottomMargin: 8 * scaleRatio
-            color: ItalocoinComponents.Style.dividerColor
-            opacity: ItalocoinComponents.Style.dividerOpacity
+            color: ItaloComponents.Style.dividerColor
+            opacity: ItaloComponents.Style.dividerOpacity
         }
 
         GridLayout {
@@ -346,15 +346,15 @@ Rectangle {
                     Layout.topMargin: 8 * scaleRatio
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Rescan wallet balance") + translationManager.emptyString
                 }
 
                 TextArea {
                     Layout.fillWidth: true
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -388,14 +388,14 @@ Rectangle {
                     radius: 2 * scaleRatio
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
 
                     Text {
                         id: rescanButtonText
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItalocoinComponents.Style.defaultFontColor
-                        font.family: ItalocoinComponents.Style.fontRegular.name
+                        color: ItaloComponents.Style.defaultFontColor
+                        font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Rescan") + translationManager.emptyString

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -30,26 +30,26 @@ import QtQuick.Controls 2.0
 import QtQuick 2.7
 
 import "../js/TxUtils.js" as TxUtils
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 TextArea {
     property int fontSize: 18 * scaleRatio
     property bool fontBold: false
-    property string fontColor: ItalocoinComponents.Style.defaultFontColor
+    property string fontColor: ItaloComponents.Style.defaultFontColor
 
     property bool mouseSelection: true
     property bool error: false
     property bool addressValidation: false
 
     id: textArea
-    font.family: ItalocoinComponents.Style.fontRegular.name
+    font.family: ItaloComponents.Style.fontRegular.name
     color: fontColor
     font.pixelSize: fontSize
     font.bold: fontBold
     horizontalAlignment: TextInput.AlignLeft
     selectByMouse: mouseSelection
-    selectionColor: ItalocoinComponents.Style.dimmedFontColor
-    selectedTextColor: ItalocoinComponents.Style.defaultFontColor
+    selectionColor: ItaloComponents.Style.dimmedFontColor
+    selectedTextColor: ItaloComponents.Style.defaultFontColor
 
     onTextChanged: {
         if(addressValidation){

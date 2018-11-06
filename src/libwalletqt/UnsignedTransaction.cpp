@@ -80,7 +80,7 @@ void UnsignedTransaction::setFilename(const QString &fileName)
     m_fileName = fileName;
 }
 
-UnsignedTransaction::UnsignedTransaction(Italocoin::UnsignedTransaction *pt, Italocoin::Wallet *walletImpl, QObject *parent)
+UnsignedTransaction::UnsignedTransaction(Italo::UnsignedTransaction *pt, Italo::Wallet *walletImpl, QObject *parent)
     : QObject(parent), m_pimpl(pt), m_walletImpl(walletImpl)
 {
 

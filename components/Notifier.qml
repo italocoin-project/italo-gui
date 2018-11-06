@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Italocoin Project
+// Copyright (c) 2017-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.4
-import italocoinComponents.Wallet 1.0
+import italoComponents.Wallet 1.0
 
 Item {
     id: item

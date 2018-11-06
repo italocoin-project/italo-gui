@@ -1,7 +1,7 @@
 #include "AddressBook.h"
 #include <QDebug>
 
-AddressBook::AddressBook(Italocoin::AddressBook *abImpl,QObject *parent)
+AddressBook::AddressBook(Italo::AddressBook *abImpl,QObject *parent)
   : QObject(parent), m_addressBookImpl(abImpl)
 {
     qDebug(__FUNCTION__);
@@ -18,7 +18,7 @@ int AddressBook::errorCode() const
     return m_addressBookImpl->errorCode();
 }
 
-QList<Italocoin::AddressBookRow*> AddressBook::getAll(bool update) const
+QList<Italo::AddressBookRow*> AddressBook::getAll(bool update) const
 {
     qDebug(__FUNCTION__);
 
@@ -38,7 +38,7 @@ QList<Italocoin::AddressBookRow*> AddressBook::getAll(bool update) const
 
 }
 
-Italocoin::AddressBookRow * AddressBook::getRow(int index) const
+Italo::AddressBookRow * AddressBook::getRow(int index) const
 {
     return m_rows.at(index);
 }

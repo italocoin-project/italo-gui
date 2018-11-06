@@ -1,4 +1,4 @@
-[submodule "italocoin"]
-	path = italocoin
-	url = https://github.com/italocoin-project/italocoin
+[submodule "italo"]
+	path = italo
+	url = https://github.com/italocoin-project/italo
 	ignore = all

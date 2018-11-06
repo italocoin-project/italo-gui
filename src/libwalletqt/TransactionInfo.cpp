@@ -127,7 +127,7 @@ QList<Transfer*> TransactionInfo::transfers() const
     return m_transfers;
 }
 
-TransactionInfo::TransactionInfo(Italocoin::TransactionInfo *pimpl, QObject *parent)
+TransactionInfo::TransactionInfo(Italo::TransactionInfo *pimpl, QObject *parent)
     : QObject(parent), m_pimpl(pimpl)
 {
 

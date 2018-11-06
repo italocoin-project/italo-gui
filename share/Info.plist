@@ -18,13 +18,13 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>italocoin-wallet-gui</string>
+  <string>italo-wallet-gui</string>
   
   <key>CFBundleName</key>
-  <string>Italocoin GUI</string>
+  <string>Italo GUI</string>
 
   <key>CFBundleIdentifier</key>
-  <string>org.italocoin-project.italocoin-wallet-gui</string>
+  <string>org.italocoin-project.italo-wallet-gui</string>
 
   <key>NSSupportsAutomaticGraphicsSwitching</key>
   <true/>

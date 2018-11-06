@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 
 Rectangle {
@@ -48,7 +48,7 @@ Rectangle {
         id: labelButtonText
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        font.family: ItalocoinComponents.Style.fontRegular.name
+        font.family: ItaloComponents.Style.fontRegular.name
         font.pixelSize: 12
         font.bold: true
         text: ""

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
-import italocoinComponents.NetworkType 1.0
+import italoComponents.NetworkType 1.0
 
 
 ColumnLayout {

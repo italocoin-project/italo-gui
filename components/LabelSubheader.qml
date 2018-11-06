@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -28,7 +28,7 @@
 
 import QtQuick 2.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Label {
     id: item
@@ -40,8 +40,8 @@ Label {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 2
-        color: ItalocoinComponents.Style.dividerColor
-        opacity: ItalocoinComponents.Style.dividerOpacity
+        color: ItaloComponents.Style.dividerColor
+        opacity: ItaloComponents.Style.dividerOpacity
     }
 
     MouseArea {

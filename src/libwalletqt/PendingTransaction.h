@@ -7,7 +7,7 @@
 
 #include <wallet/api/wallet2_api.h>
 
-//namespace Italocoin {
+//namespace Italo {
 //class PendingTransaction;
 //}
 
@@ -25,16 +25,16 @@ class PendingTransaction : public QObject
 
 public:
     enum Status {
-        Status_Ok       = Italocoin::PendingTransaction::Status_Ok,
-        Status_Error    = Italocoin::PendingTransaction::Status_Error,
-        Status_Critical    = Italocoin::PendingTransaction::Status_Critical
+        Status_Ok       = Italo::PendingTransaction::Status_Ok,
+        Status_Error    = Italo::PendingTransaction::Status_Error,
+        Status_Critical    = Italo::PendingTransaction::Status_Critical
     };
     Q_ENUM(Status)
 
     enum Priority {
-        Priority_Low    = Italocoin::PendingTransaction::Priority_Low,
-        Priority_Medium = Italocoin::PendingTransaction::Priority_Medium,
-        Priority_High   = Italocoin::PendingTransaction::Priority_High
+        Priority_Low    = Italo::PendingTransaction::Priority_Low,
+        Priority_Medium = Italo::PendingTransaction::Priority_Medium,
+        Priority_High   = Italo::PendingTransaction::Priority_High
     };
     Q_ENUM(Priority)
 
@@ -51,11 +51,11 @@ public:
     Q_INVOKABLE void setFilename(const QString &fileName);
 
 private:
-    explicit PendingTransaction(Italocoin::PendingTransaction * pt, QObject *parent = 0);
+    explicit PendingTransaction(Italo::PendingTransaction * pt, QObject *parent = 0);
 
 private:
     friend class Wallet;
-    Italocoin::PendingTransaction * m_pimpl;
+    Italo::PendingTransaction * m_pimpl;
     QString m_fileName;
 };
 

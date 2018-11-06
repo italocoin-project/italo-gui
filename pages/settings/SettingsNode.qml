@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
-import "../../components" as ItalocoinComponents
+import "../../components" as ItaloComponents
 
 Rectangle{
     color: "transparent"
@@ -64,8 +64,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -109,7 +109,7 @@ Rectangle{
                     anchors.top: parent.top
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Local node") + translationManager.emptyString
                 }
@@ -120,8 +120,8 @@ Rectangle{
                     anchors.topMargin: 4 * scaleRatio
                     anchors.left: localNodeIcon.right
                     anchors.leftMargin: 14 * scaleRatio
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 15 * scaleRatio
                     horizontalAlignment: TextInput.AlignLeft
                     selectByMouse: false
@@ -163,8 +163,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -208,7 +208,7 @@ Rectangle{
                     anchors.top: parent.top
                     color: "white"
                     font.bold: true
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: qsTr("Remote node") + translationManager.emptyString
                 }
@@ -219,8 +219,8 @@ Rectangle{
                     anchors.topMargin: 4 * scaleRatio
                     anchors.left: remoteNodeIcon.right
                     anchors.leftMargin: 14 * scaleRatio
-                    color: ItalocoinComponents.Style.dimmedFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.dimmedFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 15 * scaleRatio
                     activeFocusOnPress: false
                     horizontalAlignment: TextInput.AlignLeft
@@ -229,7 +229,7 @@ Rectangle{
                     textMargin: 0
                     leftPadding: 0
                     topPadding: 0
-                    text: qsTr("Uses a third-party server to connect to the Italocoin network. Less secure, but easier on your computer.") + translationManager.emptyString
+                    text: qsTr("Uses a third-party server to connect to the Italo network. Less secure, but easier on your computer.") + translationManager.emptyString
                     width: parent.width - (remoteNodeIcon.width + remoteNodeIcon.anchors.leftMargin + anchors.leftMargin)
 
                     // @TODO: Legacy. Remove after Qt 5.8.
@@ -258,8 +258,8 @@ Rectangle{
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 height: 1
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
         }
 
@@ -271,13 +271,13 @@ Rectangle{
             Layout.topMargin: 20
             visible: !isMobile && persistentSettings.useRemoteNode
 
-            ItalocoinComponents.WarningBox {
+            ItaloComponents.WarningBox {
                 Layout.topMargin: 26 * scaleRatio
                 Layout.bottomMargin: 6 * scaleRatio
-                text: qsTr("To find a remote node, type 'Italocoin remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
+                text: qsTr("To find a remote node, type 'Italo remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
             }
 
-            ItalocoinComponents.RemoteNodeEdit {
+            ItaloComponents.RemoteNodeEdit {
                 id: remoteNodeEdit
                 Layout.minimumWidth: 100 * scaleRatio
 
@@ -304,7 +304,7 @@ Rectangle{
                 columns: (isMobile) ? 1 : 2
                 columnSpacing: 32
 
-                ItalocoinComponents.LineEdit {
+                ItaloComponents.LineEdit {
                     id: daemonUsername
                     Layout.fillWidth: true
                     labelText: "Daemon username"
@@ -315,7 +315,7 @@ Rectangle{
                     fontSize: 15 * scaleRatio
                 }
 
-                ItalocoinComponents.LineEdit {
+                ItaloComponents.LineEdit {
                     id: daemonPassword
                     Layout.fillWidth: true
                     labelText: "Daemon password"
@@ -331,7 +331,7 @@ Rectangle{
             Rectangle {
                 id: rectConnectRemote
                 Layout.topMargin: 12 * scaleRatio
-                color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                color: ItaloComponents.Style.buttonBackgroundColorDisabled
                 width: btnConnectRemote.width + 40
                 height: 26
                 radius: 2
@@ -340,8 +340,8 @@ Rectangle{
                     id: btnConnectRemote
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.defaultFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.defaultFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     font.bold: true
                     text: qsTr("Connect") + translationManager.emptyString
@@ -383,7 +383,7 @@ Rectangle{
 
                 Rectangle {
                     id: rectStopNode
-                    color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
                     width: btnStopNode.width + 40
                     height: 24
                     radius: 2
@@ -392,8 +392,8 @@ Rectangle{
                         id: btnStopNode
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItalocoinComponents.Style.defaultFontColor
-                        font.family: ItalocoinComponents.Style.fontRegular.name
+                        color: ItaloComponents.Style.defaultFontColor
+                        font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
                         text: qsTr("Stop local node") + translationManager.emptyString
@@ -410,7 +410,7 @@ Rectangle{
             }
 
             RowLayout {
-                ItalocoinComponents.LineEditMulti {
+                ItaloComponents.LineEditMulti {
                     id: blockchainFolder
                     Layout.preferredWidth: 200
                     Layout.fillWidth: true
@@ -440,7 +440,7 @@ Rectangle{
             RowLayout {
                 id: daemonFlagsRow
 
-                ItalocoinComponents.LineEditMulti {
+                ItaloComponents.LineEditMulti {
                     id: daemonFlags
                     Layout.preferredWidth:  200
                     Layout.fillWidth: true
@@ -460,14 +460,14 @@ Rectangle{
                 ColumnLayout {
                     Layout.fillWidth: true
 
-                    ItalocoinComponents.RemoteNodeEdit {
+                    ItaloComponents.RemoteNodeEdit {
                         id: bootstrapNodeEdit
                         Layout.minimumWidth: 100 * scaleRatio
                         Layout.bottomMargin: 20 * scaleRatio
     
                         lineEditBackgroundColor: "transparent"
                         lineEditFontColor: "white"
-                        lineEditBorderColor: ItalocoinComponents.Style.inputBorderColorActive
+                        lineEditBorderColor: ItaloComponents.Style.inputBorderColorActive
                         placeholderFontSize: 15 * scaleRatio
                         labelFontSize: 14 * scaleRatio
                         lineEditFontBold: false

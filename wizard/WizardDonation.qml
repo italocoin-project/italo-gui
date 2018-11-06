@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -90,7 +90,7 @@ Item {
         wrapMode: Text.Wrap
         //renderType: Text.NativeRendering
         color: "#3F3F3F"
-        text: qsTr("Italocoin development is solely supported by donations") + translationManager.emptyString
+        text: qsTr("Italo development is solely supported by donations") + translationManager.emptyString
     }
 
     Column {
@@ -160,8 +160,8 @@ Item {
             color: "#4A4646"
             wrapMode: Text.Wrap
             text: qsTr("For every transaction, a small transaction fee is charged. This option lets you add an additional amount, " +
-                       "as a percentage of that fee, to your transaction to support Italocoin development. For instance, a 50% " +
-                       "autodonation take a transaction fee of 0.005 ITA and add a 0.0025 ITA to support Italocoin development.")
+                       "as a percentage of that fee, to your transaction to support Italo development. For instance, a 50% " +
+                       "autodonation take a transaction fee of 0.005 XTA and add a 0.0025 XTA to support Italo development.")
                     + translationManager.emptyString
         }
         Column {
@@ -187,8 +187,8 @@ Item {
                 font.pixelSize: 15
                 color: "#4A4646"
                 wrapMode: Text.Wrap
-                text: qsTr("Mining secures the Italocoin network, and also pays a small reward for the work done. This option " +
-                           "will let Italocoin mine when your computer is on mains power and is idle. It will stop mining when you continue working.")
+                text: qsTr("Mining secures the Italo network, and also pays a small reward for the work done. This option " +
+                           "will let Italo mine when your computer is on mains power and is idle. It will stop mining when you continue working.")
                       + translationManager.emptyString
             }
         }

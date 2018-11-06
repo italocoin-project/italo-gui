@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import italocoinComponents.Clipboard 1.0
+import italoComponents.Clipboard 1.0
 
 Column {
 

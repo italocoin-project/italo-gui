@@ -27,7 +27,7 @@ namespace {
     static const int WALLET_CONNECTION_STATUS_CACHE_TTL_SECONDS = 5;
 }
 
-class WalletListenerImpl : public  Italocoin::WalletListener
+class WalletListenerImpl : public  Italo::WalletListener
 {
 public:
     WalletListenerImpl(Wallet * w)
@@ -110,11 +110,11 @@ NetworkType::Type Wallet::nettype() const
 
 void Wallet::updateConnectionStatusAsync()
 {
-    QFuture<Italocoin::Wallet::ConnectionStatus> future = QtConcurrent::run(m_walletImpl, &Italocoin::Wallet::connected);
-    QFutureWatcher<Italocoin::Wallet::ConnectionStatus> *connectionWatcher = new QFutureWatcher<Italocoin::Wallet::ConnectionStatus>();
+    QFuture<Italo::Wallet::ConnectionStatus> future = QtConcurrent::run(m_walletImpl, &Italo::Wallet::connected);
+    QFutureWatcher<Italo::Wallet::ConnectionStatus> *connectionWatcher = new QFutureWatcher<Italo::Wallet::ConnectionStatus>();
 
-    connect(connectionWatcher, &QFutureWatcher<Italocoin::Wallet::ConnectionStatus>::finished, [=]() {
-        QFuture<Italocoin::Wallet::ConnectionStatus> future = connectionWatcher->future();
+    connect(connectionWatcher, &QFutureWatcher<Italo::Wallet::ConnectionStatus>::finished, [=]() {
+        QFuture<Italo::Wallet::ConnectionStatus> future = connectionWatcher->future();
         connectionWatcher->deleteLater();
         ConnectionStatus newStatus = static_cast<ConnectionStatus>(future.result());
         if (newStatus != m_connectionStatus || !m_initialized) {
@@ -393,9 +393,9 @@ PendingTransaction *Wallet::createTransaction(const QString &dst_addr, const QSt
                                               PendingTransaction::Priority priority)
 {
     std::set<uint32_t> subaddr_indices;
-    Italocoin::PendingTransaction * ptImpl = m_walletImpl->createTransaction(
+    Italo::PendingTransaction * ptImpl = m_walletImpl->createTransaction(
                 dst_addr.toStdString(), payment_id.toStdString(), amount, mixin_count,
-                static_cast<Italocoin::PendingTransaction::Priority>(priority), currentSubaddressAccount(), subaddr_indices);
+                static_cast<Italo::PendingTransaction::Priority>(priority), currentSubaddressAccount(), subaddr_indices);
     PendingTransaction * result = new PendingTransaction(ptImpl,0);
     return result;
 }
@@ -421,9 +421,9 @@ PendingTransaction *Wallet::createTransactionAll(const QString &dst_addr, const 
                                                  quint32 mixin_count, PendingTransaction::Priority priority)
 {
     std::set<uint32_t> subaddr_indices;
-    Italocoin::PendingTransaction * ptImpl = m_walletImpl->createTransaction(
-                dst_addr.toStdString(), payment_id.toStdString(), Italocoin::optional<uint64_t>(), mixin_count,
-                static_cast<Italocoin::PendingTransaction::Priority>(priority), currentSubaddressAccount(), subaddr_indices);
+    Italo::PendingTransaction * ptImpl = m_walletImpl->createTransaction(
+                dst_addr.toStdString(), payment_id.toStdString(), Italo::optional<uint64_t>(), mixin_count,
+                static_cast<Italo::PendingTransaction::Priority>(priority), currentSubaddressAccount(), subaddr_indices);
     PendingTransaction * result = new PendingTransaction(ptImpl, this);
     return result;
 }
@@ -447,7 +447,7 @@ void Wallet::createTransactionAllAsync(const QString &dst_addr, const QString &p
 
 PendingTransaction *Wallet::createSweepUnmixableTransaction()
 {
-    Italocoin::PendingTransaction * ptImpl = m_walletImpl->createSweepUnmixableTransaction();
+    Italo::PendingTransaction * ptImpl = m_walletImpl->createSweepUnmixableTransaction();
     PendingTransaction * result = new PendingTransaction(ptImpl, this);
     return result;
 }
@@ -469,7 +469,7 @@ void Wallet::createSweepUnmixableTransactionAsync()
 UnsignedTransaction * Wallet::loadTxFile(const QString &fileName)
 {
     qDebug() << "Trying to sign " << fileName;
-    Italocoin::UnsignedTransaction * ptImpl = m_walletImpl->loadUnsignedTx(fileName.toStdString());
+    Italo::UnsignedTransaction * ptImpl = m_walletImpl->loadUnsignedTx(fileName.toStdString());
     UnsignedTransaction * result = new UnsignedTransaction(ptImpl, m_walletImpl, this);
     return result;
 }
@@ -543,7 +543,7 @@ SubaddressModel *Wallet::subaddressModel()
 
 QString Wallet::generatePaymentId() const
 {
-    return QString::fromStdString(Italocoin::Wallet::genPaymentId());
+    return QString::fromStdString(Italo::Wallet::genPaymentId());
 }
 
 QString Wallet::integratedAddress(const QString &paymentId) const
@@ -735,7 +735,7 @@ void Wallet::setWalletCreationHeight(quint64 height)
 
 QString Wallet::getDaemonLogPath() const
 {
-    return QString::fromStdString(m_walletImpl->getDefaultDataDir()) + "/bititalocoin.log";
+    return QString::fromStdString(m_walletImpl->getDefaultDataDir()) + "/bititalo.log";
 }
 
 bool Wallet::blackballOutput(const QString &amount, const QString &offset)
@@ -847,7 +847,7 @@ void Wallet::keyReuseMitigation2(bool mitigation)
     m_walletImpl->keyReuseMitigation2(mitigation);
 }
 
-Wallet::Wallet(Italocoin::Wallet *w, QObject *parent)
+Wallet::Wallet(Italo::Wallet *w, QObject *parent)
     : QObject(parent)
     , m_walletImpl(w)
     , m_history(nullptr)
@@ -891,7 +891,7 @@ Wallet::~Wallet()
     m_addressBook = NULL;
     delete m_subaddress;
     m_subaddress = NULL;
-    //Italocoin::WalletManagerFactory::getWalletManager()->closeWallet(m_walletImpl);
+    //Italo::WalletManagerFactory::getWalletManager()->closeWallet(m_walletImpl);
     if(status() == Status_Critical)
         qDebug("Not storing wallet cache");
     else if( m_walletImpl->store(""))

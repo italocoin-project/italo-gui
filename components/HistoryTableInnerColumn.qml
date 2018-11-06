@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -29,11 +29,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import italocoinComponents.Clipboard 1.0
-import italocoinComponents.PendingTransaction 1.0
-import italocoinComponents.Wallet 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.PendingTransaction 1.0
+import italoComponents.Wallet 1.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 
 Rectangle{
@@ -50,20 +50,20 @@ Rectangle{
     Text {
         id: label1
         anchors.left: parent.left
-        font.family: ItalocoinComponents.Style.fontRegular.name
+        font.family: ItaloComponents.Style.fontRegular.name
         font.pixelSize: 14 * scaleRatio
         text: labelHeader
-        color: ItalocoinComponents.Style.dimmedFontColor
+        color: ItaloComponents.Style.dimmedFontColor
     }
 
     Text {
         id: label2
         anchors.left: parent.left
         anchors.top: label1.bottom
-        font.family: ItalocoinComponents.Style.fontRegular.name
+        font.family: ItaloComponents.Style.fontRegular.name
         font.pixelSize: 14 * scaleRatio
         text: labelValue
-        color: ItalocoinComponents.Style.dimmedFontColor
+        color: ItaloComponents.Style.dimmedFontColor
     }
 
     // hover effect / copy value
@@ -73,12 +73,12 @@ Rectangle{
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onEntered: {
-            label1.color = ItalocoinComponents.Style.defaultFontColor;
-            label2.color = ItalocoinComponents.Style.defaultFontColor;
+            label1.color = ItaloComponents.Style.defaultFontColor;
+            label2.color = ItaloComponents.Style.defaultFontColor;
         }
         onExited: {
-            label1.color = ItalocoinComponents.Style.dimmedFontColor
-            label2.color = ItalocoinComponents.Style.dimmedFontColor;
+            label1.color = ItaloComponents.Style.dimmedFontColor
+            label2.color = ItaloComponents.Style.dimmedFontColor;
         }
         onClicked: {
             if(copyValue){

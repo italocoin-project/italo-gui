@@ -2,4 +2,4 @@
 
 set QMLSCENE_DEVICE=softwarecontext
 
-start /b italocoin-wallet-gui.exe
+start /b italo-wallet-gui.exe

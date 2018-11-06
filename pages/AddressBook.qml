@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import "../components"
-import italocoinComponents.AddressBook 1.0
-import italocoinComponents.AddressBookModel 1.0
+import italoComponents.AddressBook 1.0
+import italoComponents.AddressBookModel 1.0
 
 Rectangle {
     id: root

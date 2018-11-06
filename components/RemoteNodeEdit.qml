@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -31,7 +31,7 @@ import QtQuick.Controls.Styles 1.2
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 GridLayout {
     columns: (isMobile) ? 1 : 2
@@ -44,10 +44,10 @@ GridLayout {
 
     // TODO: LEGACY; remove these placeHolder variables when
     // the wizards get redesigned to the black-theme
-    property string placeholderFontFamily: ItalocoinComponents.Style.fontRegular.name
+    property string placeholderFontFamily: ItaloComponents.Style.fontRegular.name
     property bool placeholderFontBold: false
     property int placeholderFontSize: 18 * scaleRatio
-    property string placeholderColor: ItalocoinComponents.Style.defaultFontColor
+    property string placeholderColor: ItaloComponents.Style.defaultFontColor
     property real placeholderOpacity: 0.35
 
     property string lineEditBorderColor: Qt.rgba(0, 0, 0, 0.15)

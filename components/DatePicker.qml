@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -30,7 +30,7 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Item {
     id: datePicker
@@ -72,11 +72,11 @@ Item {
             anchors.top: parent.top
             anchors.topMargin: 2
             anchors.left: parent.left
-            font.family: ItalocoinComponents.Style.fontLight.name
+            font.family: ItaloComponents.Style.fontLight.name
             font.pixelSize: 14
             font.bold: false
             textFormat: Text.RichText
-            color: ItalocoinComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
 
             MouseArea {
                 anchors.fill: parent
@@ -165,9 +165,9 @@ Item {
                 id: dayInput
                 readOnly: true
                 width: 22
-                font.family: ItalocoinComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItalocoinComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
                 maximumLength: 2
                 horizontalAlignment: TextInput.AlignHCenter
                 validator: IntValidator{bottom: 01; top: 31;}
@@ -188,9 +188,9 @@ Item {
             }
 
             Text {
-                font.family: ItalocoinComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItalocoinComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
                 text: "-"
             }
 
@@ -198,9 +198,9 @@ Item {
                 id: monthInput
                 readOnly: true
                 width: 22
-                font.family: ItalocoinComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItalocoinComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
                 maximumLength: 2
                 horizontalAlignment: TextInput.AlignHCenter
                 validator: IntValidator{bottom: 01; top: 12;}
@@ -220,18 +220,18 @@ Item {
             }
 
             Text {
-                font.family: ItalocoinComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItalocoinComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
                 text: "-"
             }
 
             TextInput {
                 id: yearInput
                 width: 44
-                font.family: ItalocoinComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItalocoinComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
                 maximumLength: 4
                 horizontalAlignment: TextInput.AlignHCenter
                 validator: IntValidator{bottom: 1000; top: 9999;}

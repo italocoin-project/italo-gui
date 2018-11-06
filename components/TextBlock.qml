@@ -1,11 +1,11 @@
 import QtQuick 2.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 TextEdit {
-    color: ItalocoinComponents.Style.defaultFontColor
-    font.family: ItalocoinComponents.Style.fontRegular.name
-    selectionColor: ItalocoinComponents.Style.dimmedFontColor
+    color: ItaloComponents.Style.defaultFontColor
+    font.family: ItaloComponents.Style.fontRegular.name
+    selectionColor: ItaloComponents.Style.dimmedFontColor
     wrapMode: Text.Wrap
     readOnly: true
     selectByMouse: true

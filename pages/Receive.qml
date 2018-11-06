@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,13 +33,13 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components"
-import italocoinComponents.Clipboard 1.0
-import italocoinComponents.Wallet 1.0
-import italocoinComponents.WalletManager 1.0
-import italocoinComponents.TransactionHistory 1.0
-import italocoinComponents.TransactionHistoryModel 1.0
-import italocoinComponents.Subaddress 1.0
-import italocoinComponents.SubaddressModel 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.Wallet 1.0
+import italoComponents.WalletManager 1.0
+import italoComponents.TransactionHistory 1.0
+import italoComponents.TransactionHistoryModel 1.0
+import italoComponents.Subaddress 1.0
+import italoComponents.SubaddressModel 1.0
 import "../js/TxUtils.js" as TxUtils
 
 Rectangle {
@@ -53,7 +53,7 @@ Rectangle {
     property alias addressText : pageReceive.current_address
 
     function makeQRCodeString() {
-        var s = "italocoin:"
+        var s = "italo:"
         var nfields = 0
         s += current_address;
         var amount = amountToReceiveLine.text.trim()
@@ -136,8 +136,8 @@ Rectangle {
         var expectedAmount = walletManager.amountFromString(amountToReceiveLine.text)
         if (expectedAmount && expectedAmount != amount) {
             var displayTotalAmount = walletManager.displayAmount(totalAmount)
-            if (amount > expectedAmount) toReceiveSatisfiedLine.text += qsTr("With more Italocoin");
-            else if (amount < expectedAmount) toReceiveSatisfiedLine.text = qsTr("With not enough Italocoin")
+            if (amount > expectedAmount) toReceiveSatisfiedLine.text += qsTr("With more Italo");
+            else if (amount < expectedAmount) toReceiveSatisfiedLine.text = qsTr("With not enough Italo")
             toReceiveSatisfiedLine.text += ": " + "<br>" +
                     qsTr("Expected") + ": " + amountToReceiveLine.text + "<br>" +
                     qsTr("Total received") + ": " + displayTotalAmount + translationManager.emptyString;

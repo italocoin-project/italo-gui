@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import italocoinComponents.Wallet 1.0
-import "../components" as ItalocoinComponents
+import italoComponents.Wallet 1.0
+import "../components" as ItaloComponents
 
 Rectangle {
     id: item
@@ -94,7 +94,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 0
-                font.family: ItalocoinComponents.Style.fontMedium.name
+                font.family: ItaloComponents.Style.fontMedium.name
                 font.bold: true
                 font.pixelSize: 13 * scaleRatio
                 color: "white"
@@ -107,7 +107,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 14
-                font.family: ItalocoinComponents.Style.fontMedium.name
+                font.family: ItaloComponents.Style.fontMedium.name
                 font.pixelSize: 20 * scaleRatio
                 color: "white"
                 text: getConnectionStatusString(item.connected) + translationManager.emptyString

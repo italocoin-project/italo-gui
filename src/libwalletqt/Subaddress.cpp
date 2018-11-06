@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Italocoin Project
+// Copyright (c) 2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,14 +29,14 @@
 #include "Subaddress.h"
 #include <QDebug>
 
-Subaddress::Subaddress(Italocoin::Subaddress *subaddressImpl, QObject *parent)
+Subaddress::Subaddress(Italo::Subaddress *subaddressImpl, QObject *parent)
   : QObject(parent), m_subaddressImpl(subaddressImpl)
 {
     qDebug(__FUNCTION__);
     getAll();
 }
 
-QList<Italocoin::SubaddressRow*> Subaddress::getAll(bool update) const
+QList<Italo::SubaddressRow*> Subaddress::getAll(bool update) const
 {
     qDebug(__FUNCTION__);
 
@@ -55,7 +55,7 @@ QList<Italocoin::SubaddressRow*> Subaddress::getAll(bool update) const
     return m_rows;
 }
 
-Italocoin::SubaddressRow * Subaddress::getRow(int index) const
+Italo::SubaddressRow * Subaddress::getRow(int index) const
 {
     return m_rows.at(index);
 }

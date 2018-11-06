@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import italocoinComponents.Wallet 1.0
-import italocoinComponents.NetworkType 1.0
+import italoComponents.Wallet 1.0
+import italoComponents.NetworkType 1.0
 import "components"
 
 Rectangle {
@@ -91,7 +91,7 @@ Rectangle {
         z: 1
     }
 
-    // card with italocoin logo
+    // card with italo logo
     Column {
         visible: true
         z: 2

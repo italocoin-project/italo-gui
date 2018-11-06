@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -32,7 +32,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Dialogs 1.2
 
 import "../../version.js" as Version
-import "../../components" as ItalocoinComponents
+import "../../components" as ItaloComponents
 
 
 Rectangle {
@@ -54,12 +54,12 @@ Rectangle {
             columns: 2
             columnSpacing: 0
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
                 text: qsTr("GUI version: ") + translationManager.emptyString
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
                 text: Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")" + translationManager.emptyString
             }
@@ -69,8 +69,8 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -78,17 +78,17 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            ItalocoinComponents.TextBlock {
-                id: guiItalocoinVersion
+            ItaloComponents.TextBlock {
+                id: guiItaloVersion
                 font.pixelSize: 14
-                text: qsTr("Embedded Italocoin version: ") + translationManager.emptyString
+                text: qsTr("Embedded Italo version: ") + translationManager.emptyString
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
                 text: Version.GUI_MONERO_VERSION + translationManager.emptyString
             }
@@ -98,8 +98,8 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -107,24 +107,24 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Wallet path: ") + translationManager.emptyString
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 Layout.maximumWidth: 360
                 font.pixelSize: 14
                 text: {
                     var wallet_path = walletPath();
                     if(isIOS)
-                        wallet_path = italocoinAccountsDir + wallet_path;
+                        wallet_path = italoAccountsDir + wallet_path;
                     return wallet_path;
                 }
             }
@@ -134,8 +134,8 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -143,18 +143,18 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 id: restoreHeight
                 font.pixelSize: 14
                 textFormat: Text.RichText
                 text: (typeof currentWallet == "undefined") ? "" : qsTr("Wallet creation height: ") + translationManager.emptyString
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 id: restoreHeightText
                 Layout.fillWidth: true
                 textFormat: Text.RichText
@@ -215,8 +215,8 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -224,17 +224,17 @@ Rectangle {
                 Layout.topMargin: 2 * scaleRatio
                 Layout.bottomMargin: 2 * scaleRatio
                 Layout.fillWidth: true
-                color: ItalocoinComponents.Style.dividerColor
-                opacity: ItalocoinComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Wallet log path: ") + translationManager.emptyString
             }
 
-            ItalocoinComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: walletLogPath
@@ -249,7 +249,7 @@ Rectangle {
 
             Rectangle {
                 id: rectCopy
-                color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+                color: ItaloComponents.Style.buttonBackgroundColorDisabled
                 width: btnCopy.width + 40
                 height: 24
                 radius: 2
@@ -258,8 +258,8 @@ Rectangle {
                     id: btnCopy
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItalocoinComponents.Style.defaultFontColor
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    color: ItaloComponents.Style.defaultFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     font.bold: true
                     text: qsTr("Copy to clipboard") + translationManager.emptyString
@@ -271,12 +271,12 @@ Rectangle {
                     onClicked: {
                         var data = "";
                         data += "GUI version: " + Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")";
-                        data += "\nEmbedded Italocoin version: " + Version.GUI_MONERO_VERSION;
+                        data += "\nEmbedded Italo version: " + Version.GUI_MONERO_VERSION;
                         data += "\nWallet path: ";
 
                         var wallet_path = walletPath();
                         if(isIOS)
-                            wallet_path = italocoinAccountsDir + wallet_path;
+                            wallet_path = italoAccountsDir + wallet_path;
                         data += wallet_path;
 
                         data += "\nWallet creation height: ";

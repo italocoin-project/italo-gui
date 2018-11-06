@@ -5,7 +5,7 @@
 #include <QList>
 #include <QDateTime>
 
-namespace Italocoin {
+namespace Italo {
 class TransactionHistory;
 }
 
@@ -41,11 +41,11 @@ public slots:
 
 
 private:
-    explicit TransactionHistory(Italocoin::TransactionHistory * pimpl, QObject *parent = 0);
+    explicit TransactionHistory(Italo::TransactionHistory * pimpl, QObject *parent = 0);
 
 private:
     friend class Wallet;
-    Italocoin::TransactionHistory * m_pimpl;
+    Italo::TransactionHistory * m_pimpl;
     mutable QList<TransactionInfo*> m_tinfo;
     mutable QDateTime   m_firstDateTime;
     mutable QDateTime   m_lastDateTime;

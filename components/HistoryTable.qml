@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -27,10 +27,10 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import QtQuick 2.0
-import italocoinComponents.Clipboard 1.0
-import italocoinComponents.AddressBookModel 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.AddressBookModel 1.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 import "../js/TxUtils.js" as TxUtils
 
 ListView {
@@ -149,7 +149,7 @@ ListView {
                 id: txrxLabel
                 anchors.left: arrowImage.right
                 anchors.leftMargin: 18 * scaleRatio
-                font.family: ItalocoinComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
                 font.pixelSize: 14 * scaleRatio
                 text: isOut ? "Sent" : "Received"
                 color: "#808080"
@@ -161,7 +161,7 @@ ListView {
                 anchors.leftMargin: 18 * scaleRatio
                 anchors.top: txrxLabel.bottom
                 anchors.topMargin: 0 * scaleRatio
-                font.family: ItalocoinComponents.Style.fontBold.name
+                font.family: ItaloComponents.Style.fontBold.name
                 font.pixelSize: 18 * scaleRatio
                 font.bold: true
                 text: {
@@ -173,7 +173,7 @@ ListView {
                         _amount = (_amount *1);
                     }
 
-                    return _amount + " ITA";
+                    return _amount + " XTA";
                 }
                 color: isOut ? "white" : "#2eb358"
             }
@@ -187,7 +187,7 @@ ListView {
                 Text {
                     id: dateLabel
                     anchors.left: parent.left
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 * scaleRatio
                     text: date
                     color: "#808080"
@@ -211,7 +211,7 @@ ListView {
                     anchors.left: parent.left
                     anchors.top: dateLabel.bottom
                     anchors.topMargin: 0
-                    font.family: ItalocoinComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 16 * scaleRatio
                     text: {
                         if(isOut){
@@ -289,7 +289,7 @@ ListView {
             visible: delegate.collapsed
 
             // left column
-            ItalocoinComponents.HistoryTableInnerColumn{
+            ItaloComponents.HistoryTableInnerColumn{
                 anchors.left: parent.left
                 anchors.leftMargin: 30 * scaleRatio
 
@@ -299,7 +299,7 @@ ListView {
             }
 
             // right column
-            ItalocoinComponents.HistoryTableInnerColumn{
+            ItaloComponents.HistoryTableInnerColumn{
                 anchors.right: parent.right
                 anchors.rightMargin: 100 * scaleRatio
                 width: 200 * scaleRatio
@@ -311,7 +311,7 @@ ListView {
                     if(!isOut && !fee){
                         return "-";
                     } else if(isOut && fee){
-                        return fee + " ITA";
+                        return fee + " XTA";
                     } else {
                         return "Unknown"
                     }
@@ -337,7 +337,7 @@ ListView {
             visible: delegate.collapsed
 
             // left column
-            ItalocoinComponents.HistoryTableInnerColumn{
+            ItaloComponents.HistoryTableInnerColumn{
                 anchors.left: parent.left
                 anchors.leftMargin: 30 * scaleRatio
                 labelHeader: qsTr("Blockheight")
@@ -357,7 +357,7 @@ ListView {
             }
 
             // right column
-            ItalocoinComponents.HistoryTableInnerColumn {
+            ItaloComponents.HistoryTableInnerColumn {
                 visible: currentWallet.getUserNote(hash)
                 anchors.right: parent.right
                 anchors.rightMargin: 80 * scaleRatio
@@ -425,7 +425,7 @@ ListView {
                 }
 
                 Text {
-                    color: ItalocoinComponents.Style.defaultFontColor
+                    color: ItaloComponents.Style.defaultFontColor
                     text: "P"
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -470,7 +470,7 @@ ListView {
                 }
 
                 Text {
-                    color: ItalocoinComponents.Style.defaultFontColor
+                    color: ItaloComponents.Style.defaultFontColor
                     text: "?"
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter

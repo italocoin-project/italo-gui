@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,8 +33,8 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components"
-import italocoinComponents.Clipboard 1.0
-import italocoinComponents.WalletManager 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.WalletManager 1.0
 
 Rectangle {
     id: mainLayout

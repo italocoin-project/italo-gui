@@ -6,7 +6,7 @@
 #include <QList>
 #include <QDateTime>
 
-namespace Italocoin {
+namespace Italo {
 class AddressBook;
 }
 class AddressBookRow;
@@ -15,8 +15,8 @@ class AddressBook : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE QList<Italocoin::AddressBookRow*> getAll(bool update = false) const;
-    Q_INVOKABLE Italocoin::AddressBookRow * getRow(int index) const;
+    Q_INVOKABLE QList<Italo::AddressBookRow*> getAll(bool update = false) const;
+    Q_INVOKABLE Italo::AddressBookRow * getRow(int index) const;
     Q_INVOKABLE bool addRow(const QString &address, const QString &payment_id, const QString &description) const;
     Q_INVOKABLE bool deleteRow(int rowId) const;
     quint64 count() const;
@@ -42,10 +42,10 @@ signals:
 public slots:
 
 private:
-    explicit AddressBook(Italocoin::AddressBook * abImpl, QObject *parent);
+    explicit AddressBook(Italo::AddressBook * abImpl, QObject *parent);
     friend class Wallet;
-    Italocoin::AddressBook * m_addressBookImpl;
-    mutable QList<Italocoin::AddressBookRow*> m_rows;
+    Italo::AddressBook * m_addressBookImpl;
+    mutable QList<Italo::AddressBookRow*> m_rows;
 };
 
 #endif // ADDRESSBOOK_H

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 RowLayout {
     id: checkBox
@@ -59,9 +59,9 @@ RowLayout {
             color: "transparent"
             border.color:
                 if(checkBox.checked){
-                    return ItalocoinComponents.Style.inputBorderColorActive;
+                    return ItaloComponents.Style.inputBorderColorActive;
                 } else {
-                    return ItalocoinComponents.Style.inputBorderColorInActive;
+                    return ItaloComponents.Style.inputBorderColorInActive;
                 }
         }
 
@@ -90,9 +90,9 @@ RowLayout {
 
         Text {
             id: label
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: checkBox.fontSize
-            color: ItalocoinComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
             wrapMode: Text.Wrap
             Layout.fillWidth: true
             anchors.left: backgroundRect.right

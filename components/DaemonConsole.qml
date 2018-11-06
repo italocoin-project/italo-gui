@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,7 +33,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.2
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 import "../js/Windows.js" as Windows
 import "../js/Utils.js" as Utils
 
@@ -104,8 +104,8 @@ Window {
                     anchors.fill: parent
                     font.family: "Ariel"
                     font.pixelSize: 14 * scaleRatio
-                    color: ItalocoinComponents.Style.defaultFontColor
-                    selectionColor: ItalocoinComponents.Style.dimmedFontColor
+                    color: ItaloComponents.Style.defaultFontColor
+                    selectionColor: ItaloComponents.Style.dimmedFontColor
                     wrapMode: TextEdit.Wrap
                     readOnly: true
                     background: Rectangle {
@@ -171,7 +171,7 @@ Window {
         RowLayout {
             Layout.fillWidth: true
 
-            ItalocoinComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: sendCommandText
                 Layout.fillWidth: true
                 placeholderText: qsTr("command + enter (e.g help)") + translationManager.emptyString

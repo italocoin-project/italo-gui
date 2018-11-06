@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Italocoin Project
+// Copyright (c) 2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,7 +33,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components"
-import italocoinComponents.Clipboard 1.0
+import italoComponents.Clipboard 1.0
 
 Rectangle {
     property alias panelHeight: mainLayout.height
@@ -104,7 +104,7 @@ Rectangle {
 
         Text {
             text: qsTr("This page allows you to interact with the shared ring database. " +
-                       "This database is meant for use by Italocoin wallets as well as wallets from Italocoin clones which reuse the Italocoin keys.") + translationManager.emptyString
+                       "This database is meant for use by Italo wallets as well as wallets from Italo clones which reuse the Italo keys.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true
             font.family: Style.fontRegular.name
@@ -120,16 +120,16 @@ Rectangle {
             onLinkActivated: {
                 sharedRingDBDialog.title  = qsTr("Outputs marked as spent") + translationManager.emptyString;
                 sharedRingDBDialog.text = qsTr(
-                    "In order to obscure which inputs in a Italocoin transaction are being spent, a third party should not be able " +
+                    "In order to obscure which inputs in a Italo transaction are being spent, a third party should not be able " +
                     "to tell which inputs in a ring are already known to be spent. Being able to do so would weaken the protection " +
                     "afforded by ring signatures. If all but one of the inputs are known to be already spent, then the input being " +
                     "actually spent becomes apparent, thereby nullifying the effect of ring signatures, one of the three main layers " +
-                    "of privacy protection Italocoin uses.<br>" +
+                    "of privacy protection Italo uses.<br>" +
                     "To help transactions avoid those inputs, a list of known spent ones can be used to avoid using them in new " +
-                    "transactions. Such a list is maintained by the Italocoin project and is available on the getitalocoin.org website, " +
+                    "transactions. Such a list is maintained by the Italo project and is available on the getitalo.org website, " +
                     "and you can import this list here.<br>" +
-                    "Alternatively, you can scan the blockchain (and the blockchain of key-reusing Italocoin clones) yourself " +
-                    "using the italocoin-blockchain-mark-spent-outputs tool to create a list of known spent outputs.<br>"
+                    "Alternatively, you can scan the blockchain (and the blockchain of key-reusing Italo clones) yourself " +
+                    "using the italo-blockchain-mark-spent-outputs tool to create a list of known spent outputs.<br>"
                 )
                 sharedRingDBDialog.icon = StandardIcon.Information
                 sharedRingDBDialog.open()
@@ -261,16 +261,16 @@ Rectangle {
             onLinkActivated: {
                 sharedRingDBDialog.title  = qsTr("Rings") + translationManager.emptyString;
                 sharedRingDBDialog.text = qsTr(
-                    "In order to avoid nullifying the protection afforded by Italocoin's ring signatures, an output should not " +
+                    "In order to avoid nullifying the protection afforded by Italo's ring signatures, an output should not " +
                     "be spent with different rings on different blockchains. While this is normally not a concern, it can become one " +
-                    "when a key-reusing Italocoin clone allows you to spend existing outputs. In this case, you need to ensure this " +
+                    "when a key-reusing Italo clone allows you to spend existing outputs. In this case, you need to ensure this " +
                     "existing outputs uses the same ring on both chains.<br>" +
-                    "This will be done automatically by Italocoin and any key-reusing software which is not trying to actively strip " +
+                    "This will be done automatically by Italo and any key-reusing software which is not trying to actively strip " +
                     "you of your privacy.<br>" +
-                    "If you are using a key-reusing Italocoin clone too, and this clone does not include this protection, you can still " +
+                    "If you are using a key-reusing Italo clone too, and this clone does not include this protection, you can still " +
                     "ensure your transactions are protected by spending on the clone first, then manually adding the ring on this page, " +
-                    "which allows you to then spend your Italocoin safely.<br>" +
-                    "If you do not use a key-reusing Italocoin clone without these safety features, then you do not need to do anything " +
+                    "which allows you to then spend your Italo safely.<br>" +
+                    "If you do not use a key-reusing Italo clone without these safety features, then you do not need to do anything " +
                     "as it is all automated.<br>"
                 )
                 sharedRingDBDialog.icon = StandardIcon.Information
@@ -282,7 +282,7 @@ Rectangle {
             textFormat: Text.RichText
             font.family: Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
-            text: qsTr("This records rings used by outputs spent on Italocoin on a key reusing chain, so that the same ring may be reused to avoid privacy issues.") + translationManager.emptyString
+            text: qsTr("This records rings used by outputs spent on Italo on a key reusing chain, so that the same ring may be reused to avoid privacy issues.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true;
             color: Style.defaultFontColor

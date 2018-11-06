@@ -20,9 +20,9 @@ class UnsignedTransaction : public QObject
 
 public:
     enum Status {
-        Status_Ok       = Italocoin::UnsignedTransaction::Status_Ok,
-        Status_Error    = Italocoin::UnsignedTransaction::Status_Error,
-        Status_Critical    = Italocoin::UnsignedTransaction::Status_Critical
+        Status_Ok       = Italo::UnsignedTransaction::Status_Ok,
+        Status_Error    = Italo::UnsignedTransaction::Status_Error,
+        Status_Critical    = Italo::UnsignedTransaction::Status_Critical
     };
     Q_ENUM(Status)
 
@@ -40,13 +40,13 @@ public:
     Q_INVOKABLE void setFilename(const QString &fileName);
 
 private:
-    explicit UnsignedTransaction(Italocoin::UnsignedTransaction * pt, Italocoin::Wallet *walletImpl, QObject *parent = 0);
+    explicit UnsignedTransaction(Italo::UnsignedTransaction * pt, Italo::Wallet *walletImpl, QObject *parent = 0);
     ~UnsignedTransaction();
 private:
     friend class Wallet;
-    Italocoin::UnsignedTransaction * m_pimpl;
+    Italo::UnsignedTransaction * m_pimpl;
     QString m_fileName;
-    Italocoin::Wallet * m_walletImpl;
+    Italo::Wallet * m_walletImpl;
 };
 
 #endif // UNSIGNEDTRANSACTION_H

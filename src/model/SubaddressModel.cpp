@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Italocoin Project
+// Copyright (c) 2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -60,7 +60,7 @@ QVariant SubaddressModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || index.row() < 0 || (unsigned)index.row() >= m_subaddress->count())
         return {};
 
-    Italocoin::SubaddressRow * sr = m_subaddress->getRow(index.row());
+    Italo::SubaddressRow * sr = m_subaddress->getRow(index.row());
     if (!sr)
         return {};
 

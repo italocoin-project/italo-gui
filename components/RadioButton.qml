@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 RowLayout {
     id: radioButton
@@ -84,8 +84,8 @@ RowLayout {
             id: label
             anchors.left: button.right
             anchors.leftMargin: !isMobile ? 10 : 8
-            color: ItalocoinComponents.Style.defaultFontColor
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            color: ItaloComponents.Style.defaultFontColor
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: radioButton.fontSize
             wrapMode: Text.Wrap
 

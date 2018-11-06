@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,11 +29,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import italocoinComponents.Clipboard 1.0
-import italocoinComponents.PendingTransaction 1.0
-import italocoinComponents.Wallet 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.PendingTransaction 1.0
+import italoComponents.Wallet 1.0
 import "../components"
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 import "." 1.0
 
 
@@ -111,7 +111,7 @@ Rectangle {
       RowLayout {
           visible: root.warningContent !== ""
 
-          ItalocoinComponents.WarningBox {
+          ItaloComponents.WarningBox {
               text: warningContent
               onLinkActivated: {
                   appWindow.startDaemon(appWindow.persistentSettings.daemonFlags);
@@ -183,10 +183,10 @@ Rectangle {
                   Layout.fillWidth: true
                   id: priorityDropdown
                   Layout.topMargin: 6
-                  shadowReleasedColor: "#FF4304"
-                  shadowPressedColor: "#B32D00"
-                  releasedColor: "#363636"
-                  pressedColor: "#202020"
+                  shadowReleasedColor: "#853d6c"
+                  shadowPressedColor: "#7a2f61"
+                  releasedColor: "#7a2f61"
+                  pressedColor: "#853d6c"
               }
           }
           // Make sure dropdown is on top
@@ -206,7 +206,7 @@ Rectangle {
                 Address <font size='2'>  ( </font> <a href='#'>Address book</a><font size='2'> )</font>")
                 + translationManager.emptyString
               labelButtonText: qsTr("Resolve") + translationManager.emptyString
-              placeholderText: "4.. / 8.."
+              placeholderText: "ip.. / je.."
               wrapMode: Text.WrapAnywhere
               addressValidation: true
               onInputLabelLinkActivated: { appWindow.showPageRequest("AddressBook") }
@@ -364,7 +364,7 @@ Rectangle {
 
     Rectangle {
         id: desaturate
-        color:"black"
+        color:"white"
         anchors.fill: parent
         opacity: 0.1
         visible: (pageRoot.enabled)? 0 : 1;
@@ -476,7 +476,7 @@ Rectangle {
     FileDialog {
         id: signTxDialog
         title: qsTr("Please choose a file") + translationManager.emptyString
-        folder: "file://" +italocoinAccountsDir
+        folder: "file://" +italoAccountsDir
         nameFilters: [ "Unsigned transfers (*)"]
 
         onAccepted: {
@@ -537,7 +537,7 @@ Rectangle {
     FileDialog {
         id: submitTxDialog
         title: qsTr("Please choose a file") + translationManager.emptyString
-        folder: "file://" +italocoinAccountsDir
+        folder: "file://" +italoAccountsDir
         nameFilters: [ "signed transfers (*)"]
 
         onAccepted: {
@@ -549,7 +549,7 @@ Rectangle {
                 informationPopup.open();
             } else {
                 informationPopup.title = qsTr("Information") + translationManager.emptyString
-                informationPopup.text  = qsTr("Italocoin sent successfully") + translationManager.emptyString
+                informationPopup.text  = qsTr("Italo sent successfully") + translationManager.emptyString
                 informationPopup.icon  = StandardIcon.Information
                 informationPopup.onCloseCallback = null
                 informationPopup.open();

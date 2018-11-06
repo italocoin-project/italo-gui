@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -31,7 +31,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
 import "../../js/Utils.js" as Utils
-import "../../components" as ItalocoinComponents
+import "../../components" as ItaloComponents
 
 
 Rectangle {
@@ -56,15 +56,15 @@ Rectangle {
 //            Layout.preferredHeight: 1 * scaleRatio
 //            Layout.fillWidth: true
 //            Layout.bottomMargin: 8 * scaleRatio
-//            color: ItalocoinComponents.Style.dividerColor
-//            opacity: ItalocoinComponents.Style.dividerOpacity
+//            color: ItaloComponents.Style.dividerColor
+//            opacity: ItaloComponents.Style.dividerOpacity
 //        }
 
         Text {
             Layout.bottomMargin: 2 * scaleRatio
-            color: ItalocoinComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
             font.pixelSize: 18 * scaleRatio
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             text: qsTr("Log level") + translationManager.emptyString
         }
 
@@ -89,7 +89,7 @@ Rectangle {
                      ListElement { column1: "custom"; }
                 }
 
-                ItalocoinComponents.StandardDropdown {
+                ItaloComponents.StandardDropdown {
                     id: logLevelDropdown
                     dataModel: logLevel
                     itemTopMargin: 2 * scaleRatio
@@ -114,7 +114,7 @@ Rectangle {
                 }
             }
 
-            ItalocoinComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: logCategories
                 visible: persistentSettings.logLevel === 5
                 Layout.fillWidth: true
@@ -137,9 +137,9 @@ Rectangle {
         Text {
             Layout.topMargin: 10 * scaleRatio
             Layout.bottomMargin: 2 * scaleRatio
-            color: ItalocoinComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
             font.pixelSize: 18 * scaleRatio
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             text: qsTr("Daemon log") + translationManager.emptyString
         }
 
@@ -151,8 +151,8 @@ Rectangle {
             TextArea.flickable: TextArea {
                 id : consoleArea
                 anchors.fill: parent
-                color: ItalocoinComponents.Style.defaultFontColor
-                selectionColor: ItalocoinComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.defaultFontColor
+                selectionColor: ItaloComponents.Style.dimmedFontColor
                 textFormat: TextEdit.RichText
                 selectByMouse: true
                 selectByKeyboard: true
@@ -219,7 +219,7 @@ Rectangle {
             }
         }
 
-        ItalocoinComponents.LineEdit {
+        ItaloComponents.LineEdit {
             id: sendCommandText
             Layout.fillWidth: true
             fontBold: false

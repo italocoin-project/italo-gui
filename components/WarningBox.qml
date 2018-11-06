@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
-import "." as ItalocoinComponents
+import "." as ItaloComponents
 
 Rectangle {
     id: root
@@ -14,7 +14,7 @@ Rectangle {
 
     color: "#09FFFFFF"
     radius: 4
-    border.color: ItalocoinComponents.Style.inputBorderColorInActive
+    border.color: ItaloComponents.Style.inputBorderColorInActive
     border.width: 1
     
     signal linkActivated;
@@ -39,8 +39,8 @@ Rectangle {
         TextArea {
             id: content
             Layout.fillWidth: true
-            color: ItalocoinComponents.Style.defaultFontColor
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            color: ItaloComponents.Style.defaultFontColor
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: root.fontSize
             horizontalAlignment: TextInput.AlignLeft
             selectByMouse: false

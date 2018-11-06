@@ -7,12 +7,12 @@
 #include <QList>
 #include <QtConcurrent/QtConcurrent>
 
-#include "wallet/api/wallet2_api.h" // we need to have an access to the Italocoin::Wallet::Status enum here;
+#include "wallet/api/wallet2_api.h" // we need to have an access to the Italo::Wallet::Status enum here;
 #include "PendingTransaction.h" // we need to have an access to the PendingTransaction::Priority enum here;
 #include "UnsignedTransaction.h"
 #include "NetworkType.h"
 
-namespace Italocoin {
+namespace Italo {
     class Wallet; // forward declaration
 }
 
@@ -56,17 +56,17 @@ public:
 
 
     enum Status {
-        Status_Ok       = Italocoin::Wallet::Status_Ok,
-        Status_Error    = Italocoin::Wallet::Status_Error,
-        Status_Critical = Italocoin::Wallet::Status_Critical
+        Status_Ok       = Italo::Wallet::Status_Ok,
+        Status_Error    = Italo::Wallet::Status_Error,
+        Status_Critical = Italo::Wallet::Status_Critical
     };
 
     Q_ENUM(Status)
 
     enum ConnectionStatus {
-        ConnectionStatus_Connected       = Italocoin::Wallet::ConnectionStatus_Connected,
-        ConnectionStatus_Disconnected    = Italocoin::Wallet::ConnectionStatus_Disconnected,
-        ConnectionStatus_WrongVersion    = Italocoin::Wallet::ConnectionStatus_WrongVersion
+        ConnectionStatus_Connected       = Italo::Wallet::ConnectionStatus_Connected,
+        ConnectionStatus_Disconnected    = Italo::Wallet::ConnectionStatus_Disconnected,
+        ConnectionStatus_WrongVersion    = Italo::Wallet::ConnectionStatus_WrongVersion
     };
 
     Q_ENUM(ConnectionStatus)
@@ -320,13 +320,13 @@ signals:
 
 private:
     Wallet(QObject * parent = nullptr);
-    Wallet(Italocoin::Wallet *w, QObject * parent = 0);
+    Wallet(Italo::Wallet *w, QObject * parent = 0);
     ~Wallet();
 private:
     friend class WalletManager;
     friend class WalletListenerImpl;
     //! libwallet's
-    Italocoin::Wallet * m_walletImpl;
+    Italo::Wallet * m_walletImpl;
     // history lifetime managed by wallet;
     TransactionHistory * m_history;
     // Used for UI history view
@@ -352,7 +352,7 @@ private:
     bool m_connectionStatusRunning;
     QString m_daemonUsername;
     QString m_daemonPassword;
-    Italocoin::WalletListener *m_walletListener;
+    Italo::WalletListener *m_walletListener;
 };
 
 

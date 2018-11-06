@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //

@@ -9,7 +9,7 @@
 #include "NetworkType.h"
 
 class Wallet;
-namespace Italocoin {
+namespace Italo {
     class WalletManager;
 }
 
@@ -20,14 +20,14 @@ class WalletManager : public QObject
 
 public:
     enum LogLevel {
-        LogLevel_Silent = Italocoin::WalletManagerFactory::LogLevel_Silent,
-        LogLevel_0 = Italocoin::WalletManagerFactory::LogLevel_0,
-        LogLevel_1 = Italocoin::WalletManagerFactory::LogLevel_1,
-        LogLevel_2 = Italocoin::WalletManagerFactory::LogLevel_2,
-        LogLevel_3 = Italocoin::WalletManagerFactory::LogLevel_3,
-        LogLevel_4 = Italocoin::WalletManagerFactory::LogLevel_4,
-        LogLevel_Min = Italocoin::WalletManagerFactory::LogLevel_Min,
-        LogLevel_Max = Italocoin::WalletManagerFactory::LogLevel_Max,
+        LogLevel_Silent = Italo::WalletManagerFactory::LogLevel_Silent,
+        LogLevel_0 = Italo::WalletManagerFactory::LogLevel_0,
+        LogLevel_1 = Italo::WalletManagerFactory::LogLevel_1,
+        LogLevel_2 = Italo::WalletManagerFactory::LogLevel_2,
+        LogLevel_3 = Italo::WalletManagerFactory::LogLevel_3,
+        LogLevel_4 = Italo::WalletManagerFactory::LogLevel_4,
+        LogLevel_Min = Italo::WalletManagerFactory::LogLevel_Min,
+        LogLevel_Max = Italo::WalletManagerFactory::LogLevel_Max,
     };
 
     static WalletManager * instance();
@@ -160,7 +160,7 @@ private:
 
     explicit WalletManager(QObject *parent = 0);
     static WalletManager * m_instance;
-    Italocoin::WalletManager * m_pimpl;
+    Italo::WalletManager * m_pimpl;
     QMutex m_mutex;
     QPointer<Wallet> m_currentWallet;
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,17 +29,17 @@
 import QtQuick.Controls 2.0
 import QtQuick 2.7
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 TextField {
-    font.family: ItalocoinComponents.Style.fontRegular.name
+    font.family: ItaloComponents.Style.fontRegular.name
     font.pixelSize: 18 * scaleRatio
     font.bold: true
     horizontalAlignment: TextInput.AlignLeft
     selectByMouse: true
-    color: ItalocoinComponents.Style.defaultFontColor
-    selectionColor: ItalocoinComponents.Style.dimmedFontColor
-    selectedTextColor: ItalocoinComponents.Style.defaultFontColor
+    color: ItaloComponents.Style.defaultFontColor
+    selectionColor: ItaloComponents.Style.dimmedFontColor
+    selectedTextColor: ItaloComponents.Style.defaultFontColor
 
     background: Rectangle {
         color: "transparent"

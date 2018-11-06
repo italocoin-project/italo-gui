@@ -2,8 +2,8 @@ import QtQuick 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.1
 
-import italocoinComponents.Wallet 1.0
-import "../components" as ItalocoinComponents
+import italoComponents.Wallet 1.0
+import "../components" as ItaloComponents
 
 // BasicPanel header
 Rectangle {
@@ -21,7 +21,7 @@ Rectangle {
         anchors.verticalCenterOffset: -5
         anchors.left: parent.left
         anchors.leftMargin: 50 * scaleRatio
-        source: "../images/italocoinLogo2.png"
+        source: "../images/italoLogo2.png"
     }
 
     Image {
@@ -30,7 +30,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 40 * scaleRatio 
-        source: "../images/italocoinIcon.png"
+        source: "../images/italoIcon.png"
     }
 
     Grid {

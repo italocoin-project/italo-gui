@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -32,7 +32,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 
 import "../components"
-import italocoinComponents.Clipboard 1.0
+import italoComponents.Clipboard 1.0
 
 import "../js/TxUtils.js" as TxUtils
 

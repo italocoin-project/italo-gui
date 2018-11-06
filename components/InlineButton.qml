@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Item {
     id: inlineButton
@@ -52,7 +52,7 @@ Item {
 
     Rectangle{
         id: rect
-        color: ItalocoinComponents.Style.buttonBackgroundColorDisabled
+        color: ItaloComponents.Style.buttonBackgroundColorDisabled
         border.color: "black"
         height: 28 * scaleRatio
         width: inlineText.width + 22 * scaleRatio
@@ -63,7 +63,7 @@ Item {
 
         Text {
             id: inlineText
-            font.family: ItalocoinComponents.Style.fontBold.name
+            font.family: ItaloComponents.Style.fontBold.name
             font.bold: true
             font.pixelSize: 16 * scaleRatio
             color: "black"

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import QtQuick 2.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Item {
     id: item
@@ -36,10 +36,10 @@ Item {
 
     property alias placeholderText: placeholderLabel.text
     property bool placeholderCenter: false
-    property string placeholderFontFamily: ItalocoinComponents.Style.fontRegular.name
+    property string placeholderFontFamily: ItaloComponents.Style.fontRegular.name
     property bool placeholderFontBold: false
     property int placeholderFontSize: 18 * scaleRatio
-    property string placeholderColor: ItalocoinComponents.Style.defaultFontColor
+    property string placeholderColor: ItaloComponents.Style.defaultFontColor
     property real placeholderOpacity: 0.35
 
     property alias validator: input.validator
@@ -54,9 +54,9 @@ Item {
     property bool borderDisabled: false
     property string borderColor: {
         if(input.activeFocus){
-            return ItalocoinComponents.Style.inputBorderColorActive;
+            return ItaloComponents.Style.inputBorderColorActive;
         } else {
-            return ItalocoinComponents.Style.inputBorderColorInActive;
+            return ItaloComponents.Style.inputBorderColorInActive;
         }
     }
 
@@ -107,11 +107,11 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.topMargin: 2 * scaleRatio
-        font.family: ItalocoinComponents.Style.fontLight.name
+        font.family: ItaloComponents.Style.fontLight.name
         font.pixelSize: labelFontSize
         font.bold: labelFontBold
         textFormat: Text.RichText
-        color: ItalocoinComponents.Style.defaultFontColor
+        color: ItaloComponents.Style.defaultFontColor
         onLinkActivated: item.labelLinkActivated()
 
         MouseArea {
@@ -121,7 +121,7 @@ Item {
         }
     }
 
-    ItalocoinComponents.LabelButton {
+    ItaloComponents.LabelButton {
         id: copyButtonId
         text: qsTr("Copy")
         anchors.right: parent.right
@@ -189,11 +189,11 @@ Item {
             anchors.topMargin: 8 * scaleRatio
             anchors.left: parent.left
             anchors.leftMargin: 12 * scaleRatio
-            source: "../images/italocoinIcon-28x28.png"
+            source: "../images/italoIcon-28x28.png"
             visible: false
         }
 
-        ItalocoinComponents.Input {
+        ItaloComponents.Input {
             id: input
             anchors.fill: parent
             anchors.leftMargin: inlineIcon.visible ? 44 * scaleRatio : 0
@@ -206,7 +206,7 @@ Item {
             bottomPadding: 10 * scaleRatio
         }
 
-        ItalocoinComponents.InlineButton {
+        ItaloComponents.InlineButton {
             id: inlineButtonId
             visible: item.inlineButtonText ? true : false
             anchors.right: parent.right

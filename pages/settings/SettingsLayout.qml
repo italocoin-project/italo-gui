@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -33,7 +33,7 @@ import QtQuick.Dialogs 1.2
 
 import "../../js/Utils.js" as Utils
 import "../../js/Windows.js" as Windows
-import "../../components" as ItalocoinComponents
+import "../../components" as ItaloComponents
 
 Rectangle {
     color: "transparent"
@@ -51,7 +51,7 @@ Rectangle {
         anchors.topMargin: 0
         spacing: 0
 
-        ItalocoinComponents.CheckBox {
+        ItaloComponents.CheckBox {
             visible: !isMobile
             id: customDecorationsCheckBox
             checked: persistentSettings.customDecorations
@@ -59,7 +59,7 @@ Rectangle {
             text: qsTr("Custom decorations") + translationManager.emptyString
         }
 
-        ItalocoinComponents.TextBlock {
+        ItaloComponents.TextBlock {
             visible: isMobile
             font.pixelSize: 14
             textFormat: Text.RichText

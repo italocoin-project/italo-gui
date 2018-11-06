@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -27,9 +27,9 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import QtQuick 2.0
-import italocoinComponents.Wallet 1.0
+import italoComponents.Wallet 1.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Rectangle {
     id: item
@@ -63,7 +63,7 @@ Rectangle {
             id: progressText
             anchors.top: parent.top
             anchors.topMargin: 6
-            font.family: ItalocoinComponents.Style.fontMedium.name
+            font.family: ItaloComponents.Style.fontMedium.name
             font.pixelSize: 13 * scaleRatio
             font.bold: true
             color: "white"
@@ -76,7 +76,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.topMargin: 6
             anchors.right: parent.right
-            font.family: ItalocoinComponents.Style.fontMedium.name
+            font.family: ItaloComponents.Style.fontMedium.name
             font.pixelSize: 13 * scaleRatio
             font.bold: true
             color: "white"

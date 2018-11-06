@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Italocoin Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 ColumnLayout {
     id: item
@@ -43,26 +43,26 @@ ColumnLayout {
     property alias placeholderText: placeholderLabel.text
 
     property bool placeholderCenter: false
-    property string placeholderFontFamily: ItalocoinComponents.Style.fontRegular.name
+    property string placeholderFontFamily: ItaloComponents.Style.fontRegular.name
     property bool placeholderFontBold: false
     property int placeholderFontSize: 18 * scaleRatio
-    property string placeholderColor: ItalocoinComponents.Style.defaultFontColor
+    property string placeholderColor: ItaloComponents.Style.defaultFontColor
     property real placeholderOpacity: 0.35
 
     property bool borderDisabled: false
     property string borderColor: {
         if(input.error && input.text !== ""){
-            return ItalocoinComponents.Style.inputBorderColorInvalid;
+            return ItaloComponents.Style.inputBorderColorInvalid;
         } else if(input.activeFocus){
-            return ItalocoinComponents.Style.inputBorderColorActive;
+            return ItaloComponents.Style.inputBorderColorActive;
         } else {
-            return ItalocoinComponents.Style.inputBorderColorInActive;
+            return ItaloComponents.Style.inputBorderColorInActive;
         }
     }
 
     property bool error: false
 
-    property string labelFontColor: ItalocoinComponents.Style.defaultFontColor
+    property string labelFontColor: ItaloComponents.Style.defaultFontColor
     property bool labelFontBold: false
     property int labelFontSize: 16 * scaleRatio
     property bool labelButtonVisible: false
@@ -95,7 +95,7 @@ ColumnLayout {
             id: inputLabel
             anchors.top: parent.top
             anchors.left: parent.left
-            font.family: ItalocoinComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: item.labelFontSize
             font.bold: labelFontBold
             textFormat: Text.RichText
@@ -109,13 +109,13 @@ ColumnLayout {
             }
         }
 
-        ItalocoinComponents.LabelButton {
+        ItaloComponents.LabelButton {
             id: labelButton
             onClicked: labelButtonClicked()
             visible: labelButtonVisible
         }
 
-        ItalocoinComponents.LabelButton {
+        ItaloComponents.LabelButton {
             id: copyButtonId
             visible: copyButton && input.text !== ""
             text: qsTr("Copy")
@@ -131,7 +131,7 @@ ColumnLayout {
         }
     }
 
-    ItalocoinComponents.InputMulti {
+    ItaloComponents.InputMulti {
         id: input
         readOnly: false
         addressValidation: false

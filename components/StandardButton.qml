@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -29,14 +29,14 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Item {
     id: button
     property string rightIcon: ""
     property string rightIconInactive: ""
     property string icon: ""
-    property string textColor: button.enabled? ItalocoinComponents.Style.buttonTextColor: ItalocoinComponents.Style.buttonTextColorDisabled
+    property string textColor: button.enabled? ItaloComponents.Style.buttonTextColor: ItaloComponents.Style.buttonTextColorDisabled
     property string textAlign: rightIcon !== "" ? "left" : "center"
     property bool small: false
     property alias text: label.text
@@ -74,7 +74,7 @@ Item {
         anchors.right: parent.right
         height: parent.height - 1
         radius: 3
-        color: parent.enabled ? ItalocoinComponents.Style.buttonBackgroundColor : ItalocoinComponents.Style.buttonBackgroundColorDisabled
+        color: parent.enabled ? ItaloComponents.Style.buttonBackgroundColor : ItaloComponents.Style.buttonBackgroundColorDisabled
         border.width: parent.focus ? 1 : 0
 
         MouseArea {
@@ -103,7 +103,7 @@ Item {
         anchors.right: parent.right
         horizontalAlignment: textAlign === "center" ? Text.AlignHCenter : Text.AlignLeft
         anchors.leftMargin: textAlign === "center" ? 0 : 11
-        font.family: ItalocoinComponents.Style.fontBold.name
+        font.family: ItaloComponents.Style.fontBold.name
         font.bold: true
         font.pixelSize: buttonArea.pressed ? button.fontSize - 1 : button.fontSize
         color: parent.textColor

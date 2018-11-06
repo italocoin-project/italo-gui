@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,7 +33,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Window {
     id: root
@@ -104,7 +104,7 @@ Window {
             spacing: 60
             Layout.alignment: Qt.AlignHCenter
 
-            ItalocoinComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: okButton
                 visible:false
                 fontSize: 14
@@ -118,7 +118,7 @@ Window {
                 }
             }
 
-            ItalocoinComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: cancelButton
                 fontSize: 14
                 text: qsTr("Use custom settings")

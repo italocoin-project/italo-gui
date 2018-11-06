@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italocoin Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import QtQuick 2.0
 
-import "../components" as ItalocoinComponents
+import "../components" as ItaloComponents
 
 Item {
     id: item
@@ -215,7 +215,7 @@ Item {
             }
         }
 
-        ItalocoinComponents.StandardButton {
+        ItaloComponents.StandardButton {
             id: button
             anchors.top: parent.top
             anchors.bottom: parent.bottom

@@ -6,7 +6,7 @@ Copyright (c) 2014-2018, The Italo Project
 
 This is a *Inno Setup* script `Italo.iss` plus some related files
 that allows you to build a standalone Windows installer (.exe) for
-the GUI wallet that comes with the Lithium Luna release of Italo.
+the GUI wallet that comes with the Beryllium Bullet release of Italo.
 
 This turns the GUI wallet into a more or less standard Windows program,
 by default installed into a subdirectory of `C:\Program Files`, a
@@ -18,10 +18,10 @@ Italo.
 As the setup script in file [Italo.iss](Italo.iss) has to list every
 single file of the GUI wallet package to install by name,
 this version of the script only works with exactly the GUI wallet
-for Italo release *Lithium Luna* that you find on
+for Italo release *Beryllium Bullet* that you find on
 [the official download page](https://getitalo.org/downloads/).
 
-But of course it will be easy to modify the script for future
+It should however be easy to modify the script for future
 versions of the GUI wallet.
 
 ## License ##
@@ -32,13 +32,13 @@ See [LICENSE](LICENSE).
 
 You can only build on Windows, and the result is always a
 Windows .exe file that can act as a standalone installer for the
-Lithium Luna GUI wallet.
+Beryllium Bullet GUI wallet.
 
 The build steps in detail:
 
 1. Install *Inno Setup*. You can get it from [here](http://www.jrsoftware.org/isdl.php)
-2. Get the Inno Setup script plus related files by cloning the whole [italo-core GitHub repository](https://github.com/italocoin-project/italo-core); you will only need the files in the installer directory `installers\windows` however
-3. The setup script is written to take the GUI wallet files from a subdirectory named `bin`; so create `installers\windows\bin`, get the zip file of the GUI wallet from [here](https://getitalo.org/downloads/), unpack it somewhere, and copy all the files and subdirectories in the `italo-gui-0.12.3.0` directory to this `bin` subdirectory
+2. Get the Inno Setup script plus related files by cloning the whole [italo-gui GitHub repository](https://github.com/italo-project/italo-gui); you will only need the files in the installer directory `installers\windows` however. Depending on development state, additionally you may have to checkout a specific branch, like `release-v0.13`.
+3. The setup script is written to take the GUI wallet files from a subdirectory named `bin`; so create `installers\windows\bin`, get the zip file of the GUI wallet from [here](https://getitalo.org/downloads/), unpack it somewhere, and copy all the files and subdirectories in the single subdirectory there (currently named `italo-gui-0.13.0.4`) to this `bin` subdirectory
 4. Start Inno Setup, load `Italo.iss` and compile it
 5. The result i.e. the finished installer will be the file `mysetup.exe` in the `installers\windows\Output` subdirectory 
 

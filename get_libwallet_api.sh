@@ -20,7 +20,9 @@ git -C $MONERO_DIR fetch
 git -C $MONERO_DIR checkout master
 
 # get italo core tag
+pushd $MONERO_DIR
 get_tag
+popd
 # create local italo branch
 git -C $MONERO_DIR checkout -B $VERSIONTAG
 
@@ -130,7 +132,7 @@ pushd $MONERO_DIR/build/$BUILD_TYPE
 # reusing function from "utils.sh"
 platform=$(get_platform)
 # default make executable
-make_exec="make -j3"
+make_exec="make"
 
 ## OS X
 if [ "$platform" == "darwin" ]; then
@@ -213,16 +215,16 @@ fi
 # Build libwallet_merged
 pushd $MONERO_DIR/build/$BUILD_TYPE/src/wallet
 eval $make_exec version -C ../..
-eval $make_exec  -j3
-eval $make_exec  install -j3
+eval $make_exec  -j$CPU_CORE_COUNT
+eval $make_exec  install -j$CPU_CORE_COUNT
 popd
 
 # Build italod
 # win32 need to build daemon manually with msys2 toolchain
 if [ "$platform" != "mingw32" ] && [ "$ANDROID" != true ]; then
     pushd $MONERO_DIR/build/$BUILD_TYPE/src/daemon
-    eval make  -j3
-    eval make install -j3
+    eval make  -j$CPU_CORE_COUNT
+    eval make install -j$CPU_CORE_COUNT
     popd
 fi
 
@@ -239,8 +241,8 @@ eval make -C $MONERO_DIR/build/$BUILD_TYPE/external/db_drivers/liblmdb all insta
 echo "Installing libunbound..."
 pushd $MONERO_DIR/build/$BUILD_TYPE/external/unbound
 # no need to make, it was already built as dependency for libwallet
-# make -j3
-$make_exec install -j3
+# make -j$CPU_CORE_COUNT
+$make_exec install -j$CPU_CORE_COUNT
 popd
 
 

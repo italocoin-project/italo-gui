@@ -293,10 +293,13 @@ Rectangle{
 
                 property var rna: persistentSettings.remoteNodeAddress
                 daemonAddrText: rna.search(":") != -1 ? rna.split(":")[0].trim() : ""
-                daemonPortText: rna.search(":") != -1 ? (rna.split(":")[1].trim() == "") ? "13102" : rna.split(":")[1] : ""
+                daemonPortText: rna.search(":") != -1 ? (rna.split(":")[1].trim() == "") ? "18081" : rna.split(":")[1] : ""
                 onEditingFinished: {
                     persistentSettings.remoteNodeAddress = remoteNodeEdit.getAddress();
                     console.log("setting remote node to " + persistentSettings.remoteNodeAddress)
+                }
+                onTextChanged: {
+                    rectConnectRemote.enabled = remoteNodeEdit.isValid();
                 }
             }
 
@@ -331,7 +334,8 @@ Rectangle{
             Rectangle {
                 id: rectConnectRemote
                 Layout.topMargin: 12 * scaleRatio
-                color: ItaloComponents.Style.buttonBackgroundColorDisabled
+                enabled: remoteNodeEdit.isValid()
+                color: enabled ? ItaloComponents.Style.buttonBackgroundColor : ItaloComponents.Style.buttonBackgroundColorDisabled
                 width: btnConnectRemote.width + 40
                 height: 26
                 radius: 2
@@ -349,6 +353,7 @@ Rectangle{
 
                 MouseArea {
                     cursorShape: Qt.PointingHandCursor
+                    visible: rectConnectRemote.enabled
                     anchors.fill: parent
                     onClicked: {
                         // Update daemon login
@@ -382,28 +387,32 @@ Rectangle{
                 Layout.preferredWidth: parent.width
 
                 Rectangle {
-                    id: rectStopNode
-                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
-                    width: btnStopNode.width + 40
+                    id: rectStartStopNode
+                    color: ItaloComponents.Style.buttonBackgroundColor
+                    width: btnStartStopNode.width + 40
                     height: 24
                     radius: 2
 
                     Text {
-                        id: btnStopNode
+                        id: btnStartStopNode
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: ItaloComponents.Style.defaultFontColor
                         font.family: ItaloComponents.Style.fontRegular.name
                         font.pixelSize: 14 * scaleRatio
                         font.bold: true
-                        text: qsTr("Stop local node") + translationManager.emptyString
+                        text: (appWindow.daemonRunning ? qsTr("Stop local node") : qsTr("Start daemon")) + translationManager.emptyString
                     }
 
                     MouseArea {
                         cursorShape: Qt.PointingHandCursor
                         anchors.fill: parent
                         onClicked: {
-                            appWindow.stopDaemon();
+                            if (appWindow.daemonRunning) {
+                                appWindow.stopDaemon();
+                            } else {
+                                appWindow.startDaemon(persistentSettings.daemonFlags);
+                            }
                         }
                     }
                 }
@@ -479,7 +488,7 @@ Rectangle{
                         daemonPortText: {
                             var node_split = persistentSettings.bootstrapNodeAddress.split(":");
                             if(node_split.length == 2){
-                                (node_split[1].trim() == "") ? "13102" : node_split[1];
+                                (node_split[1].trim() == "") ? "18081" : node_split[1];
                             } else {
                                 return ""
                             }

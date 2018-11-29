@@ -2321,8 +2321,8 @@ Para el caso de pagos salientes, puedes obtener una &quot;Prueba de pago&quot; q
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>USE MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>USE ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

@@ -2314,8 +2314,8 @@ En el cas de Prova de Pagament, no heu d&apos;especificar l&apos;adreça del des
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>UTILITZA MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>UTILITZA ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

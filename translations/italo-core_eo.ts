@@ -2296,8 +2296,8 @@ Kaze de Elspezpruvo, vi ne bezonas precizi la ricevantan adreson.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>UZU MONERON</translation>
+        <source>USE ITALO</source>
+        <translation>UZU ITALON</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

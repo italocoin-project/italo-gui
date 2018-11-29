@@ -2301,8 +2301,8 @@ For the case of outgoing payments, you can get a &apos;Spend Proof&apos; that pr
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>BRUG MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>BRUG ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

@@ -2299,8 +2299,8 @@ Egyszerű költési bizonylat esetén nem kell megadni a kedvezményezett címé
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>MONERO INDÍTÁSA</translation>
+        <source>USE ITALO</source>
+        <translation>ITALO INDÍTÁSA</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

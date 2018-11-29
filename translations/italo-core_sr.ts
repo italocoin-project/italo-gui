@@ -2308,8 +2308,8 @@ U slučaju sa Dokazom Troška, ne morate navesti adresu primaoca.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>KORISTI MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>KORISTI ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

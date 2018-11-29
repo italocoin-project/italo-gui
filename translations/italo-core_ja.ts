@@ -2310,7 +2310,7 @@ Spend Proofの場合、宛先アドレスを指定する必要はありません
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
+        <source>USE ITALO</source>
         <translation>Italoを使う</translation>
     </message>
     <message>

@@ -2309,8 +2309,8 @@ Jei naudojate &quot;Išleidimo įrodymas&quot;, jums nereikia nurodyti gavėjo a
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>NAUDOTI MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>NAUDOTI ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

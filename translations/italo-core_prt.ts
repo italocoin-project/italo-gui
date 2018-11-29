@@ -2295,7 +2295,7 @@ Fer the case wit&apos; Spend Proof, you don&apos;t be needin&apos; to specify th
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
+        <source>USE ITALO</source>
         <translation>USE XM-ARGHHH!</translation>
     </message>
     <message>

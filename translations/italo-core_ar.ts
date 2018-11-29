@@ -2316,7 +2316,7 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
+        <source>USE ITALO</source>
         <translation>إستخدم مونيرو</translation>
     </message>
     <message>

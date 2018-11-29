@@ -2307,8 +2307,8 @@ Para o caso com Spend Proof, você não precisa especificar o endereço do desti
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>USAR O MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>USAR O ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

@@ -2310,8 +2310,8 @@ V prípade Spend Proof, nie je potrebné špecifikovať prijímateľovu adresu.<
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>POUŽIŤ MONERO</translation>
+        <source>USE ITALO</source>
+        <translation>POUŽIŤ ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

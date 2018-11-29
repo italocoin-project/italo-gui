@@ -2303,8 +2303,8 @@ Harcama Kanıtı ile ilgili davada, alıcı adresini belirtmeniz gerekmez. </tra
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
-        <translation>MONERO KULLANIN</translation>
+        <source>USE ITALO</source>
+        <translation>ITALO KULLANIN</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

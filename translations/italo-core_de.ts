@@ -2310,9 +2310,9 @@ Für einen reinen Sendenachweis muss die Empfängeradresse nicht angegeben werde
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="386"/>
-        <source>USE MONERO</source>
+        <source>USE ITALO</source>
         <translatorcomment>Benutzen klingt so schmutzig ;)</translatorcomment>
-        <translation>NUTZE MONERO</translation>
+        <translation>NUTZE ITALO</translation>
     </message>
     <message>
         <location filename="../wizard/WizardMain.qml" line="399"/>

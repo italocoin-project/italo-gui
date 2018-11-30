@@ -4,9 +4,9 @@ Copyright (c) 2014-2018, The Italo Project
 
 ## Development resources
 
-- Web: [getitalo.org](https://italo.network)
-- Forum: [forum.getitalo.org](https://forum.italo.network)
-- Mail: [dev@getitalo.org](mailto:dev@italo.network)
+- Web: [italo.network](https://italo.network)
+- Forum: [forum.italo.network](https://forum.italo.network)
+- Mail: [dev@italo.network](mailto:dev@italo.network)
 - Github: [https://github.com/italocoin-project/italo-gui](https://github.com/italocoin-project/italo-gui)
 - IRC: [#italo-dev on Freenode](irc://chat.freenode.net/#italo-dev)
 

@@ -4,9 +4,9 @@ Copyright (c) 2014-2018, The Italo Project
 
 ## Development resources
 
-- Web: [getitalo.org](https://getitalo.org)
-- Forum: [forum.getitalo.org](https://forum.getitalo.org)
-- Mail: [dev@getitalo.org](mailto:dev@getitalo.org)
+- Web: [getitalo.org](https://italo.network)
+- Forum: [forum.getitalo.org](https://forum.italo.network)
+- Mail: [dev@getitalo.org](mailto:dev@italo.network)
 - Github: [https://github.com/italocoin-project/italo-gui](https://github.com/italocoin-project/italo-gui)
 - IRC: [#italo-dev on Freenode](irc://chat.freenode.net/#italo-dev)
 
@@ -33,21 +33,16 @@ As with many development projects, the repository on Github is considered to be 
 
 ## Supporting the project
 
-Italo is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Italo and Bitcoin donations can be made to **donate.getitalo.org** if using a client that supports the [OpenAlias](https://openalias.org) standard.
+Italo is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Italo and Bitcoin donations can be made to **donate.italo.network** if using a client that supports the [OpenAlias](https://openalias.org) standard.
 
-The Italo donation address is: `44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A` (viewkey: `f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501`)
+The Italo donation address is: `ipPQjQYEQsLL7Gv43PpHDLiFLsZzoGuZtEJ8ZCW2is5TGeMNPo66bTKXAAd3m3ceXp4aweqmZnAHt9bWHALkK7xR2MVhF8QFZ ` (viewkey: `f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501`)
 
-The Bitcoin donation address is: `1KTexdemPdxSBcG55heUuTjDRYqbC5ZL8H`
+The Bitcoin donation address is: `1FgYSKX6hqoxpCba91bigBr7xy9A3e5H1C`
+
+The Monero donation address is: `44gNsFFqMf59DiVL3ejpfAdV3H3aFbbYM28XtvBK22SQVESBLpxRrQcFCky2yVH8Wa3FpiBbiNRJ5SQfdsVwJqYpA7XLyec`
 
 GUI development funding and/or some supporting services are also graciously provided by sponsors:
 
-[<img width="80" src="https://static.getitalo.org/images/sponsors/myitalo.png"/>](https://myitalo.com)
-[<img width="150" src="https://static.getitalo.org/images/sponsors/kitware.png?1"/>](http://kitware.com)
-[<img width="100" src="https://static.getitalo.org/images/sponsors/dome9.png"/>](http://dome9.com)
-[<img width="150" src="https://static.getitalo.org/images/sponsors/araxis.png"/>](http://araxis.com)
-[<img width="150" src="https://static.getitalo.org/images/sponsors/jetbrains.png"/>](http://www.jetbrains.com/)
-[<img width="150" src="https://static.getitalo.org/images/sponsors/navicat.png"/>](http://www.navicat.com/)
-[<img width="150" src="https://static.getitalo.org/images/sponsors/symas.png"/>](http://www.symas.com/)
 
 There are also several mining pools that kindly donate a portion of their fees, [a list of them can be found on our Bitcointalk post](https://bitcointalk.org/index.php?topic=583449.0).
 

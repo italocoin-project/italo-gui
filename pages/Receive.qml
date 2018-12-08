@@ -48,20 +48,19 @@ Rectangle {
     property var model
     property var current_address
     property int current_subaddress_table_index: 0
-    property bool advancedRowVisible: false
     property alias receiveHeight: mainLayout.height
     property alias addressText : pageReceive.current_address
 
     function makeQRCodeString() {
-        var s = "italo:"
-        var nfields = 0
-        s += current_address;
-        var amount = amountToReceiveLine.text.trim()
-        if (amount !== "" && amount.slice(-1) !== ".") {
-          s += (nfields++ ? "&" : "?")
-          s += "tx_amount=" + amount
+        var XMR_URI_SCHEME = "monero:"
+        var XMR_AMOUNT = "tx_amount"
+        var qrCodeString =""
+        var amount = amountToReceiveLine.text
+        qrCodeString += (XMR_URI_SCHEME + current_address)
+        if (amount !== ""){
+          qrCodeString += ("?" + XMR_AMOUNT + "=" + amount)
         }
-        return s
+        return qrCodeString
     }
 
     function update() {
@@ -385,7 +384,7 @@ Rectangle {
                             inputDialog.inputText = qsTr("(Untitled)")
                             inputDialog.onAcceptedCallback = function() {
                                 appWindow.currentWallet.subaddress.addRow(appWindow.currentWallet.currentSubaddressAccount, inputDialog.inputText)
-                                current_subaddress_table_index = appWindow.currentWallet.numSubaddresses() - 1
+                                current_subaddress_table_index = appWindow.currentWallet.numSubaddresses(appWindow.currentWallet.currentSubaddressAccount) - 1
                             }
                             inputDialog.onRejectedCallback = null;
                             inputDialog.open()
@@ -398,9 +397,9 @@ Rectangle {
         RowLayout {
             CheckBox2 {
                 id: showAdvancedCheckbox
-                checked: false
+                checked: persistentSettings.receiveShowAdvanced
                 onClicked: {
-                    advancedRowVisible = !advancedRowVisible;
+                    persistentSettings.receiveShowAdvanced = !persistentSettings.receiveShowAdvanced
                 }
                 text: qsTr("Advanced options") + translationManager.emptyString
             }
@@ -411,7 +410,7 @@ Rectangle {
             columns: (isMobile)? 1 : 2
             Layout.fillWidth: true
             columnSpacing: 32 * scaleRatio
-            visible: advancedRowVisible
+            visible: persistentSettings.receiveShowAdvanced
 
             ColumnLayout {
                 Layout.alignment: Qt.AlignTop
@@ -443,7 +442,7 @@ Rectangle {
 
                     Layout.fillWidth: true
                     Layout.minimumWidth: 200
-                    Layout.maximumWidth: mainLayout.qrCodeSize
+                    spacing: parent.spacing
 
                     LineEdit {
                         id: amountToReceiveLine
@@ -452,48 +451,63 @@ Rectangle {
                         placeholderText: qsTr("Amount to receive") + translationManager.emptyString
                         fontBold: true
                         inlineIcon: true
-                        validator: RegExpValidator {
-                            regExp: /(\d{1,8})([.]\d{1,12})?$/
-                        }
-                    }
-                }
-
-                Rectangle {
-                    color: "white"
-                    Layout.topMargin: parent.spacing - 4
-                    Layout.fillWidth: true
-                    Layout.maximumWidth: mainLayout.qrCodeSize
-                    Layout.preferredHeight: width
-                    radius: 4
-
-                    Image {
-                        id: qrCode
-                        anchors.fill: parent
-                        anchors.margins: 1
-
-                        smooth: false
-                        fillMode: Image.PreserveAspectFit
-                        source: "image://qrcode/" + makeQRCodeString()
-                        MouseArea {
-                            anchors.fill: parent
-                            acceptedButtons: Qt.RightButton
-                            onClicked: {
-                                if (mouse.button == Qt.RightButton)
-                                    qrMenu.open()
+                        onTextChanged: {
+                            if (amountToReceiveLine.text.startsWith('.')) {
+                                amountToReceiveLine.text = '0' + amountToReceiveLine.text;
                             }
-                            onPressAndHold: qrFileDialog.open()
+                        }
+                        validator: RegExpValidator {
+                            regExp: /^(\d{1,8})?([\.]\d{1,12})?$/
                         }
                     }
 
-                    Menu {
-                        id: qrMenu
-                        title: "QrCode"
-                        y: parent.height / 2
+                    Rectangle {
+                        color: "white"
 
-                        MenuItem {
-                           text: qsTr("Save As") + translationManager.emptyString;
-                           onTriggered: qrFileDialog.open()
+                        Layout.fillWidth: true
+                        Layout.maximumWidth: mainLayout.qrCodeSize
+                        Layout.preferredHeight: width
+                        radius: 4
+
+                        Image {
+                            id: qrCode
+                            anchors.fill: parent
+                            anchors.margins: 1
+
+                            smooth: false
+                            fillMode: Image.PreserveAspectFit
+                            source: "image://qrcode/" + makeQRCodeString()
+                            MouseArea {
+                                anchors.fill: parent
+                                acceptedButtons: Qt.RightButton
+                                onClicked: {
+                                    if (mouse.button == Qt.RightButton)
+                                        qrMenu.open()
+                                }
+                                onPressAndHold: qrFileDialog.open()
+                            }
                         }
+
+                        Menu {
+                            id: qrMenu
+                            title: "QrCode"
+                            y: parent.height / 2
+
+                            MenuItem {
+                                text: qsTr("Save As") + translationManager.emptyString;
+                                onTriggered: qrFileDialog.open()
+                            }
+                        }
+                    }
+
+                    LineEditMulti {
+                        id: paymentUrl
+                        Layout.fillWidth: true
+                        labelText: qsTr("Payment URL") + translationManager.emptyString
+                        text: makeQRCodeString()                        
+                        readOnly: true
+                        copyButton: true
+                        wrapMode: Text.WrapAnywhere
                     }
                 }
             }

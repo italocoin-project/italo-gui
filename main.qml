@@ -40,7 +40,7 @@ import italoComponents.NetworkType 1.0
 
 import "components"
 import "wizard"
-import "../js/Utils.js" as Utils
+import "js/Utils.js" as Utils
 import "js/Windows.js" as Windows
 
 ApplicationWindow {
@@ -243,7 +243,7 @@ ApplicationWindow {
             // console.log("opening wallet at: ", wallet_path, "with password: ", appWindow.walletPassword);
             console.log("opening wallet at: ", wallet_path, ", network type: ", persistentSettings.nettype == NetworkType.MAINNET ? "mainnet" : persistentSettings.nettype == NetworkType.TESTNET ? "testnet" : "stagenet");
             walletManager.openWalletAsync(wallet_path, walletPassword,
-                                              persistentSettings.nettype);
+                                              persistentSettings.nettype, persistentSettings.kdfRounds);
         }
 
         // Hide titlebar based on persistentSettings.customDecorations
@@ -1019,6 +1019,7 @@ ApplicationWindow {
         property string daemonUsername: ""
         property string daemonPassword: ""
         property bool transferShowAdvanced: false
+        property bool receiveShowAdvanced: false
         property string blockchainDataDir: ""
         property bool useRemoteNode: false
         property string remoteNodeAddress: ""
@@ -1026,6 +1027,7 @@ ApplicationWindow {
         property bool segregatePreForkOutputs: true
         property bool keyReuseMitigation2: true
         property int segregationHeight: 0
+        property int kdfRounds: 1
     }
 
     // Information dialog

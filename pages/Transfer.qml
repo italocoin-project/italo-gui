@@ -144,9 +144,14 @@ Rectangle {
                       fontBold: true
                       inlineButtonText: qsTr("All") + translationManager.emptyString
                       inlineButton.onClicked: amountLine.text = "(all)"
+                      onTextChanged: {
+                          if (amountLine.text.startsWith('.')) {
+                              amountLine.text = '0' + amountLine.text;
+                          }
+                      }
 
                       validator: RegExpValidator {
-                          regExp: /(.|)(\d{1,8})([.]\d{1,12})?$/
+                          regExp: /^(\d{1,8})?([\.]\d{1,12})?$/
                       }
                   }
               }
@@ -210,6 +215,18 @@ Rectangle {
               wrapMode: Text.WrapAnywhere
               addressValidation: true
               onInputLabelLinkActivated: { appWindow.showPageRequest("AddressBook") }
+              pasteButton: true
+              onPaste: function(clipboardText) {
+                  const parsed = walletManager.parse_uri_to_object(clipboardText);
+                  if (!parsed.error) {
+                    addressLine.text = parsed.address;
+                    paymentIdLine.text = parsed.payment_id;
+                    amountLine.text = parsed.amount;
+                    descriptionLine.text = parsed.tx_description;
+                  } else {
+                     addressLine.text = clipboardText; 
+                  }
+              }
           }
 
           StandardButton {

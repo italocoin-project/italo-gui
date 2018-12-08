@@ -189,7 +189,13 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
     pacman -S mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-boost mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-libsodium mingw-w64-x86_64-hidapi
     ```
 
-    You find more details about those dependencies in the [Italo documentation](https://github.com/italocoin-project/italo). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
+    Optional : To build the flag `WITH_SCANNER`
+
+      ```
+      pacman -S mingw-w64-x86_64-zbar
+      ```
+
+    You find more details about those dependencies in the [Monero documentation](https://github.com/monero-project/monero). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
 
 4. Install Qt5
 

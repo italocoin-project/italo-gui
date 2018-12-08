@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Eingebundene Monero-Version: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Eingebundene Italo-Version: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2610,8 +2610,8 @@ Für einen reinen Sendenachweis muss die Empfängeradresse nicht angegeben werde
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Diese Adresse hat %1 Monero empfangen, aber die Transaktion wurde noch nicht bestätigt</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Diese Adresse hat %1 Italo empfangen, aber die Transaktion wurde noch nicht bestätigt</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1725"/>
@@ -2635,8 +2635,8 @@ Für einen reinen Sendenachweis muss die Empfängeradresse nicht angegeben werde
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Eine neue Version von monero-wallet-gui ist verfügbar: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Eine neue Version von italo-wallet-gui ist verfügbar: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2780,8 +2780,8 @@ Indizes der beteiligten Adressen: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero erfolgreich gesendet: %1 Transaktion(en)</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo erfolgreich gesendet: %1 Transaktion(en)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2809,8 +2809,8 @@ Indizes der beteiligten Adressen: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Diese Adresse hat %1 Monero erhalten, mit %2 Bestätigung(en).</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Diese Adresse hat %1 Italo erhalten, mit %2 Bestätigung(en).</translation>
     </message>
     <message>
         <location filename="../main.qml" line="876"/>
@@ -2884,8 +2884,8 @@ Indizes der beteiligten Adressen: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

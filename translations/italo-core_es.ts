@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1061,8 +1061,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Versión embedida de Monero: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Versión embedida de Italo: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2712,8 +2712,8 @@ Comisión: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Esta dirección recibió %1 monero, con %2 confirmacion(es).</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Esta dirección recibió %1 italo, con %2 confirmacion(es).</translation>
     </message>
     <message>
         <location filename="../main.qml" line="358"/>
@@ -2779,8 +2779,8 @@ Comisión: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero enviado con exito: %1 transacción(es)</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo enviado con exito: %1 transacción(es)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="824"/>
@@ -2791,8 +2791,8 @@ Comisión: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Esta dirección recibió %1 monero, pero la transacción no ha sido minada todavía</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Esta dirección recibió %1 italo, pero la transacción no ha sido minada todavía</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2871,8 +2871,8 @@ Comisión: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>
@@ -2901,8 +2901,8 @@ Comisión: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Nueva versión de monero-wallet-gui disponible: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Nueva versión de italo-wallet-gui disponible: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>

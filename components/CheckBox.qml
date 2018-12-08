@@ -64,9 +64,9 @@ Item {
                 color: "transparent"
                 border.color:
                     if(checkBox.checked){
-                        return MoneroComponents.Style.inputBorderColorActive;
+                        return ItaloComponents.Style.inputBorderColorActive;
                     } else {
-                        return MoneroComponents.Style.inputBorderColorInActive;
+                        return ItaloComponents.Style.inputBorderColorInActive;
                     }
             }
 

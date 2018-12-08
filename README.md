@@ -39,7 +39,7 @@ The Italo donation address is: `ipPQjQYEQsLL7Gv43PpHDLiFLsZzoGuZtEJ8ZCW2is5TGeMN
 
 The Bitcoin donation address is: `1FgYSKX6hqoxpCba91bigBr7xy9A3e5H1C`
 
-The Monero donation address is: `44gNsFFqMf59DiVL3ejpfAdV3H3aFbbYM28XtvBK22SQVESBLpxRrQcFCky2yVH8Wa3FpiBbiNRJ5SQfdsVwJqYpA7XLyec`
+The Italo donation address is: `44gNsFFqMf59DiVL3ejpfAdV3H3aFbbYM28XtvBK22SQVESBLpxRrQcFCky2yVH8Wa3FpiBbiNRJ5SQfdsVwJqYpA7XLyec`
 
 GUI development funding and/or some supporting services are also graciously provided by sponsors:
 
@@ -195,7 +195,7 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
       pacman -S mingw-w64-x86_64-zbar
       ```
 
-    You find more details about those dependencies in the [Monero documentation](https://github.com/monero-project/monero). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
+    You find more details about those dependencies in the [Italo documentation](https://github.com/italo-project/italo). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
 
 4. Install Qt5
 

@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1057,8 +1057,8 @@ Podaj hasło portfela dla: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Wersja Monero: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Wersja Italo: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2695,8 +2695,8 @@ Indeks adresu do wydawania: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero wysłane pomyślnie: %1 transakcji(s) </translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo wysłane pomyślnie: %1 transakcji(s) </translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2794,8 +2794,8 @@ Indeks adresu do wydawania: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Nowa wersja GUI portfela Monero jest dostępna: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Nowa wersja GUI portfela Italo jest dostępna: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2850,8 +2850,8 @@ Indeks adresu do wydawania: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Ten adres otrzymał %1 monero z %2 potwierdzeniem/ami.</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Ten adres otrzymał %1 italo z %2 potwierdzeniem/ami.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="888"/>
@@ -2870,8 +2870,8 @@ Indeks adresu do wydawania: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Ten adres otrzymał %1 Monero, ale transakcja nie została jeszcze wykopana</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Ten adres otrzymał %1 Italo, ale transakcja nie została jeszcze wykopana</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2885,8 +2885,8 @@ Indeks adresu do wydawania: </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

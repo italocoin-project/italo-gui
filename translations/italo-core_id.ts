@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Versi Monero tertanam: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Versi Italo tertanam: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -1402,7 +1402,7 @@ File cache dompet lama akan diganti namanya dan dapat dikembalikan nanti.</trans
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="122"/>
-        <source>In order to obscure which inputs in a Monero transaction are being spent, a third party should not be able to tell which inputs in a ring are already known to be spent. Being able to do so would weaken the protection afforded by ring signatures. If all but one of the inputs are known to be already spent, then the input being actually spent becomes apparent, thereby nullifying the effect of ring signatures, one of the three main layers of privacy protection Monero uses.&lt;br&gt;To help transactions avoid those inputs, a list of known spent ones can be used to avoid using them in new transactions. Such a list is maintained by the Monero project and is available on the getmonero.org website, and you can import this list here.&lt;br&gt;Alternatively, you can scan the blockchain (and the blockchain of key-reusing Monero clones) yourself using the monero-blockchain-mark-spent-outputs tool to create a list of known spent outputs.&lt;br&gt;</source>
+        <source>In order to obscure which inputs in a Italo transaction are being spent, a third party should not be able to tell which inputs in a ring are already known to be spent. Being able to do so would weaken the protection afforded by ring signatures. If all but one of the inputs are known to be already spent, then the input being actually spent becomes apparent, thereby nullifying the effect of ring signatures, one of the three main layers of privacy protection Italo uses.&lt;br&gt;To help transactions avoid those inputs, a list of known spent ones can be used to avoid using them in new transactions. Such a list is maintained by the Italo project and is available on the getitalo.org website, and you can import this list here.&lt;br&gt;Alternatively, you can scan the blockchain (and the blockchain of key-reusing Italo clones) yourself using the italo-blockchain-mark-spent-outputs tool to create a list of known spent outputs.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2671,13 +2671,13 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Alamat ini menerima %1 monero, tetapi transaksinya belum termasuk dalam blok</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Alamat ini menerima %1 italo, tetapi transaksinya belum termasuk dalam blok</translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Alamat ini menerima %1 monero, dengan %2 konfirmasi.</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Alamat ini menerima %1 italo, dengan %2 konfirmasi.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1725"/>
@@ -2701,8 +2701,8 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Versi baru untuk monero-wallet-gui tersedia: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Versi baru untuk italo-wallet-gui tersedia: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2761,8 +2761,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero berhasil dikirim: %1 transaksi</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo berhasil dikirim: %1 transaksi</translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2859,8 +2859,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

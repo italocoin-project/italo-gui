@@ -20,7 +20,7 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
+        <source>ip.. / je..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Sulautettu Monero -versio: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Sulautettu Italo -versio: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2693,8 +2693,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero lähetetty onnistuneesti: %1 siirto(a) </translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo lähetetty onnistuneesti: %1 siirto(a) </translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2721,8 +2721,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Tämä osoite vastaanotti %1 monero, vahvistusten määrä: %2</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Tämä osoite vastaanotti %1 italo, vahvistusten määrä: %2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="876"/>
@@ -2796,8 +2796,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Uusi versio monero-wallet-gui:sta saatavilla: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Uusi versio italo-wallet-gui:sta saatavilla: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2838,8 +2838,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Tämä osoite vastaanotti %1 monero, mutta siirtoa ei ole vielä louhittu</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Tämä osoite vastaanotti %1 italo, mutta siirtoa ei ole vielä louhittu</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2868,7 +2868,7 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
+        <source>Italo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

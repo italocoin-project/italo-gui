@@ -20,7 +20,7 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
+        <source>ip.. / je..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Встроенная версия Monero: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Встроенная версия Italo: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -1179,8 +1179,8 @@ The old wallet cache file will be renamed and can be restored later.
     </message>
     <message>
         <location filename="../pages/settings/SettingsNode.qml" line="232"/>
-        <source>Uses a third-party server to connect to the Monero network. Less secure, but easier on your computer.</source>
-        <translation>Использовать сторонний узел для подключения к сети Monero. Менее безопасно, но более быстро и удобно.</translation>
+        <source>Uses a third-party server to connect to the Italo network. Less secure, but easier on your computer.</source>
+        <translation>Использовать сторонний узел для подключения к сети Italo. Менее безопасно, но более быстро и удобно.</translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsNode.qml" line="277"/>
@@ -1363,8 +1363,8 @@ The old wallet cache file will be renamed and can be restored later.
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="122"/>
-        <source>In order to obscure which inputs in a Monero transaction are being spent, a third party should not be able to tell which inputs in a ring are already known to be spent. Being able to do so would weaken the protection afforded by ring signatures. If all but one of the inputs are known to be already spent, then the input being actually spent becomes apparent, thereby nullifying the effect of ring signatures, one of the three main layers of privacy protection Monero uses.&lt;br&gt;To help transactions avoid those inputs, a list of known spent ones can be used to avoid using them in new transactions. Such a list is maintained by the Monero project and is available on the getmonero.org website, and you can import this list here.&lt;br&gt;Alternatively, you can scan the blockchain (and the blockchain of key-reusing Monero clones) yourself using the monero-blockchain-mark-spent-outputs tool to create a list of known spent outputs.&lt;br&gt;</source>
-        <translation>Для того чтобы скрыть какие входы в транзакциях Monero потрачены, третья сторона не должна сообщать какие входы в кольце уже задействованы в трате. Ведь если это сделать, то это ослабит защиту, обеспечиваемую кольцевыми подписями. Если известно, что все, кроме одного из входов, уже потрачены, то фактически трата входа становится очевидной, тем самым аннулируется эффект кольцевых подписей, одного из трех основных уровней защиты конфиденциальности Monero.&lt;br&gt;Чтобы помочь транзакциям избежать траты этих входов, можно использовать список известных израсходованных выходов, чтобы избежать их использования в новых транзакциях. Такой список поддерживается проектом Monero и доступен на веб-сайте getmonero.org, и вы можете импортировать этот список здесь.&lt;br&gt;Кроме того, вы можете просканировать блокчейн Monero (и его клонов) самостоятельно, используя инструмент monero-blockchain-mark-spent-outputs, чтобы создать список известных потраченых выходов.&lt;br&gt;</translation>
+        <source>In order to obscure which inputs in a Italo transaction are being spent, a third party should not be able to tell which inputs in a ring are already known to be spent. Being able to do so would weaken the protection afforded by ring signatures. If all but one of the inputs are known to be already spent, then the input being actually spent becomes apparent, thereby nullifying the effect of ring signatures, one of the three main layers of privacy protection Italo uses.&lt;br&gt;To help transactions avoid those inputs, a list of known spent ones can be used to avoid using them in new transactions. Such a list is maintained by the Italo project and is available on the getitalo.org website, and you can import this list here.&lt;br&gt;Alternatively, you can scan the blockchain (and the blockchain of key-reusing Italo clones) yourself using the italo-blockchain-mark-spent-outputs tool to create a list of known spent outputs.&lt;br&gt;</source>
+        <translation>Для того чтобы скрыть какие входы в транзакциях Italo потрачены, третья сторона не должна сообщать какие входы в кольце уже задействованы в трате. Ведь если это сделать, то это ослабит защиту, обеспечиваемую кольцевыми подписями. Если известно, что все, кроме одного из входов, уже потрачены, то фактически трата входа становится очевидной, тем самым аннулируется эффект кольцевых подписей, одного из трех основных уровней защиты конфиденциальности Italo.&lt;br&gt;Чтобы помочь транзакциям избежать траты этих входов, можно использовать список известных израсходованных выходов, чтобы избежать их использования в новых транзакциях. Такой список поддерживается проектом Italo и доступен на веб-сайте getitalo.org, и вы можете импортировать этот список здесь.&lt;br&gt;Кроме того, вы можете просканировать блокчейн Italo (и его клонов) самостоятельно, используя инструмент italo-blockchain-mark-spent-outputs, чтобы создать список известных потраченых выходов.&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="143"/>
@@ -1870,7 +1870,7 @@ The old wallet cache file will be renamed and can be restored later.
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="552"/>
-        <source>Monero sent successfully</source>
+        <source>Italo sent successfully</source>
         <translation>Средства успешно отправлены</translation>
     </message>
     <message>
@@ -2110,8 +2110,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     <name>WizardConfigure</name>
     <message>
         <location filename="../wizard/WizardConfigure.qml" line="79"/>
-        <source>We’re almost there - let’s just configure some Monero preferences</source>
-        <translation>Почти готово - осталось немного настроить кошелек Monero</translation>
+        <source>We’re almost there - let’s just configure some Italo preferences</source>
+        <translation>Почти готово - осталось немного настроить кошелек Italo</translation>
     </message>
     <message>
         <location filename="../wizard/WizardConfigure.qml" line="97"/>
@@ -2130,8 +2130,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardConfigure.qml" line="140"/>
-        <source>Disk conservation mode uses substantially less disk-space, but the same amount of bandwidth as a regular Monero instance. However, storing the full blockchain is beneficial to the security of the Monero network. If you are on a device with limited disk space, then this option is appropriate for you.</source>
-        <translation>Режим сохранения диска использует значительно меньше дискового пространства, но такой же объем полосы пропускания, как при обычном запуске Monero. Тем не менее, хранение полного блокчейна полезно для безопасности сети Monero. Если этот кошелек на устройстве с ограниченным дисковым пространством, этот вариант вам подойдет.</translation>
+        <source>Disk conservation mode uses substantially less disk-space, but the same amount of bandwidth as a regular Italo instance. However, storing the full blockchain is beneficial to the security of the Italo network. If you are on a device with limited disk space, then this option is appropriate for you.</source>
+        <translation>Режим сохранения диска использует значительно меньше дискового пространства, но такой же объем полосы пропускания, как при обычном запуске Italo. Тем не менее, хранение полного блокчейна полезно для безопасности сети Italo. Если этот кошелек на устройстве с ограниченным дисковым пространством, этот вариант вам подойдет.</translation>
     </message>
     <message>
         <location filename="../wizard/WizardConfigure.qml" line="153"/>
@@ -2140,8 +2140,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardConfigure.qml" line="169"/>
-        <source>Mining secures the Monero network, and also pays a small reward for the work done. This option will let Monero mine when your computer is on mains power and is idle. It will stop mining when you continue working.</source>
-        <translation>Майнинг защищает сеть Monero, а также платит небольшую награду за проделанную работу. Эта опция позволяет Monero майнить, когда ваш компьютер включен и простаивает. Когда вы продолжите работу, майнинг автоматически прекратится.</translation>
+        <source>Mining secures the Italo network, and also pays a small reward for the work done. This option will let Italo mine when your computer is on mains power and is idle. It will stop mining when you continue working.</source>
+        <translation>Майнинг защищает сеть Italo, а также платит небольшую награду за проделанную работу. Эта опция позволяет Italo майнить, когда ваш компьютер включен и простаивает. Когда вы продолжите работу, майнинг автоматически прекратится.</translation>
     </message>
 </context>
 <context>
@@ -2205,8 +2205,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     <name>WizardDonation</name>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="93"/>
-        <source>Monero development is solely supported by donations</source>
-        <translation>Разработка Monero поддерживается исключительно за счет пожертвований</translation>
+        <source>Italo development is solely supported by donations</source>
+        <translation>Разработка Italo поддерживается исключительно за счет пожертвований</translation>
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="113"/>
@@ -2230,8 +2230,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     </message>
     <message>
         <location filename="../wizard/WizardDonation.qml" line="190"/>
-        <source>Mining secures the Monero network, and also pays a small reward for the work done. This option will let Monero mine when your computer is on mains power and is idle. It will stop mining when you continue working.</source>
-        <translation>Майнинг защищает сеть Monero, а также платит небольшую награду за проделанную работу. Эта опция позволяет Monero майнить, когда ваш компьютер включен и простаивает. Когда вы продолжите работу, майнинг автоматически прекратится.</translation>
+        <source>Mining secures the Italo network, and also pays a small reward for the work done. This option will let Italo mine when your computer is on mains power and is idle. It will stop mining when you continue working.</source>
+        <translation>Майнинг защищает сеть Italo, а также платит небольшую награду за проделанную работу. Эта опция позволяет Italo майнить, когда ваш компьютер включен и простаивает. Когда вы продолжите работу, майнинг автоматически прекратится.</translation>
     </message>
 </context>
 <context>
@@ -2656,7 +2656,7 @@ Amount: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
         <translation>Доступна новая версия кошелька с графическим интерфейсом: %1&lt;br&gt;%2</translation>
     </message>
     <message>
@@ -2769,8 +2769,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero успешно отправлены: %1 транзакция(й) </translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo успешно отправлены: %1 транзакция(й) </translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2797,7 +2797,7 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
         <translation>Этот адрес получил %1 XMR, с %2 подтверждениями</translation>
     </message>
     <message>
@@ -2872,7 +2872,7 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
         <translation>Этот адрес получил %1 XMR, но транзакции все еще не подтверждены майнерами</translation>
     </message>
     <message>
@@ -2887,8 +2887,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

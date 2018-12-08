@@ -20,7 +20,7 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
+        <source>ip.. / je..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1056,7 +1056,7 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
+        <source>Embedded Italo version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2713,7 +2713,7 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
         <translation>이 주소로 %1 XMR을 받아, %2 번의 컨펌을 받았습니다.</translation>
     </message>
     <message>
@@ -2738,8 +2738,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>monero-wallet-gui의 새 버전을 사용할 수 있습니다: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>italo-wallet-gui의 새 버전을 사용할 수 있습니다: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="667"/>
@@ -2769,12 +2769,12 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
+        <source>Italo sent successfully: %1 transaction(s) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
         <translation>이 주소는 % 1XMR을 받았지만, 해당 거래가 아직 채굴에 포함되지 않았습니다</translation>
     </message>
     <message>
@@ -2854,7 +2854,7 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
+        <source>Italo</source>
         <translation>모네로</translation>
     </message>
     <message>

@@ -31,7 +31,7 @@ import QtQuick.XmlListModel 2.0
 import QtQuick.Layouts 1.1
 import QtQml 2.2
 
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 
 ColumnLayout {
 //    anchors.fill:parent
@@ -143,11 +143,11 @@ ColumnLayout {
                         Layout.alignment: Qt.AlignHCenter
                         color: {
                             if (gridView.currentIndex === index) {
-                                return MoneroComponents.Style.buttonBackgroundColor;
+                                return ItaloComponents.Style.buttonBackgroundColor;
                             } else if (delegateArea.containsMouse) {
-                                return MoneroComponents.Style.dimmedFontColor;
+                                return ItaloComponents.Style.dimmedFontColor;
                             } else {
-                                return MoneroComponents.Style.buttonTextColor;
+                                return ItaloComponents.Style.buttonTextColor;
                             }
                         }
 

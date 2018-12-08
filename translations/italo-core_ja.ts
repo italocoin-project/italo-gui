@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>組み込まれているMoneroのバージョン: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>組み込まれているItaloのバージョン: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2712,12 +2712,12 @@ Amount: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
         <translation>このアドレスは%1XMRを受け取りましたが、取引はまだ承認されていません。</translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
         <translation>このアドレスは%1XMRを受け取り、その取引は%2回承認されました。</translation>
     </message>
     <message>
@@ -2757,8 +2757,8 @@ Amount: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>新しいバージョンのmonero-wallet-guiを入手できます: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>新しいバージョンのitalo-wallet-guiを入手できます: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="628"/>
@@ -2793,8 +2793,8 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Moneroの送金に成功しました: %1 トランザクション</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italoの送金に成功しました: %1 トランザクション</translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2877,8 +2877,8 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>

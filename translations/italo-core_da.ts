@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Indlejret Monero version: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>Indlejret Italo version: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2698,8 +2698,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero sendt med succes: %1 transkation(er)</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo sendt med succes: %1 transkation(er)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="824"/>
@@ -2721,8 +2721,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Denne adresse modtog %1 monero, med %2 bekræftelse(r).</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Denne adresse modtog %1 italo, med %2 bekræftelse(r).</translation>
     </message>
     <message>
         <location filename="../main.qml" line="876"/>
@@ -2796,8 +2796,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Ny version af monero-tegnebog-gui er tilgængelig: %1&lt;br&gt;%2 </translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Ny version af italo-tegnebog-gui er tilgængelig: %1&lt;br&gt;%2 </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2838,8 +2838,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Denne adresse modtog %1 monero, men transaktionen er ikke minet endnu</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Denne adresse modtog %1 italo, men transaktionen er ikke minet endnu</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2868,8 +2868,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

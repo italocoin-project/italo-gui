@@ -20,7 +20,7 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
+        <source>ip.. / je..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1056,7 +1056,7 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
+        <source>Embedded Italo version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2514,8 +2514,8 @@ For the case with Spend Proof, you don&apos;t need to specify the recipient addr
     <name>WizardWelcome</name>
     <message>
         <location filename="../wizard/WizardWelcome.qml" line="73"/>
-        <source>Welcome to Monero!</source>
-        <translation>Monero में आपका स्वागत है!</translation>
+        <source>Welcome to Italo!</source>
+        <translation>Italo में आपका स्वागत है!</translation>
     </message>
     <message>
         <location filename="../wizard/WizardWelcome.qml" line="83"/>
@@ -2760,7 +2760,7 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2791,12 +2791,12 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2821,7 +2821,7 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
+        <source>Italo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2852,7 +2852,7 @@ Fee: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
+        <source>Italo sent successfully: %1 transaction(s) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

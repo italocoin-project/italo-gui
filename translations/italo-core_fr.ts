@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -625,8 +625,8 @@
     </message>
     <message>
         <location filename="../pages/Mining.qml" line="82"/>
-        <source>Mining with your computer helps strengthen the Monero network. The more that people mine, the harder it is for the network to be attacked, and every little bit helps.&lt;br&gt; &lt;br&gt;Mining also gives you a small chance to earn some Monero. Your computer will create hashes looking for block solutions. If you find a block, you will get the associated reward. Good luck!</source>
-        <translation>L&apos;extraction minière avec votre ordinateur renforce le réseau Monero. Plus il y en a, plus il est difficile d&apos;attaquer le réseau, donc chaque mineur est utile.&lt;br&gt; &lt;br&gt;La mine vous donne aussi une petite chance de gagner des Moneros. Votre ordinateur va calculer des empreintes pour essayer de créer un bloc valide. Si vous trouvez un bloc, vous obtiendrez la récompense associée. Bonne chance !</translation>
+        <source>Mining with your computer helps strengthen the Italo network. The more that people mine, the harder it is for the network to be attacked, and every little bit helps.&lt;br&gt; &lt;br&gt;Mining also gives you a small chance to earn some Italo. Your computer will create hashes looking for block solutions. If you find a block, you will get the associated reward. Good luck!</source>
+        <translation>L&apos;extraction minière avec votre ordinateur renforce le réseau Italo. Plus il y en a, plus il est difficile d&apos;attaquer le réseau, donc chaque mineur est utile.&lt;br&gt; &lt;br&gt;La mine vous donne aussi une petite chance de gagner des Italos. Votre ordinateur va calculer des empreintes pour essayer de créer un bloc valide. Si vous trouvez un bloc, vous obtiendrez la récompense associée. Bonne chance !</translation>
     </message>
     <message>
         <location filename="../pages/Mining.qml" line="95"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>Version embarquée de Monero :</translation>
+        <source>Embedded Italo version: </source>
+        <translation>Version embarquée de Italo :</translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -1184,8 +1184,8 @@ L&apos;ancien fichier du cache du portefeuille sera renommé et pourra être res
     </message>
     <message>
         <location filename="../pages/settings/SettingsNode.qml" line="277"/>
-        <source>To find a remote node, type &apos;Monero remote node&apos; into your favorite search engine. Please ensure the node is run by a trusted third-party.</source>
-        <translation>Pour trouver un nœud distant, taper &apos;nœud distant Monero&apos; ou &apos;Monero remote node&apos; dans votre moteur de recherche préféré. Merci de vous assurer que le nœud distant est exécuté par un tiers de confiance.</translation>
+        <source>To find a remote node, type &apos;Italo remote node&apos; into your favorite search engine. Please ensure the node is run by a trusted third-party.</source>
+        <translation>Pour trouver un nœud distant, taper &apos;nœud distant Italo&apos; ou &apos;Italo remote node&apos; dans votre moteur de recherche préféré. Merci de vous assurer que le nœud distant est exécuté par un tiers de confiance.</translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsNode.qml" line="291"/>
@@ -1346,8 +1346,8 @@ L&apos;ancien fichier du cache du portefeuille sera renommé et pourra être res
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="106"/>
-        <source>This page allows you to interact with the shared ring database. This database is meant for use by Monero wallets as well as wallets from Monero clones which reuse the Monero keys.</source>
-        <translation>Cette page vous permet d&apos;utiliser le base de données partagée de cercles. Cette base de données sert aux portefeuilles Monero et les portefeuilles des clones de Monero qui réutilisent les clés Monero</translation>
+        <source>This page allows you to interact with the shared ring database. This database is meant for use by Italo wallets as well as wallets from Italo clones which reuse the Italo keys.</source>
+        <translation>Cette page vous permet d&apos;utiliser le base de données partagée de cercles. Cette base de données sert aux portefeuilles Italo et les portefeuilles des clones de Italo qui réutilisent les clés Italo</translation>
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="119"/>
@@ -1435,13 +1435,13 @@ L&apos;ancien fichier du cache du portefeuille sera renommé et pourra être res
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="263"/>
-        <source>In order to avoid nullifying the protection afforded by Monero&apos;s ring signatures, an output should not be spent with different rings on different blockchains. While this is normally not a concern, it can become one when a key-reusing Monero clone allows you to spend existing outputs. In this case, you need to ensure this existing outputs uses the same ring on both chains.&lt;br&gt;This will be done automatically by Monero and any key-reusing software which is not trying to actively strip you of your privacy.&lt;br&gt;If you are using a key-reusing Monero clone too, and this clone does not include this protection, you can still ensure your transactions are protected by spending on the clone first, then manually adding the ring on this page, which allows you to then spend your Monero safely.&lt;br&gt;If you do not use a key-reusing Monero clone without these safety features, then you do not need to do anything as it is all automated.&lt;br&gt;</source>
-        <translation>Afin de ne pas invalider la protection offerte par les signatures de cercle de Monero, une sortie ne doit pas être dépensée avec des cercles différents sur des chaînes de blocs différentes. Alors que ce n&apos;est normalement pas une problématique, cela peut en devenir une lorqu&apos;un clone de Monero à réutilisation de clefs vous permet de dépensez des sorties existantes. Dans ce cas, vous devez vous assurer que cette sortie existante utilise le même cercle sur les deux chaînes.&lt;br&gt;Cela sera fait automatiquement par Monero et tout logiciel à réutilisation de clef qui ne tenterait pas activement de vous dépouiller de votre confidentialité.&lt;br&gt;Si vous utilisez également un clone de Monero à réutilisation de clefs, et que celui-ci n&apos;implémente pas cette protection, vous pouvez toujours vous assurer que vos transactions sont protégées en dépensant en premier sur le clone, puis en ajoutant manuellement le cercle sur cette page, ce qui vous permet de dépenser vos Monero en toute sécurité.&lt;br&gt;Si vous n&apos;utilisez pas un clone à réutilisation de clefs qui n&apos;implémente pas ces protections, alors vous n&apos;avez rien à faire car tout est automatisé.&lt;br&gt;</translation>
+        <source>In order to avoid nullifying the protection afforded by Italo&apos;s ring signatures, an output should not be spent with different rings on different blockchains. While this is normally not a concern, it can become one when a key-reusing Italo clone allows you to spend existing outputs. In this case, you need to ensure this existing outputs uses the same ring on both chains.&lt;br&gt;This will be done automatically by Italo and any key-reusing software which is not trying to actively strip you of your privacy.&lt;br&gt;If you are using a key-reusing Italo clone too, and this clone does not include this protection, you can still ensure your transactions are protected by spending on the clone first, then manually adding the ring on this page, which allows you to then spend your Italo safely.&lt;br&gt;If you do not use a key-reusing Italo clone without these safety features, then you do not need to do anything as it is all automated.&lt;br&gt;</source>
+        <translation>Afin de ne pas invalider la protection offerte par les signatures de cercle de Italo, une sortie ne doit pas être dépensée avec des cercles différents sur des chaînes de blocs différentes. Alors que ce n&apos;est normalement pas une problématique, cela peut en devenir une lorqu&apos;un clone de Italo à réutilisation de clefs vous permet de dépensez des sorties existantes. Dans ce cas, vous devez vous assurer que cette sortie existante utilise le même cercle sur les deux chaînes.&lt;br&gt;Cela sera fait automatiquement par Italo et tout logiciel à réutilisation de clef qui ne tenterait pas activement de vous dépouiller de votre confidentialité.&lt;br&gt;Si vous utilisez également un clone de Italo à réutilisation de clefs, et que celui-ci n&apos;implémente pas cette protection, vous pouvez toujours vous assurer que vos transactions sont protégées en dépensant en premier sur le clone, puis en ajoutant manuellement le cercle sur cette page, ce qui vous permet de dépenser vos Italo en toute sécurité.&lt;br&gt;Si vous n&apos;utilisez pas un clone à réutilisation de clefs qui n&apos;implémente pas ces protections, alors vous n&apos;avez rien à faire car tout est automatisé.&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="285"/>
-        <source>This records rings used by outputs spent on Monero on a key reusing chain, so that the same ring may be reused to avoid privacy issues.</source>
-        <translation>Enregistrer des cercles utilisés par des sorties dépensées sur une chaîne qui réutilise des clés Monero pour que le même cercle puisse être utilisé pour éviter des problèmes de confidentialité</translation>
+        <source>This records rings used by outputs spent on Italo on a key reusing chain, so that the same ring may be reused to avoid privacy issues.</source>
+        <translation>Enregistrer des cercles utilisés par des sorties dépensées sur une chaîne qui réutilise des clés Italo pour que le même cercle puisse être utilisé pour éviter des problèmes de confidentialité</translation>
     </message>
     <message>
         <location filename="../pages/SharedRingDB.qml" line="296"/>
@@ -2713,8 +2713,8 @@ Indice d&apos;adresse de dépense : </translation>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero envoyé avec succès: %1 transaction(s) </translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo envoyé avec succès: %1 transaction(s) </translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2812,8 +2812,8 @@ Indice d&apos;adresse de dépense : </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>Une nouvelle version de monero-wallet-gui est disponible : %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>Une nouvelle version de italo-wallet-gui est disponible : %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2822,8 +2822,8 @@ Indice d&apos;adresse de dépense : </translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Cette adresse a reçu %1 monero, avec %2 confirmation(s).</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Cette adresse a reçu %1 italo, avec %2 confirmation(s).</translation>
     </message>
     <message>
         <location filename="../main.qml" line="358"/>
@@ -2859,8 +2859,8 @@ Indice d&apos;adresse de dépense : </translation>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Cette adresse a reçu %1 monero, mais la transaction n&apos;a pas encore été incluse dans un bloc</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Cette adresse a reçu %1 italo, mais la transaction n&apos;a pas encore été incluse dans un bloc</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2889,8 +2889,8 @@ Indice d&apos;adresse de dépense : </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

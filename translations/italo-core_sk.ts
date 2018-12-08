@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>verzia Monero: </translation>
+        <source>Embedded Italo version: </source>
+        <translation>verzia Italo: </translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2711,7 +2711,7 @@ Index míňacej adresy (spending): </translation>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
+        <source>Italo sent successfully: %1 transaction(s) </source>
         <translation>úspešne odoslaných: %1 transakcií</translation>
     </message>
     <message>
@@ -2740,8 +2740,8 @@ Index míňacej adresy (spending): </translation>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>Táto adresa prijala %1 monero, s %2 potvrdeniami.</translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>Táto adresa prijala %1 italo, s %2 potvrdeniami.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="876"/>
@@ -2815,8 +2815,8 @@ Index míňacej adresy (spending): </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>K dispozícii je nová verzia monero-wallet-gui: %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>K dispozícii je nová verzia italo-wallet-gui: %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2857,8 +2857,8 @@ Index míňacej adresy (spending): </translation>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>Táto adresa prijala %1 monero, ale transakcia ešte nebola vyťažená</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>Táto adresa prijala %1 italo, ale transakcia ešte nebola vyťažená</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2887,8 +2887,8 @@ Index míňacej adresy (spending): </translation>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

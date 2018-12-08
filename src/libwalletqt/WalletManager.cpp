@@ -32,8 +32,8 @@ Wallet *WalletManager::createWallet(const QString &path, const QString &password
         qDebug() << "Closing open m_currentWallet" << m_currentWallet;
         delete m_currentWallet;
     }
-    Monero::Wallet * w = m_pimpl->createWallet(path.toStdString(), password.toStdString(),
-                                                  language.toStdString(), static_cast<Monero::NetworkType>(nettype), kdfRounds);
+    Italo::Wallet * w = m_pimpl->createWallet(path.toStdString(), password.toStdString(),
+                                                  language.toStdString(), static_cast<Italo::NetworkType>(nettype), kdfRounds);
     m_currentWallet  = new Wallet(w);
     return m_currentWallet;
 }
@@ -48,7 +48,7 @@ Wallet *WalletManager::openWallet(const QString &path, const QString &password, 
     qDebug("%s: opening wallet at %s, nettype = %d ",
            __PRETTY_FUNCTION__, qPrintable(path), nettype);
 
-    Monero::Wallet * w =  m_pimpl->openWallet(path.toStdString(), password.toStdString(), static_cast<Monero::NetworkType>(nettype), kdfRounds);
+    Italo::Wallet * w =  m_pimpl->openWallet(path.toStdString(), password.toStdString(), static_cast<Italo::NetworkType>(nettype), kdfRounds);
     qDebug("%s: opened wallet: %s, status: %d", __PRETTY_FUNCTION__, w->address(0, 0).c_str(), w->status());
     m_currentWallet  = new Wallet(w);
 
@@ -83,7 +83,7 @@ Wallet *WalletManager::recoveryWallet(const QString &path, const QString &memo, 
         qDebug() << "Closing open m_currentWallet" << m_currentWallet;
         delete m_currentWallet;
     }
-    Monero::Wallet * w = m_pimpl->recoveryWallet(path.toStdString(), "", memo.toStdString(), static_cast<Monero::NetworkType>(nettype), restoreHeight, kdfRounds);
+    Italo::Wallet * w = m_pimpl->recoveryWallet(path.toStdString(), "", memo.toStdString(), static_cast<Italo::NetworkType>(nettype), restoreHeight, kdfRounds);
     m_currentWallet = new Wallet(w);
     return m_currentWallet;
 }
@@ -98,7 +98,7 @@ Wallet *WalletManager::createWalletFromKeys(const QString &path, const QString &
         delete m_currentWallet;
         m_currentWallet = NULL;
     }
-    Monero::Wallet * w = m_pimpl->createWalletFromKeys(path.toStdString(), "", language.toStdString(), static_cast<Monero::NetworkType>(nettype), restoreHeight,
+    Italo::Wallet * w = m_pimpl->createWalletFromKeys(path.toStdString(), "", language.toStdString(), static_cast<Italo::NetworkType>(nettype), restoreHeight,
                                                        address.toStdString(), viewkey.toStdString(), spendkey.toStdString(), kdfRounds);
     m_currentWallet = new Wallet(w);
     return m_currentWallet;

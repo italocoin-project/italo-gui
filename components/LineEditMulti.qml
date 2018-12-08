@@ -117,13 +117,13 @@ ColumnLayout {
             anchors.right: parent.right
             spacing: 16 * scaleRatio
 
-            MoneroComponents.LabelButton {
+            ItaloComponents.LabelButton {
                 id: labelButton
                 onClicked: labelButtonClicked()
                 visible: labelButtonVisible
             }
 
-            MoneroComponents.LabelButton {
+            ItaloComponents.LabelButton {
                 id: copyButtonId
                 visible: copyButton && input.text !== ""
                 text: qsTr("Copy")
@@ -136,7 +136,7 @@ ColumnLayout {
                 }
             }
 
-            MoneroComponents.LabelButton {
+            ItaloComponents.LabelButton {
                 id: pasteButtonId
                 onClicked: item.onPaste(clipboard.text())
                 text: qsTr("Paste")

@@ -175,17 +175,17 @@ ListView {
 
                     return _amount + " XTA";
                 }
-                color: isOut ? MoneroComponents.Style.white : MoneroComponents.Style.green
+                color: isOut ? ItaloComponents.Style.white : ItaloComponents.Style.green
 
                 MouseArea {
                         hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
-                            parent.color = MoneroComponents.Style.orange
+                            parent.color = ItaloComponents.Style.orange
                         }
                         onExited: {
-                            parent.color = isOut ? MoneroComponents.Style.white : MoneroComponents.Style.green                        }
+                            parent.color = isOut ? ItaloComponents.Style.white : ItaloComponents.Style.green                        }
                         onClicked: {
                                 console.log("Copied to clipboard");
                                 clipboard.setText(parent.text.split(" ")[0]);

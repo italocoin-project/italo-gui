@@ -29,10 +29,10 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import moneroComponents.Wallet 1.0
-import moneroComponents.NetworkType 1.0
-import moneroComponents.Clipboard 1.0
-import "components" as MoneroComponents
+import italoComponents.Wallet 1.0
+import italoComponents.NetworkType 1.0
+import italoComponents.Clipboard 1.0
+import "components" as ItaloComponents
 
 Rectangle {
     id: panel
@@ -211,10 +211,10 @@ Rectangle {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
-                            parent.color = MoneroComponents.Style.orange
+                            parent.color = ItaloComponents.Style.orange
                         }
                         onExited: {
-                            parent.color = MoneroComponents.Style.white
+                            parent.color = ItaloComponents.Style.white
                         }
                         onClicked: {
                                 console.log("Copied to clipboard");
@@ -249,10 +249,10 @@ Rectangle {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
-                            parent.color = MoneroComponents.Style.orange
+                            parent.color = ItaloComponents.Style.orange
                         }
                         onExited: {
-                            parent.color = MoneroComponents.Style.white
+                            parent.color = ItaloComponents.Style.white
                         }
                         onClicked: {
                                 console.log("Copied to clipboard");
@@ -262,7 +262,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.Label {
+                ItaloComponents.Label {
                     id: unlockedBalanceLabel
                     visible: true
                     text: qsTr("Unlocked balance") + translationManager.emptyString
@@ -273,7 +273,7 @@ Rectangle {
                     anchors.topMargin: 110
                 }
 
-                MoneroComponents.Label {
+                ItaloComponents.Label {
                     visible: !isMobile
                     id: balanceLabel
                     text: qsTr("Balance") + translationManager.emptyString
@@ -371,7 +371,7 @@ Rectangle {
             }
 
             // ------------- Transfer tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: transferButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -396,7 +396,7 @@ Rectangle {
 
             // ------------- AddressBook tab ---------------
 
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: addressBookButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -421,7 +421,7 @@ Rectangle {
             }
 
             // ------------- Receive tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: receiveButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -445,7 +445,7 @@ Rectangle {
 
             // ------------- History tab ---------------
 
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: historyButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -468,7 +468,7 @@ Rectangle {
             }
 
             // ------------- Advanced tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: advancedButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -490,7 +490,7 @@ Rectangle {
             }
 
             // ------------- Mining tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: miningButton
                 visible: !isAndroid && !isIOS
                 anchors.left: parent.left
@@ -515,7 +515,7 @@ Rectangle {
                 height: 1
             }
             // ------------- TxKey tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: txkeyButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -538,7 +538,7 @@ Rectangle {
                 height: 1
             }
             // ------------- Shared RingDB tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: sharedringdbButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -563,7 +563,7 @@ Rectangle {
 
 
             // ------------- Sign/verify tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: signButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -586,7 +586,7 @@ Rectangle {
                 height: 1
             }
             // ------------- Settings tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: settingsButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -608,7 +608,7 @@ Rectangle {
                 height: 1
             }
             // ------------- Sign/verify tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: keysButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -646,7 +646,7 @@ Rectangle {
             color: "transparent"
         }
 
-        MoneroComponents.NetworkStatusItem {
+        ItaloComponents.NetworkStatusItem {
             id: networkStatus
             anchors.left: parent.left
             anchors.right: parent.right
@@ -657,7 +657,7 @@ Rectangle {
             height: 48 * scaleRatio
         }
 
-        MoneroComponents.ProgressBar {
+        ItaloComponents.ProgressBar {
             id: progressBar
             anchors.left: parent.left
             anchors.right: parent.right
@@ -667,7 +667,7 @@ Rectangle {
             visible: networkStatus.connected
         }
 
-        MoneroComponents.ProgressBar {
+        ItaloComponents.ProgressBar {
             id: daemonProgressBar
             anchors.left: parent.left
             anchors.right: parent.right

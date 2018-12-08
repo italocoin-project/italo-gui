@@ -20,8 +20,8 @@
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="66"/>
-        <source>4.. / 8..</source>
-        <translation>4.. / 8..</translation>
+        <source>ip.. / je..</source>
+        <translation>ip.. / je..</translation>
     </message>
     <message>
         <location filename="../pages/AddressBook.qml" line="74"/>
@@ -1056,8 +1056,8 @@
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="88"/>
-        <source>Embedded Monero version: </source>
-        <translation>内置 Monero 版本：</translation>
+        <source>Embedded Italo version: </source>
+        <translation>内置 Italo 版本：</translation>
     </message>
     <message>
         <location filename="../pages/settings/SettingsInfo.qml" line="117"/>
@@ -2703,8 +2703,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="791"/>
-        <source>Monero sent successfully: %1 transaction(s) </source>
-        <translation>Monero转账已成功: %1 个交易</translation>
+        <source>Italo sent successfully: %1 transaction(s) </source>
+        <translation>Italo转账已成功: %1 个交易</translation>
     </message>
     <message>
         <location filename="../main.qml" line="821"/>
@@ -2731,8 +2731,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="865"/>
-        <source>This address received %1 monero, with %2 confirmation(s).</source>
-        <translation>这个地址接收了 %1 个monero, 并通过 %2 次的确认. </translation>
+        <source>This address received %1 italo, with %2 confirmation(s).</source>
+        <translation>这个地址接收了 %1 个italo, 并通过 %2 次的确认. </translation>
     </message>
     <message>
         <location filename="../main.qml" line="876"/>
@@ -2806,8 +2806,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1776"/>
-        <source>New version of monero-wallet-gui is available: %1&lt;br&gt;%2</source>
-        <translation>有可用的新版本 Monero 钱包:  %1&lt;br&gt;%2</translation>
+        <source>New version of italo-wallet-gui is available: %1&lt;br&gt;%2</source>
+        <translation>有可用的新版本 Italo 钱包:  %1&lt;br&gt;%2</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1808"/>
@@ -2848,8 +2848,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="862"/>
-        <source>This address received %1 monero, but the transaction is not yet mined</source>
-        <translation>这个地址将收到 %1 个monero币, 但这笔交易尚未被矿工确认</translation>
+        <source>This address received %1 italo, but the transaction is not yet mined</source>
+        <translation>这个地址将收到 %1 个italo币, 但这笔交易尚未被矿工确认</translation>
     </message>
     <message>
         <location filename="../main.qml" line="869"/>
@@ -2878,8 +2878,8 @@ Spending address index: </source>
     </message>
     <message>
         <location filename="../main.qml" line="1284"/>
-        <source>Monero</source>
-        <translation>Monero</translation>
+        <source>Italo</source>
+        <translation>Italo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1434"/>

@@ -29,7 +29,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import italoComponents.Wallet 1.0
+import ItaloComponents.Wallet 1.0
 import "../components" as ItaloComponents
 
 Rectangle {

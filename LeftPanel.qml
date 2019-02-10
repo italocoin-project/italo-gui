@@ -29,9 +29,9 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.NetworkType 1.0
-import italoComponents.Clipboard 1.0
+import ItaloComponents.Wallet 1.0
+import ItaloComponents.NetworkType 1.0
+import ItaloComponents.Clipboard 1.0
 import "components" as ItaloComponents
 
 Rectangle {

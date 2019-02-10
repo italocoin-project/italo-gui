@@ -30,7 +30,7 @@ import QtQuick 2.2
 import QtQml 2.2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
-import italoComponents.NetworkType 1.0
+import ItaloComponents.NetworkType 1.0
 import "../components"
 
 ColumnLayout {

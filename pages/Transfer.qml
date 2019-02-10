@@ -29,9 +29,9 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import italoComponents.Clipboard 1.0
-import italoComponents.PendingTransaction 1.0
-import italoComponents.Wallet 1.0
+import ItaloComponents.Clipboard 1.0
+import ItaloComponents.PendingTransaction 1.0
+import ItaloComponents.Wallet 1.0
 import "../components"
 import "../components" as ItaloComponents
 import "." 1.0

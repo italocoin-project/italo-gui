@@ -31,7 +31,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import italoComponents.Clipboard 1.0
+import ItaloComponents.Clipboard 1.0
 import "../version.js" as Version
 import "../components" as ItaloComponents
 import "." 1.0

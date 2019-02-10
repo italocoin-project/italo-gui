@@ -33,9 +33,9 @@ import QtQuick.Controls.Styles 1.1
 import QtQuick.Dialogs 1.2
 import Qt.labs.settings 1.0
 
-import italoComponents.Wallet 1.0
-import italoComponents.PendingTransaction 1.0
-import italoComponents.NetworkType 1.0
+import ItaloComponents.Wallet 1.0
+import ItaloComponents.PendingTransaction 1.0
+import ItaloComponents.NetworkType 1.0
 
 
 import "components"

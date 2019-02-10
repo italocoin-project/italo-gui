@@ -164,56 +164,56 @@ int main(int argc, char *argv[])
                                    << " - dpi: " << dpi << " - ratio:" << calculated_ratio;
 
     // registering types for QML
-    qmlRegisterType<clipboardAdapter>("italoComponents.Clipboard", 1, 0, "Clipboard");
+    qmlRegisterType<clipboardAdapter>("ItaloComponents.Clipboard", 1, 0, "Clipboard");
 
-    qmlRegisterUncreatableType<Wallet>("italoComponents.Wallet", 1, 0, "Wallet", "Wallet can't be instantiated directly");
+    qmlRegisterUncreatableType<Wallet>("ItaloComponents.Wallet", 1, 0, "Wallet", "Wallet can't be instantiated directly");
 
 
-    qmlRegisterUncreatableType<PendingTransaction>("italoComponents.PendingTransaction", 1, 0, "PendingTransaction",
+    qmlRegisterUncreatableType<PendingTransaction>("ItaloComponents.PendingTransaction", 1, 0, "PendingTransaction",
                                                    "PendingTransaction can't be instantiated directly");
 
-    qmlRegisterUncreatableType<UnsignedTransaction>("italoComponents.UnsignedTransaction", 1, 0, "UnsignedTransaction",
+    qmlRegisterUncreatableType<UnsignedTransaction>("ItaloComponents.UnsignedTransaction", 1, 0, "UnsignedTransaction",
                                                    "UnsignedTransaction can't be instantiated directly");
 
-    qmlRegisterUncreatableType<WalletManager>("italoComponents.WalletManager", 1, 0, "WalletManager",
+    qmlRegisterUncreatableType<WalletManager>("ItaloComponents.WalletManager", 1, 0, "WalletManager",
                                                    "WalletManager can't be instantiated directly");
 
-    qmlRegisterUncreatableType<TranslationManager>("italoComponents.TranslationManager", 1, 0, "TranslationManager",
+    qmlRegisterUncreatableType<TranslationManager>("ItaloComponents.TranslationManager", 1, 0, "TranslationManager",
                                                    "TranslationManager can't be instantiated directly");
 
 
 
-    qmlRegisterUncreatableType<TransactionHistoryModel>("italoComponents.TransactionHistoryModel", 1, 0, "TransactionHistoryModel",
+    qmlRegisterUncreatableType<TransactionHistoryModel>("ItaloComponents.TransactionHistoryModel", 1, 0, "TransactionHistoryModel",
                                                         "TransactionHistoryModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<TransactionHistorySortFilterModel>("italoComponents.TransactionHistorySortFilterModel", 1, 0, "TransactionHistorySortFilterModel",
+    qmlRegisterUncreatableType<TransactionHistorySortFilterModel>("ItaloComponents.TransactionHistorySortFilterModel", 1, 0, "TransactionHistorySortFilterModel",
                                                         "TransactionHistorySortFilterModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<TransactionHistory>("italoComponents.TransactionHistory", 1, 0, "TransactionHistory",
+    qmlRegisterUncreatableType<TransactionHistory>("ItaloComponents.TransactionHistory", 1, 0, "TransactionHistory",
                                                         "TransactionHistory can't be instantiated directly");
 
-    qmlRegisterUncreatableType<TransactionInfo>("italoComponents.TransactionInfo", 1, 0, "TransactionInfo",
+    qmlRegisterUncreatableType<TransactionInfo>("ItaloComponents.TransactionInfo", 1, 0, "TransactionInfo",
                                                         "TransactionHistory can't be instantiated directly");
 #ifndef Q_OS_IOS
-    qmlRegisterUncreatableType<DaemonManager>("italoComponents.DaemonManager", 1, 0, "DaemonManager",
+    qmlRegisterUncreatableType<DaemonManager>("ItaloComponents.DaemonManager", 1, 0, "DaemonManager",
                                                    "DaemonManager can't be instantiated directly");
 #endif
-    qmlRegisterUncreatableType<AddressBookModel>("italoComponents.AddressBookModel", 1, 0, "AddressBookModel",
+    qmlRegisterUncreatableType<AddressBookModel>("ItaloComponents.AddressBookModel", 1, 0, "AddressBookModel",
                                                         "AddressBookModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<AddressBook>("italoComponents.AddressBook", 1, 0, "AddressBook",
+    qmlRegisterUncreatableType<AddressBook>("ItaloComponents.AddressBook", 1, 0, "AddressBook",
                                                         "AddressBook can't be instantiated directly");
 
-    qmlRegisterUncreatableType<SubaddressModel>("italoComponents.SubaddressModel", 1, 0, "SubaddressModel",
+    qmlRegisterUncreatableType<SubaddressModel>("ItaloComponents.SubaddressModel", 1, 0, "SubaddressModel",
                                                         "SubaddressModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<Subaddress>("italoComponents.Subaddress", 1, 0, "Subaddress",
+    qmlRegisterUncreatableType<Subaddress>("ItaloComponents.Subaddress", 1, 0, "Subaddress",
                                                         "Subaddress can't be instantiated directly");
 
-    qmlRegisterUncreatableType<SubaddressAccountModel>("italoComponents.SubaddressAccountModel", 1, 0, "SubaddressAccountModel",
+    qmlRegisterUncreatableType<SubaddressAccountModel>("ItaloComponents.SubaddressAccountModel", 1, 0, "SubaddressAccountModel",
                                                         "SubaddressAccountModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<SubaddressAccount>("italoComponents.SubaddressAccount", 1, 0, "SubaddressAccount",
+    qmlRegisterUncreatableType<SubaddressAccount>("ItaloComponents.SubaddressAccount", 1, 0, "SubaddressAccount",
                                                         "SubaddressAccount can't be instantiated directly");
 
     qRegisterMetaType<PendingTransaction::Priority>();
@@ -221,10 +221,10 @@ int main(int argc, char *argv[])
     qRegisterMetaType<TransactionHistoryModel::TransactionInfoRole>();
 
     qRegisterMetaType<NetworkType::Type>();
-    qmlRegisterType<NetworkType>("italoComponents.NetworkType", 1, 0, "NetworkType");
+    qmlRegisterType<NetworkType>("ItaloComponents.NetworkType", 1, 0, "NetworkType");
 
 #ifdef WITH_SCANNER
-    qmlRegisterType<QrCodeScanner>("italoComponents.QRCodeScanner", 1, 0, "QRCodeScanner");
+    qmlRegisterType<QrCodeScanner>("ItaloComponents.QRCodeScanner", 1, 0, "QRCodeScanner");
 #endif
 
     QQmlApplicationEngine engine;

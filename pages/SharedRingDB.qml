@@ -32,8 +32,8 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
-import "../components" as italoComponents
-import italoComponents.Clipboard 1.0
+import "../components" as ItaloComponents
+import ItaloComponents.Clipboard 1.0
 
 Rectangle {
     property alias panelHeight: mainLayout.height

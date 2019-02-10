@@ -29,11 +29,11 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionInfo 1.0
-import italoComponents.TransactionHistoryModel 1.0
+import ItaloComponents.Wallet 1.0
+import ItaloComponents.WalletManager 1.0
+import ItaloComponents.TransactionHistory 1.0
+import ItaloComponents.TransactionInfo 1.0
+import ItaloComponents.TransactionHistoryModel 1.0
 
 import "../components"
 

@@ -31,8 +31,8 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 
-import "../components" as italoComponents
-import italoComponents.Clipboard 1.0
+import "../components" as ItaloComponents
+import ItaloComponents.Clipboard 1.0
 
 import "../js/TxUtils.js" as TxUtils
 

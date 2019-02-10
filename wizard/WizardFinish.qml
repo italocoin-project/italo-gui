@@ -28,7 +28,7 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
-import italoComponents.NetworkType 1.0
+import ItaloComponents.NetworkType 1.0
 
 
 ColumnLayout {

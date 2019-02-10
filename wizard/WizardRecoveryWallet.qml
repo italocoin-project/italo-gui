@@ -28,7 +28,7 @@
 
 import QtQuick 2.2
 import QtQuick.Dialogs 1.2
-import italoComponents.Wallet 1.0
+import ItaloComponents.Wallet 1.0
 import QtQuick.Layouts 1.1
 import 'utils.js' as Utils
 

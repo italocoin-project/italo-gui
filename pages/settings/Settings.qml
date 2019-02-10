@@ -36,7 +36,7 @@ import "../../js/Utils.js" as Utils
 import "../../components" as ItaloComponents
 import "../../pages"
 import "."
-import italoComponents.Clipboard 1.0
+import ItaloComponents.Clipboard 1.0
 
 ColumnLayout {
     id: settingsPage

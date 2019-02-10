@@ -32,9 +32,9 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
-import italoComponents.Clipboard 1.0
-import italoComponents.WalletManager 1.0
-import "../components" as italoComponents
+import ItaloComponents.Clipboard 1.0
+import ItaloComponents.WalletManager 1.0
+import "../components" as ItaloComponents
 
 Rectangle {
     property bool messageMode: true

@@ -27,7 +27,7 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import QtQuick 2.2
-import italoComponents.TranslationManager 1.0
+import ItaloComponents.TranslationManager 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
 import "../components" as ItaloComponents

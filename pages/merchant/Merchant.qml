@@ -5,13 +5,13 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.2
 
-import italoComponents.Clipboard 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionHistoryModel 1.0
-import italoComponents.Subaddress 1.0
-import italoComponents.SubaddressModel 1.0
+import ItaloComponents.Clipboard 1.0
+import ItaloComponents.Wallet 1.0
+import ItaloComponents.WalletManager 1.0
+import ItaloComponents.TransactionHistory 1.0
+import ItaloComponents.TransactionHistoryModel 1.0
+import ItaloComponents.Subaddress 1.0
+import ItaloComponents.SubaddressModel 1.0
 
 import "../../js/Windows.js" as Windows
 import "../../js/TxUtils.js" as TxUtils

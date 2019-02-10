@@ -28,8 +28,8 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import italoComponents.Clipboard 1.0
-import italoComponents.AddressBookModel 1.0
+import ItaloComponents.Clipboard 1.0
+import ItaloComponents.AddressBookModel 1.0
 
 import "../components" as ItaloComponents
 

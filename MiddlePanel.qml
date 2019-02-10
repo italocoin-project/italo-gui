@@ -33,7 +33,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import italoComponents.Wallet 1.0
+import ItaloComponents.Wallet 1.0
 
 import "components" as ItaloComponents
 import "./pages"

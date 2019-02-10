@@ -29,8 +29,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
-import "../components" as italoComponents
-import italoComponents.Wallet 1.0
+import "../components" as ItaloComponents
+import ItaloComponents.Wallet 1.0
 
 Rectangle {
     id: root
@@ -95,7 +95,7 @@ Rectangle {
                 Layout.preferredWidth: 120 * scaleRatio
             }
 
-            italoComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: soloMinerThreadsLine
                 Layout.preferredWidth:  200 * scaleRatio
                 text: "1"

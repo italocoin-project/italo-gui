@@ -33,11 +33,11 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
 import "../components" as ItaloComponents
-import italoComponents.Clipboard 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionHistoryModel 1.0
+import ItaloComponents.Clipboard 1.0
+import ItaloComponents.Wallet 1.0
+import ItaloComponents.WalletManager 1.0
+import ItaloComponents.TransactionHistory 1.0
+import ItaloComponents.TransactionHistoryModel 1.0
 import "../js/TxUtils.js" as TxUtils
 
 Rectangle {

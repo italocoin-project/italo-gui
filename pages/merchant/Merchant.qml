@@ -5,18 +5,18 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.2
 
-import moneroComponents.Clipboard 1.0
-import moneroComponents.Wallet 1.0
-import moneroComponents.WalletManager 1.0
-import moneroComponents.TransactionHistory 1.0
-import moneroComponents.TransactionHistoryModel 1.0
-import moneroComponents.Subaddress 1.0
-import moneroComponents.SubaddressModel 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.Wallet 1.0
+import italoComponents.WalletManager 1.0
+import italoComponents.TransactionHistory 1.0
+import italoComponents.TransactionHistoryModel 1.0
+import italoComponents.Subaddress 1.0
+import italoComponents.SubaddressModel 1.0
 
 import "../../js/Windows.js" as Windows
 import "../../js/TxUtils.js" as TxUtils
 import "../../js/Utils.js" as Utils
-import "../../components" as MoneroComponents
+import "../../components" as ItaloComponents
 import "../../pages"
 import "."
 
@@ -409,7 +409,7 @@ Item {
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
                             onEntered: {
-                                parent.color = MoneroComponents.Style.orange
+                                parent.color = ItaloComponents.Style.orange
                             }
                             onExited: {
                                 parent.color = parent._color
@@ -568,7 +568,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 14 * scaleRatio
             font.bold: true
-            color: MoneroComponents.Style.moneroGrey
+            color: ItaloComponents.Style.italoGrey
             text: qsTr("The merchant page requires a larger window")
         }
     }

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -32,12 +32,12 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
-import "../components" as MoneroComponents
-import moneroComponents.Clipboard 1.0
-import moneroComponents.Wallet 1.0
-import moneroComponents.WalletManager 1.0
-import moneroComponents.TransactionHistory 1.0
-import moneroComponents.TransactionHistoryModel 1.0
+import "../components" as ItaloComponents
+import italoComponents.Clipboard 1.0
+import italoComponents.Wallet 1.0
+import italoComponents.WalletManager 1.0
+import italoComponents.TransactionHistory 1.0
+import italoComponents.TransactionHistoryModel 1.0
 import "../js/TxUtils.js" as TxUtils
 
 Rectangle {
@@ -76,7 +76,7 @@ Rectangle {
             visible: !selectAndSend
             spacing: 0
 
-            MoneroComponents.LabelSubheader {
+            ItaloComponents.LabelSubheader {
                 Layout.fillWidth: true
                 textFormat: Text.RichText
                 text: qsTr("Balance All")
@@ -89,22 +89,22 @@ Rectangle {
                     Layout.fillWidth: true
                     color: "#757575"
                     font.pixelSize: 14
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                 }
                 Text {
                     id: balanceAll
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14 
-                    color: MoneroComponents.Style.white 
+                    color: ItaloComponents.Style.white 
                     MouseArea {
                         hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
-                            parent.color = MoneroComponents.Style.orange
+                            parent.color = ItaloComponents.Style.orange
                         }
                         onExited: {
-                            parent.color = MoneroComponents.Style.white
+                            parent.color = ItaloComponents.Style.white
                         }
                         onClicked: {
                                 console.log("Copied to clipboard");
@@ -122,22 +122,22 @@ Rectangle {
                     Layout.fillWidth: true
                     color: "#757575"
                     font.pixelSize: 14 
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                 }
                 Text {
                     id: unlockedBalanceAll
-                    font.family: MoneroComponents.Style.fontRegular.name
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14
-                    color: MoneroComponents.Style.white
+                    color: ItaloComponents.Style.white
                     MouseArea {
                         hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onEntered: {
-                            parent.color = MoneroComponents.Style.orange
+                            parent.color = ItaloComponents.Style.orange
                         }
                         onExited: {
-                            parent.color = MoneroComponents.Style.white
+                            parent.color = ItaloComponents.Style.white
                         }
                         onClicked: {
                                 console.log("Copied to clipboard");
@@ -153,7 +153,7 @@ Rectangle {
             id: addressRow
             spacing: 0
 
-            MoneroComponents.LabelSubheader {
+            ItaloComponents.LabelSubheader {
                 Layout.fillWidth: true
                 textFormat: Text.RichText
                 text: qsTr("Accounts")
@@ -195,7 +195,7 @@ Rectangle {
                             anchors.rightMargin: 80 * scaleRatio
                             color: "transparent"
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: idLabel
                                 color: index === appWindow.current_subaddress_account_table_index ? "white" : "#757575"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -206,7 +206,7 @@ Rectangle {
                                 text: "#" + index
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: nameLabel
                                 color: "#a5a5a5"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -219,7 +219,7 @@ Rectangle {
                                 textWidth: addressLabel.x - nameLabel.x - 1
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: addressLabel
                                 color: "white"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -230,7 +230,7 @@ Rectangle {
                                 text: TxUtils.addressTruncate(address, mainLayout.width < 510 ? 3 : 6)
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: balanceLabel
                                 color: "white"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -262,7 +262,7 @@ Rectangle {
                             }
                         }
 
-                        MoneroComponents.IconButton {
+                        ItaloComponents.IconButton {
                             id: renameButton
                             imageSource: "../images/editIcon.png"
                             anchors.right: parent.right
@@ -274,7 +274,7 @@ Rectangle {
                             }
                         }
 
-                        MoneroComponents.IconButton {
+                        ItaloComponents.IconButton {
                             id: copyButton
                             imageSource: "../images/dropdownCopy.png"
                             anchors.right: parent.right
@@ -307,7 +307,7 @@ Rectangle {
                 height: 1
             }
 
-            MoneroComponents.CheckBox { 
+            ItaloComponents.CheckBox { 
                 id: addNewAccountCheckbox 
                 visible: !selectAndSend
                 border: false

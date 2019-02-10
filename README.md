@@ -226,6 +226,6 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
     make deploy
     ```
 
-    **Note:** The use of `source` above is a dirty workaround for a suspected bug in the current QT version 5.11.2-3 available in the MSYS2 packaging system, see https://github.com/monero-project/monero-gui/issues/1559 for more info.
+    **Note:** The use of `source` above is a dirty workaround for a suspected bug in the current QT version 5.11.2-3 available in the MSYS2 packaging system, see https://github.com/italo-project/italo-gui/issues/1559 for more info.
 
 The executable can be found in the `.\release\bin` directory.

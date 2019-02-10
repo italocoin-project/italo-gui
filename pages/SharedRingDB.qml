@@ -94,7 +94,7 @@ Rectangle {
             standardButtons: StandardButton.Ok
         }
 
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             id: signTitleLabel
             fontSize: 24 * scaleRatio
             text: qsTr("Shared RingDB") + translationManager.emptyString
@@ -105,12 +105,12 @@ Rectangle {
                        "This database is meant for use by Italo wallets as well as wallets from Italo clones which reuse the Italo keys.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
-        MoneroComponents.LabelSubheader {
+        ItaloComponents.LabelSubheader {
             Layout.fillWidth: true
             textFormat: Text.RichText
             text: "<style type='text/css'>a {text-decoration: none; color: #FF6C3C; font-size: 14px;}</style>" +
@@ -136,13 +136,13 @@ Rectangle {
 
         Text {
             textFormat: Text.RichText
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
             text: qsTr("This sets which outputs are known to be spent, and thus not to be used as privacy placeholders in ring signatures. ") +
                   qsTr("You should only have to load a file when you want to refresh the list. Manual adding/removing is possible if needed.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true;
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
         ColumnLayout {
@@ -160,7 +160,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: loadBlackballFileLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -176,7 +176,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.topMargin: 18
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: selectBlackballFileButton
                     text: qsTr("Browse") + translationManager.emptyString
                     enabled: true
@@ -186,7 +186,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: loadBlackballFileButton
                     text: qsTr("Load") + translationManager.emptyString
                     small: true
@@ -200,7 +200,7 @@ Rectangle {
             Layout.fillWidth: true
             columnSpacing: 20 * scaleRatio
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: blackballOutputAmountLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -212,7 +212,7 @@ Rectangle {
                 validator: IntValidator { bottom: 0 }
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: blackballOutputOffsetLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -229,7 +229,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.topMargin: 18
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: blackballButton
                 text: qsTr("Mark as spent") + translationManager.emptyString
                 small: true
@@ -237,7 +237,7 @@ Rectangle {
                 onClicked: appWindow.currentWallet.blackballOutput(blackballOutputAmountLine.text, blackballOutputOffsetLine.text)
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: unblackballButton
                 text: qsTr("Mark as unspent") + translationManager.emptyString
                 small: true
@@ -246,7 +246,7 @@ Rectangle {
             }
         }
 
-        MoneroComponents.LabelSubheader {
+        ItaloComponents.LabelSubheader {
             Layout.fillWidth: true
             Layout.topMargin: 24 * scaleRatio
             textFormat: Text.RichText
@@ -274,15 +274,15 @@ Rectangle {
 
         Text {
             textFormat: Text.RichText
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
             text: qsTr("This records rings used by outputs spent on Italo on a key reusing chain, so that the same ring may be reused to avoid privacy issues.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true;
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             id: keyImageLine
             Layout.fillWidth: true
             fontSize: 16 * scaleRatio
@@ -301,7 +301,7 @@ Rectangle {
 
             ColumnLayout {
                 RowLayout {
-                    MoneroComponents.LineEdit {
+                    ItaloComponents.LineEdit {
                         id: getRingLine
                         Layout.fillWidth: true
                         fontSize: 16 * scaleRatio
@@ -316,7 +316,7 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.topMargin: 18
 
-                    MoneroComponents.StandardButton {
+                    ItaloComponents.StandardButton {
                         id: getRingButton
                         text: qsTr("Get Ring") + translationManager.emptyString
                         small: true
@@ -336,7 +336,7 @@ Rectangle {
 
             ColumnLayout {
                 RowLayout {
-                    MoneroComponents.LineEdit {
+                    ItaloComponents.LineEdit {
                         id: setRingLine
                         Layout.fillWidth: true
                         fontSize: 16 * scaleRatio
@@ -352,7 +352,7 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.topMargin: 18
 
-                    MoneroComponents.StandardButton {
+                    ItaloComponents.StandardButton {
                         id: setRingButton
                         text: qsTr("Set Ring") + translationManager.emptyString
                         small: true
@@ -370,7 +370,7 @@ Rectangle {
             columnSpacing: 20 * scaleRatio
             columns: (isMobile) ?  1 : 2
 
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: segregatePreForkOutputs
                 checked: persistentSettings.segregatePreForkOutputs
                 text: qsTr("I intend to spend on key-reusing fork(s)") + translationManager.emptyString
@@ -384,7 +384,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: keyReuseMitigation2
                 checked: persistentSettings.keyReuseMitigation2
                 text: qsTr("I might want to spend on key-reusing fork(s)") + translationManager.emptyString
@@ -398,7 +398,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: setRingRelative
                 checked: true
                 text: qsTr("Relative") + translationManager.emptyString
@@ -412,7 +412,7 @@ Rectangle {
             Layout.topMargin: 17 * scaleRatio
             Layout.fillWidth: true
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: segregationHeightLine
                 Layout.fillWidth: true
 

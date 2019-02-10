@@ -33,7 +33,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import italoComponents.Clipboard 1.0
 import "../version.js" as Version
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 import "." 1.0
 
 
@@ -66,7 +66,7 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 Layout.fillWidth: true
                 fontSize: 22 * scaleRatio
                 Layout.topMargin: 10 * scaleRatio
@@ -76,16 +76,16 @@ Rectangle {
             Rectangle {
                 Layout.fillWidth: true
                 height: 2 * scaleRatio
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
                 Layout.bottomMargin: 10 * scaleRatio
             }
 
-            MoneroComponents.WarningBox {
-                text: qsTr("WARNING: Copying your seed to clipboard can expose you to malicious software, which may record your seed and steal your Monero. Please write down your seed manually.") + translationManager.emptyString
+            ItaloComponents.WarningBox {
+                text: qsTr("WARNING: Copying your seed to clipboard can expose you to malicious software, which may record your seed and steal your Italo. Please write down your seed manually.") + translationManager.emptyString
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: seedText
                 spacing: 0
                 copyButton: true
@@ -99,7 +99,7 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 Layout.fillWidth: true
                 fontSize: 22 * scaleRatio
                 Layout.topMargin: 10 * scaleRatio
@@ -108,11 +108,11 @@ Rectangle {
             Rectangle {
                 Layout.fillWidth: true
                 height: 2
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
                 Layout.bottomMargin: 10 * scaleRatio
             }
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 Layout.fillWidth: true
                 id: secretViewKey
                 readOnly: true
@@ -120,7 +120,7 @@ Rectangle {
                 labelText: qsTr("Secret view key") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
             }
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 Layout.fillWidth: true
                 Layout.topMargin: 25 * scaleRatio
                 id: publicViewKey
@@ -129,7 +129,7 @@ Rectangle {
                 labelText: qsTr("Public view key") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
             }
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 Layout.fillWidth: true
                 Layout.topMargin: 25 * scaleRatio
                 id: secretSpendKey
@@ -138,7 +138,7 @@ Rectangle {
                 labelText: qsTr("Secret spend key") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
             }
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 Layout.fillWidth: true
                 Layout.topMargin: 25 * scaleRatio
                 id: publicSpendKey
@@ -152,7 +152,7 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 Layout.fillWidth: true
                 fontSize: 22 * scaleRatio
                 Layout.topMargin: 10 * scaleRatio
@@ -161,13 +161,13 @@ Rectangle {
             Rectangle {
                 Layout.fillWidth: true
                 height: 2
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
                 Layout.bottomMargin: 10 * scaleRatio
             }
 
             ColumnLayout {
-                MoneroComponents.RadioButton {
+                ItaloComponents.RadioButton {
                     id: showFullQr
                     enabled: !this.checked
                     checked: fullWalletQRCode.visible
@@ -177,7 +177,7 @@ Rectangle {
                         showViewOnlyQr.checked = false
                     }
                 }
-                MoneroComponents.RadioButton {
+                ItaloComponents.RadioButton {
                     enabled: !this.checked
                     id: showViewOnlyQr
                     checked: viewOnlyQRCode.visible
@@ -212,7 +212,7 @@ Rectangle {
                 Layout.fillWidth: true
                 font.bold: true
                 font.pixelSize: 16 * scaleRatio
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 text: (viewOnlyQRCode.visible) ? qsTr("View Only Wallet") + translationManager.emptyString : qsTr("Spendable Wallet") + translationManager.emptyString
                 horizontalAlignment: Text.AlignHCenter
             }

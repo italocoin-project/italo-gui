@@ -83,7 +83,7 @@ Rectangle {
             }
 
             ItaloComponents.TextBlock {
-                id: guiMoneroVersion
+                id: guiItaloVersion
                 font.pixelSize: 14 * scaleRatio
                 text: qsTr("Embedded Italo version: ") + translationManager.emptyString
             }
@@ -253,7 +253,7 @@ Rectangle {
 
                 var wallet_path = walletPath();
                 if(isIOS)
-                    wallet_path = moneroAccountsDir + wallet_path;
+                    wallet_path = italoAccountsDir + wallet_path;
                 data += wallet_path;
 
                 data += "\nWallet creation height: ";

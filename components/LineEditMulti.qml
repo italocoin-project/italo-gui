@@ -187,7 +187,7 @@ ColumnLayout {
             visible: !item.borderDisabled
         }
 
-        MoneroComponents.InlineButton {
+        ItaloComponents.InlineButton {
             id: inlineButtonId
             visible: (inlineButtonId.text || inlineButtonId.icon) && inlineButtonVisible ? true : false
             anchors.right: parent.right

@@ -97,7 +97,7 @@ Rectangle {
         z: parent.z + 1
 
         Image {
-            visible: !isMobile && showMoneroLogo && !titleBar.orange
+            visible: !isMobile && showItaloLogo && !titleBar.orange
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: 11
@@ -107,13 +107,13 @@ Rectangle {
         }
 
         Image {
-            visible: !isMobile && showMoneroLogo && titleBar.orange
+            visible: !isMobile && showItaloLogo && titleBar.orange
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.topMargin: 11
             width: 132
             height: 22
-            source: "../images/moneroLogo_white.png"
+            source: "../images/italoLogo_white.png"
         }
     }
 

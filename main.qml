@@ -933,7 +933,7 @@ ApplicationWindow {
 
     // close wallet and show wizard
     function showWizard(){
-        clearMoneroCardLabelText();
+        clearItaloCardLabelText();
         walletInitialized = false;
         closeWallet();
         currentWallet = undefined;
@@ -1295,7 +1295,7 @@ ApplicationWindow {
 //                PropertyChanges { target: frameArea; blocked: true }
                 PropertyChanges { target: titleBar; visible: true }
                 PropertyChanges { target: titleBar; y: 0 }
-                PropertyChanges { target: titleBar; showMoneroLogo: false }
+                PropertyChanges { target: titleBar; showItaloLogo: false }
                 PropertyChanges { target: titleBar; titleBarGradientImageOpacity: 0.2 }
                 PropertyChanges { target: titleBar; small: true }
                 PropertyChanges { target: mobileHeader; visible: false }
@@ -1860,7 +1860,7 @@ ApplicationWindow {
     }
 
     // reset label text. othewise potential privacy leak showing unlock time when switching wallets
-    function clearMoneroCardLabelText(){
+    function clearItaloCardLabelText(){
         leftPanel.minutesToUnlockTxt = qsTr("Unlocked balance")
         leftPanel.balanceLabelText = qsTr("Balance")
     }

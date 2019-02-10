@@ -210,10 +210,10 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Subaddress>("italoComponents.Subaddress", 1, 0, "Subaddress",
                                                         "Subaddress can't be instantiated directly");
 
-    qmlRegisterUncreatableType<SubaddressAccountModel>("moneroComponents.SubaddressAccountModel", 1, 0, "SubaddressAccountModel",
+    qmlRegisterUncreatableType<SubaddressAccountModel>("italoComponents.SubaddressAccountModel", 1, 0, "SubaddressAccountModel",
                                                         "SubaddressAccountModel can't be instantiated directly");
 
-    qmlRegisterUncreatableType<SubaddressAccount>("moneroComponents.SubaddressAccount", 1, 0, "SubaddressAccount",
+    qmlRegisterUncreatableType<SubaddressAccount>("italoComponents.SubaddressAccount", 1, 0, "SubaddressAccount",
                                                         "SubaddressAccount can't be instantiated directly");
 
     qRegisterMetaType<PendingTransaction::Priority>();

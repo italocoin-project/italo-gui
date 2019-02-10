@@ -35,11 +35,11 @@ import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 import italoComponents.Wallet 1.0
 
-import "components" as MoneroComponents
+import "components" as ItaloComponents
 import "./pages"
 import "./pages/settings"
 import "./pages/merchant"
-import "components" as MoneroComponents
+import "components" as ItaloComponents
 
 Rectangle {
     id: root
@@ -78,7 +78,7 @@ Rectangle {
     Rectangle {
         // grey background on merchantView
         visible: currentView === merchantView
-        color: MoneroComponents.Style.moneroGrey
+        color: ItaloComponents.Style.italoGrey
         anchors.fill: parent
     }
 

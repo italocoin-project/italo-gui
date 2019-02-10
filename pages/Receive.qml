@@ -32,7 +32,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 import italoComponents.Clipboard 1.0
 import italoComponents.Wallet 1.0
 import italoComponents.WalletManager 1.0
@@ -80,7 +80,7 @@ Rectangle {
             id: addressRow
             spacing: 0
 
-            MoneroComponents.LabelSubheader {
+            ItaloComponents.LabelSubheader {
                 Layout.fillWidth: true
                 textFormat: Text.RichText
                 text: qsTr("Addresses")
@@ -123,7 +123,7 @@ Rectangle {
                             anchors.rightMargin: 80
                             color: "transparent"
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: idLabel
                                 color: index === appWindow.current_subaddress_table_index ? "white" : "#757575"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -134,7 +134,7 @@ Rectangle {
                                 text: "#" + index
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: nameLabel
                                 color: "#a5a5a5"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -147,7 +147,7 @@ Rectangle {
                                 textWidth: addressLabel.x - nameLabel.x - 1
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: addressLabel
                                 color: "white"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -174,7 +174,7 @@ Rectangle {
                             }
                         }
 
-                        MoneroComponents.IconButton {
+                        ItaloComponents.IconButton {
                             id: renameButton
                             imageSource: "../images/editIcon.png"
                             anchors.verticalCenter: parent.verticalCenter
@@ -188,7 +188,7 @@ Rectangle {
                             }
                         }
 
-                        MoneroComponents.IconButton {
+                        ItaloComponents.IconButton {
                             id: copyButton
                             imageSource: "../images/dropdownCopy.png"
                             anchors.verticalCenter: parent.verticalCenter
@@ -219,7 +219,7 @@ Rectangle {
                 height: 1
             }
 
-            MoneroComponents.CheckBox { 
+            ItaloComponents.CheckBox { 
                 id: addNewAccountCheckbox 
                 visible: !selectAndSend
                 border: false
@@ -276,12 +276,12 @@ Rectangle {
             RowLayout {
                 spacing: parent.spacing
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     rightIcon: "../images/download-white.png"
                     onClicked: qrFileDialog.open()
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     rightIcon: "../images/external-link-white.png"
                     onClicked: {
                         clipboard.setText(TxUtils.makeQRCodeString(appWindow.current_address));

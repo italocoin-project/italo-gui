@@ -47,19 +47,19 @@ Rectangle {
         anchors.right: parent.right
         spacing: 20 * scaleRatio
 
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             id: soloTitleLabel
             fontSize: 24 * scaleRatio
             text: qsTr("Solo mining") + translationManager.emptyString
         }
 
-        MoneroComponents.WarningBox {
+        ItaloComponents.WarningBox {
             Layout.bottomMargin: 8 * scaleRatio
             text: qsTr("Mining is only available on local daemons.") + translationManager.emptyString
             visible: !walletManager.isDaemonLocal(appWindow.currentDaemonAddress)
         }
 
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             id: soloSyncedLabel
             fontSize: 18 * scaleRatio
             color: "#D02020"
@@ -69,15 +69,15 @@ Rectangle {
 
         Text {
             id: soloMainLabel
-            text: qsTr("Mining with your computer helps strengthen the Monero network. The more that people mine, the harder it is for the network to be attacked, and every little bit helps.<br> <br>Mining also gives you a small chance to earn some Monero. Your computer will create hashes looking for block solutions. If you find a block, you will get the associated reward. Good luck!") + translationManager.emptyString
+            text: qsTr("Mining with your computer helps strengthen the Italo network. The more that people mine, the harder it is for the network to be attacked, and every little bit helps.<br> <br>Mining also gives you a small chance to earn some Italo. Your computer will create hashes looking for block solutions. If you find a block, you will get the associated reward. Good luck!") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
-        MoneroComponents.WarningBox {
+        ItaloComponents.WarningBox {
             id: warningLabel
             Layout.topMargin: 8 * scaleRatio
             Layout.bottomMargin: 8 * scaleRatio
@@ -87,9 +87,9 @@ Rectangle {
         RowLayout {
             id: soloMinerThreadsRow
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 id: soloMinerThreadsLabel
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 text: qsTr("CPU threads") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
                 Layout.preferredWidth: 120 * scaleRatio
@@ -108,15 +108,15 @@ Rectangle {
             text: qsTr("Max # of CPU threads available for mining: ") + idealThreadCount + translationManager.emptyString
             wrapMode: Text.WordWrap
             Layout.leftMargin: 125 * scaleRatio
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
         RowLayout {
             Layout.leftMargin: 125 * scaleRatio
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: autoRecommendedThreadsButton
                 small: true
                 text: qsTr("Use recommended # of threads") + translationManager.emptyString
@@ -127,7 +127,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: autoSetMaxThreadsButton
                 small: true
                 text: qsTr("Use all threads") + translationManager.emptyString
@@ -141,7 +141,7 @@ Rectangle {
 
         RowLayout {
             Layout.leftMargin: 125 * scaleRatio
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: backgroundMining
                 enabled: startSoloMinerButton.enabled
                 checked: persistentSettings.allow_background_mining
@@ -154,7 +154,7 @@ Rectangle {
             // Disable this option until stable
             visible: false
             Layout.leftMargin: 125 * scaleRatio
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: ignoreBattery
                 enabled: startSoloMinerButton.enabled
                 checked: !persistentSettings.miningIgnoreBattery
@@ -164,15 +164,15 @@ Rectangle {
         }
 
         RowLayout {
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 id: manageSoloMinerLabel
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 text: qsTr("Manage miner") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
                 Layout.preferredWidth: 120 * scaleRatio
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 visible: true
                 id: startSoloMinerButton
                 width: 110 * scaleRatio
@@ -193,7 +193,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 visible: true
                 id: stopSoloMinerButton
                 width: 110 * scaleRatio
@@ -209,15 +209,15 @@ Rectangle {
         RowLayout {
             id: statusRow
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 id: statusLabel
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 text: qsTr("Status") + translationManager.emptyString
                 fontSize: 16 * scaleRatio
                 Layout.preferredWidth: 120 * scaleRatio
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: statusText
                 Layout.preferredWidth:  200 * scaleRatio
                 text: qsTr("Not mining") + translationManager.emptyString
@@ -243,7 +243,7 @@ Rectangle {
         stopSoloMinerButton.enabled = !startSoloMinerButton.enabled
     }
 
-    MoneroComponents.StandardDialog {
+    ItaloComponents.StandardDialog {
         id: errorPopup
         cancelVisible: false
     }

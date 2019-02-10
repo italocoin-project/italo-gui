@@ -59,13 +59,13 @@ Rectangle{
 
             Text {
                 id: label1
-                font.family: MoneroComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14 * scaleRatio
                 text: labelHeader
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
             }
 
-            MoneroComponents.IconButton {
+            ItaloComponents.IconButton {
                 id: icon
                 visible: imageSource !== ""
                 Layout.leftMargin: 8 * scaleRatio
@@ -80,10 +80,10 @@ Rectangle{
 
         Text {
             id: label2
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
             text: labelValue
-            color: MoneroComponents.Style.dimmedFontColor
+            color: ItaloComponents.Style.dimmedFontColor
 
             MouseArea {
                 hoverEnabled: true
@@ -91,13 +91,13 @@ Rectangle{
                 cursorShape: Qt.PointingHandCursor
 
                 onEntered: {
-                    label1.color = MoneroComponents.Style.defaultFontColor;
-                    label2.color = MoneroComponents.Style.defaultFontColor;
+                    label1.color = ItaloComponents.Style.defaultFontColor;
+                    label2.color = ItaloComponents.Style.defaultFontColor;
                 }
 
                 onExited: {
-                    label1.color = MoneroComponents.Style.dimmedFontColor;
-                    label2.color = MoneroComponents.Style.dimmedFontColor;
+                    label1.color = ItaloComponents.Style.dimmedFontColor;
+                    label2.color = ItaloComponents.Style.dimmedFontColor;
                 }
 
                 onClicked: {

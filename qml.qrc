@@ -38,7 +38,7 @@
         <file>images/tip.png</file>
         <file>components/Scroll.qml</file>
         <file>components/AddressBookTable.qml</file>
-        <file>images/moneroIcon.png</file>
+        <file>images/italoIcon.png</file>
         <file>components/StandardDropdown.qml</file>
         <file>images/whiteDropIndicator.png</file>
         <file>images/whiteDropIndicator@2x.png</file>
@@ -56,7 +56,7 @@
         <file>images/dropdownDel.png</file>
         <file>components/HistoryTable.qml</file>
         <file>components/HistoryTableMobile.qml</file>
-        <file>images/moneroLogo2.png</file>
+        <file>images/italoLogo2.png</file>
         <file>components/PrivacyLevelSmall.qml</file>
         <file>images/resize.png</file>
         <file>images/resize@2x.png</file>
@@ -161,7 +161,7 @@
         <file>images/fullscreen@2x.png</file>
         <file>images/close.png</file>
         <file>images/close@2x.png</file>
-        <file>images/moneroLogo_white.png</file>
+        <file>images/italoLogo_white.png</file>
         <file>images/question.png</file>
         <file>images/question@2x.png</file>
         <file>images/expand.png</file>
@@ -182,8 +182,8 @@
         <file>images/leftPanelBg.jpg</file>
         <file>images/logout.png</file>
         <file>images/logout@2x.png</file>
-        <file>images/moneroIcon-28x28.png</file>
-        <file>images/moneroIcon-28x28@2x.png</file>
+        <file>images/italoIcon-28x28.png</file>
+        <file>images/italoIcon-28x28@2x.png</file>
         <file>images/lightning-white.png</file>
         <file>images/lightning-white@2x.png</file>
         <file>images/middlePanelBg.jpg</file>

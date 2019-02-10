@@ -127,13 +127,13 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     renderType: Text.QtRendering
-                    font.family: MoneroComponents.Style.fontLight.name
+                    font.family: ItaloComponents.Style.fontLight.name
                     textFormat: TextEdit.AutoText
                     readOnly: true
                     font.pixelSize: 14 * scaleRatio
                     selectByMouse: false
                     wrapMode: TextEdit.Wrap
-                    color: MoneroComponents.Style.defaultFontColor
+                    color: ItaloComponents.Style.defaultFontColor
 
                     MouseArea {
                         anchors.fill: parent
@@ -210,7 +210,7 @@ Rectangle {
     // window borders
     Rectangle{
         width: 1 * scaleRatio
-        color: MoneroComponents.Style.grey
+        color: ItaloComponents.Style.grey
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -218,7 +218,7 @@ Rectangle {
 
     Rectangle{
         width: 1 * scaleRatio
-        color: MoneroComponents.Style.grey
+        color: ItaloComponents.Style.grey
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -226,7 +226,7 @@ Rectangle {
 
     Rectangle{
         height: 1 * scaleRatio
-        color: MoneroComponents.Style.grey
+        color: ItaloComponents.Style.grey
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
@@ -234,7 +234,7 @@ Rectangle {
 
     Rectangle{
         height: 1 * scaleRatio
-        color: MoneroComponents.Style.grey
+        color: ItaloComponents.Style.grey
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.right: parent.right

@@ -57,7 +57,7 @@ Rectangle {
             id: soloBox
             spacing: 20 * scaleRatio
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 id: soloTitleLabel
                 fontSize: 24 * scaleRatio
                 text: qsTr("Prove Transaction") + translationManager.emptyString
@@ -68,12 +68,12 @@ Rectangle {
                 text: qsTr("Generate a proof of your incoming/outgoing payment by supplying the transaction ID, the recipient address and an optional message. \n" +
                            "For the case of outgoing payments, you can get a 'Spend Proof' that proves the authorship of a transaction. In this case, you don't need to specify the recipient address.") + translationManager.emptyString
                 wrapMode: Text.Wrap
-                font.family: MoneroComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14 * scaleRatio
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: getProofTxIdLine
                 Layout.fillWidth: true
                 labelFontSize: 14 * scaleRatio
@@ -85,7 +85,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: getProofAddressLine
                 Layout.fillWidth: true
                 labelFontSize: 14 * scaleRatio
@@ -97,7 +97,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: getProofMessageLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -109,7 +109,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 Layout.topMargin: 16 * scaleRatio
                 small: true
                 text: qsTr("Generate") + translationManager.emptyString
@@ -129,7 +129,7 @@ Rectangle {
                 anchors.bottomMargin: 3 * scaleRatio
             }
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 id: soloTitleLabel2
                 fontSize: 24 * scaleRatio
                 text: qsTr("Check Transaction") + translationManager.emptyString
@@ -140,12 +140,12 @@ Rectangle {
                            "For the case with Spend Proof, you don't need to specify the recipient address.") + translationManager.emptyString
                 wrapMode: Text.Wrap
                 Layout.fillWidth: true
-                font.family: MoneroComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14 * scaleRatio
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: checkProofTxIdLine
                 Layout.fillWidth: true
                 labelFontSize: 14 * scaleRatio
@@ -157,7 +157,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: checkProofAddressLine
                 Layout.fillWidth: true
                 labelFontSize: 14 * scaleRatio
@@ -169,7 +169,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: checkProofMessageLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -181,7 +181,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: checkProofSignatureLine
                 Layout.fillWidth: true
                 fontSize: 16 * scaleRatio
@@ -193,7 +193,7 @@ Rectangle {
                 copyButton: true
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 Layout.topMargin: 16 * scaleRatio
                 small: true
                 text: qsTr("Check") + translationManager.emptyString
@@ -218,9 +218,9 @@ Rectangle {
                 text: qsTr("If a payment had several transactions then each must be checked and the results combined.") + translationManager.emptyString
                 wrapMode: Text.Wrap
                 Layout.fillWidth: true
-                font.family: MoneroComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 14 * scaleRatio
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
         }
     }

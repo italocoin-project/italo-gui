@@ -915,7 +915,7 @@ Wallet::~Wallet()
     m_subaddress = NULL;
     delete m_subaddressAccount;
     m_subaddressAccount = NULL;
-    //Monero::WalletManagerFactory::getWalletManager()->closeWallet(m_walletImpl);
+    //Italo::WalletManagerFactory::getWalletManager()->closeWallet(m_walletImpl);
     if(status() == Status_Critical)
         qDebug("Not storing wallet cache");
     else if( m_walletImpl->store(""))

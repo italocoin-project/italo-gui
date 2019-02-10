@@ -46,16 +46,16 @@ ColumnLayout {
         spacing: 26 * scaleRatio
         visible: !root.selectAndSend
 
-        MoneroComponents.LineEditMulti {
+        ItaloComponents.LineEditMulti {
             id: addressLine
             Layout.fillWidth: true
             fontBold: true
             labelText: qsTr("Address") + translationManager.emptyString
-            placeholderText: qsTr("4.. / 8..") + translationManager.emptyString
+            placeholderText: qsTr("ip.. / je..") + translationManager.emptyString
             wrapMode: Text.WrapAnywhere
             addressValidation: true
             inlineButton.icon: "../images/qr.png"
-            inlineButton.buttonColor: MoneroComponents.Style.orange
+            inlineButton.buttonColor: ItaloComponents.Style.orange
             inlineButton.onClicked: {
                 cameraUi.state = "Capture"
                 cameraUi.qrcode_decoded.connect(updateFromQrCode)
@@ -63,7 +63,7 @@ ColumnLayout {
             inlineButtonVisible : appWindow.qrScannerEnabled && !addressLine.text
         }
 
-        MoneroComponents.LineEditMulti {
+        ItaloComponents.LineEditMulti {
             id: paymentIdLine
             visible: appWindow.persistentSettings.showPid
             Layout.fillWidth: true
@@ -74,7 +74,7 @@ ColumnLayout {
 //                    + translationManager.emptyString
         }
 
-        MoneroComponents.LineEditMulti {
+        ItaloComponents.LineEditMulti {
             id: descriptionLine
             Layout.fillWidth: true
             labelText: qsTr("Description <font size='2'>(Optional)</font>") + translationManager.emptyString
@@ -86,7 +86,7 @@ ColumnLayout {
         RowLayout {
             id: addButton
             Layout.bottomMargin: 17 * scaleRatio
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 text: qsTr("Add") + translationManager.emptyString
                 enabled: checkInformation(addressLine.text, paymentIdLine.text, appWindow.persistentSettings.nettype)
 
@@ -124,7 +124,7 @@ ColumnLayout {
             NumberAnimation { duration: 200; easing.type: Easing.InQuad }
         }
 
-        MoneroComponents.Scroll {
+        ItaloComponents.Scroll {
             id: flickableScroll
             anchors.right: table.right
             anchors.rightMargin: -14 * scaleRatio
@@ -133,7 +133,7 @@ ColumnLayout {
             flickable: table
         }
 
-        MoneroComponents.AddressBookTable {
+        ItaloComponents.AddressBookTable {
             id: table
             anchors.left: parent.left
             anchors.right: parent.right

@@ -44,7 +44,7 @@ Rectangle {
             font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: root.fontSize
             horizontalAlignment: TextInput.AlignLeft
-            selectionColor: MoneroComponents.Style.dimmedFontColor
+            selectionColor: ItaloComponents.Style.dimmedFontColor
             selectByMouse: true
             textFormat: Text.RichText
             wrapMode: Text.WordWrap

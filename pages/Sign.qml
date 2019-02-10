@@ -96,7 +96,7 @@ Rectangle {
 
         spacing: 20 * scaleRatio
 
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             fontSize: 24 * scaleRatio
             text: qsTr("Sign/verify") + translationManager.emptyString
         }
@@ -105,9 +105,9 @@ Rectangle {
             text: qsTr("This page lets you sign/verify a message (or file contents) with your address.") + translationManager.emptyString
             wrapMode: Text.Wrap
             Layout.fillWidth: true
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: 14 * scaleRatio
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
         }
 
         ColumnLayout {
@@ -121,17 +121,17 @@ Rectangle {
                 Layout.preferredWidth: (instructionsRect.width - 80) * scaleRatio
                 text: qsTr("Mode") + translationManager.emptyString
                 wrapMode: Text.Wrap
-                font.family: MoneroComponents.Style.fontRegular.name
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 20 * scaleRatio
                 textFormat: Text.RichText
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
             RowLayout {
                 id: modeButtonsRow
                 Layout.topMargin: 10 * scaleRatio
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: handleMessageButton
                     text: qsTr("Message") + translationManager.emptyString
                     enabled: fileMode
@@ -141,7 +141,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: handleFileButton
                     text: qsTr("File") + translationManager.emptyString
                     enabled: messageMode
@@ -157,7 +157,7 @@ Rectangle {
             id: signSection
             spacing: 10 * scaleRatio
 
-            MoneroComponents.LabelSubheader {
+            ItaloComponents.LabelSubheader {
                 Layout.fillWidth: true
                 Layout.topMargin: 12 * scaleRatio
                 Layout.bottomMargin: 24 * scaleRatio
@@ -171,7 +171,7 @@ Rectangle {
                 spacing: 10 * scaleRatio
                 visible: messageMode
 
-                MoneroComponents.LineEditMulti{
+                ItaloComponents.LineEditMulti{
                     id: signMessageLine
                     Layout.fillWidth: true
                     labelFontSize: 14 * scaleRatio
@@ -190,7 +190,7 @@ Rectangle {
                 Layout.fillWidth: true
                 visible: fileMode
 
-                MoneroComponents.LineEditMulti {
+                ItaloComponents.LineEditMulti {
                     id: signFileLine
                     labelFontSize: 14 * scaleRatio
                     labelText: qsTr("File") + translationManager.emptyString
@@ -203,7 +203,7 @@ Rectangle {
                     text: ''
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: loadFileToSignButton
                     Layout.alignment: Qt.AlignBottom
                     small: false
@@ -218,7 +218,7 @@ Rectangle {
             ColumnLayout {
                 id: signSignatureRow
 
-                MoneroComponents.LineEditMulti {
+                ItaloComponents.LineEditMulti {
                     id: signSignatureLine
                     labelFontSize: 14 * scaleRatio
                     labelText: qsTr("Signature") + translationManager.emptyString
@@ -235,7 +235,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignRight
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: clearSignButton
                     text: qsTr("Clear") + translationManager.emptyString
                     enabled: signMessageLine.text !== '' || signFileLine.text !== ''
@@ -247,7 +247,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: signMessageButton
                     visible: messageMode
                     text: qsTr("Sign Message") + translationManager.emptyString
@@ -259,7 +259,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: signFileButton
                     visible: fileMode
                     small: true
@@ -278,14 +278,14 @@ Rectangle {
             id: verifySection
             spacing: 16 * scaleRatio
 
-            MoneroComponents.LabelSubheader {
+            ItaloComponents.LabelSubheader {
                 Layout.fillWidth: true
                 Layout.bottomMargin: 24 * scaleRatio
                 textFormat: Text.RichText
                 text: fileMode ? qsTr("Verify file") + translationManager.emptyString : qsTr("Verify message") + translationManager.emptyString
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: verifyMessageLine
                 visible: messageMode
                 Layout.fillWidth: true
@@ -304,7 +304,7 @@ Rectangle {
                 Layout.fillWidth: true
                 visible: fileMode
 
-                MoneroComponents.LineEditMulti {
+                ItaloComponents.LineEditMulti {
                     id: verifyFileLine
                     labelFontSize: 14 * scaleRatio
                     labelText: qsTr("File") + translationManager.emptyString
@@ -316,7 +316,7 @@ Rectangle {
                     text: ''
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: loadFileToVerifyButton
                     Layout.alignment: Qt.AlignBottom
                     small: false
@@ -328,20 +328,20 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: verifyAddressLine
                 Layout.fillWidth: true
                 labelFontSize: 14 * scaleRatio
                 labelText: qsTr("Address") + translationManager.emptyString
                 addressValidation: true
                 placeholderFontSize: 16 * scaleRatio
-                placeholderText: qsTr("Enter the Monero Address (example: 44AFFq5kSiGBoZ...)") + translationManager.emptyString
+                placeholderText: qsTr("Enter the Italo Address (example: 44AFFq5kSiGBoZ...)") + translationManager.emptyString
                 wrapMode: Text.WrapAnywhere
                 text: ''
                 pasteButton: true
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: verifySignatureLine
                 labelFontSize: 14 * scaleRatio
                 labelText: qsTr("Signature") + translationManager.emptyString
@@ -358,7 +358,7 @@ Rectangle {
                 Layout.topMargin: 12 * scaleRatio
                 Layout.alignment: Qt.AlignRight
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: clearVerifyButton
                     text: qsTr("Clear") + translationManager.emptyString
                     enabled: verifyMessageLine.text !== '' || verifyFileLine.text !== '' || verifyAddressLine.text !== '' || verifySignatureLine.text  !== ''
@@ -371,7 +371,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: verifyFileButton
                     visible: fileMode
                     small: true
@@ -383,7 +383,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: verifyMessageButton
                     visible: messageMode
                     small: true

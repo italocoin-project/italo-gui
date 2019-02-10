@@ -26,7 +26,7 @@ popd
 # create local italo branch
 git -C $MONERO_DIR checkout -B $VERSIONTAG
 
-# Merge monero PR dependencies
+# Merge italo PR dependencies
 
 # Workaround for git username requirements
 # Save current user settings and revert back when we are done with merging PR's

@@ -236,7 +236,7 @@ Rectangle {
                   }
               }
               inlineButton.icon: "../images/qr.png"
-              inlineButton.buttonColor: MoneroComponents.Style.orange
+              inlineButton.buttonColor: ItaloComponents.Style.orange
               inlineButton.onClicked: {
                   cameraUi.state = "Capture"
                   cameraUi.qrcode_decoded.connect(updateFromQrCode)

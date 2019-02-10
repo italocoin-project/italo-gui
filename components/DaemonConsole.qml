@@ -94,7 +94,7 @@ Window {
             Rectangle {
                 anchors.fill: parent
                 color: "transparent"
-                border.color: MoneroComponents.Style.inputBorderColorActive
+                border.color: ItaloComponents.Style.inputBorderColorActive
                 border.width: 1
                 radius: 4
             }
@@ -108,7 +108,7 @@ Window {
                     textFormat: TextEdit.RichText
                     selectByMouse: true
                     selectByKeyboard: true
-                    font.family: MoneroComponents.Style.defaultFontColor
+                    font.family: ItaloComponents.Style.defaultFontColor
                     font.pixelSize: 14 * scaleRatio
                     color: ItaloComponents.Style.defaultFontColor
                     selectionColor: ItaloComponents.Style.dimmedFontColor

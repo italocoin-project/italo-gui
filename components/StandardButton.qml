@@ -70,7 +70,7 @@ Item {
                 when: buttonArea.containsMouse || button.focus
                 PropertyChanges {
                     target: buttonRect
-                    color: MoneroComponents.Style.buttonBackgroundColorHover
+                    color: ItaloComponents.Style.buttonBackgroundColorHover
                 }
             },
             State {
@@ -78,7 +78,7 @@ Item {
                 when: button.enabled
                 PropertyChanges {
                     target: buttonRect
-                    color: MoneroComponents.Style.buttonBackgroundColor
+                    color: ItaloComponents.Style.buttonBackgroundColor
                 }
             },
             State {
@@ -86,7 +86,7 @@ Item {
                 when: !button.enabled
                 PropertyChanges {
                     target: buttonRect
-                    color: MoneroComponents.Style.buttonBackgroundColorDisabled
+                    color: ItaloComponents.Style.buttonBackgroundColorDisabled
                 }
             }
         ]
@@ -105,7 +105,7 @@ Item {
             id: label
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             horizontalAlignment: textAlign === "center" ? Text.AlignHCenter : Text.AlignLeft
-            font.family: MoneroComponents.Style.fontBold.name
+            font.family: ItaloComponents.Style.fontBold.name
             font.bold: true
             font.pixelSize: button.fontSize
             color: !buttonArea.pressed ? button.textColor : "transparent"

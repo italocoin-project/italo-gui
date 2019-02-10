@@ -10,8 +10,8 @@ class SubaddressAccount : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE QList<Monero::SubaddressAccountRow*> getAll(bool update = false) const;
-    Q_INVOKABLE Monero::SubaddressAccountRow * getRow(int index) const;
+    Q_INVOKABLE QList<Italo::SubaddressAccountRow*> getAll(bool update = false) const;
+    Q_INVOKABLE Italo::SubaddressAccountRow * getRow(int index) const;
     Q_INVOKABLE void addRow(const QString &label) const;
     Q_INVOKABLE void setLabel(quint32 accountIndex, const QString &label) const;
     Q_INVOKABLE void refresh() const;
@@ -24,10 +24,10 @@ signals:
 public slots:
 
 private:
-    explicit SubaddressAccount(Monero::SubaddressAccount * subaddressAccountImpl, QObject *parent);
+    explicit SubaddressAccount(Italo::SubaddressAccount * subaddressAccountImpl, QObject *parent);
     friend class Wallet;
-    Monero::SubaddressAccount * m_subaddressAccountImpl;
-    mutable QList<Monero::SubaddressAccountRow*> m_rows;
+    Italo::SubaddressAccount * m_subaddressAccountImpl;
+    mutable QList<Italo::SubaddressAccountRow*> m_rows;
 };
 
 #endif // SUBADDRESSACCOUNT_H

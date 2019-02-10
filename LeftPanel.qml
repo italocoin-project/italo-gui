@@ -335,7 +335,7 @@ Rectangle {
             }
 
             // ------------- Account tab ---------------
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: accountButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -433,7 +433,7 @@ Rectangle {
 
             // ------------- Merchant tab ---------------
 
-            MoneroComponents.MenuButton {
+            ItaloComponents.MenuButton {
                 id: merchantButton
                 anchors.left: parent.left
                 anchors.right: parent.right

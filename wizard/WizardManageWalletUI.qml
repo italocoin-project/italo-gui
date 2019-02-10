@@ -30,7 +30,7 @@ import QtQuick 2.2
 import italoComponents.TranslationManager 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 import 'utils.js' as Utils
 
 // Reusable component for mnaging wallet (account name, path, private key)
@@ -157,7 +157,7 @@ ColumnLayout {
     ColumnLayout {
         Layout.bottomMargin: rowSpacing
 
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             Layout.topMargin: 20 * scaleRatio
             fontFamily: "Arial"
             fontColor: "#555555"
@@ -166,7 +166,7 @@ ColumnLayout {
                    + translationManager.emptyString
         }
 
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             id: accountName
             Layout.fillWidth: true
             Layout.maximumWidth: 600 * scaleRatio
@@ -179,11 +179,11 @@ ColumnLayout {
             fontBold: false
         }
 
-        MoneroComponents.WarningBox {
+        ItaloComponents.WarningBox {
             color: "#DBDBDB"
             textColor: "#4A4646"
             visible: !recoverFromDevice && !recoverMode
-            text: qsTr("WARNING: Copying your seed to clipboard can expose you to malicious software, which may record your seed and steal your Monero. Please write down your seed manually.") + translationManager.emptyString
+            text: qsTr("WARNING: Copying your seed to clipboard can expose you to malicious software, which may record your seed and steal your Italo. Please write down your seed manually.") + translationManager.emptyString
         }
     }
 
@@ -191,7 +191,7 @@ ColumnLayout {
         columns: (isMobile)? 2 : 4
         visible: recoverMode
 
-        MoneroComponents.StandardButton {
+        ItaloComponents.StandardButton {
             id: recoverFromSeedButton
             text: qsTr("Restore from seed") + translationManager.emptyString
             enabled: recoverFromKeys.visible
@@ -201,7 +201,7 @@ ColumnLayout {
             }
         }
 
-        MoneroComponents.StandardButton {
+        ItaloComponents.StandardButton {
             id: recoverFromKeysButton
             text: qsTr("Restore from keys") + translationManager.emptyString
             enabled: recoverFromSeed.visible
@@ -211,7 +211,7 @@ ColumnLayout {
             }
         }
 
-        MoneroComponents.StandardButton {
+        ItaloComponents.StandardButton {
             id: qrfinderButton
             text: qsTr("From QR Code") + translationManager.emptyString
             visible : appWindow.qrScannerEnabled
@@ -243,14 +243,14 @@ ColumnLayout {
         id: recoverFromKeys
         visible: recoverMode && !recoverFromSeedMode
         columns: 1
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             Layout.fillWidth: true
             id: addressLine
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio
             placeholderFontBold: true
             placeholderFontFamily: "Arial"
-            placeholderColor: MoneroComponents.Style.legacy_placeholderFontColor
+            placeholderColor: ItaloComponents.Style.legacy_placeholderFontColor
             placeholderText: qsTr("Account address (public)") + translationManager.emptyString
             placeholderOpacity: 1.0
             onTextUpdated: checkNextButton()
@@ -259,14 +259,14 @@ ColumnLayout {
             fontColor: "black"
             fontBold: false
         }
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             Layout.fillWidth: true
             id: viewKeyLine
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio
             placeholderFontBold: true
             placeholderFontFamily: "Arial"
-            placeholderColor: MoneroComponents.Style.legacy_placeholderFontColor
+            placeholderColor: ItaloComponents.Style.legacy_placeholderFontColor
             placeholderText: qsTr("View key (private)") + translationManager.emptyString
             placeholderOpacity: 1.0
             onTextUpdated: checkNextButton()
@@ -276,14 +276,14 @@ ColumnLayout {
             fontBold: false
 
         }
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             Layout.fillWidth: true
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio
             id: spendKeyLine
             placeholderFontBold: true
             placeholderFontFamily: "Arial"
-            placeholderColor: MoneroComponents.Style.legacy_placeholderFontColor
+            placeholderColor: ItaloComponents.Style.legacy_placeholderFontColor
             placeholderText: qsTr("Spend key (private)") + translationManager.emptyString
             placeholderOpacity: 1.0
             onTextUpdated: checkNextButton()
@@ -296,14 +296,14 @@ ColumnLayout {
     
     // Restore Height
     RowLayout {
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             id: restoreHeightItem
             Layout.fillWidth: true
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio
             placeholderFontBold: true
             placeholderFontFamily: "Arial"
-            placeholderColor: MoneroComponents.Style.legacy_placeholderFontColor
+            placeholderColor: ItaloComponents.Style.legacy_placeholderFontColor
             placeholderText: qsTr("Restore height (optional)") + translationManager.emptyString
             placeholderOpacity: 1.0
             validator: IntValidator {
@@ -319,14 +319,14 @@ ColumnLayout {
     // Subaddress lookahead
     RowLayout {
         visible: recoverFromDevice
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             id: subaddressLookaheadItem
             Layout.fillWidth: true
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio
             placeholderFontBold: true
             placeholderFontFamily: "Arial"
-            placeholderColor: MoneroComponents.Style.legacy_placeholderFontColor
+            placeholderColor: ItaloComponents.Style.legacy_placeholderFontColor
             placeholderText: qsTr("Subaddress lookahead (optional): <major>:<minor>") + translationManager.emptyString
             placeholderOpacity: 1.0
             borderColor: Qt.rgba(0, 0, 0, 0.15)
@@ -339,7 +339,7 @@ ColumnLayout {
     // Device name
     ColumnLayout {
         visible: recoverFromDevice
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             Layout.topMargin: 20 * scaleRatio
             fontFamily: "Arial"
             fontColor: "#555555"
@@ -351,7 +351,7 @@ ColumnLayout {
             ListElement { column1: qsTr("Ledger") ; column2: "Ledger"; }
 //            ListElement { column1: qsTr("Trezor") ; column2: "Trezor"; }
         }
-        MoneroComponents.StandardDropdown {
+        ItaloComponents.StandardDropdown {
             id: deviceNameDropdown
             dataModel: deviceNameModel
             Layout.fillWidth: true
@@ -365,7 +365,7 @@ ColumnLayout {
     // Wallet store location
     ColumnLayout {
         z: deviceNameDropdown.z - 1
-        MoneroComponents.Label {
+        ItaloComponents.Label {
             Layout.fillWidth: true
             Layout.topMargin: 20 * scaleRatio
             fontSize: 14
@@ -374,7 +374,7 @@ ColumnLayout {
             text: qsTr("Your wallet is stored in") + ": " + fileUrlInput.text;
         }
 
-        MoneroComponents.LineEdit {
+        ItaloComponents.LineEdit {
             Layout.fillWidth: true
             Layout.maximumWidth: 600 * scaleRatio
             Layout.minimumWidth: 200 * scaleRatio

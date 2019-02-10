@@ -37,7 +37,7 @@ import "../../components" as ItaloComponents
 
 Rectangle {
     color: "transparent"
-    height: 1400
+    height: 1400 * scaleRatio
     Layout.fillWidth: true
 
     ColumnLayout {
@@ -46,21 +46,21 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: (isMobile)? 17 * scaleRatio : 20 * scaleRatio
         anchors.topMargin: 0
-        spacing: 30
+        spacing: 30 * scaleRatio
 
         GridLayout {
             columns: 2
             columnSpacing: 0
 
             ItaloComponents.TextBlock {
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: qsTr("GUI version: ") + translationManager.emptyString
             }
 
             ItaloComponents.TextBlock {
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")" + translationManager.emptyString
             }
 
@@ -83,13 +83,13 @@ Rectangle {
             }
 
             ItaloComponents.TextBlock {
-                id: guiItaloVersion
-                font.pixelSize: 14
+                id: guiMoneroVersion
+                font.pixelSize: 14 * scaleRatio
                 text: qsTr("Embedded Italo version: ") + translationManager.emptyString
             }
 
             ItaloComponents.TextBlock {
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: Version.GUI_MONERO_VERSION + translationManager.emptyString
             }
 
@@ -113,14 +113,14 @@ Rectangle {
 
             ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: qsTr("Wallet path: ") + translationManager.emptyString
             }
 
             ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                Layout.maximumWidth: 360
-                font.pixelSize: 14
+                Layout.maximumWidth: 360 * scaleRatio
+                font.pixelSize: 14 * scaleRatio
                 text: {
                     var wallet_path = walletPath();
                     if(isIOS)
@@ -149,7 +149,7 @@ Rectangle {
 
             ItaloComponents.TextBlock {
                 id: restoreHeight
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 textFormat: Text.RichText
                 text: (typeof currentWallet == "undefined") ? "" : qsTr("Wallet creation height: ") + translationManager.emptyString
             }
@@ -158,7 +158,7 @@ Rectangle {
                 id: restoreHeightText
                 Layout.fillWidth: true
                 textFormat: Text.RichText
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 font.bold: true
                 property var style: "<style type='text/css'>a {cursor:pointer;text-decoration: none; color: #FF6C3C}</style>"
                 text: (currentWallet ? currentWallet.walletCreationHeight : "") + style + qsTr(" <a href='#'> (Click to change)</a>") + translationManager.emptyString
@@ -230,71 +230,42 @@ Rectangle {
 
             ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: qsTr("Wallet log path: ") + translationManager.emptyString
             }
 
             ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                font.pixelSize: 14
+                font.pixelSize: 14 * scaleRatio
                 text: walletLogPath
             }
         }
 
         // Copy info to clipboard
-        Rectangle {
-            color: "transparent"
-            Layout.preferredHeight: 24 * scaleRatio
-            Layout.fillWidth: true
+        ItaloComponents.StandardButton {
+            small: true
+            text: qsTr("Copy to clipboard") + translationManager.emptyString
+            onClicked: {
+                var data = "";
+                data += "GUI version: " + Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")";
+                data += "\nEmbedded Italo version: " + Version.GUI_MONERO_VERSION;
+                data += "\nWallet path: ";
 
-            Rectangle {
-                id: rectCopy
-                color: ItaloComponents.Style.buttonBackgroundColorDisabled
-                width: btnCopy.width + 40
-                height: 24
-                radius: 2
+                var wallet_path = walletPath();
+                if(isIOS)
+                    wallet_path = moneroAccountsDir + wallet_path;
+                data += wallet_path;
 
-                Text {
-                    id: btnCopy
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItaloComponents.Style.defaultFontColor
-                    font.family: ItaloComponents.Style.fontRegular.name
-                    font.pixelSize: 14 * scaleRatio
-                    font.bold: true
-                    text: qsTr("Copy to clipboard") + translationManager.emptyString
-                }
+                data += "\nWallet creation height: ";
+                if(currentWallet)
+                    data += currentWallet.walletCreationHeight;
 
-                MouseArea {
-                    cursorShape: Qt.PointingHandCursor
-                    anchors.fill: parent
-                    onClicked: {
-                        var data = "";
-                        data += "GUI version: " + Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")";
-                        data += "\nEmbedded Italo version: " + Version.GUI_MONERO_VERSION;
-                        data += "\nWallet path: ";
+                data += "\nWallet log path: " + walletLogPath;
 
-                        var wallet_path = walletPath();
-                        if(isIOS)
-                            wallet_path = italoAccountsDir + wallet_path;
-                        data += wallet_path;
-
-                        data += "\nWallet creation height: ";
-                        if(currentWallet)
-                            data += currentWallet.walletCreationHeight;
-
-                        data += "\nWallet log path: " + walletLogPath;
-
-                        console.log("Copied to clipboard");
-                        clipboard.setText(data);
-                        appWindow.showStatusMessage(qsTr("Copied to clipboard"), 3);
-                    }
-                }
+                console.log("Copied to clipboard");
+                clipboard.setText(data);
+                appWindow.showStatusMessage(qsTr("Copied to clipboard"), 3);
             }
         }
-    }
-
-    Component.onCompleted: {
-        
     }
 }

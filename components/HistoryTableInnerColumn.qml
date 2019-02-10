@@ -33,7 +33,7 @@ import italoComponents.Clipboard 1.0
 import italoComponents.PendingTransaction 1.0
 import italoComponents.Wallet 1.0
 
-import "../components" as ItaloComponents
+import "." as ItaloComponents
 
 
 Rectangle{
@@ -44,48 +44,81 @@ Rectangle{
     color: "transparent"
 
     property string copyValue: ""
+    property string hashValue: ""
     property alias labelHeader: label1.text
     property alias labelValue: label2.text
+    property alias labelHeaderIcon: icon
+    property alias labelHeaderIconImageSource: icon.imageSource
 
-    Text {
-        id: label1
-        anchors.left: parent.left
-        font.family: ItaloComponents.Style.fontRegular.name
-        font.pixelSize: 14 * scaleRatio
-        text: labelHeader
-        color: ItaloComponents.Style.dimmedFontColor
-    }
+    ColumnLayout {
+        Layout.fillWidth: true
+        spacing: 2 * scaleRatio
 
-    Text {
-        id: label2
-        anchors.left: parent.left
-        anchors.top: label1.bottom
-        font.family: ItaloComponents.Style.fontRegular.name
-        font.pixelSize: 14 * scaleRatio
-        text: labelValue
-        color: ItaloComponents.Style.dimmedFontColor
-    }
+        RowLayout {
+            Layout.fillWidth: true
 
-    // hover effect / copy value
-    MouseArea {
-        visible: copyValue !== ""
-        hoverEnabled: true
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        onEntered: {
-            label1.color = ItaloComponents.Style.defaultFontColor;
-            label2.color = ItaloComponents.Style.defaultFontColor;
-        }
-        onExited: {
-            label1.color = ItaloComponents.Style.dimmedFontColor
-            label2.color = ItaloComponents.Style.dimmedFontColor;
-        }
-        onClicked: {
-            if(copyValue){
-                console.log("Copied to clipboard");
-                clipboard.setText(copyValue);
-                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
+            Text {
+                id: label1
+                font.family: MoneroComponents.Style.fontRegular.name
+                font.pixelSize: 14 * scaleRatio
+                text: labelHeader
+                color: MoneroComponents.Style.dimmedFontColor
+            }
+
+            MoneroComponents.IconButton {
+                id: icon
+                visible: imageSource !== ""
+                Layout.leftMargin: 8 * scaleRatio
+                width: image.width
+                height: image.height
+
+                onClicked: {
+                        editDescription(hashValue);
+                }
             }
         }
+
+        Text {
+            id: label2
+            font.family: MoneroComponents.Style.fontRegular.name
+            font.pixelSize: 14 * scaleRatio
+            text: labelValue
+            color: MoneroComponents.Style.dimmedFontColor
+
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+
+                onEntered: {
+                    label1.color = MoneroComponents.Style.defaultFontColor;
+                    label2.color = MoneroComponents.Style.defaultFontColor;
+                }
+
+                onExited: {
+                    label1.color = MoneroComponents.Style.dimmedFontColor;
+                    label2.color = MoneroComponents.Style.dimmedFontColor;
+                }
+
+                onClicked: {
+                    if(copyValue){
+                        console.log("Copied to clipboard");
+                        clipboard.setText(copyValue);
+                        appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
+                    }
+                }
+            }
+        }
+    }
+
+    function editDescription(_hash){
+        inputDialog.labelText = qsTr("Set description:") + translationManager.emptyString;
+        inputDialog.onAcceptedCallback = function() {
+            appWindow.currentWallet.setUserNote(_hash, inputDialog.inputText);
+            appWindow.showStatusMessage(qsTr("Updated description."),3);
+            middlePanel.historyView.update();
+        }
+        inputDialog.onRejectedCallback = null;
+        inputDialog.open()
     }
 }

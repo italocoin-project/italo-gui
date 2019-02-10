@@ -40,6 +40,14 @@ Rectangle {
     height: 1400
     Layout.fillWidth: true
 
+    function onPageCompleted() {
+        userInactivitySliderTimer.running = true;
+    }
+
+    function onPageClosed() {
+        userInactivitySliderTimer.running = false;
+    }
+
     ColumnLayout {
         id: settingsUI
         property int itemHeight: 60 * scaleRatio
@@ -47,9 +55,9 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: (isMobile)? 17 * scaleRatio : 20 * scaleRatio
         anchors.topMargin: 0
-        spacing: 0
+        spacing: 6 * scaleRatio
 
         ItaloComponents.CheckBox {
             visible: !isMobile
@@ -57,6 +65,104 @@ Rectangle {
             checked: persistentSettings.customDecorations
             onClicked: Windows.setCustomWindowDecorations(checked)
             text: qsTr("Custom decorations") + translationManager.emptyString
+        }
+
+        ItaloComponents.CheckBox {
+            visible: !isMobile
+            id: hideBalanceCheckBox
+            checked: persistentSettings.hideBalance
+            onClicked: {
+                persistentSettings.hideBalance = !persistentSettings.hideBalance
+                appWindow.updateBalance();
+            }
+            text: qsTr("Hide balance") + translationManager.emptyString
+        }
+
+        ItaloComponents.CheckBox {
+            visible: !isMobile
+            id: showPidCheckBox
+            checked: persistentSettings.showPid
+            onClicked: {
+                persistentSettings.showPid = !persistentSettings.showPid
+                middlePanel.transferView.clearFields();
+            }
+            text: qsTr("Enable transfer with payment ID (OBSOLETE)") + translationManager.emptyString
+        }
+
+        ItaloComponents.CheckBox {
+            visible: !isMobile
+            id: userInActivityCheckbox
+            checked: persistentSettings.lockOnUserInActivity
+            onClicked: persistentSettings.lockOnUserInActivity = !persistentSettings.lockOnUserInActivity
+            text: qsTr("Lock wallet on inactivity") + translationManager.emptyString
+        }
+
+        ColumnLayout {
+            visible: userInActivityCheckbox.checked
+            Layout.fillWidth: true
+            Layout.topMargin: 6 * scaleRatio
+            Layout.leftMargin: 42 * scaleRatio
+            spacing: 0
+
+            ItaloComponents.TextBlock {
+                font.pixelSize: 14 * scaleRatio
+                Layout.fillWidth: true
+                text: {
+                    var val = userInactivitySlider.value;
+                    var minutes = val > 1 ? qsTr("minutes") : qsTr("minute");
+
+                    qsTr("After ") + val + " " + minutes + translationManager.emptyString;
+                }
+            }
+
+            Slider {
+                id: userInactivitySlider
+                from: 1
+                value: persistentSettings.lockOnUserInActivityInterval
+                to: 60
+                leftPadding: 0
+                stepSize: 1
+                snapMode: Slider.SnapAlways
+
+                background: Rectangle {
+                    x: parent.leftPadding
+                    y: parent.topPadding + parent.availableHeight / 2 - height / 2
+                    implicitWidth: 200 * scaleRatio
+                    implicitHeight: 4 * scaleRatio
+                    width: parent.availableWidth
+                    height: implicitHeight
+                    radius: 2
+                    color: ItaloComponents.Style.grey
+
+                    Rectangle {
+                        width: parent.visualPosition * parent.width
+                        height: parent.height
+                        color: ItaloComponents.Style.green
+                        radius: 2
+                    }
+                }
+
+                handle: Rectangle {
+                    x: parent.leftPadding + parent.visualPosition * (parent.availableWidth - width)
+                    y: parent.topPadding + parent.availableHeight / 2 - height / 2
+                    implicitWidth: 18 * scaleRatio
+                    implicitHeight: 18 * scaleRatio
+                    radius: 8
+                    color: parent.pressed ? "#f0f0f0" : "#f6f6f6"
+                    border.color: ItaloComponents.Style.grey
+                }
+            }
+
+            Timer {
+                // @TODO: Slider.onMoved{} is available in Qt > 5.9, use a hacky timer for now
+                id: userInactivitySliderTimer
+                interval: 1000; running: false; repeat: true
+                onTriggered: {
+                    if(persistentSettings.lockOnUserInActivityInterval != userInactivitySlider.value) {
+                        persistentSettings.lockOnUserInActivityInterval = userInactivitySlider.value;
+                    }
+                }
+            }
         }
 
         ItaloComponents.TextBlock {

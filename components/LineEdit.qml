@@ -107,8 +107,7 @@ Item {
         id: inputLabel
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.topMargin: 2 * scaleRatio
-        font.family: ItaloComponents.Style.fontLight.name
+        font.family: ItaloComponents.Style.fontRegular.name
         font.pixelSize: labelFontSize
         font.bold: labelFontBold
         textFormat: Text.RichText

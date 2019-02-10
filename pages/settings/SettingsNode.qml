@@ -39,7 +39,7 @@ Rectangle{
     /* main layout */
     ColumnLayout {
         id: root
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: (isMobile)? 17 * scaleRatio : 20 * scaleRatio
         anchors.topMargin: 0
 
         anchors.left: parent.left
@@ -300,9 +300,6 @@ Rectangle{
                     persistentSettings.remoteNodeAddress = remoteNodeEdit.getAddress();
                     console.log("setting remote node to " + persistentSettings.remoteNodeAddress)
                 }
-                onTextChanged: {
-                    rectConnectRemote.enabled = remoteNodeEdit.isValid();
-                }
             }
 
             GridLayout {
@@ -333,89 +330,40 @@ Rectangle{
                 }
             }
 
-            Rectangle {
-                id: rectConnectRemote
-                Layout.topMargin: 12 * scaleRatio
+            ItaloComponents.StandardButton {
+                id: btnConnectRemote
                 enabled: remoteNodeEdit.isValid()
-                color: enabled ? ItaloComponents.Style.buttonBackgroundColor : ItaloComponents.Style.buttonBackgroundColorDisabled
-                width: btnConnectRemote.width + 40
-                height: 26
-                radius: 2
+                small: true
+                text: qsTr("Connect") + translationManager.emptyString
+                onClicked: {
+                    // Update daemon login
+                    persistentSettings.remoteNodeAddress = remoteNodeEdit.getAddress();
+                    persistentSettings.daemonUsername = daemonUsername.text;
+                    persistentSettings.daemonPassword = daemonPassword.text;
+                    persistentSettings.useRemoteNode = true
 
-                Text {
-                    id: btnConnectRemote
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: ItaloComponents.Style.defaultFontColor
-                    font.family: ItaloComponents.Style.fontRegular.name
-                    font.pixelSize: 14 * scaleRatio
-                    font.bold: true
-                    text: qsTr("Connect") + translationManager.emptyString
-                }
+                    currentWallet.setDaemonLogin(persistentSettings.daemonUsername, persistentSettings.daemonPassword);
 
-                MouseArea {
-                    cursorShape: Qt.PointingHandCursor
-                    visible: rectConnectRemote.enabled
-                    anchors.fill: parent
-                    onClicked: {
-                        // Update daemon login
-                        persistentSettings.remoteNodeAddress = remoteNodeEdit.getAddress();
-                        persistentSettings.daemonUsername = daemonUsername.text;
-                        persistentSettings.daemonPassword = daemonPassword.text;
-                        persistentSettings.useRemoteNode = true
-    
-                        currentWallet.setDaemonLogin(persistentSettings.daemonUsername, persistentSettings.daemonPassword);
-    
-                        appWindow.connectRemoteNode()
-                    }
+                    appWindow.connectRemoteNode()
                 }
             }
         }
 
         ColumnLayout {
             id: localNodeLayout
-            anchors.margins: 0
             spacing: 20 * scaleRatio
             Layout.topMargin: 40
-            anchors.left: parent.left
-            anchors.right: parent.right
             visible: !isMobile && !persistentSettings.useRemoteNode
 
-            Rectangle {
-                color: "transparent"
-                Layout.topMargin: 0 * scaleRatio
-                Layout.bottomMargin: 8 * scaleRatio
-                Layout.preferredHeight: 24 * scaleRatio
-                Layout.preferredWidth: parent.width
-
-                Rectangle {
-                    id: rectStartStopNode
-                    color: ItaloComponents.Style.buttonBackgroundColor
-                    width: btnStartStopNode.width + 40
-                    height: 24
-                    radius: 2
-
-                    Text {
-                        id: btnStartStopNode
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: ItaloComponents.Style.defaultFontColor
-                        font.family: ItaloComponents.Style.fontRegular.name
-                        font.pixelSize: 14 * scaleRatio
-                        font.bold: true
-                        text: (appWindow.daemonRunning ? qsTr("Stop local node") : qsTr("Start daemon")) + translationManager.emptyString
-                    }
-
-                    MouseArea {
-                        cursorShape: Qt.PointingHandCursor
-                        anchors.fill: parent
-                        onClicked: {
-                            if (appWindow.daemonRunning) {
-                                appWindow.stopDaemon();
-                            } else {
-                                appWindow.startDaemon(persistentSettings.daemonFlags);
-                            }
-                        }
+            ItaloComponents.StandardButton {
+                small: true
+                text: (appWindow.daemonRunning ? qsTr("Stop local node") : qsTr("Start daemon")) + translationManager.emptyString
+                onClicked: {
+                    if (appWindow.daemonRunning) {
+                        appWindow.stopDaemon();
+                    } else {
+                        persistentSettings.daemonFlags = daemonFlags.text;
+                        appWindow.startDaemon(persistentSettings.daemonFlags);
                     }
                 }
             }
@@ -448,21 +396,18 @@ Rectangle{
                 }
             }
 
-            RowLayout {
-                id: daemonFlagsRow
-
-                ItaloComponents.LineEditMulti {
-                    id: daemonFlags
-                    Layout.preferredWidth:  200
-                    Layout.fillWidth: true
-                    labelFontSize: 14 * scaleRatio
-                    fontSize: 15 * scaleRatio
-                    labelText: qsTr("Daemon startup flags") + translationManager.emptyString
-                    placeholderText: qsTr("(optional)") + translationManager.emptyString
-                    placeholderFontSize: 15 * scaleRatio
-                    text: appWindow.persistentSettings.daemonFlags
-                    addressValidation: false
-                }
+            ItaloComponents.LineEditMulti {
+                id: daemonFlags
+                Layout.fillWidth: true
+                labelFontSize: 14 * scaleRatio
+                fontSize: 15 * scaleRatio
+                wrapMode: Text.WrapAnywhere
+                labelText: qsTr("Daemon startup flags") + translationManager.emptyString
+                placeholderText: qsTr("(optional)") + translationManager.emptyString
+                placeholderFontSize: 15 * scaleRatio
+                text: persistentSettings.daemonFlags
+                addressValidation: false
+                onEditingFinished: persistentSettings.daemonFlags = daemonFlags.text;
             }
 
             RowLayout {

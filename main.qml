@@ -48,6 +48,7 @@ ApplicationWindow {
     title: "Italo"
 
     property var currentItem
+    property bool hideBalanceForced: false
     property bool whatIsEnable: false
     property bool ctrlPressed: false
     property bool rightPanelExpanded: false
@@ -71,9 +72,11 @@ ApplicationWindow {
     property bool qrScannerEnabled: (typeof builtWithScanner != "undefined") && builtWithScanner
     property int blocksToSync: 1
     property var isMobile: (appWindow.width > 700 && !isAndroid) ? false : true
+    property bool isMining: false
     property var cameraUi
     property bool remoteNodeConnected: false
     property bool androidCloseTapped: false;
+    property int userLastActive;  // epoch
     // Default daemon addresses
     readonly property string localDaemonAddress : persistentSettings.nettype == NetworkType.MAINNET ? "localhost:13102" : persistentSettings.nettype == NetworkType.TESTNET ? "localhost:13105" : "localhost:13108"
     property string currentDaemonAddress;
@@ -82,6 +85,12 @@ ApplicationWindow {
 
     // true if wallet ever synchronized
     property bool walletInitialized : false
+
+    // Current selected address / subaddress / (Receive/Account page)
+    property var current_address
+    property var current_address_label: "Primary"
+    property int current_subaddress_table_index: 0
+    property int current_subaddress_account_table_index: 0
 
     function altKeyReleased() { ctrlPressed = false; }
 
@@ -98,8 +107,6 @@ ApplicationWindow {
             return
         }
 
-        // Dashboard is not implemented
-        // if(seq === "Ctrl+") middlePanel.state = "Dashboard"
         if(seq === "Ctrl+S") middlePanel.state = "Transfer"
         else if(seq === "Ctrl+R") middlePanel.state = "Receive"
         else if(seq === "Ctrl+K") middlePanel.state = "TxKey"
@@ -111,10 +118,10 @@ ApplicationWindow {
         else if(seq === "Ctrl+E") middlePanel.state = "Settings"
         else if(seq === "Ctrl+Y") leftPanel.keysClicked()
         else if(seq === "Ctrl+D") middlePanel.state = "Advanced"
+        else if(seq === "Ctrl+T") middlePanel.state = "Account"
         else if(seq === "Ctrl+Tab" || seq === "Alt+Tab") {
             /*
-            if(middlePanel.state === "Dashboard") middlePanel.state = "Transfer"
-            else if(middlePanel.state === "Transfer") middlePanel.state = "Receive"
+            if(middlePanel.state === "Transfer") middlePanel.state = "Receive"
             else if(middlePanel.state === "Receive") middlePanel.state = "TxKey"
             else if(middlePanel.state === "TxKey") middlePanel.state = "SharedRingDB"
             else if(middlePanel.state === "SharedRingDB") middlePanel.state = "History"
@@ -122,9 +129,9 @@ ApplicationWindow {
             else if(middlePanel.state === "AddressBook") middlePanel.state = "Mining"
             else if(middlePanel.state === "Mining") middlePanel.state = "Sign"
             else if(middlePanel.state === "Sign") middlePanel.state = "Settings"
-            else if(middlePanel.state === "Settings") middlePanel.state = "Dashboard"
             */
-            if(middlePanel.state === "Settings") middlePanel.state = "Transfer"
+            if(middlePanel.state === "Settings") middlePanel.state = "Account"
+            else if(middlePanel.state === "Account") middlePanel.state = "Transfer"
             else if(middlePanel.state === "Transfer") middlePanel.state = "AddressBook"
             else if(middlePanel.state === "AddressBook") middlePanel.state = "Receive"
             else if(middlePanel.state === "Receive") middlePanel.state = "History"
@@ -135,7 +142,6 @@ ApplicationWindow {
             else if(middlePanel.state === "Sign") middlePanel.state = "Settings"
         } else if(seq === "Ctrl+Shift+Backtab" || seq === "Alt+Shift+Backtab") {
             /*
-            if(middlePanel.state === "Dashboard") middlePanel.state = "Settings"
             if(middlePanel.state === "Settings") middlePanel.state = "Sign"
             else if(middlePanel.state === "Sign") middlePanel.state = "Mining"
             else if(middlePanel.state === "Mining") middlePanel.state = "AddressBook"
@@ -144,7 +150,6 @@ ApplicationWindow {
             else if(middlePanel.state === "SharedRingDB") middlePanel.state = "TxKey"
             else if(middlePanel.state === "TxKey") middlePanel.state = "Receive"
             else if(middlePanel.state === "Receive") middlePanel.state = "Transfer"
-            else if(middlePanel.state === "Transfer") middlePanel.state = "Dashboard"
             */
             if(middlePanel.state === "Settings") middlePanel.state = "Sign"
             else if(middlePanel.state === "Sign") middlePanel.state = "SharedRingDB"
@@ -154,7 +159,8 @@ ApplicationWindow {
             else if(middlePanel.state === "History") middlePanel.state = "Receive"
             else if(middlePanel.state === "Receive") middlePanel.state = "AddressBook"
             else if(middlePanel.state === "AddressBook") middlePanel.state = "Transfer"
-            else if(middlePanel.state === "Transfer") middlePanel.state = "Settings"
+            else if(middlePanel.state === "Transfer") middlePanel.state = "Account"
+            else if(middlePanel.state === "Account") middlePanel.state = "Settings"
         }
 
         if (middlePanel.state !== "Advanced") updateBalance();
@@ -218,14 +224,13 @@ ApplicationWindow {
         // Local daemon settings
         walletManager.setDaemonAddress(localDaemonAddress)
 
+        // enable user inactivity timer
+        userInActivityTimer.running = true;
 
         // wallet already opened with wizard, we just need to initialize it
         if (typeof wizard.m_wallet !== 'undefined') {
             console.log("using wizard wallet")
             //Set restoreHeight
-            if (persistentSettings.restore_height == 0 && persistentSettings.is_recovering_from_device && walletManager.localDaemonSynced()) {
-                persistentSettings.restore_height = walletManager.blockchainHeight() - 1;
-            }
             if(persistentSettings.restore_height > 0){
                 // We store restore height in own variable for performance reasons.
                 restoreHeight = persistentSettings.restore_height
@@ -355,8 +360,21 @@ ApplicationWindow {
     function updateBalance() {
         if (!currentWallet)
             return;
-        middlePanel.unlockedBalanceText = leftPanel.unlockedBalanceText =  middlePanel.state === "Receive" ? qsTr("HIDDEN") : walletManager.displayAmount(currentWallet.unlockedBalance(currentWallet.currentSubaddressAccount));
-        middlePanel.balanceText = leftPanel.balanceText = middlePanel.state === "Receive" ? qsTr("HIDDEN") : walletManager.displayAmount(currentWallet.balance(currentWallet.currentSubaddressAccount));
+
+        var balance_unlocked = qsTr("HIDDEN");
+        var balance = qsTr("HIDDEN");
+        if(!hideBalanceForced && !persistentSettings.hideBalance){
+            balance_unlocked = walletManager.displayAmount(currentWallet.unlockedBalance(currentWallet.currentSubaddressAccount));
+            balance = walletManager.displayAmount(currentWallet.balance(currentWallet.currentSubaddressAccount));
+        }
+
+        middlePanel.unlockedBalanceText = balance_unlocked;
+        leftPanel.unlockedBalanceText = balance_unlocked;
+        middlePanel.balanceText = balance;
+        leftPanel.balanceText = balance;
+
+        var accountLabel = currentWallet.getSubaddressLabel(currentWallet.currentSubaddressAccount, 0);
+        leftPanel.balanceLabelText = qsTr("Balance (#%1%2)").arg(currentWallet.currentSubaddressAccount).arg(accountLabel === "" ? "" : (" – " + accountLabel));
     }
 
     function onWalletConnectionStatusChanged(status){
@@ -379,6 +397,9 @@ ApplicationWindow {
         if (!walletInitialized) {
             currentWallet.history.refresh(currentWallet.currentSubaddressAccount)
             walletInitialized = true
+
+            // check if daemon was already mining and add mining logo if true
+            middlePanel.miningView.update();
         }
      }
 
@@ -857,12 +878,11 @@ ApplicationWindow {
                 informationPopup.text = qsTr("Bad signature");
                 informationPopup.icon = StandardIcon.Critical;
             } else if (received > 0) {
-                received = received / 1e12
                 if (in_pool) {
-                    informationPopup.text = qsTr("This address received %1 italo, but the transaction is not yet mined").arg(received);
+                    informationPopup.text = qsTr("This address received %1 italo, but the transaction is not yet mined").arg(walletManager.displayAmount(received));
                 }
                 else {
-                    informationPopup.text = qsTr("This address received %1 italo, with %2 confirmation(s).").arg(received).arg(confirmations);
+                    informationPopup.text = qsTr("This address received %1 italo, with %2 confirmation(s).").arg(walletManager.displayAmount(received)).arg(confirmations);
                 }
             }
             else {
@@ -913,6 +933,7 @@ ApplicationWindow {
 
     // close wallet and show wizard
     function showWizard(){
+        clearMoneroCardLabelText();
         walletInitialized = false;
         closeWallet();
         currentWallet = undefined;
@@ -920,6 +941,8 @@ ApplicationWindow {
         rootItem.state = "wizard"
         // reset balance
         leftPanel.balanceText = leftPanel.unlockedBalanceText = walletManager.displayAmount(0);
+        // disable inactivity timer
+        userInActivityTimer.running = false;
     }
 
     function hideMenu() {
@@ -1028,6 +1051,10 @@ ApplicationWindow {
         property bool keyReuseMitigation2: true
         property int segregationHeight: 0
         property int kdfRounds: 1
+        property bool hideBalance: false
+        property bool lockOnUserInActivity: true
+        property int lockOnUserInActivityInterval: 10  // minutes
+        property bool showPid: true
     }
 
     // Information dialog
@@ -1231,6 +1258,7 @@ ApplicationWindow {
     DaemonManagerDialog {
         id: daemonManagerDialog
         onRejected: {
+            middlePanel.settingsView.settingsStateViewState = "Node";
             loadPage("Settings");
             startLocalNodeCancelled = true
         }
@@ -1263,11 +1291,13 @@ ApplicationWindow {
                 PropertyChanges { target: appWindow; width: (screenWidth < 930 || isAndroid || isIOS)? screenWidth : 930; }
                 PropertyChanges { target: appWindow; height: maxWindowHeight; }
                 PropertyChanges { target: resizeArea; visible: true }
-                PropertyChanges { target: titleBar; showMaximizeButton: false }
+                PropertyChanges { target: titleBar; showMaximizeButton: true }
 //                PropertyChanges { target: frameArea; blocked: true }
-                PropertyChanges { target: titleBar; visible: false }
+                PropertyChanges { target: titleBar; visible: true }
                 PropertyChanges { target: titleBar; y: 0 }
-                PropertyChanges { target: titleBar; title: qsTr("Program setup wizard") + translationManager.emptyString }
+                PropertyChanges { target: titleBar; showMoneroLogo: false }
+                PropertyChanges { target: titleBar; titleBarGradientImageOpacity: 0.2 }
+                PropertyChanges { target: titleBar; small: true }
                 PropertyChanges { target: mobileHeader; visible: false }
             }, State {
                 name: "normal"
@@ -1320,14 +1350,6 @@ ApplicationWindow {
             anchors.top: mobileHeader.bottom
             anchors.left: parent.left
             anchors.bottom: parent.bottom
-            onDashboardClicked: {
-                middlePanel.state = "Dashboard";
-                middlePanel.flickable.contentY = 0;
-                if(isMobile) {
-                    hideMenu();
-                }
-                updateBalance();
-            }
 
             onTransferClicked: {
                 middlePanel.state = "Transfer";
@@ -1340,6 +1362,15 @@ ApplicationWindow {
 
             onReceiveClicked: {
                 middlePanel.state = "Receive";
+                middlePanel.flickable.contentY = 0;
+                if(isMobile) {
+                    hideMenu();
+                }
+                updateBalance();
+            }
+
+            onMerchantClicked: {
+                middlePanel.state = "Merchant";
                 middlePanel.flickable.contentY = 0;
                 if(isMobile) {
                     hideMenu();
@@ -1411,6 +1442,15 @@ ApplicationWindow {
             }
 
             onKeysClicked: Utils.showSeedPage();
+            
+            onAccountClicked: {
+                middlePanel.state = "Account";
+                middlePanel.flickable.contentY = 0;
+                if(isMobile) {
+                    hideMenu();
+                }
+                updateBalance();
+            }
         }
 
         RightPanel {
@@ -1549,6 +1589,7 @@ ApplicationWindow {
         property int minHeight: 400
         MouseArea {
             id: resizeArea
+            enabled: persistentSettings.customDecorations
             hoverEnabled: true
             anchors.right: parent.right
             anchors.bottom: parent.bottom
@@ -1562,6 +1603,7 @@ ApplicationWindow {
 
             Image {
                 anchors.centerIn: parent
+                visible: persistentSettings.customDecorations
                 source: parent.containsMouse || parent.pressed ? "images/resizeHovered.png" :
                                                                  "images/resize.png"
             }
@@ -1681,6 +1723,12 @@ ApplicationWindow {
         triggeredOnStart: false
     }
 
+    Timer {
+        id: userInActivityTimer
+        interval: 2000; running: false; repeat: true
+        onTriggered: checkInUserActivity()
+    }
+
     Rectangle {
         id: statusMessage
         z: 99
@@ -1793,6 +1841,15 @@ ApplicationWindow {
         onTriggered: checkUpdates()
     }
 
+    function titlebarToggleOrange(flag){
+        // toggle titlebar orange style
+        if(flag !== undefined){
+            titleBar.orange = flag;
+        } else {
+            titleBar.orange = !titleBar.orange;
+        }
+    }
+
     function releaseFocus() {
         // Workaround to release focus from textfield when scrolling (https://bugreports.qt.io/browse/QTBUG-34867)
         if(isAndroid) {
@@ -1800,6 +1857,38 @@ ApplicationWindow {
             middlePanel.focus = true
             middlePanel.focus = false
         }
+    }
+
+    // reset label text. othewise potential privacy leak showing unlock time when switching wallets
+    function clearMoneroCardLabelText(){
+        leftPanel.minutesToUnlockTxt = qsTr("Unlocked balance")
+        leftPanel.balanceLabelText = qsTr("Balance")
+    }
+
+    function userActivity() {
+        // register user activity
+        var epoch = Math.floor((new Date).getTime()/1000);
+        appWindow.userLastActive = epoch;
+    }
+
+    function checkInUserActivity() {
+        if(!persistentSettings.lockOnUserInActivity) return;
+
+        // prompt password after X seconds of inactivity
+        var epoch = Math.floor((new Date).getTime() / 1000);
+        var inactivity = epoch - appWindow.userLastActive;
+        if(inactivity < (persistentSettings.lockOnUserInActivityInterval * 60)) return;
+
+        passwordDialog.onAcceptedCallback = function() {
+            if(walletPassword === passwordDialog.password){
+                passwordDialog.close();
+            } else {
+                passwordDialog.showError(qsTr("Wrong password"));
+            }
+        }
+
+        passwordDialog.onRejectedCallback = function() { appWindow.showWizard(); }
+        passwordDialog.open();
     }
 
     // Daemon console

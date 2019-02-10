@@ -78,10 +78,13 @@ ColumnLayout {
     property var onPaste: function(clipboardText) {
         item.text = clipboardText;
     }
-    property bool showingHeader: true
+    property bool showingHeader: labelText != "" || copyButton || pasteButton
     property var wrapMode: Text.NoWrap
     property alias addressValidation: input.addressValidation
     property string backgroundColor: "" // mock
+
+    property alias inlineButton: inlineButtonId
+    property bool inlineButtonVisible: false
 
     signal labelButtonClicked();
     signal inputLabelLinkActivated();
@@ -149,9 +152,8 @@ ColumnLayout {
         id: input
         readOnly: false
         addressValidation: false
-        anchors.top: item.showingHeader ? inputLabelRect.bottom : item.top
         Layout.fillWidth: true
-        topPadding: item.showingHeader ? 10 * scaleRatio : 0
+        topPadding: 10 * scaleRatio
         bottomPadding: 10 * scaleRatio
         wrapMode: item.wrapMode
         fontSize: item.fontSize
@@ -183,6 +185,15 @@ ColumnLayout {
             radius: 4
             anchors.fill: parent
             visible: !item.borderDisabled
+        }
+
+        MoneroComponents.InlineButton {
+            id: inlineButtonId
+            visible: (inlineButtonId.text || inlineButtonId.icon) && inlineButtonVisible ? true : false
+            anchors.right: parent.right
+            anchors.rightMargin: 8 * scaleRatio
+            anchors.top: parent.top
+            anchors.topMargin: 4 * scaleRatio
         }
     }
 }

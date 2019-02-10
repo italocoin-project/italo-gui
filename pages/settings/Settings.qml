@@ -46,6 +46,7 @@ ColumnLayout {
     Clipboard { id: clipboard }
     property bool viewOnly: false
     property int settingsHeight: 900
+    property alias settingsStateViewState: settingsStateView.state
 
     Navbar{}
 
@@ -65,17 +66,16 @@ ColumnLayout {
 
         onCurrentViewChanged: {
             if (previousView) {
-//                if (typeof previousView.onPageClosed === "function") {
-//                    previousView.onPageClosed();
-//                }
+                if (typeof previousView.onPageClosed === "function") {
+                    previousView.onPageClosed();
+                }
             }
             previousView = currentView
             if (currentView) {
                 stackView.replace(currentView)
-                // Component.onCompleted is called before wallet is initilized
-//                if (typeof currentView.onPageCompleted === "function") {
-//                    currentView.onPageCompleted();
-//                }
+                if (typeof currentView.onPageCompleted === "function") {
+                    currentView.onPageCompleted();
+                }
             }
         }
 

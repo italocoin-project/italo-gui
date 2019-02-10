@@ -36,6 +36,7 @@
 #include <QDesktopWidget>
 #include <QScreen>
 #include <QRegExp>
+#include <QThread>
 #include "clipboardAdapter.h"
 #include "filter.h"
 #include "oscursor.h"
@@ -54,6 +55,8 @@
 #include "model/AddressBookModel.h"
 #include "Subaddress.h"
 #include "model/SubaddressModel.h"
+#include "SubaddressAccount.h"
+#include "model/SubaddressAccountModel.h"
 #include "wallet/api/wallet2_api.h"
 #include "Logger.h"
 #include "MainApp.h"
@@ -207,6 +210,12 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Subaddress>("italoComponents.Subaddress", 1, 0, "Subaddress",
                                                         "Subaddress can't be instantiated directly");
 
+    qmlRegisterUncreatableType<SubaddressAccountModel>("moneroComponents.SubaddressAccountModel", 1, 0, "SubaddressAccountModel",
+                                                        "SubaddressAccountModel can't be instantiated directly");
+
+    qmlRegisterUncreatableType<SubaddressAccount>("moneroComponents.SubaddressAccount", 1, 0, "SubaddressAccount",
+                                                        "SubaddressAccount can't be instantiated directly");
+
     qRegisterMetaType<PendingTransaction::Priority>();
     qRegisterMetaType<TransactionInfo::Direction>();
     qRegisterMetaType<TransactionHistoryModel::TransactionInfoRole>();
@@ -267,6 +276,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("scaleRatio", 1);
 #endif
 
+#ifndef Q_OS_IOS
+    const QString desktopFolder = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    if (!desktopFolder.isEmpty())
+        engine.rootContext()->setContextProperty("desktopFolder", desktopFolder);
+#endif
 
     if (!italoAccountsRootDir.empty())
     {
@@ -284,6 +298,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("defaultAccountName", accountName);
     engine.rootContext()->setContextProperty("applicationDirectory", QApplication::applicationDirPath());
+    engine.rootContext()->setContextProperty("idealThreadCount", QThread::idealThreadCount());
 
     bool builtWithScanner = false;
 #ifdef WITH_SCANNER
@@ -322,6 +337,6 @@ int main(int argc, char *argv[])
     QObject::connect(eventFilter, SIGNAL(sequenceReleased(QVariant,QVariant)), rootObject, SLOT(sequenceReleased(QVariant,QVariant)));
     QObject::connect(eventFilter, SIGNAL(mousePressed(QVariant,QVariant,QVariant)), rootObject, SLOT(mousePressed(QVariant,QVariant,QVariant)));
     QObject::connect(eventFilter, SIGNAL(mouseReleased(QVariant,QVariant,QVariant)), rootObject, SLOT(mouseReleased(QVariant,QVariant,QVariant)));
-
+    QObject::connect(eventFilter, SIGNAL(userActivity()), rootObject, SLOT(userActivity()));
     return app.exec();
 }

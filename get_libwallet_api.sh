@@ -220,16 +220,16 @@ fi
 # Build libwallet_merged
 pushd $MONERO_DIR/build/$BUILD_TYPE/src/wallet
 eval $make_exec version -C ../..
-eval $make_exec  -j$CPU_CORE_COUNT
-eval $make_exec  install -j$CPU_CORE_COUNT
+eval $make_exec  -j3
+eval $make_exec  install -j3
 popd
 
 # Build italod
 # win32 need to build daemon manually with msys2 toolchain
 if [ "$platform" != "mingw32" ] && [ "$ANDROID" != true ]; then
     pushd $MONERO_DIR/build/$BUILD_TYPE/src/daemon
-    eval make  -j$CPU_CORE_COUNT
-    eval make install -j$CPU_CORE_COUNT
+    eval make  -j3
+    eval make install -j3
     popd
 fi
 
@@ -247,8 +247,8 @@ if [ -d $MONERO_DIR/build/$BUILD_TYPE/external/unbound ]; then
     echo "Installing libunbound..."
     pushd $MONERO_DIR/build/$BUILD_TYPE/external/unbound
     # no need to make, it was already built as dependency for libwallet
-    # make -j$CPU_CORE_COUNT
-    $make_exec install -j$CPU_CORE_COUNT
+    # make -j3
+    $make_exec install -j3
     popd
 fi
 

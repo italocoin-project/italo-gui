@@ -8,7 +8,7 @@ AppName=Italo GUI Wallet
 ; Thus it's important to keep this stable over releases
 ; With a different "AppName" InnoSetup would treat a mere update as a completely new application and thus mess up
 
-AppVersion=0.13.0.4
+AppVersion=0.13.0.5
 DefaultDirName={pf}\Italo GUI Wallet
 DefaultGroupName=Italo GUI Wallet
 UninstallDisplayIcon={app}\italo-wallet-gui.exe
@@ -20,7 +20,7 @@ WizardImageFile=WelcomeImage.bmp
 DisableWelcomePage=no
 LicenseFile=LICENSE
 AppPublisher=The Italo Developer Community
-AppPublisherURL=https://getitalo.org
+AppPublisherURL=https://italo.network
 
 UsedUserAreasWarning=no
 ; The above directive silences the following compiler warning:

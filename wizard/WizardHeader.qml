@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import "../js/Wizard.js" as Wizard
 import "../components"
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
@@ -44,9 +44,9 @@ ColumnLayout {
     TextArea {
         text: title
         Layout.fillWidth: true
-        font.family: MoneroComponents.Style.fontRegular.name
-        color: MoneroComponents.Style.defaultFontColor
-        opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.8
+        font.family: ItaloComponents.Style.fontRegular.name
+        color: ItaloComponents.Style.defaultFontColor
+        opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
         font.pixelSize: {
             if(wizardController.layoutScale === 2 ){
                 return 34;
@@ -55,8 +55,8 @@ ColumnLayout {
             }
         }
 
-        selectionColor: MoneroComponents.Style.textSelectionColor
-        selectedTextColor: MoneroComponents.Style.textSelectedColor
+        selectionColor: ItaloComponents.Style.textSelectionColor
+        selectedTextColor: ItaloComponents.Style.textSelectedColor
 
         selectByMouse: true
         wrapMode: Text.WordWrap
@@ -72,10 +72,10 @@ ColumnLayout {
         anchors.horizontalCenter: parent.horizontalCenter
         visible: parent.subtitle !== ""
 
-        color: MoneroComponents.Style.dimmedFontColor
+        color: ItaloComponents.Style.dimmedFontColor
         text: subtitle
 
-        font.family: MoneroComponents.Style.fontRegular.name
+        font.family: ItaloComponents.Style.fontRegular.name
         font.pixelSize: {
             if(wizardController.layoutScale === 2 ){
                 return 16;
@@ -84,8 +84,8 @@ ColumnLayout {
             }
         }
 
-        selectionColor: MoneroComponents.Style.textSelectionColor
-        selectedTextColor: MoneroComponents.Style.textSelectedColor
+        selectionColor: ItaloComponents.Style.textSelectionColor
+        selectedTextColor: ItaloComponents.Style.textSelectedColor
 
         selectByMouse: true
         wrapMode: Text.WordWrap

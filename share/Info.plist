@@ -18,13 +18,13 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>monero-wallet-gui</string>
+  <string>italo-wallet-gui</string>
   
   <key>CFBundleName</key>
-  <string>Monero GUI</string>
+  <string>Italo GUI</string>
 
   <key>CFBundleIdentifier</key>
-  <string>org.monero-project.monero-wallet-gui</string>
+  <string>org.italo-project.italo-wallet-gui</string>
 
   <key>NSSupportsAutomaticGraphicsSwitching</key>
   <true/>
@@ -36,18 +36,18 @@
   <array>
     <dict>
       <key>CFBundleURLName</key>
-      <string>monero Handler</string>
+      <string>italo Handler</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>monero</string>
+        <string>italo</string>
       </array>
     </dict>
     <dict>
       <key>CFBundleURLName</key>
-      <string>moneroseed Handler</string>
+      <string>italoseed Handler</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>moneroseed</string>
+        <string>italoseed</string>
       </array>
     </dict>
   </array>

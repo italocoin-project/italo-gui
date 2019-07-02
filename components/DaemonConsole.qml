@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italo Project
 //
 // All rights reserved.
 //
@@ -33,8 +33,8 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.2
 
-import "." as MoneroComponents
-import "effects/" as MoneroEffects
+import "." as ItaloComponents
+import "effects/" as ItaloEffects
 import "../js/Windows.js" as Windows
 import "../js/Utils.js" as Utils
 
@@ -66,15 +66,15 @@ Window {
     height: 280
 
     // background
-    MoneroEffects.GradientBackground {
+    ItaloEffects.GradientBackground {
         anchors.fill: parent
-        fallBackColor: MoneroComponents.Style.middlePanelBackgroundColor
-        initialStartColor: MoneroComponents.Style.middlePanelBackgroundGradientStart
-        initialStopColor: MoneroComponents.Style.middlePanelBackgroundGradientStop
-        blackColorStart: MoneroComponents.Style._b_middlePanelBackgroundGradientStart
-        blackColorStop: MoneroComponents.Style._b_middlePanelBackgroundGradientStop
-        whiteColorStart: MoneroComponents.Style._w_middlePanelBackgroundGradientStart
-        whiteColorStop: MoneroComponents.Style._w_middlePanelBackgroundGradientStop
+        fallBackColor: ItaloComponents.Style.middlePanelBackgroundColor
+        initialStartColor: ItaloComponents.Style.middlePanelBackgroundGradientStart
+        initialStopColor: ItaloComponents.Style.middlePanelBackgroundGradientStop
+        blackColorStart: ItaloComponents.Style._b_middlePanelBackgroundGradientStart
+        blackColorStop: ItaloComponents.Style._b_middlePanelBackgroundGradientStop
+        whiteColorStart: ItaloComponents.Style._w_middlePanelBackgroundGradientStart
+        whiteColorStop: ItaloComponents.Style._w_middlePanelBackgroundGradientStop
         start: Qt.point(0, 0)
         end: Qt.point(height, width)
     }
@@ -103,7 +103,7 @@ Window {
             Rectangle {
                 anchors.fill: parent
                 color: "transparent"
-                border.color: MoneroComponents.Style.inputBorderColorActive
+                border.color: ItaloComponents.Style.inputBorderColorActive
                 border.width: 1
                 radius: 4
             }
@@ -117,23 +117,23 @@ Window {
                     textFormat: TextEdit.RichText
                     selectByMouse: true
                     selectByKeyboard: true
-                    font.family: MoneroComponents.Style.defaultFontColor
+                    font.family: ItaloComponents.Style.defaultFontColor
                     font.pixelSize: 14
-                    color: MoneroComponents.Style.defaultFontColor
-                    selectionColor: MoneroComponents.Style.textSelectionColor
+                    color: ItaloComponents.Style.defaultFontColor
+                    selectionColor: ItaloComponents.Style.textSelectionColor
                     wrapMode: TextEdit.Wrap
                     readOnly: true
                     function logCommand(msg){
-                        msg = log_color(msg, MoneroComponents.Style.blackTheme ? "lime" : "#009100");
+                        msg = log_color(msg, ItaloComponents.Style.blackTheme ? "lime" : "#009100");
                         textArea.append(msg);
                     }
                     function logMessage(msg){
                         msg = msg.trim();
-                        var color = MoneroComponents.Style.defaultFontColor;
+                        var color = ItaloComponents.Style.defaultFontColor;
                         if(msg.toLowerCase().indexOf('error') >= 0){
-                            color = MoneroComponents.Style.errorColor;
+                            color = ItaloComponents.Style.errorColor;
                         } else if (msg.toLowerCase().indexOf('warning') >= 0){
-                            color = MoneroComponents.Style.warningColor;
+                            color = ItaloComponents.Style.warningColor;
                         }
 
                         // format multi-lines
@@ -171,7 +171,7 @@ Window {
         RowLayout {
             Layout.fillWidth: true
 
-            MoneroComponents.LineEdit {
+            ItaloComponents.LineEdit {
                 id: sendCommandText
                 Layout.fillWidth: true
                 placeholderText: qsTr("command + enter (e.g help)") + translationManager.emptyString

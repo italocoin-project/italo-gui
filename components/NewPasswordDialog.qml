@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -34,7 +34,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.0
 import FontAwesome 1.0
 
-import "../components" as MoneroComponents
+import "../components" as ItaloComponents
 
 Item {
     id: root
@@ -100,9 +100,9 @@ Item {
                 Layout.fillWidth: true
 
                 font.pixelSize: 16
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
 
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
             TextField {
@@ -111,24 +111,24 @@ Item {
                 Layout.fillWidth: true
                 horizontalAlignment: TextInput.AlignLeft
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
                 font.pixelSize: 24
                 echoMode: TextInput.Password
                 bottomPadding: 10
                 leftPadding: 10
                 topPadding: 10
-                color: MoneroComponents.Style.defaultFontColor
-                selectionColor: MoneroComponents.Style.textSelectionColor
-                selectedTextColor: MoneroComponents.Style.textSelectedColor
+                color: ItaloComponents.Style.defaultFontColor
+                selectionColor: ItaloComponents.Style.textSelectionColor
+                selectedTextColor: ItaloComponents.Style.textSelectedColor
                 KeyNavigation.tab: passwordInput2
 
                 background: Rectangle {
                     radius: 2
-                    border.color: MoneroComponents.Style.inputBorderColorInActive
+                    border.color: ItaloComponents.Style.inputBorderColorInActive
                     border.width: 1
-                    color: MoneroComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
+                    color: ItaloComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
 
-                    MoneroComponents.Label {
+                    ItaloComponents.Label {
                         fontSize: 20
                         text: isHidden ? FontAwesome.eye : FontAwesome.eyeSlash
                         opacity: 0.7
@@ -177,9 +177,9 @@ Item {
                 Layout.fillWidth: true
 
                 font.pixelSize: 16
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
 
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
             TextField {
@@ -188,24 +188,24 @@ Item {
                 Layout.fillWidth: true
                 horizontalAlignment: TextInput.AlignLeft
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
                 font.pixelSize: 24
                 echoMode: TextInput.Password
                 KeyNavigation.tab: okButton
                 bottomPadding: 10
                 leftPadding: 10
                 topPadding: 10
-                color: MoneroComponents.Style.defaultFontColor
-                selectionColor: MoneroComponents.Style.textSelectionColor
-                selectedTextColor: MoneroComponents.Style.textSelectedColor
+                color: ItaloComponents.Style.defaultFontColor
+                selectionColor: ItaloComponents.Style.textSelectionColor
+                selectedTextColor: ItaloComponents.Style.textSelectedColor
 
                 background: Rectangle {
                     radius: 2
-                    border.color: MoneroComponents.Style.inputBorderColorInActive
+                    border.color: ItaloComponents.Style.inputBorderColorInActive
                     border.width: 1
-                    color: MoneroComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
+                    color: ItaloComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
 
-                    MoneroComponents.Label {
+                    ItaloComponents.Label {
                         fontSize: 20
                         text: isHidden ? FontAwesome.eye : FontAwesome.eyeSlash
                         opacity: 0.7
@@ -262,7 +262,7 @@ Item {
                 Layout.topMargin: 16
                 Layout.alignment: Qt.AlignRight
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: cancelButton
                     text: qsTr("Cancel") + translationManager.emptyString
                     KeyNavigation.tab: passwordInput1
@@ -271,7 +271,7 @@ Item {
                         root.rejected()
                     }
                 }
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: okButton
                     text: qsTr("Continue") + translationManager.emptyString
                     KeyNavigation.tab: cancelButton

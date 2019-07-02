@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -31,14 +31,14 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
-import "../components" as MoneroComponents
-import "../components/effects/" as MoneroEffects
+import "../components" as ItaloComponents
+import "../components/effects/" as ItaloEffects
 
 import "../js/TxUtils.js" as TxUtils
-import moneroComponents.AddressBook 1.0
-import moneroComponents.AddressBookModel 1.0
-import moneroComponents.Clipboard 1.0
-import moneroComponents.NetworkType 1.0
+import italoComponents.AddressBook 1.0
+import italoComponents.AddressBookModel 1.0
+import italoComponents.Clipboard 1.0
+import italoComponents.NetworkType 1.0
 import FontAwesome 1.0
 
 Rectangle {
@@ -70,8 +70,8 @@ Rectangle {
             TextArea {
                 id: titleLabel
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.defaultFontColor
-                font.family: MoneroComponents.Style.fontRegular.name
+                color: ItaloComponents.Style.defaultFontColor
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 32
                 horizontalAlignment: TextInput.AlignLeft
                 selectByMouse: false
@@ -93,8 +93,8 @@ Rectangle {
 
             TextArea {
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dimmedFontColor
-                font.family: MoneroComponents.Style.fontRegular.name
+                color: ItaloComponents.Style.dimmedFontColor
+                font.family: ItaloComponents.Style.fontRegular.name
                 font.pixelSize: 16
                 horizontalAlignment: TextInput.AlignLeft
                 selectByMouse: false
@@ -102,7 +102,7 @@ Rectangle {
                 textMargin: 0
                 leftPadding: 0
                 topPadding: 0
-                text: qsTr("This makes it easier to send or receive Monero and reduces errors when typing in addresses manually.") + translationManager.emptyString
+                text: qsTr("This makes it easier to send or receive Italo and reduces errors when typing in addresses manually.") + translationManager.emptyString
                 width: parent.width
                 readOnly: true
 
@@ -114,7 +114,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: addFirstEntryButton
                 Layout.topMargin: 20
                 text: qsTr("Add an address") + translationManager.emptyString
@@ -129,7 +129,7 @@ Rectangle {
             visible: addressBookListView.count >= 1
             spacing: 0
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 Layout.bottomMargin: 20
                 fontSize: 32
                 text: qsTr("Address book") + translationManager.emptyString
@@ -163,16 +163,16 @@ Rectangle {
                         }
 
                         Rectangle {
-                            color: MoneroComponents.Style.appWindowBorderColor
+                            color: ItaloComponents.Style.appWindowBorderColor
                             anchors.right: parent.right
                             anchors.left: parent.left
                             anchors.top: parent.top
                             height: 1
 
-                            MoneroEffects.ColorTransition {
+                            ItaloEffects.ColorTransition {
                                 targetObj: parent
-                                blackColor: MoneroComponents.Style._b_appWindowBorderColor
-                                whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+                                blackColor: ItaloComponents.Style._b_appWindowBorderColor
+                                whiteColor: ItaloComponents.Style._w_appWindowBorderColor
                             }
                         }
 
@@ -182,9 +182,9 @@ Rectangle {
                             anchors.rightMargin: 110
                             color: "transparent"
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: descriptionLabel
-                                color: MoneroComponents.Style.defaultFontColor
+                                color: ItaloComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left
                                 anchors.leftMargin: 6
@@ -194,15 +194,15 @@ Rectangle {
                                 textWidth: addressLabel.x - descriptionLabel.x - 1
                             }
 
-                            MoneroComponents.Label {
+                            ItaloComponents.Label {
                                 id: addressLabel
-                                color: MoneroComponents.Style.defaultFontColor
+                                color: ItaloComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.right
                                 anchors.leftMargin: -addressLabel.width - 5
 
                                 fontSize: 16
-                                fontFamily: MoneroComponents.Style.fontMonoRegular.name;
+                                fontFamily: ItaloComponents.Style.fontMonoRegular.name;
                                 text: TxUtils.addressTruncatePretty(address, mainLayout.width < 540 ? 1 : (mainLayout.width < 700 ? 2 : 3));
                             }
 
@@ -223,10 +223,10 @@ Rectangle {
                             height: 21
                             spacing: 10
 
-                            MoneroComponents.IconButton {
+                            ItaloComponents.IconButton {
                                 id: sendToButton
                                 image: "qrc:///images/arrow-right-in-circle-outline-medium-white.svg"
-                                color: MoneroComponents.Style.defaultFontColor
+                                color: ItaloComponents.Style.defaultFontColor
                                 opacity: 0.5
                                 Layout.preferredWidth: 20
                                 Layout.preferredHeight: 20
@@ -235,10 +235,10 @@ Rectangle {
                                 }
                             }
 
-                            MoneroComponents.IconButton {
+                            ItaloComponents.IconButton {
                                 id: renameButton
                                 image: "qrc:///images/edit.svg"
-                                color: MoneroComponents.Style.defaultFontColor
+                                color: ItaloComponents.Style.defaultFontColor
                                 opacity: 0.5
                                 Layout.preferredWidth: 23
                                 Layout.preferredHeight: 21
@@ -249,12 +249,12 @@ Rectangle {
                                 }
                             }
 
-                            MoneroComponents.IconButton {
+                            ItaloComponents.IconButton {
                                 id: copyButton
                                 image: "qrc:///images/copy.svg"
                                 Layout.preferredWidth: 16
                                 Layout.preferredHeight: 21
-                                color: MoneroComponents.Style.defaultFontColor
+                                color: ItaloComponents.Style.defaultFontColor
                                 opacity: 0.5
 
                                 onClicked: {
@@ -270,18 +270,18 @@ Rectangle {
 
             Rectangle {
                 id: border2
-                color: MoneroComponents.Style.appWindowBorderColor
+                color: ItaloComponents.Style.appWindowBorderColor
                 Layout.fillWidth: true
                 height: 1
 
-                MoneroEffects.ColorTransition {
+                ItaloEffects.ColorTransition {
                     targetObj: border2
-                    blackColor: MoneroComponents.Style._b_appWindowBorderColor
-                    whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+                    blackColor: ItaloComponents.Style._b_appWindowBorderColor
+                    whiteColor: ItaloComponents.Style._w_appWindowBorderColor
                 }
             }
 
-            MoneroComponents.CheckBox {
+            ItaloComponents.CheckBox {
                 id: addNewEntryCheckbox
                 border: false
                 checkedIcon: "qrc:///images/plus-in-circle-medium-white.png"
@@ -302,13 +302,13 @@ Rectangle {
             visible: false
             spacing: 0
 
-            MoneroComponents.Label {
+            ItaloComponents.Label {
                 fontSize: 32
                 wrapMode: Text.WordWrap
                 text: (root.editEntry ? qsTr("Edit an address") : qsTr("Add an address")) + translationManager.emptyString
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: addressLine
                 Layout.topMargin: 20
                 labelText: qsTr("<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style>\
@@ -338,8 +338,8 @@ Rectangle {
                 inlineButton.text: FontAwesome.qrcode
                 inlineButton.fontPixelSize: 22
                 inlineButton.fontFamily: FontAwesome.fontFamily
-                inlineButton.textColor: MoneroComponents.Style.defaultFontColor
-                inlineButton.buttonColor: MoneroComponents.Style.orange
+                inlineButton.textColor: ItaloComponents.Style.defaultFontColor
+                inlineButton.buttonColor: ItaloComponents.Style.orange
                 inlineButton.onClicked: {
                     cameraUi.state = "Capture"
                     cameraUi.qrcode_decoded.connect(root.updateFromQrCode)
@@ -347,7 +347,7 @@ Rectangle {
                 inlineButtonVisible : appWindow.qrScannerEnabled && !addressLine.text
             }
 
-            MoneroComponents.StandardButton {
+            ItaloComponents.StandardButton {
                 id: resolveButton
                 Layout.topMargin: 10
                 text: qsTr("Resolve") + translationManager.emptyString
@@ -386,7 +386,7 @@ Rectangle {
                 }
             }
 
-            MoneroComponents.LineEditMulti {
+            ItaloComponents.LineEditMulti {
                 id: descriptionLine
                 Layout.topMargin: 20
                 labelText: qsTr("<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style>\
@@ -395,7 +395,7 @@ Rectangle {
             }
             RowLayout {
                 Layout.topMargin: 20
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: addButton
                     text: (root.editEntry ? qsTr("Save") : qsTr("Add")) + translationManager.emptyString
                     enabled: root.checkInformation(addressLine.text, appWindow.persistentSettings.nettype)
@@ -427,7 +427,7 @@ Rectangle {
                     Layout.leftMargin: 20
                     font.pixelSize: 16
                     font.bold: false
-                    color: MoneroComponents.Style.defaultFontColor
+                    color: ItaloComponents.Style.defaultFontColor
                     text: qsTr("Cancel") + translationManager.emptyString
 
                     MouseArea {
@@ -444,7 +444,7 @@ Rectangle {
                     Layout.leftMargin: 20
                     font.pixelSize: 16
                     font.bold: false
-                    color: MoneroComponents.Style.defaultFontColor
+                    color: ItaloComponents.Style.defaultFontColor
                     text: qsTr("Delete") + translationManager.emptyString
 
                     MouseArea {
@@ -512,7 +512,7 @@ Rectangle {
       oaPopup.open()
     }
 
-    MoneroComponents.StandardDialog {
+    ItaloComponents.StandardDialog {
         // dynamically change onclose handler
         property var onCloseCallback
         id: oaPopup

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -34,8 +34,8 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Window 2.0
 import FontAwesome 1.0
 
-import "." as MoneroComponents
-import "effects/" as MoneroEffects
+import "." as ItaloComponents
+import "effects/" as ItaloEffects
 import "../js/Utils.js" as Utils
 
 Item {
@@ -106,18 +106,18 @@ Item {
                 Layout.fillWidth: true
 
                 font.pixelSize: 16
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
 
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
             }
 
             Label {
                 id: errorTextLabel
                 visible: root.errorText || text !== ""
 
-                color: MoneroComponents.Style.errorColor
+                color: ItaloComponents.Style.errorColor
                 font.pixelSize: 16
-                font.family: MoneroComponents.Style.fontLight.name                
+                font.family: ItaloComponents.Style.fontLight.name                
                 Layout.fillWidth: true
                 wrapMode: Text.Wrap
             }
@@ -128,16 +128,16 @@ Item {
                 Layout.fillWidth: true
                 horizontalAlignment: TextInput.AlignLeft
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: MoneroComponents.Style.fontLight.name
+                font.family: ItaloComponents.Style.fontLight.name
                 font.pixelSize: 24
                 echoMode: TextInput.Password
                 KeyNavigation.tab: okButton
                 bottomPadding: 10
                 leftPadding: 10
                 topPadding: 10
-                color: MoneroComponents.Style.defaultFontColor
-                selectionColor: MoneroComponents.Style.textSelectionColor
-                selectedTextColor: MoneroComponents.Style.textSelectedColor
+                color: ItaloComponents.Style.defaultFontColor
+                selectionColor: ItaloComponents.Style.textSelectionColor
+                selectedTextColor: ItaloComponents.Style.textSelectedColor
 
                 onTextChanged: {
                     var letter = text[passwordInput.text.length - 1];
@@ -152,17 +152,17 @@ Item {
 
                 background: Rectangle {
                     radius: 2
-                    color: MoneroComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
-                    border.color: MoneroComponents.Style.inputBorderColorInActive
+                    color: ItaloComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
+                    border.color: ItaloComponents.Style.inputBorderColorInActive
                     border.width: 1
 
-                    MoneroEffects.ColorTransition {
+                    ItaloEffects.ColorTransition {
                         targetObj: parent
                         blackColor: "black"
                         whiteColor: "#A9FFFFFF"
                     }
 
-                    MoneroComponents.Label {
+                    ItaloComponents.Label {
                         fontSize: 20
                         text: isHidden ? FontAwesome.eye : FontAwesome.eyeSlash
                         opacity: 0.7
@@ -226,7 +226,7 @@ Item {
                 Layout.topMargin: 16
                 Layout.alignment: Qt.AlignRight
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: cancelButton
                     small: true
                     text: root.walletName.length > 0 ? qsTr("Change wallet") + translationManager.emptyString : qsTr("Cancel") + translationManager.emptyString
@@ -237,7 +237,7 @@ Item {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     id: okButton
                     small: true
                     text: qsTr("Continue") + translationManager.emptyString

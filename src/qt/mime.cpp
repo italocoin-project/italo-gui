@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -40,24 +40,24 @@ void registerXdgMime(QApplication &app){
 
     QString xdg = QString(
             "[Desktop Entry]\n"
-            "Name=Monero GUI\n"
-            "GenericName=Monero-GUI\n"
-            "X-GNOME-FullName=Monero-GUI\n"
-            "Comment=Monero GUI\n"
-            "Keywords=Monero;\n"
+            "Name=Italo GUI\n"
+            "GenericName=Italo-GUI\n"
+            "X-GNOME-FullName=Italo-GUI\n"
+            "Comment=Italo GUI\n"
+            "Keywords=Italo;\n"
             "Exec=%1 %u\n"
             "Terminal=false\n"
             "Type=Application\n"
-            "Icon=monero\n"
+            "Icon=italo\n"
             "Categories=Network;GNOME;Qt;\n"
-            "MimeType=x-scheme-handler/monero;x-scheme-handler/moneroseed\n"
+            "MimeType=x-scheme-handler/italo;x-scheme-handler/italoseed\n"
             "StartupNotify=true\n"
             "X-GNOME-Bugzilla-Bugzilla=GNOME\n"
             "X-GNOME-UsesNotifications=true\n"
     ).arg(app.applicationFilePath());
 
     QString appPath = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation);
-    QString filePath = QString("%1/monero-gui.desktop").arg(appPath);
+    QString filePath = QString("%1/italo-gui.desktop").arg(appPath);
 
     qDebug() << QString("Writing %1").arg(filePath);
     QFile file(filePath);

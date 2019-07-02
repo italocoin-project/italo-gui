@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -34,7 +34,7 @@ import QtQuick.Dialogs 1.2
 import "../../js/Wizard.js" as Wizard
 import "../../js/Utils.js" as Utils
 import "../../version.js" as Version
-import "../../components" as MoneroComponents
+import "../../components" as ItaloComponents
 
 
 Rectangle {
@@ -65,14 +65,14 @@ Rectangle {
             columns: 2
             columnSpacing: 0
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
                 text: qsTr("GUI version: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 text: Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")" + translationManager.emptyString
             }
 
@@ -81,8 +81,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -90,19 +90,19 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
-                id: guiMoneroVersion
+            ItaloComponents.TextBlock {
+                id: guiItaloVersion
                 font.pixelSize: 14
-                text: qsTr("Embedded Monero version: ") + translationManager.emptyString
+                text: qsTr("Embedded Italo version: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 font.pixelSize: 14
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 text: Version.GUI_MONERO_VERSION + translationManager.emptyString
             }
 
@@ -111,8 +111,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -120,25 +120,25 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Wallet path: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 Layout.maximumWidth: 360
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 text: {
                     var wallet_path = walletPath();
                     if(isIOS)
-                        wallet_path = moneroAccountsDir + wallet_path;
+                        wallet_path = italoAccountsDir + wallet_path;
                     return wallet_path;
                 }
             }
@@ -148,8 +148,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -157,22 +157,22 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 id: restoreHeight
                 font.pixelSize: 14
                 textFormat: Text.RichText
                 text: (typeof currentWallet == "undefined") ? "" : qsTr("Wallet restore height: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 id: restoreHeightText
                 Layout.fillWidth: true
                 textFormat: Text.RichText
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 property var style: "<style type='text/css'>a {cursor:pointer;text-decoration: none; color: #FF6C3C}</style>"
                 text: (currentWallet ? currentWallet.walletCreationHeight : "") + style + qsTr(" <a href='#'> (Click to change)</a>") + translationManager.emptyString
@@ -238,8 +238,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -247,19 +247,19 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Wallet log path: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 text: walletLogPath
             }
@@ -269,8 +269,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -278,19 +278,19 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Wallet mode: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 text: walletModeString
             }
@@ -300,8 +300,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -309,37 +309,37 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Graphics mode: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 text: isOpenGL ? "OpenGL" : "Low graphics mode"
             }
         }
 
         // Copy info to clipboard
-        MoneroComponents.StandardButton {
+        ItaloComponents.StandardButton {
             small: true
             text: qsTr("Copy to clipboard") + translationManager.emptyString
             onClicked: {
                 var data = "";
                 data += "GUI version: " + Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")";
-                data += "\nEmbedded Monero version: " + Version.GUI_MONERO_VERSION;
+                data += "\nEmbedded Italo version: " + Version.GUI_MONERO_VERSION;
                 data += "\nWallet path: ";
 
                 var wallet_path = walletPath();
                 if(isIOS)
-                    wallet_path = moneroAccountsDir + wallet_path;
+                    wallet_path = italoAccountsDir + wallet_path;
                 data += wallet_path;
 
                 data += "\nWallet creation height: ";

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015, The Monero Project
+// Copyright (c) 2014-2015, The Italo Project
 //
 // All rights reserved.
 //
@@ -28,8 +28,8 @@
 
 import QtQuick 2.9
 
-import "../components" as MoneroComponents
-import "../components/effects/" as MoneroEffects
+import "../components" as ItaloComponents
+import "../components/effects/" as ItaloEffects
 
 Label {
     id: item
@@ -43,12 +43,12 @@ Label {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 2
-        color: MoneroComponents.Style.appWindowBorderColor
+        color: ItaloComponents.Style.appWindowBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_appWindowBorderColor
-            whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+            blackColor: ItaloComponents.Style._b_appWindowBorderColor
+            whiteColor: ItaloComponents.Style._w_appWindowBorderColor
         }
     }
 }

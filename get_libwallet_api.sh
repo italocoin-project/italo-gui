@@ -1,5 +1,5 @@
 #!/bin/bash
-MONERO_URL=https://github.com/monero-project/monero.git
+MONERO_URL=https://github.com/italo-project/italo.git
 MONERO_BRANCH=master
 
 pushd $(pwd)
@@ -8,38 +8,38 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $ROOT_DIR/utils.sh
 
 INSTALL_DIR=$ROOT_DIR/wallet
-MONERO_DIR=$ROOT_DIR/monero
+MONERO_DIR=$ROOT_DIR/italo
 BUILD_LIBWALLET=false
 
-# init and update monero submodule
+# init and update italo submodule
 if [ ! -d $MONERO_DIR/src ]; then
-    git submodule init monero
+    git submodule init italo
 fi
 git submodule update --remote
 git -C $MONERO_DIR fetch
 git -C $MONERO_DIR checkout origin/master
 
-# get monero core tag
+# get italo core tag
 pushd $MONERO_DIR
 get_tag
 popd
-# create local monero branch
+# create local italo branch
 git -C $MONERO_DIR checkout -B $VERSIONTAG
 
-# Merge monero PR dependencies
+# Merge italo PR dependencies
 
 # Workaround for git username requirements
 # Save current user settings and revert back when we are done with merging PR's
 OLD_GIT_USER=$(git -C $MONERO_DIR config --local user.name)
 OLD_GIT_EMAIL=$(git -C $MONERO_DIR config --local user.email)
-git -C $MONERO_DIR config user.name "Monero GUI"
-git -C $MONERO_DIR config user.email "gui@monero.local"
+git -C $MONERO_DIR config user.name "Italo GUI"
+git -C $MONERO_DIR config user.email "gui@italo.local"
 # check for PR requirements in most recent commit message (i.e requires #xxxx)
 for PR in $(git log --format=%B -n 1 | grep -io "requires #[0-9]*" | sed 's/[^0-9]*//g'); do
-    echo "Merging monero push request #$PR"
+    echo "Merging italo push request #$PR"
     # fetch pull request and merge
     git -C $MONERO_DIR fetch origin pull/$PR/head:PR-$PR
-    git -C $MONERO_DIR merge --quiet PR-$PR  -m "Merge monero PR #$PR"
+    git -C $MONERO_DIR merge --quiet PR-$PR  -m "Merge italo PR #$PR"
     BUILD_LIBWALLET=true
 done
 
@@ -56,7 +56,7 @@ if [ ! -f $MONERO_DIR/lib/libwallet_merged.a ]; then
     BUILD_LIBWALLET=true
 # Build libwallet if no previous version file exists
 elif [ ! -f $MONERO_DIR/version.sh ]; then 
-    echo "monero/version.h not found - Building libwallet"
+    echo "italo/version.h not found - Building libwallet"
     BUILD_LIBWALLET=true
 ## Compare previously built version with submodule + merged PR's version. 
 else
@@ -72,7 +72,7 @@ else
         echo "Building new libwallet version $GUI_MONERO_VERSION"
         BUILD_LIBWALLET=true
     else
-        echo "latest libwallet ($GUI_MONERO_VERSION) is already built. Remove monero/lib/libwallet_merged.a to force rebuild"
+        echo "latest libwallet ($GUI_MONERO_VERSION) is already built. Remove italo/lib/libwallet_merged.a to force rebuild"
     fi
 fi
 
@@ -125,7 +125,7 @@ else
 fi
 
 
-echo "cleaning up existing monero build dir, libs and includes"
+echo "cleaning up existing italo build dir, libs and includes"
 rm -fr $MONERO_DIR/build
 rm -fr $MONERO_DIR/lib
 rm -fr $MONERO_DIR/include
@@ -215,7 +215,7 @@ fi
 # set CPU core count
 # thanks to SO: http://stackoverflow.com/a/20283965/4118915
 if test -z "$CPU_CORE_COUNT"; then
-  CPU_CORE_COUNT=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
+  CPU_CORE_COUNT=3
 fi
 
 # Build libwallet_merged
@@ -225,7 +225,7 @@ eval $make_exec  -j$CPU_CORE_COUNT
 eval $make_exec  install -j$CPU_CORE_COUNT
 popd
 
-# Build monerod
+# Build italod
 # win32 need to build daemon manually with msys2 toolchain
 if [ "$platform" != "mingw32" ] && [ "$ANDROID" != true ]; then
     pushd $MONERO_DIR/build/$BUILD_TYPE/src/daemon

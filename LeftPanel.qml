@@ -239,7 +239,7 @@ Rectangle {
                         if (persistentSettings.fiatPriceEnabled && persistentSettings.fiatPriceToggle) {
                             return appWindow.fiatApiCurrencySymbol();
                         } else {
-                            return "XMR"
+                            return "XTA"
                         }
                     }
                     color: ItaloComponents.Style.blackTheme ? "white" : "black"

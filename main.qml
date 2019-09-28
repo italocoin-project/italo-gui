@@ -86,21 +86,21 @@ ApplicationWindow {
     property bool themeTransition: false
 
     // fiat price conversion
-    property real fiatPriceXMRUSD: 0
-    property real fiatPriceXMREUR: 0
+    property real fiatPriceXTAUSD: 0
+    property real fiatPriceXTAEUR: 0
     property var fiatPriceAPIs: {
         return {
             "kraken": {
-                "xmrusd": "https://api.kraken.com/0/public/Ticker?pair=XMRUSD",
-                "xmreur": "https://api.kraken.com/0/public/Ticker?pair=XMREUR"
+                "xmrusd": "https://api.kraken.com/0/public/Ticker?pair=XTAUSD",
+                "xmreur": "https://api.kraken.com/0/public/Ticker?pair=XTAEUR"
             },
             "coingecko": {
                 "xmrusd": "https://api.coingecko.com/api/v3/simple/price?ids=italo&vs_currencies=usd",
                 "xmreur": "https://api.coingecko.com/api/v3/simple/price?ids=italo&vs_currencies=eur"
             },
             "cryptocompare": {
-                "xmrusd": "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD",
-                "xmreur": "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=EUR",
+                "xmrusd": "https://min-api.cryptocompare.com/data/price?fsym=XTA&tsyms=USD",
+                "xmreur": "https://min-api.cryptocompare.com/data/price?fsym=XTA&tsyms=EUR",
             }
         }
     }
@@ -1164,7 +1164,7 @@ ApplicationWindow {
                 return;
             }
 
-            var key = currency === "xmreur" ? "XXMRZEUR" : "XXMRZUSD";
+            var key = currency === "xmreur" ? "XXTAZEUR" : "XXTAZUSD";
             var ticker = resp.result[key]["o"];
             return ticker;
         } else if(resp._url.startsWith("https://api.coingecko.com/api/v3/")){
@@ -1223,9 +1223,9 @@ ApplicationWindow {
         }
 
         if(persistentSettings.fiatPriceCurrency === "xmrusd")
-            appWindow.fiatPriceXMRUSD = ticker;
+            appWindow.fiatPriceXTAUSD = ticker;
         else if(persistentSettings.fiatPriceCurrency === "xmreur")
-            appWindow.fiatPriceXMREUR = ticker;
+            appWindow.fiatPriceXTAEUR = ticker;
 
         appWindow.updateBalance();
     }
@@ -1264,7 +1264,7 @@ ApplicationWindow {
     }
 
     function fiatApiConvertToFiat(amount) {
-        var ticker = persistentSettings.fiatPriceCurrency === "xmrusd" ? appWindow.fiatPriceXMRUSD : appWindow.fiatPriceXMREUR;
+        var ticker = persistentSettings.fiatPriceCurrency === "xmrusd" ? appWindow.fiatPriceXTAUSD : appWindow.fiatPriceXTAEUR;
         if(ticker <= 0){
             console.log(fiatApiError("Invalid ticker value: " + ticker));
             return "?.??";
@@ -2076,11 +2076,11 @@ ApplicationWindow {
     function getDefaultDaemonRpcPort(networkType) {
         switch (networkType) {
             case NetworkType.STAGENET:
-                return 38081;
+                return 13108;
             case NetworkType.TESTNET:
-                return 28081;
+                return 13105;
             default:
-                return 18081;
+                return 13102;
         }
     }
 

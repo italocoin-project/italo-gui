@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,9 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.1
 
-import italoComponents.Wallet 1.0
-import "../components" as ItaloComponents
+import FontAwesome 1.0
+import moneroComponents.Wallet 1.0
+import "../components" as MoneroComponents
 
 Rectangle {
     id: item
@@ -79,7 +80,7 @@ Rectangle {
                 anchors.rightMargin: !appWindow.isMining ? 11 : 0
                 source: {
                     if(appWindow.isMining) {
-                       return "qrc:///images/miningxta.png"
+                       return "qrc:///images/miningxmr.png"
                     } else if(item.connected == Wallet.ConnectionStatus_Connected) {
                         return "qrc:///images/lightning.png"
                     } else {
@@ -88,6 +89,7 @@ Rectangle {
                 }
                 MouseArea {
                     anchors.fill: parent
+                    visible: appWindow.walletMode >= 2
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
                         if(!appWindow.isMining) {
@@ -105,34 +107,35 @@ Rectangle {
             height: 40
             width: 260
 
-            ItaloComponents.TextPlain {
+            MoneroComponents.TextPlain {
                 id: statusText
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 0
-                font.family: ItaloComponents.Style.fontMedium.name
+                font.family: MoneroComponents.Style.fontMedium.name
                 font.bold: true
                 font.pixelSize: 13
-                color: ItaloComponents.Style.dimmedFontColor
-                opacity: ItaloComponents.Style.blackTheme ? 0.65 : 0.5
+                color: MoneroComponents.Style.dimmedFontColor
+                opacity: MoneroComponents.Style.blackTheme ? 0.65 : 0.5
                 text: qsTr("Network status") + translationManager.emptyString
                 themeTransition: false
             }
 
-            ItaloComponents.TextPlain {
+            MoneroComponents.TextPlain {
                 id: statusTextVal
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 14
-                font.family: ItaloComponents.Style.fontMedium.name
+                font.family: MoneroComponents.Style.fontMedium.name
                 font.pixelSize: 20
-                color: ItaloComponents.Style.defaultFontColor
+                color: MoneroComponents.Style.defaultFontColor
                 text: getConnectionStatusString(item.connected) + translationManager.emptyString
-                opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.7
+                opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.7
                 themeTransition: false
 
                 MouseArea {
                     anchors.fill: parent
+                    visible: appWindow.walletMode >= 2
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
                         if(!appWindow.isMining) {
@@ -141,6 +144,50 @@ Rectangle {
                         } else {
                             appWindow.showPageRequest("Mining")
                         }
+                    }
+                }
+            }
+
+            Text {
+                anchors.left: statusTextVal.right
+                anchors.leftMargin: 16
+                anchors.verticalCenter: parent.verticalCenter
+                color: refreshMouseArea.containsMouse ?  MoneroComponents.Style.dimmedFontColor : MoneroComponents.Style.defaultFontColor
+                font.family: FontAwesome.fontFamilySolid
+                font.pixelSize: 24
+                font.styleName: "Solid"
+                opacity: iconItem.opacity * (refreshMouseArea.visible ? 1 : 0.5)
+                text: FontAwesome.random
+                visible: (
+                    item.connected != Wallet.ConnectionStatus_Disconnected &&
+                    !persistentSettings.useRemoteNode &&
+                    persistentSettings.bootstrapNodeAddress == "auto"
+                )
+
+                MouseArea {
+                    id: refreshMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    visible: true
+                    onClicked: {
+                        const callback = function(result) {
+                            refreshMouseArea.visible = true;
+                            if (result) {
+                                appWindow.showStatusMessage(qsTr("Successfully switched to another public node"), 3);
+                                appWindow.currentWallet.refreshHeightAsync();
+                            } else {
+                                appWindow.showStatusMessage(qsTr("Failed to switch public node"), 3);
+                            }
+                        };
+
+                        daemonManager.sendCommandAsync(
+                            ["set_bootstrap_daemon", "auto"],
+                            appWindow.currentWallet.nettype,
+                            callback);
+
+                        refreshMouseArea.visible = false;
+                        appWindow.showStatusMessage(qsTr("Switching to another public node"), 3);
                     }
                 }
             }

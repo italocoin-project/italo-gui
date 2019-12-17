@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -32,12 +32,13 @@ import QtQuick.Controls 2.0
 
 import "../js/Wizard.js" as Wizard
 import "../js/Utils.js" as Utils
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 Rectangle {
     id: wizardRestoreWallet1
 
     color: "transparent"
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardRestoreWallet1"
 
     function verify() {
@@ -88,6 +89,7 @@ Rectangle {
     }
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -111,39 +113,50 @@ Rectangle {
                 id: wizardWalletInput
             }
 
-            GridLayout{
-                columns: 3
+            RowLayout {
+                Layout.topMargin: 10
+                spacing: 30
+                Layout.fillWidth: true
 
-                ItaloComponents.StandardButton {
+                MoneroComponents.RadioButton {
+                    id: seedRadioButton
                     text: qsTr("Restore from seed") + translationManager.emptyString
-                    small: true
-                    enabled: wizardController.walletRestoreMode !== 'seed'
-
+                    fontSize: 16
+                    checked: true
                     onClicked: {
+                        checked = true;
+                        keysRadioButton.checked = false;
+                        qrRadioButton.checked = false;
                         wizardController.walletRestoreMode = 'seed';
                     }
                 }
 
-                ItaloComponents.StandardButton {
+                MoneroComponents.RadioButton {
+                    id: keysRadioButton
                     text: qsTr("Restore from keys") + translationManager.emptyString
-                    small: true
-                    enabled: wizardController.walletRestoreMode !== 'keys'
-
+                    fontSize: 16
+                    checked: false
                     onClicked: {
+                        checked = true;
+                        seedRadioButton.checked = false;
+                        qrRadioButton.checked = false;
                         wizardController.walletRestoreMode = 'keys';
                     }
                 }
 
-                ItaloComponents.StandardButton {
-                    text: qsTr("From QR Code") + translationManager.emptyString
-                    small: true
+                MoneroComponents.RadioButton {
+                    id: qrRadioButton
+                    text: qsTr("Restore from QR Code") + translationManager.emptyString
+                    fontSize: 16
                     visible: appWindow.qrScannerEnabled
-                    enabled: wizardController.walletRestoreMode !== 'qr'
-
+                    checked: false
                     onClicked: {
+                        checked = true;
+                        seedRadioButton.checked = false;
+                        keysRadioButton.checked = false;
                         wizardController.walletRestoreMode = 'qr';
-                        cameraUi.state = "Capture"
-                        cameraUi.qrcode_decoded.connect(Wizard.updateFromQrCode)
+                        cameraUi.state = "Capture";
+                        cameraUi.qrcode_decoded.connect(Wizard.updateFromQrCode);
                     }
                 }
             }
@@ -164,49 +177,49 @@ Rectangle {
                     border.width: 1
                     border.color: {
                         if(seedInput.text !== "" && seedInput.error){
-                            return ItaloComponents.Style.inputBorderColorInvalid;
+                            return MoneroComponents.Style.inputBorderColorInvalid;
                         } else if(seedInput.activeFocus){
-                            return ItaloComponents.Style.inputBorderColorActive;
+                            return MoneroComponents.Style.inputBorderColorActive;
                         } else {
-                            return ItaloComponents.Style.inputBorderColorInActive;
+                            return MoneroComponents.Style.inputBorderColorInActive;
                         }
                     }
 
-                    TextArea {
+                    MoneroComponents.InputMulti {
                         id: seedInput
                         property bool error: false
                         width: parent.width
                         height: 100
 
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         textMargin: 2
                         text: ""
 
-                        font.family: ItaloComponents.Style.fontRegular.name
+                        font.family: MoneroComponents.Style.fontRegular.name
                         font.pixelSize: 16
-                        selectionColor: ItaloComponents.Style.textSelectionColor
-                        selectedTextColor: ItaloComponents.Style.textSelectedColor
+                        selectionColor: MoneroComponents.Style.textSelectionColor
+                        selectedTextColor: MoneroComponents.Style.textSelectedColor
                         wrapMode: TextInput.Wrap
 
                         selectByMouse: true
 
-                        ItaloComponents.TextPlain {
+                        MoneroComponents.TextPlain {
                             id: memoTextPlaceholder
                             opacity: 0.35
                             anchors.fill:parent
                             font.pixelSize: 16
                             anchors.margins: 8
                             anchors.leftMargin: 10
-                            font.family: ItaloComponents.Style.fontRegular.name
+                            font.family: MoneroComponents.Style.fontRegular.name
                             text: qsTr("Enter your 25 (or 24) word mnemonic seed") + translationManager.emptyString
-                            color: ItaloComponents.Style.defaultFontColor
-                            visible: !seedInput.text && !parent.focus
+                            color: MoneroComponents.Style.defaultFontColor
+                            visible: !seedInput.text
                         }
                     }
                 }
             }
 
-            ItaloComponents.LineEdit {
+            MoneroComponents.LineEdit {
                 id: addressLine
                 visible: wizardController.walletRestoreMode === 'keys'
                 Layout.fillWidth: true
@@ -218,7 +231,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.LineEdit {
+            MoneroComponents.LineEdit {
                 id: viewKeyLine
                 visible: wizardController.walletRestoreMode === 'keys'
                 Layout.fillWidth: true
@@ -230,7 +243,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.LineEdit {
+            MoneroComponents.LineEdit {
                 id: spendKeyLine
                 visible: wizardController.walletRestoreMode === 'keys'
                 Layout.fillWidth: true
@@ -243,7 +256,7 @@ Rectangle {
             }
 
             GridLayout{
-                ItaloComponents.LineEdit {
+                MoneroComponents.LineEdit {
                     id: restoreHeight
                     Layout.fillWidth: true
                     labelText: qsTr("Wallet creation date as `YYYY-MM-DD` or restore height") + translationManager.emptyString

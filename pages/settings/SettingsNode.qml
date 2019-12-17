@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -31,8 +31,8 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 import FontAwesome 1.0
 
-import "../../components" as ItaloComponents
-import "../../components/effects" as ItaloEffects
+import "../../components" as MoneroComponents
+import "../../components/effects" as MoneroEffects
 
 Rectangle{
     color: "transparent"
@@ -42,7 +42,7 @@ Rectangle{
     /* main layout */
     ColumnLayout {
         id: root
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 0
 
         anchors.left: parent.left
@@ -67,8 +67,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -76,7 +76,7 @@ Rectangle{
                 Layout.fillHeight: true
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                color: ItaloComponents.Style.blackTheme ? "white" : "darkgrey"
+                color: MoneroComponents.Style.blackTheme ? "white" : "darkgrey"
                 width: 2
             }
 
@@ -96,51 +96,44 @@ Rectangle{
                     anchors.leftMargin: 16
                     anchors.verticalCenter: parent.verticalCenter
 
-                    ItaloEffects.ImageMask {
-                        height: 27
-                        width: 27
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        fontAwesomeFallbackIcon: FontAwesome.shield
-                        fontAwesomeFallbackSize: 26
-                        image: "qrc:///images/settings_local.svg"
-
-                        color: ItaloComponents.Style.defaultFontColor
-                        opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
+                    MoneroComponents.Label {
+                        fontSize: 32
+                        text: FontAwesome.home
+                        fontFamily: FontAwesome.fontFamilySolid
+                        anchors.centerIn: parent
+                        fontColor: MoneroComponents.Style.defaultFontColor
+                        styleName: "Solid"
                     }
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: localNodeHeader
                     anchors.left: localNodeIcon.right
                     anchors.leftMargin: 14
                     anchors.top: parent.top
-                    color: ItaloComponents.Style.defaultFontColor
-                    opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
+                    color: MoneroComponents.Style.defaultFontColor
+                    opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.8
                     font.bold: true
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 16
                     text: qsTr("Local node") + translationManager.emptyString
                 }
 
-                TextArea {
+                Text {
                     id: localNodeArea
                     anchors.top: localNodeHeader.bottom
                     anchors.topMargin: 4
                     anchors.left: localNodeIcon.right
                     anchors.leftMargin: 14
-                    color: ItaloComponents.Style.dimmedFontColor
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    color: MoneroComponents.Style.dimmedFontColor
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 15
                     horizontalAlignment: TextInput.AlignLeft
-                    selectByMouse: false
                     wrapMode: Text.WordWrap;
-                    textMargin: 0
                     leftPadding: 0
                     topPadding: 0
                     text: qsTr("The blockchain is downloaded to your computer. Provides higher security and requires more local storage.") + translationManager.emptyString
                     width: parent.width - (localNodeIcon.width + localNodeIcon.anchors.leftMargin + anchors.leftMargin)
-                    readOnly: true
 
                     // @TODO: Legacy. Remove after Qt 5.8.
                     // https://stackoverflow.com/questions/41990013
@@ -173,8 +166,8 @@ Rectangle{
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: 1
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -182,7 +175,7 @@ Rectangle{
                 Layout.fillHeight: true
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                color: ItaloComponents.Style.blackTheme ? "white" : "darkgrey"
+                color: MoneroComponents.Style.blackTheme ? "white" : "darkgrey"
                 width: 2
             }
 
@@ -202,51 +195,44 @@ Rectangle{
                     anchors.leftMargin: 16
                     anchors.verticalCenter: parent.verticalCenter
 
-                    ItaloEffects.ImageMask {
-                        height: 29
-                        width: 22
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        fontAwesomeFallbackIcon: FontAwesome.cloudDownload
-                        fontAwesomeFallbackSize: 26
-                        image: "qrc:///images/settings_remote.svg"
-                        color: ItaloComponents.Style.defaultFontColor
-                        opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
+                    MoneroComponents.Label {
+                        fontSize: 28
+                        text: FontAwesome.cloud
+                        fontFamily: FontAwesome.fontFamilySolid
+                        styleName: "Solid"
+                        anchors.centerIn: parent
+                        fontColor: MoneroComponents.Style.defaultFontColor
                     }
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: remoteNodeHeader
                     anchors.left: remoteNodeIcon.right
                     anchors.leftMargin: 14
                     anchors.top: parent.top
-                    color: ItaloComponents.Style.defaultFontColor
-                    opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
+                    color: MoneroComponents.Style.defaultFontColor
+                    opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.8
                     font.bold: true
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 16
                     text: qsTr("Remote node") + translationManager.emptyString
                 }
 
-                TextArea {
+                Text {
                     id: remoteNodeArea
                     anchors.top: remoteNodeHeader.bottom
                     anchors.topMargin: 4
                     anchors.left: remoteNodeIcon.right
                     anchors.leftMargin: 14
-                    color: ItaloComponents.Style.dimmedFontColor
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    color: MoneroComponents.Style.dimmedFontColor
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 15
-                    activeFocusOnPress: false
                     horizontalAlignment: TextInput.AlignLeft
-                    selectByMouse: false
                     wrapMode: Text.WordWrap;
-                    textMargin: 0
                     leftPadding: 0
                     topPadding: 0
-                    text: qsTr("Uses a third-party server to connect to the Italo network. Less secure, but easier on your computer.") + translationManager.emptyString
+                    text: qsTr("Uses a third-party server to connect to the Monero network. Less secure, but easier on your computer.") + translationManager.emptyString
                     width: parent.width - (remoteNodeIcon.width + remoteNodeIcon.anchors.leftMargin + anchors.leftMargin)
-                    readOnly: true
 
                     // @TODO: Legacy. Remove after Qt 5.8.
                     // https://stackoverflow.com/questions/41990013
@@ -260,7 +246,6 @@ Rectangle{
                     cursorShape: Qt.PointingHandCursor
                     anchors.fill: parent
                     onClicked: {
-                        persistentSettings.useRemoteNode = true;
                         appWindow.connectRemoteNode();
                     }
                 }
@@ -274,8 +259,8 @@ Rectangle{
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 height: 1
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
         }
 
@@ -285,15 +270,15 @@ Rectangle{
             spacing: 20
             Layout.fillWidth: true
             Layout.topMargin: 20
-            visible: !isMobile && persistentSettings.useRemoteNode
+            visible: persistentSettings.useRemoteNode
 
-            ItaloComponents.WarningBox {
+            MoneroComponents.WarningBox {
                 Layout.topMargin: 26
                 Layout.bottomMargin: 6
-                text: qsTr("To find a remote node, type 'Italo remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
+                text: qsTr("To find a remote node, type 'Monero remote node' into your favorite search engine. Please ensure the node is run by a trusted third-party.") + translationManager.emptyString
             }
 
-            ItaloComponents.RemoteNodeEdit {
+            MoneroComponents.RemoteNodeEdit {
                 id: remoteNodeEdit
                 Layout.minimumWidth: 100
                 placeholderFontSize: 15
@@ -317,10 +302,10 @@ Rectangle{
             }
 
             GridLayout {
-                columns: (isMobile) ? 1 : 2
+                columns: 2
                 columnSpacing: 32
 
-                ItaloComponents.LineEdit {
+                MoneroComponents.LineEdit {
                     id: daemonUsername
                     Layout.fillWidth: true
                     labelText: qsTr("Daemon username") + translationManager.emptyString
@@ -331,7 +316,7 @@ Rectangle{
                     fontSize: 15
                 }
 
-                ItaloComponents.LineEdit {
+                MoneroComponents.LineEdit {
                     id: daemonPassword
                     Layout.fillWidth: true
                     labelText: qsTr("Daemon password") + translationManager.emptyString
@@ -344,7 +329,7 @@ Rectangle{
                 }
             }
 
-            ItaloComponents.CheckBox {
+            MoneroComponents.CheckBox {
                 id: setTrustedDaemonCheckBox
                 checked: persistentSettings.is_trusted_daemon
                 onClicked: {
@@ -354,7 +339,7 @@ Rectangle{
                 text: qsTr("Mark as Trusted Daemon") + translationManager.emptyString
             }
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 id: btnConnectRemote
                 enabled: remoteNodeEdit.isValid()
                 small: true
@@ -377,11 +362,11 @@ Rectangle{
             id: localNodeLayout
             spacing: 20
             Layout.topMargin: 40
-            visible: !isMobile && !persistentSettings.useRemoteNode
+            visible: !persistentSettings.useRemoteNode
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 small: true
-                text: (appWindow.daemonRunning ? qsTr("Stop local node") : qsTr("Start daemon")) + translationManager.emptyString
+                text: (appWindow.daemonRunning ? qsTr("Stop daemon") : qsTr("Start daemon")) + translationManager.emptyString
                 onClicked: {
                     if (appWindow.daemonRunning) {
                         appWindow.stopDaemon();
@@ -393,7 +378,7 @@ Rectangle{
             }
 
             RowLayout {
-                ItaloComponents.LineEditMulti {
+                MoneroComponents.LineEditMulti {
                     id: blockchainFolder
                     Layout.preferredWidth: 200
                     Layout.fillWidth: true
@@ -403,6 +388,7 @@ Rectangle{
                     labelText: qsTr("Blockchain location") + style + qsTr(" <a href='#'> (change)</a>") + translationManager.emptyString
                     placeholderText: qsTr("(default)") + translationManager.emptyString
                     placeholderFontSize: 15
+                    readOnly: true
                     text: {
                         if(persistentSettings.blockchainDataDir.length > 0){
                             return persistentSettings.blockchainDataDir;
@@ -420,7 +406,7 @@ Rectangle{
                 }
             }
 
-            ItaloComponents.LineEditMulti {
+            MoneroComponents.LineEditMulti {
                 id: daemonFlags
                 Layout.fillWidth: true
                 labelFontSize: 14
@@ -435,12 +421,12 @@ Rectangle{
             }
 
             RowLayout {
-                visible: !isMobile && !persistentSettings.useRemoteNode
+                visible: !persistentSettings.useRemoteNode
 
                 ColumnLayout {
                     Layout.fillWidth: true
 
-                    ItaloComponents.RemoteNodeEdit {
+                    MoneroComponents.RemoteNodeEdit {
                         id: bootstrapNodeEdit
                         Layout.minimumWidth: 100
                         Layout.bottomMargin: 20
@@ -457,7 +443,11 @@ Rectangle{
                             }
                         }
                         onEditingFinished: {
-                            persistentSettings.bootstrapNodeAddress = daemonAddrText ? bootstrapNodeEdit.getAddress() : "";
+                            if (daemonAddrText == "auto") {
+                                persistentSettings.bootstrapNodeAddress = daemonAddrText;
+                            } else {
+                                persistentSettings.bootstrapNodeAddress = daemonAddrText ? bootstrapNodeEdit.getAddress() : "";
+                            }
                             console.log("setting bootstrap node to " + persistentSettings.bootstrapNodeAddress)
                         }
                     }

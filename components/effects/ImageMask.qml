@@ -39,8 +39,9 @@ Item {
     id: root
     property string image: ""
     property string color: ""
-    property bool fontAwesomeFallbackEnabled: true
     property var fontAwesomeFallbackIcon: ""
+    property string fontAwesomeFallbackFont: FontAwesome.fontFamilySolid
+    property string fontAwesomeFallbackStyle: "Solid"
     property int fontAwesomeFallbackSize: 16
     property double fontAwesomeFallbackOpacity: 0.8
     property string fontAwesomeFallbackColor: ItaloComponents.Style.defaultFontColor
@@ -67,15 +68,16 @@ Item {
         anchors.fill: root
         source: svgMask
         color: root.color
-        visible: isOpenGL
+        visible: image && isOpenGL
     }
 
     Text {
         id: fontAwesomeFallback
-        visible: !isOpenGL && root.fontAwesomeFallback
-        text: !isOpenGL ? root.fontAwesomeFallbackIcon : ""
-        font.family: FontAwesome.fontFamily
+        visible: !imgMockColor.visible
+        text: root.fontAwesomeFallbackIcon
+        font.family: root.fontAwesomeFallbackFont
         font.pixelSize: root.fontAwesomeFallbackSize
+        font.styleName: root.fontAwesomeFallbackStyle
         color: root.fontAwesomeFallbackColor
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter

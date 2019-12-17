@@ -5,18 +5,18 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.2
 
-import italoComponents.Clipboard 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionHistoryModel 1.0
-import italoComponents.Subaddress 1.0
-import italoComponents.SubaddressModel 1.0
+import moneroComponents.Clipboard 1.0
+import moneroComponents.Wallet 1.0
+import moneroComponents.WalletManager 1.0
+import moneroComponents.TransactionHistory 1.0
+import moneroComponents.TransactionHistoryModel 1.0
+import moneroComponents.Subaddress 1.0
+import moneroComponents.SubaddressModel 1.0
 
 import "../../js/Windows.js" as Windows
 import "../../js/TxUtils.js" as TxUtils
 import "../../js/Utils.js" as Utils
-import "../../components" as ItaloComponents
+import "../../components" as MoneroComponents
 import "../../pages"
 import "."
 
@@ -33,8 +33,6 @@ Item {
     property var    hiddenAmounts: []
 
     function onPageCompleted() {
-        appWindow.hideMenu();
-
         // prepare tracking
         trackingCheckbox.checked = root.enableTracking
         root.update();
@@ -56,8 +54,6 @@ Item {
         timer.running = false
         root.enableTracking = false
         trackingModel.clear()
-
-        appWindow.showMenu();
     }
 
     Image {
@@ -93,9 +89,8 @@ Item {
         anchors.right: parent.right
 
         Item {
-            height: 220
-            anchors.left: parent.left
-            anchors.right: parent.right
+            Layout.preferredHeight: 220
+            Layout.fillWidth: true
 
             Rectangle {
                 id: tracker
@@ -126,7 +121,7 @@ Item {
                                 Layout.preferredWidth: 10
                             }
 
-                            ItaloComponents.TextPlain {
+                            MoneroComponents.TextPlain {
                                 font.pixelSize: 16
                                 font.bold: true
                                 color: "#767676"
@@ -163,7 +158,7 @@ Item {
                                         "<p>It's up to you whether to accept unconfirmed transactions or not. It is likely they'll be " +
                                         "confirmed in short order, but there is still a possibility they might not, so for larger " +
                                         "values you may want to wait for one or more confirmation(s).</p>"
-                                    );
+                                    ) + translationManager.emptyString;
                             } else if(root.trackingError !== ""){
                                 return root.trackingError;
                             } else if(trackingModel.count < 1){
@@ -258,20 +253,19 @@ Item {
 
         Item {
             Layout.preferredHeight: 40
-            anchors.left: parent.left
-            anchors.right: parent.right
+            Layout.fillWidth: true
 
             Item {
                 width: (parent.width - qrImg.width) - (50)
                 height: 32
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 12
                     font.bold: false
                     color: "white"
-                    text: "<style type='text/css'>a {text-decoration: none; color: #FF6C3C; font-size: 12px;}</style>Currently selected address: " + addressLabel + " <a href='#'>(Change)</a>"
+                    text: qsTr("<style type='text/css'>a {text-decoration: none; color: #FF6C3C; font-size: 12px;}</style>Currently selected address: ") + addressLabel + qsTr(" <a href='#'>(Change)</a>") + translationManager.emptyString
                     textFormat: Text.RichText
                     themeTransition: false
 
@@ -290,7 +284,7 @@ Item {
                 width: 220
                 height: 32
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 12
@@ -336,7 +330,7 @@ Item {
                                 Layout.preferredWidth: 10
                             }
 
-                            ItaloComponents.TextPlain {
+                            MoneroComponents.TextPlain {
                                 font.pixelSize: 14
                                 font.bold: true
                                 color: "#767676"
@@ -357,7 +351,7 @@ Item {
 //                            Layout.fillHeight: true
 //                            color: "transparent"
 
-//                            ItaloComponents.TextPlain {
+//                            MoneroComponents.TextPlain {
 //                                anchors.verticalCenter: parent.verticalCenter
 //                                anchors.right: parent.right
 //                                anchors.rightMargin: 20
@@ -391,7 +385,7 @@ Item {
                         color: "#d9d9d9"
                     }
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         property string _color: "#767676"
                         Layout.fillWidth: true
                         Layout.margins: 20
@@ -411,7 +405,7 @@ Item {
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
                             onEntered: {
-                                parent.color = ItaloComponents.Style.orange
+                                parent.color = MoneroComponents.Style.orange
                             }
                             onExited: {
                                 parent.color = parent._color
@@ -448,11 +442,11 @@ Item {
                     anchors.left: parent.left
                     anchors.right: parent.right
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         font.pixelSize: 14
                         font.bold: false
                         color: "white"
-                        text: qsTr("Amount to receive") + " (XTA)"
+                        text: qsTr("Amount to receive") + " (XMR)" + translationManager.emptyString
                         themeTransition: false
                     }
 
@@ -461,7 +455,7 @@ Item {
                         width: 220
                         source: "qrc:///images/merchant/input_box.png"
 
-                        TextField {
+                        MoneroComponents.Input {
                             id: amountToReceive
                             topPadding: 0
                             leftPadding: 10
@@ -499,8 +493,8 @@ Item {
                         width: 220
                     }
 
-                    ItaloComponents.TextPlain {
-                        // @TODO: When we have XTA/USD rate avi. in the future.
+                    MoneroComponents.TextPlain {
+                        // @TODO: When we have XMR/USD rate avi. in the future.
                         visible: false
                         font.pixelSize: 14
                         font.bold: false
@@ -524,8 +518,7 @@ Item {
         Item {
             Layout.topMargin: 32
             Layout.preferredHeight: 40
-            anchors.left: parent.left
-            anchors.right: parent.right
+            Layout.fillWidth: true
 
             ColumnLayout {
                 spacing: 16
@@ -540,7 +533,7 @@ Item {
                     }
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: content
                     font.pixelSize: 14
                     font.bold: false
@@ -569,12 +562,12 @@ Item {
         width: 400
         radius: 5
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 14
             font.bold: true
-            color: ItaloComponents.Style.italoGrey
+            color: MoneroComponents.Style.moneroGrey
             text: qsTr("The merchant page requires a larger window") + translationManager.emptyString
             themeTransition: false
         }
@@ -630,7 +623,7 @@ Item {
                     in_txpool = true;
                 } else {
                     if (blockchainHeight == null)
-                        blockchainHeight = appWindow.currentWallet.blockChainHeight()
+                        blockchainHeight = walletManager.blockchainHeight()
                     confirmations = blockchainHeight - blockHeight - 1
                     displayAmount = model.data(idx, TransactionHistoryModel.TransactionDisplayAmountRole);
                 }

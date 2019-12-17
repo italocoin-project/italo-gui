@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -30,16 +30,18 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import FontAwesome 1.0
 
-import "." as ItaloComponents
-import "effects/" as ItaloEffects
+import "." as MoneroComponents
+import "effects/" as MoneroEffects
 
 Item {
     id: checkBox
     property alias text: label.text
     property string checkedIcon: "qrc:///images/check-white.svg"
     property string uncheckedIcon
+    property bool fontAwesomeIcons: false
     property int imgWidth: 13
     property int imgHeight: 13
+    property bool toggleOnClick: true
     property bool checked: false
     property alias background: backgroundRect.color
     property bool border: true
@@ -51,14 +53,16 @@ Item {
     width: checkBoxLayout.width
 
     function toggle(){
-        checkBox.checked = !checkBox.checked
+        if (checkBox.toggleOnClick) {
+            checkBox.checked = !checkBox.checked
+        }
         checkBox.clicked()
     }
 
     RowLayout {
         id: checkBoxLayout
         layoutDirection: iconOnTheLeft ? Qt.LeftToRight : Qt.RightToLeft
-        spacing: (!isMobile ? 10 : 8)
+        spacing: 10
 
         Item {
             id: checkMark
@@ -73,22 +77,24 @@ Item {
                 color: "transparent"
                 border.color:
                     if(checkBox.checked){
-                        return ItaloComponents.Style.inputBorderColorActive;
+                        return MoneroComponents.Style.inputBorderColorActive;
                     } else {
-                        return ItaloComponents.Style.inputBorderColorInActive;
+                        return MoneroComponents.Style.inputBorderColorInActive;
                     }
             }
 
-            ItaloEffects.ImageMask {
+            MoneroEffects.ImageMask {
                 id: img
                 visible: checkBox.checked || checkBox.uncheckedIcon != ""
                 anchors.centerIn: parent
                 width: checkBox.imgWidth
                 height: checkBox.imgHeight
-                color: ItaloComponents.Style.defaultFontColor
-                fontAwesomeFallbackIcon: FontAwesome.plus
+                color: MoneroComponents.Style.defaultFontColor
+                fontAwesomeFallbackIcon: checkBox.fontAwesomeIcons ? getIcon() : FontAwesome.plus
                 fontAwesomeFallbackSize: 14
-                image: {
+                image: checkBox.fontAwesomeIcons ? "" : getIcon()
+
+                function getIcon() {
                     if (checkBox.checked || checkBox.uncheckedIcon == "")
                         return checkBox.checkedIcon;
                     return checkBox.uncheckedIcon;
@@ -96,11 +102,11 @@ Item {
             }
         }
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             id: label
-            font.family: ItaloComponents.Style.fontRegular.name
+            font.family: MoneroComponents.Style.fontRegular.name
             font.pixelSize: checkBox.fontSize
-            color: ItaloComponents.Style.defaultFontColor
+            color: MoneroComponents.Style.defaultFontColor
             textFormat: Text.RichText
             wrapMode: Text.Wrap
         }

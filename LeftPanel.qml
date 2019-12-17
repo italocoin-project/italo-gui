@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -29,28 +29,28 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.NetworkType 1.0
-import italoComponents.Clipboard 1.0
+import moneroComponents.Wallet 1.0
+import moneroComponents.NetworkType 1.0
+import moneroComponents.Clipboard 1.0
 import FontAwesome 1.0
 
-import "components" as ItaloComponents
-import "components/effects/" as ItaloEffects
+import "components" as MoneroComponents
+import "components/effects/" as MoneroEffects
 
 Rectangle {
     id: panel
 
-    property alias unlockedBalanceText: unlockedBalanceText.text
-    property alias unlockedBalanceVisible: unlockedBalanceText.visible
-    property alias unlockedBalanceLabelVisible: unlockedBalanceLabel.visible
-    property alias balanceLabelText: balanceLabel.text
-    property alias balanceText: balanceText.text
-    property alias balanceTextFiat: balanceTextFiat.text
-    property alias unlockedBalanceTextFiat: unlockedBalanceTextFiat.text
+    property int currentAccountIndex
+    property alias currentAccountLabel: accountLabel.text
+    property string balanceString: "?.??"
+    property string balanceUnlockedString: "?.??"
+    property string balanceFiatString: "?.??"
+    property string minutesToUnlock: ""
+    property bool isSyncing: false
     property alias networkStatus : networkStatus
     property alias progressBar : progressBar
     property alias daemonProgressBar : daemonProgressBar
-    property alias minutesToUnlockTxt: unlockedBalanceLabel.text
+
     property int titleBarHeight: 50
     property string copyValue: ""
     Clipboard { id: clipboard }
@@ -84,57 +84,56 @@ Rectangle {
         menuColumn.previousButton.checked = true
     }
 
-    width: (isMobile)? appWindow.width : 300
+    width: 300
     color: "transparent"
     anchors.bottom: parent.bottom
     anchors.top: parent.top
 
-    ItaloEffects.GradientBackground {
+    MoneroEffects.GradientBackground {
         anchors.fill: parent
-        fallBackColor: ItaloComponents.Style.middlePanelBackgroundColor
-        initialStartColor: ItaloComponents.Style.leftPanelBackgroundGradientStart
-        initialStopColor: ItaloComponents.Style.leftPanelBackgroundGradientStop
-        blackColorStart: ItaloComponents.Style._b_leftPanelBackgroundGradientStart
-        blackColorStop: ItaloComponents.Style._b_leftPanelBackgroundGradientStop
-        whiteColorStart: ItaloComponents.Style._w_leftPanelBackgroundGradientStart
-        whiteColorStop: ItaloComponents.Style._w_leftPanelBackgroundGradientStop
+        fallBackColor: MoneroComponents.Style.middlePanelBackgroundColor
+        initialStartColor: MoneroComponents.Style.leftPanelBackgroundGradientStart
+        initialStopColor: MoneroComponents.Style.leftPanelBackgroundGradientStop
+        blackColorStart: MoneroComponents.Style._b_leftPanelBackgroundGradientStart
+        blackColorStop: MoneroComponents.Style._b_leftPanelBackgroundGradientStop
+        whiteColorStart: MoneroComponents.Style._w_leftPanelBackgroundGradientStart
+        whiteColorStop: MoneroComponents.Style._w_leftPanelBackgroundGradientStop
         posStart: 0.6
         start: Qt.point(0, 0)
         end: Qt.point(height, width)
     }
 
-    // card with italo logo
+    // card with monero logo
     Column {
         visible: true
         z: 2
         id: column1
-        height: 210
+        height: 175
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.topMargin: (persistentSettings.customDecorations)? 50 : 0
 
-        RowLayout {
+        Item {
             Item {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 20
                 anchors.leftMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
                 height: 490
                 width: 260
 
                 Image {
                     id: card
-                    visible: !isOpenGL || ItaloComponents.Style.blackTheme
+                    visible: !isOpenGL || MoneroComponents.Style.blackTheme
                     width: 260
-                    height: 170
+                    height: 135
                     fillMode: Image.PreserveAspectFit
-                    source: "qrc:///images/card-background.png"
+                    source: MoneroComponents.Style.blackTheme ? "qrc:///images/card-background-black.png" : "qrc:///images/card-background-white.png"
                 }
 
                 DropShadow {
-                    visible: isOpenGL && !ItaloComponents.Style.blackTheme
+                    visible: isOpenGL && !MoneroComponents.Style.blackTheme
                     anchors.fill: card
                     horizontalOffset: 3
                     verticalOffset: 3
@@ -145,7 +144,7 @@ Rectangle {
                     cached: true
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: testnetLabel
                     visible: persistentSettings.nettype != NetworkType.MAINNET
                     text: (persistentSettings.nettype == NetworkType.TESTNET ? qsTr("Testnet") : qsTr("Stagenet")) + translationManager.emptyString
@@ -159,7 +158,7 @@ Rectangle {
                     themeTransition: false
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: viewOnlyLabel
                     visible: viewOnly
                     text: qsTr("View Only") + translationManager.emptyString
@@ -172,57 +171,6 @@ Rectangle {
                     color: "#ff9323"
                     themeTransition: false
                 }
-
-                Rectangle {
-                    height: (logoutImage.height + 8)
-                    width: (logoutImage.width + 8)
-                    color: "transparent"
-                    anchors.right: parent.right
-                    anchors.rightMargin: 8
-                    anchors.top: parent.top
-                    anchors.topMargin: 25
-
-                    Image {
-                        id: logoutImage
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: 16
-                        width: 13
-                        source: "qrc:///images/logout.png"
-                    }
-
-                    MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            middlePanel.addressBookView.clearFields();
-                            middlePanel.transferView.clearFields();
-                            middlePanel.receiveView.clearFields();
-                            appWindow.showWizard();
-                        }
-                    }
-                }
-                ItaloComponents.Label {
-                    fontSize: 20
-                    text: "¥"
-                    color: "white"
-                    visible: persistentSettings.fiatPriceEnabled
-                    anchors.right: parent.right
-                    anchors.rightMargin: 45
-                    anchors.top: parent.top
-                    anchors.topMargin: 28
-                    themeTransition: false
-
-                    MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            persistentSettings.fiatPriceToggle = !persistentSettings.fiatPriceToggle
-                        }
-                    }
-                }
             }
 
             Item {
@@ -230,181 +178,154 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 20
                 anchors.leftMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
                 height: 490
                 width: 50
 
-                ItaloComponents.TextPlain {
-                    visible: !(persistentSettings.fiatPriceToggle && persistentSettings.fiatPriceEnabled)
-                    id: balanceText
-                    themeTransition: false
+                MoneroComponents.Label {
+                    fontSize: 12
+                    id: accountIndex
+                    text: qsTr("Account") + translationManager.emptyString + " #" + currentAccountIndex
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
                     anchors.left: parent.left
-                    anchors.leftMargin: 20
+                    anchors.leftMargin: 60
                     anchors.top: parent.top
-                    anchors.topMargin: 76
-                    font.family: "Arial"
-                    color: "#FFFFFF"
-                    text: "N/A"
-                    // dynamically adjust text size
-                    font.pixelSize: {
-                        if (persistentSettings.hideBalance) {
-                            return 20;
-                        }
-                        var digits = text.split('.')[0].length
-                        var defaultSize = 22;
-                        if(digits > 2) {
-                            return defaultSize - 1.1*digits
-                        }
-                        return defaultSize;
-                    }
+                    anchors.topMargin: 23
+                    themeTransition: false
 
-                    MouseArea {
-                        hoverEnabled: true
+                    MouseArea{
                         anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onEntered: {
-                            parent.color = ItaloComponents.Style.orange
-                        }
-                        onExited: {
-                            parent.color = ItaloComponents.Style.white
-                        }
-                        onClicked: {
-                                console.log("Copied to clipboard");
-                                clipboard.setText(parent.text);
-                                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
-                        }
-                    }
-                }
-
-                ItaloComponents.TextPlain {
-                    visible: !balanceText.visible
-                    id: balanceTextFiat
-                    themeTransition: false
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    anchors.top: parent.top
-                    anchors.topMargin: 76
-                    font.family: "Arial"
-                    color: "#FFFFFF"
-                    text: "N/A"
-                    font.pixelSize: balanceText.font.pixelSize
-                    MouseArea {
                         hoverEnabled: true
-                        anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
-                        onEntered: {
-                            parent.color = ItaloComponents.Style.orange
-                        }
-                        onExited: {
-                            parent.color = ItaloComponents.Style.white
-                        }
-                        onClicked: {
-                                console.log("Copied to clipboard");
-                                clipboard.setText(parent.text);
-                                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
-                        }
+                        onClicked: appWindow.showPageRequest("Account")
                     }
                 }
 
-                ItaloComponents.TextPlain {
-                    id: unlockedBalanceText
-                    visible: !(persistentSettings.fiatPriceToggle && persistentSettings.fiatPriceEnabled)
+                MoneroComponents.Label {
+                    fontSize: 16
+                    id: accountLabel
+                    textWidth: 170
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 60
+                    anchors.top: parent.top
+                    anchors.topMargin: 36
                     themeTransition: false
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    anchors.top: parent.top
-                    anchors.topMargin: 126
-                    font.family: "Arial"
-                    color: "#FFFFFF"
-                    text: "N/A"
-                    // dynamically adjust text size
-                    font.pixelSize: {
-                        if (persistentSettings.hideBalance) {
-                            return 20;
-                        }
-                        var digits = text.split('.')[0].length
-                        var defaultSize = 20;
-                        if(digits > 3) {
-                            return defaultSize - 0.6*digits
-                        }
-                        return defaultSize;
-                    }
-
-                    MouseArea {
-                        hoverEnabled: true
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onEntered: {
-                            parent.color = ItaloComponents.Style.orange
-                        }
-                        onExited: {
-                            parent.color = ItaloComponents.Style.white
-                        }
-                        onClicked: {
-                                console.log("Copied to clipboard");
-                                clipboard.setText(parent.text);
-                                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
-                        }
-                    }
-                }
-
-                ItaloComponents.TextPlain {
-                    id: unlockedBalanceTextFiat
-                    themeTransition: false
-                    visible: !unlockedBalanceText.visible
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    anchors.top: parent.top
-                    anchors.topMargin: 126
-                    font.family: "Arial"
-                    color: "#FFFFFF"
-                    text: "N/A"
-                    font.pixelSize: unlockedBalanceText.font.pixelSize
-                    MouseArea {
-                        hoverEnabled: true
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onEntered: {
-                            parent.color = ItaloComponents.Style.orange
-                        }
-                        onExited: {
-                            parent.color = ItaloComponents.Style.white
-                        }
-                        onClicked: {
-                                console.log("Copied to clipboard");
-                                clipboard.setText(parent.text);
-                                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
-                        }
-                    }
-                }
-
-                ItaloComponents.Label {
-                    id: unlockedBalanceLabel
-                    visible: true
-                    text: qsTr("Unlocked balance") + translationManager.emptyString
-                    color: "white"
-                    fontSize: 14
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    anchors.top: parent.top
-                    anchors.topMargin: 110
-                    themeTransition: false
-                }
-
-                ItaloComponents.Label {
-                    visible: !isMobile
-                    id: balanceLabel
-                    text: qsTr("Balance") + translationManager.emptyString
-                    color: "white"
-                    fontSize: 14
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-                    anchors.top: parent.top
-                    anchors.topMargin: 60
                     elide: Text.ElideRight
-                    textWidth: 238
+
+                    MouseArea {
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: appWindow.showPageRequest("Account")
+                    }
+                }
+
+                MoneroComponents.Label {
+                    fontSize: 16
+                    visible: isSyncing
+                    text: qsTr("Syncing...")
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    anchors.bottom: currencyLabel.top
+                    anchors.bottomMargin: 15
                     themeTransition: false
                 }
+
+                MoneroComponents.TextPlain {
+                    id: currencyLabel
+                    font.pixelSize: 16
+                    text: {
+                        if (persistentSettings.fiatPriceEnabled && persistentSettings.fiatPriceToggle) {
+                            return appWindow.fiatApiCurrencySymbol();
+                        } else {
+                            return "XMR"
+                        }
+                    }
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    anchors.top: parent.top
+                    anchors.topMargin: 100
+                    themeTransition: false
+
+                    MouseArea {
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        visible: persistentSettings.fiatPriceEnabled
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: persistentSettings.fiatPriceToggle = !persistentSettings.fiatPriceToggle
+                    }
+                }
+
+                MoneroComponents.TextPlain {
+                    id: balancePart1
+                    themeTransition: false
+                    anchors.left: parent.left
+                    anchors.leftMargin: 58
+                    anchors.baseline: currencyLabel.baseline
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
+                    text: {
+                        if (persistentSettings.fiatPriceEnabled && persistentSettings.fiatPriceToggle) {
+                            return balanceFiatString.split('.')[0] + "."
+                        } else {
+                            return balanceString.split('.')[0] + "."
+                        }
+                    }
+                    font.pixelSize: {
+                        var defaultSize = 29;
+                        var digits = (balancePart1.text.length - 1)
+                        if (digits > 2 && !(persistentSettings.fiatPriceEnabled && persistentSettings.fiatPriceToggle)) {
+                            return defaultSize - 1.1 * digits
+                        } else {
+                            return defaultSize
+                        }
+                    }
+                    MouseArea {
+                        id: balancePart1MouseArea
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onEntered: {
+                            balancePart1.color = MoneroComponents.Style.orange
+                            balancePart2.color = MoneroComponents.Style.orange
+                        }
+                        onExited: {
+                            balancePart1.color = Qt.binding(function() { return MoneroComponents.Style.blackTheme ? "white" : "black" })
+                            balancePart2.color = Qt.binding(function() { return MoneroComponents.Style.blackTheme ? "white" : "black" })
+                        }
+                        onClicked: {
+                                console.log("Copied to clipboard");
+                                clipboard.setText(balancePart1.text + balancePart2.text);
+                                appWindow.showStatusMessage(qsTr("Copied to clipboard"),3)
+                        }
+                    }
+                }
+                MoneroComponents.TextPlain {
+                    id: balancePart2
+                    themeTransition: false
+                    anchors.left: balancePart1.right
+                    anchors.leftMargin: 2
+                    anchors.baseline: currencyLabel.baseline
+                    color: MoneroComponents.Style.blackTheme ? "white" : "black"
+                    text: {
+                        if (persistentSettings.fiatPriceEnabled && persistentSettings.fiatPriceToggle) {
+                            return balanceFiatString.split('.')[1]
+                        } else {
+                            return balanceString.split('.')[1]
+                        }
+                    }
+                    font.pixelSize: 16
+                    MouseArea {
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onEntered: balancePart1MouseArea.entered()
+                        onExited: balancePart1MouseArea.exited()
+                        onClicked: balancePart1MouseArea.clicked(mouse)
+                    }
+                }
+
                 Item { //separator
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -420,7 +341,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.top: (isMobile)? parent.top : column1.bottom
+        anchors.top: column1.bottom
         color: "transparent"
 
         Flickable {
@@ -440,14 +361,14 @@ Rectangle {
             property var previousButton: transferButton
 
             // top border
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 16
             }
 
             // ------------- Account tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: accountButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -461,7 +382,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: accountButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -469,7 +390,7 @@ Rectangle {
             }
 
             // ------------- Transfer tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: transferButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -483,7 +404,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: transferButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -492,7 +413,7 @@ Rectangle {
 
             // ------------- AddressBook tab ---------------
 
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: addressBookButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -507,7 +428,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: addressBookButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -515,7 +436,7 @@ Rectangle {
             }
 
             // ------------- Receive tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: receiveButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -529,7 +450,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: receiveButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -538,7 +459,7 @@ Rectangle {
 
             // ------------- Merchant tab ---------------
 
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: merchantButton
                 visible: appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -554,7 +475,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: merchantButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -563,7 +484,7 @@ Rectangle {
 
             // ------------- History tab ---------------
 
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: historyButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -577,7 +498,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: historyButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -585,7 +506,7 @@ Rectangle {
             }
 
             // ------------- Advanced tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: advancedButton
                 visible: appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -599,7 +520,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: advancedButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -607,7 +528,7 @@ Rectangle {
             }
 
             // ------------- Mining tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: miningButton
                 visible: !isAndroid && !isIOS && appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -623,7 +544,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: miningButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -631,7 +552,7 @@ Rectangle {
             }
 
             // ------------- TxKey tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: txkeyButton
                 visible: appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -647,7 +568,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: txkeyButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -655,7 +576,7 @@ Rectangle {
             }
 
             // ------------- Shared RingDB tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: sharedringdbButton
                 visible: appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -671,7 +592,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: sharedringdbButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -679,7 +600,7 @@ Rectangle {
             }
 
             // ------------- Sign/verify tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: signButton
                 visible: appWindow.walletMode >= 2
                 anchors.left: parent.left
@@ -695,7 +616,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: signButton.present && appWindow.walletMode >= 2
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -703,7 +624,7 @@ Rectangle {
             }
 
             // ------------- Settings tab ---------------
-            ItaloComponents.MenuButton {
+            MoneroComponents.MenuButton {
                 id: settingsButton
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -717,7 +638,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.MenuButtonDivider {
+            MoneroComponents.MenuButtonDivider {
                 visible: settingsButton.present
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -739,7 +660,7 @@ Rectangle {
             color: "transparent"
         }
 
-        ItaloComponents.NetworkStatusItem {
+        MoneroComponents.NetworkStatusItem {
             id: networkStatus
             anchors.left: parent.left
             anchors.right: parent.right
@@ -750,7 +671,7 @@ Rectangle {
             height: 48
         }
 
-        ItaloComponents.ProgressBar {
+        MoneroComponents.ProgressBar {
             id: progressBar
             anchors.left: parent.left
             anchors.right: parent.right
@@ -760,7 +681,7 @@ Rectangle {
             visible: networkStatus.connected
         }
 
-        ItaloComponents.ProgressBar {
+        MoneroComponents.ProgressBar {
             id: daemonProgressBar
             anchors.left: parent.left
             anchors.right: parent.right

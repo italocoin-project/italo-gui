@@ -72,7 +72,6 @@ Rectangle {
         wizardController.tmpWalletFilename = '';
         wizardController.walletRestoreMode = 'seed'
         wizardController.walletOptionsSubaddressLookahead = '';
-        wizardController.remoteNodes = {};
         disconnect();
 
         if (typeof wizardController.m_wallet !== 'undefined'){
@@ -107,7 +106,6 @@ Rectangle {
     property string walletOptionsDeviceName: ''
     property bool   walletOptionsDeviceIsRestore: false
     property string tmpWalletFilename: ''
-    property var remoteNodes: ''
 
     // language settings, updated via sidebar
     property string language_locale: 'en_US'
@@ -121,9 +119,7 @@ Rectangle {
     property int flickableHeightMargin: 200
 
     property int layoutScale: {
-        if(isMobile){
-            return 0;
-        } else if(appWindow.width < 800){
+        if(appWindow.width < 800){
             return 1;
         } else {
             return 2;
@@ -194,63 +190,63 @@ Rectangle {
             State {
                 name: "wizardLanguage"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardLanguageView }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardLanguageView.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardLanguageView.pageHeight + 80 }
             }, State {
                 name: "wizardHome"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardHomeView }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardHomeView.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardHomeView.pageHeight + 100 }
             }, State {
                 name: "wizardCreateWallet1"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardCreateWallet1View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet1View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet1View.pageHeight + 80 }
             }, State {
                 name: "wizardCreateWallet2"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardCreateWallet2View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet2View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet2View.pageHeight + 80 }
             }, State {
                 name: "wizardCreateWallet3"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardCreateWallet3View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet3View.height + wizardController.flickableHeightMargin + 400 }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet3View.pageHeight + 80 }
             }, State {
                 name: "wizardCreateWallet4"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardCreateWallet4View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet4View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateWallet4View.pageHeight + 80 }
             }, State {
                 name: "wizardRestoreWallet1"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardRestoreWallet1View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet1View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet1View.pageHeight + 80 }
             }, State {
                 name: "wizardRestoreWallet2"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardRestoreWallet2View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet2View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet2View.pageHeight + 80 }
             }, State {
                 name: "wizardRestoreWallet3"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardRestoreWallet3View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet3View.childrenRect.height + wizardController.flickableHeightMargin + 400 }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet3View.pageHeight + 80 }
             }, State {
                 name: "wizardRestoreWallet4"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardRestoreWallet4View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet4View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardRestoreWallet4View.pageHeight + 80 }
             }, State {
                 name: "wizardCreateDevice1"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardCreateDevice1View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateDevice1View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardCreateDevice1View.pageHeight + 80 }
             }, State {
                 name: "wizardOpenWallet1"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardOpenWallet1View }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardOpenWallet1View.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardOpenWallet1View.pageHeight + 80 }
             }, State {
                 name: "wizardModeSelection"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardModeSelectionView }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeSelectionView.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeSelectionView.pageHeight + 80 }
             }, State {
                 name: "wizardModeRemoteNodeWarning"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardModeRemoteNodeWarningView }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeRemoteNodeWarningView.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeRemoteNodeWarningView.pageHeight + 80 }
             }, State {
                 name: "wizardModeBootstrap"
                 PropertyChanges { target: wizardStateView; currentView: wizardStateView.wizardModeBootstrapView }
-                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeBootstrapView.childrenRect.height + wizardController.flickableHeightMargin }
+                PropertyChanges { target: wizardFlickable; contentHeight: wizardStateView.wizardModeBootstrapView.pageHeight + 80 }
             }
         ]
 
@@ -273,12 +269,13 @@ Rectangle {
             clip: true
 
             ScrollBar.vertical: ScrollBar {
-                parent: wizardFlickable.parent
+                parent: wizardController
                 anchors.left: parent.right
-                anchors.leftMargin: 3
+                anchors.leftMargin: -14 // 10 margin + 4 scrollbar width
                 anchors.top: parent.top
-                anchors.topMargin: 4
+                anchors.topMargin: persistentSettings.customDecorations ? 60 : 10
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: persistentSettings.customDecorations ? 15 : 10
             }
 
             onFlickingChanged: {
@@ -447,7 +444,9 @@ Rectangle {
     }
 
     function creatingWalletDeviceSplash(){
-        appWindow.showProcessingSplash(qsTr("Creating wallet from device..."));
+        var splashMsg = qsTr("Creating wallet from device...");
+        splashMsg += wizardController.walletOptionsDeviceName === "Ledger" ? qsTr("\n\nPlease check your hardware wallet –\nyour input may be required.") : "";
+        appWindow.showProcessingSplash(splashMsg);
     }
 
     function createWalletFromDevice() {
@@ -498,15 +497,15 @@ Rectangle {
         splash.close()
 
         console.log(">>> wallet passphrase needed: ");
-        passphraseDialog.onAcceptedCallback = function() {
-            walletManager.onPassphraseEntered(passphraseDialog.passphrase);
+        passwordDialog.onAcceptedPassphraseCallback = function() {
+            walletManager.onPassphraseEntered(passwordDialog.password);
             creatingWalletDeviceSplash();
         }
-        passphraseDialog.onRejectedCallback = function() {
+        passwordDialog.onRejectedPassphraseCallback = function() {
             walletManager.onPassphraseEntered("", true);
             creatingWalletDeviceSplash();
         }
-        passphraseDialog.open()
+        passwordDialog.openPassphraseDialog()
     }
 
     function onDeviceButtonRequest(code){
@@ -555,87 +554,6 @@ Rectangle {
         }
 
         passwordDialog.open(appWindow.usefulName(appWindow.walletPath()));
-    }
-
-    function fetchRemoteNodes(cb, cb_err){
-        // Fetch remote nodes, parse JSON, store in result `wizardController.remoteNodes`, call setAutNode(), call callback
-        var url = appWindow.remoteNodeService + 'api/nodes.json';
-        console.log("HTTP request: " + url);
-
-        var xhr = new XMLHttpRequest();
-        xhr.timeout = 3500;
-
-        // Unfortunately we cannot spoof User-Agent since it is hardcoded in Qt
-        //xhr.setRequestHeader("User-Agent", "-");
-
-        xhr.onreadystatechange = function() {
-            var msg;
-            if (xhr.readyState != 4) {
-                return;
-            } else if(xhr.status != 200){
-                msg = "Error fetching remote nodes; status code was not 200";
-                console.log(msg);
-                if(typeof cb_err === 'function')
-                    return cb_err(msg);
-            } else {
-                var body = xhr.responseText;
-                if(typeof body === 'undefined' || body === ''){
-                    msg = "Error fetching remote nodes; response body was empty";
-                    console.log(msg);
-                    if(typeof cb_err === 'function')
-                        return cb_err(msg);
-                }
-
-                var data = JSON.parse(body);
-                wizardController.remoteNodes = data;
-                console.log("node list updated");
-                setAutoNode();
-                return cb();
-            }
-        }
-
-        xhr.open('GET', url, true);
-        xhr.send(null);
-    }
-
-    function setAutoNode(){
-        var node;
-        var nodes;
-        var nodeObject = wizardController.remoteNodes;
-        var region = persistentSettings.remoteNodeRegion;
-
-        if(typeof region !== 'undefined' && region !== ""){
-            if(nodeObject.hasOwnProperty(region) && nodeObject[region].length > 0){
-                nodes = nodeObject[region];
-            } else {
-                console.log("No suitable nodes found for region " + region + ". Defaulting to random node.");
-            }
-        }
-
-        if(typeof nodes === 'undefined'){
-            nodes = [];
-            Object.keys(nodeObject).forEach(function(obj, i){
-                nodes = nodes.concat(nodeObject[obj]);
-            });
-        }
-
-        // 18089 has precedence
-        var filteredNodes = Utils.filterNodes(nodes, "18089");
-        if(filteredNodes.length > 0){
-            node = Utils.randomChoice(filteredNodes);
-            console.log('Choosing remote node \''+ node +'\' from a list of ' + filteredNodes.length);
-        } else if(nodes.length > 0){
-            node = Utils.randomChoice(nodes);
-            console.log('Choosing remote node \''+ node +'\' from a list of ' + nodes.length);
-        } else {
-            console.log("No suitable nodes found.")
-            return ''
-        }
-
-        if(appWindow.walletMode === 0)
-            persistentSettings.remoteNodeAddress = node;
-        else if(appWindow.walletMode === 1)
-            persistentSettings.bootstrapNodeAddress = node;
     }
 
     Component.onCompleted: {

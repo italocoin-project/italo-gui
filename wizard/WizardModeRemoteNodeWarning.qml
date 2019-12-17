@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -31,16 +31,18 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0
 
 import "../js/Wizard.js" as Wizard
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 Rectangle {
     id: wizardModeRemoteNodeWarning
 
     color: "transparent"
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardModeRemoteNodeWarning"
     property bool understood: false
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -66,82 +68,39 @@ Rectangle {
                 Layout.topMargin: 10
                 Layout.fillWidth: true
 
-                ItaloComponents.TextPlain {
-                    text: qsTr("This mode is ideal for managing small amounts of Italo. You have access to basic features for making and managing transactions. It will automatically connect to the Italo network so you can start using Italo immediately.") + translationManager.emptyString
-                    themeTransitionBlackColor: ItaloComponents.Style._b_lightGreyFontColor
-                    themeTransitionWhiteColor: ItaloComponents.Style._w_lightGreyFontColor
+                MoneroComponents.TextPlain {
+                    text: qsTr("This mode is ideal for managing small amounts of Monero. You have access to basic features for making and managing transactions. It will automatically connect to the Monero network so you can start using Monero immediately.") + translationManager.emptyString
+                    themeTransitionBlackColor: MoneroComponents.Style._b_lightGreyFontColor
+                    themeTransitionWhiteColor: MoneroComponents.Style._w_lightGreyFontColor
                     wrapMode: Text.Wrap
                     Layout.topMargin: 14
                     Layout.fillWidth: true
 
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 16
-                    color: ItaloComponents.Style.lightGreyFontColor
+                    color: MoneroComponents.Style.lightGreyFontColor
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     text: qsTr("Remote nodes are useful if you are not able/don't want to download the whole blockchain, but be advised that malicious remote nodes could compromise some privacy. They could track your IP address, track your \"restore height\" and associated block request data, and send you inaccurate information to learn more about transactions you make.") + translationManager.emptyString
-                    themeTransitionBlackColor: ItaloComponents.Style._b_lightGreyFontColor
-                    themeTransitionWhiteColor: ItaloComponents.Style._w_lightGreyFontColor
+                    themeTransitionBlackColor: MoneroComponents.Style._b_lightGreyFontColor
+                    themeTransitionWhiteColor: MoneroComponents.Style._w_lightGreyFontColor
                     wrapMode: Text.Wrap
                     Layout.topMargin: 8
                     Layout.fillWidth: true
 
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 16
-                    color: ItaloComponents.Style.lightGreyFontColor
+                    color: MoneroComponents.Style.lightGreyFontColor
                 }
 
-                ItaloComponents.WarningBox {
+                MoneroComponents.WarningBox {
                     Layout.topMargin: 14
                     Layout.bottomMargin: 6
                     text: qsTr("Remain aware of these limitations. <b>Users who prioritize privacy and decentralization must use a full node instead</b>.") + translationManager.emptyString
                 }
 
-                ItaloComponents.TextPlain {
-                    text: qsTr("For enhanced node performance you may specify your region:") + translationManager.emptyString
-                    wrapMode: Text.Wrap
-                    Layout.topMargin: 8
-                    Layout.fillWidth: true
-
-                    font.family: ItaloComponents.Style.fontRegular.name
-                    font.pixelSize: 16
-                    color: ItaloComponents.Style.defaultFontColor
-                }
-
-                GridLayout {
-                    columns: 3
-                    columnSpacing: 20
-
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        spacing: 0
-
-                        ItaloComponents.StandardDropdown {
-                            id: regionDropdown
-                            Layout.fillWidth: true
-                            dataModel: regionModel
-                            currentIndex: 0
-
-                            onChanged: {
-                                var region = regionModel.get(currentIndex).region;
-                                persistentSettings.remoteNodeRegion = region;
-                            }
-                        }
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                    }
-
-                    z: parent.z + 1
-                }
-
-                ItaloComponents.CheckBox {
+                MoneroComponents.CheckBox {
                     id: understoodCheckbox
                     Layout.topMargin: 20
                     fontSize: 16
@@ -184,23 +143,5 @@ Rectangle {
     function onPageCompleted(previousView){
         wizardModeRemoteNodeWarning.understood = false;
         understoodCheckbox.checked = false;
-    }
-
-    Component.onCompleted: {
-        var region = persistentSettings.remoteNodeRegion;
-
-        if(region){
-            for(var i = 0; i !== regionDropdown.dataModel.count; i++){
-                var item = regionDropdown.dataModel.get(i);
-                if(item['region'] === region){
-                    regionDropdown.currentIndex = i;
-                    break;
-                }
-            }
-        } else {
-            regionDropdown.currentIndex = 0;
-        }
-
-        regionDropdown.update();
     }
 }

@@ -1,6 +1,6 @@
-# qml components require at least QT 5.7.0
-lessThan (QT_MAJOR_VERSION, 5) | lessThan (QT_MINOR_VERSION, 7) {
-  error("Can't build with Qt $${QT_VERSION}. Use at least Qt 5.7.0")
+# qml components require at least QT 5.9.7
+lessThan (QT_MAJOR_VERSION, 5) | lessThan (QT_MINOR_VERSION, 9) {
+  error("Can't build with Qt $${QT_VERSION}. Use at least Qt 5.9.7")
 }
 
 TEMPLATE = app
@@ -16,10 +16,21 @@ packagesExist(libusb-1.0) {
 packagesExist(hidapi-libusb) {
     PKGCONFIG += hidapi-libusb
 }
-!win32 {
+
+GCC_VERSION = $$system("g++ -dumpversion")
+GCC_VERSION = $$split(GCC_VERSION, .)
+GCC_VERSION_MAJOR = $$member(GCC_VERSION, 0)
+GCC_VERSION_MINOR = $$member(GCC_VERSION, 1)
+greaterThan(GCC_VERSION_MAJOR, 9) | if(equals(GCC_VERSION_MAJOR, 9) : greaterThan(GCC_VERSION_MINOR, 0)) {
+    GCC_9_1_OR_GREATER = TRUE
+}
+
+!win32 | !isEmpty(GCC_9_1_OR_GREATER) {
     QMAKE_CXXFLAGS += -fPIC -fstack-protector -fstack-protector-strong
     QMAKE_LFLAGS += -fstack-protector -fstack-protector-strong
+}
 
+!win32 {
     packagesExist(protobuf) {
         PKGCONFIG += protobuf
     }
@@ -35,9 +46,9 @@ INCLUDEPATH +=  $$WALLET_ROOT/include \
                 $$WALLET_ROOT/src
 
 HEADERS += \
-    filter.h \
-    clipboardAdapter.h \
-    oscursor.h \
+    src/main/filter.h \
+    src/main/clipboardAdapter.h \
+    src/main/oscursor.h \
     src/libwalletqt/WalletManager.h \
     src/libwalletqt/Wallet.h \
     src/libwalletqt/PendingTransaction.h \
@@ -46,8 +57,8 @@ HEADERS += \
     src/libwalletqt/QRCodeImageProvider.h \
     src/libwalletqt/Transfer.h \
     src/NetworkType.h \
-    oshelper.h \
-    TranslationManager.h \
+    src/main/oshelper.h \
+    src/TranslationManager.h \
     src/model/TransactionHistoryModel.h \
     src/model/TransactionHistorySortFilterModel.h \
     src/QR-Code-generator/BitBuffer.hpp \
@@ -61,27 +72,29 @@ HEADERS += \
     src/libwalletqt/SubaddressAccount.h \
     src/zxcvbn-c/zxcvbn.h \
     src/libwalletqt/UnsignedTransaction.h \
-    Logger.h \
-    MainApp.h \
+    src/main/Logger.h \
+    src/main/MainApp.h \
     src/qt/FutureScheduler.h \
     src/qt/ipc.h \
-    src/qt/mime.h \
     src/qt/KeysFiles.h \
     src/qt/utils.h \
-    src/qt/prices.h
+    src/qt/prices.h \
+    src/qt/macoshelper.h \
+    src/qt/MoneroSettings.h \
+    src/qt/TailsOS.h
 
-SOURCES += main.cpp \
-    filter.cpp \
-    clipboardAdapter.cpp \
-    oscursor.cpp \
+SOURCES += src/main/main.cpp \
+    src/main/filter.cpp \
+    src/main/clipboardAdapter.cpp \
+    src/main/oscursor.cpp \
     src/libwalletqt/WalletManager.cpp \
     src/libwalletqt/Wallet.cpp \
     src/libwalletqt/PendingTransaction.cpp \
     src/libwalletqt/TransactionHistory.cpp \
     src/libwalletqt/TransactionInfo.cpp \
     src/libwalletqt/QRCodeImageProvider.cpp \
-    oshelper.cpp \
-    TranslationManager.cpp \
+    src/main/oshelper.cpp \
+    src/TranslationManager.cpp \
     src/model/TransactionHistoryModel.cpp \
     src/model/TransactionHistorySortFilterModel.cpp \
     src/QR-Code-generator/BitBuffer.cpp \
@@ -95,14 +108,15 @@ SOURCES += main.cpp \
     src/libwalletqt/SubaddressAccount.cpp \
     src/zxcvbn-c/zxcvbn.c \
     src/libwalletqt/UnsignedTransaction.cpp \
-    Logger.cpp \
-    MainApp.cpp \
+    src/main/Logger.cpp \
+    src/main/MainApp.cpp \
     src/qt/FutureScheduler.cpp \
     src/qt/ipc.cpp \
-    src/qt/mime.cpp \
     src/qt/KeysFiles.cpp \
     src/qt/utils.cpp \
-    src/qt/prices.cpp
+    src/qt/prices.cpp \
+    src/qt/MoneroSettings.cpp \
+    src/qt/TailsOS.cpp
 
 CONFIG(DISABLE_PASS_STRENGTH_METER) {
     HEADERS -= src/zxcvbn-c/zxcvbn.h
@@ -139,25 +153,25 @@ ios:arm64 {
     LIBS += \
         -L$$PWD/../ofxiOSBoost/build/libs/boost/lib/arm64 \
 }
+
+LIBS_COMMON = \
+    -lwallet_merged \
+    -llmdb \
+    -lepee \
+    -lunbound \
+    -lsodium \
+    -leasylogging \
+    -lrandomx
+
 !ios:!android {
-LIBS += -L$$WALLET_ROOT/lib \
-        -lwallet_merged \
-        -llmdb \
-        -lepee \
-        -lunbound \
-        -lsodium \
-        -leasylogging
+    LIBS += -L$$WALLET_ROOT/lib \
+        $$LIBS_COMMON
 }
 
 android {
     message("Host is Android")
     LIBS += -L$$WALLET_ROOT/lib \
-        -lwallet_merged \
-        -llmdb \
-        -lepee \
-        -lunbound \
-        -lsodium \
-        -leasylogging
+        $$LIBS_COMMON
 }
 
 
@@ -172,12 +186,7 @@ ios {
     QMAKE_IOS_DEVICE_ARCHS = arm64
     CONFIG += arm64
     LIBS += -L$$WALLET_ROOT/lib-ios \
-        -lwallet_merged \
-        -llmdb \
-        -lepee \
-        -lunbound \
-        -lsodium \
-        -leasylogging
+        $$LIBS_COMMON
 
     LIBS+= \
         -L$$PWD/../OpenSSL-for-iPhone/lib \
@@ -284,6 +293,7 @@ win32 {
         -licudt \
         -licutu \
         -liconv \
+        -lstdc++ \
         -lpthread \
         -lsetupapi \
         -lssl \
@@ -339,7 +349,8 @@ linux {
     if(!android) {
         LIBS+= \
             -Wl,-Bdynamic \
-            -lGL
+            -lGL \
+            -lX11
     }
     # currently italo has an issue with "static" build and linunwind-dev,
     # so we link libunwind-dev only for non-Ubuntu distros
@@ -359,9 +370,19 @@ macx {
     #     message("using static libraries")
     #     LIBS+= -Wl,-Bstatic
     # }
+
+    OPENSSL_LIBRARY_DIRS = $$system(brew --prefix openssl, lines, EXIT_CODE)
+    equals(EXIT_CODE, 0) {
+        OPENSSL_LIBRARY_DIRS = $$OPENSSL_LIBRARY_DIRS/lib
+    } else {
+        OPENSSL_LIBRARY_DIRS = /usr/local/ssl/lib
+    }
+
+    QT += macextras
+    OBJECTIVE_SOURCES += src/qt/macoshelper.mm
     LIBS+= \
         -L/usr/local/lib \
-        -L/usr/local/opt/openssl/lib \
+        -L$$OPENSSL_LIBRARY_DIRS \
         -L/usr/local/opt/boost/lib \
         -lboost_serialization \
         -lboost_thread-mt \
@@ -372,6 +393,7 @@ macx {
         -lboost_chrono \
         -lboost_program_options \
         -framework CoreFoundation \
+        -framework AppKit \
         -lhidapi \
         -lssl \
         -lsodium \
@@ -490,6 +512,9 @@ DISTFILES += \
     notes.txt \
     italo/src/wallet/CMakeLists.txt
 
+VERSION = $$cat('version.js', lines)
+VERSION = $$find(VERSION, 'GUI_VERSION')
+VERSION = $$replace(VERSION, '.*(\d+\.\d+\.\d+\.\d+).*', '\1')
 
 # windows application icon
 RC_ICONS = images/appicon.ico

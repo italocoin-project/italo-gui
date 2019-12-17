@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 //
 // All rights reserved.
 //
@@ -30,16 +30,16 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionInfo 1.0
-import italoComponents.TransactionHistoryModel 1.0
-import italoComponents.Clipboard 1.0
+import moneroComponents.Wallet 1.0
+import moneroComponents.WalletManager 1.0
+import moneroComponents.TransactionHistory 1.0
+import moneroComponents.TransactionInfo 1.0
+import moneroComponents.TransactionHistoryModel 1.0
+import moneroComponents.Clipboard 1.0
 import FontAwesome 1.0
 
-import "../components/effects/" as ItaloEffects
-import "../components" as ItaloComponents
+import "../components/effects/" as MoneroEffects
+import "../components" as MoneroComponents
 import "../js/Utils.js" as Utils
 import "../js/TxUtils.js" as TxUtils
 
@@ -49,9 +49,9 @@ Rectangle {
     property var model
     property int sideMargin: 50
     property var initialized: false
-    property int txMax: 5
+    property int txMax: Math.max(5, ((appWindow.height - 250) / 60))
     property int txOffset: 0
-    property int txPage: (txOffset / 5) + 1
+    property int txPage: (txOffset / txMax) + 1
     property int txCount: 0
     property var sortSearchString: null
     property bool sortDirection: true  // true = desc, false = asc
@@ -66,6 +66,8 @@ Rectangle {
     ListModel { id: txListViewModel }
 
     color: "transparent"
+
+    onTxMaxChanged: root.updateDisplay(root.txOffset, root.txMax);
 
     ColumnLayout {
         id: pageRoot
@@ -82,7 +84,7 @@ Rectangle {
             Layout.rightMargin: sideMargin
             Layout.bottomMargin: 10
 
-            ItaloComponents.Label {
+            MoneroComponents.Label {
                 fontSize: 24
                 text: qsTr("Transactions") + translationManager.emptyString
             }
@@ -100,12 +102,12 @@ Rectangle {
                 Layout.preferredHeight: 15
                 spacing: 8
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     Layout.alignment: Qt.AlignVCenter
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 15
                     text: qsTr("Sort & filter") + translationManager.emptyString
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
 
                     MouseArea {
                         anchors.fill: parent
@@ -117,7 +119,7 @@ Rectangle {
                     }
                 }
 
-                ItaloEffects.ImageMask {
+                MoneroEffects.ImageMask {
                     id: sortCollapsedIcon
                     Layout.alignment: Qt.AlignVCenter
                     height: 8
@@ -126,7 +128,7 @@ Rectangle {
                     fontAwesomeFallbackIcon: FontAwesome.arrowDown
                     fontAwesomeFallbackSize: 14
                     rotation: sortAndFilter.collapsed ? 0 : 180
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
 
                     MouseArea {
                         anchors.fill: parent
@@ -147,7 +149,7 @@ Rectangle {
             Layout.rightMargin: sideMargin
             visible: sortAndFilter.collapsed
 
-            ItaloComponents.LineEdit {
+            MoneroComponents.LineEdit {
                 id: searchInput
                 Layout.fillWidth: true
                 input.topPadding: 6
@@ -179,9 +181,8 @@ Rectangle {
             Layout.rightMargin: sideMargin
             columns: 2
             columnSpacing: 20
-            z: 6
 
-            ItaloComponents.DatePicker {
+            MoneroComponents.DatePicker {
                 id: fromDatePicker
                 Layout.fillWidth: true
                 width: 100
@@ -195,7 +196,7 @@ Rectangle {
                 }
             }
 
-            ItaloComponents.DatePicker {
+            MoneroComponents.DatePicker {
                 id: toDatePicker
                 Layout.fillWidth: true
                 width: 100
@@ -223,11 +224,11 @@ Rectangle {
                 Layout.preferredWidth: childrenRect.width + 38
                 Layout.preferredHeight: 20
 
-                ItaloComponents.TextPlain {
-                    font.family: ItaloComponents.Style.fontRegular.name
+                MoneroComponents.TextPlain {
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 15
-                    text: qsTr("Sort by") + ":"
-                    color: ItaloComponents.Style.defaultFontColor
+                    text: qsTr("Sort by") + ":" + translationManager.emptyString
+                    color: MoneroComponents.Style.defaultFontColor
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
@@ -243,17 +244,16 @@ Rectangle {
                     clip: true
                     anchors.fill: parent
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         id: sortBlockheightText
-                        font.family: ItaloComponents.Style.fontRegular.name
+                        font.family: MoneroComponents.Style.fontRegular.name
                         font.pixelSize: 15
                         text: qsTr("Blockheight") + translationManager.emptyString
-                        color: root.sortBy === "blockheight" ? ItaloComponents.Style.defaultFontColor : ItaloComponents.Style.dimmedFontColor
-                        anchors.verticalCenter: parent.verticalCenter
+                        color: root.sortBy === "blockheight" ? MoneroComponents.Style.defaultFontColor : MoneroComponents.Style.dimmedFontColor
                         themeTransition: false
                     }
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         height: 8
                         width: 12
                         visible: root.sortBy === "blockheight" ? true : false
@@ -261,7 +261,7 @@ Rectangle {
                         image: "qrc:///images/whiteDropIndicator.png"
                         fontAwesomeFallbackIcon: FontAwesome.arrowDown
                         fontAwesomeFallbackSize: 14
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         rotation: {
                             if(root.sortBy === "blockheight"){
                                 return root.sortDirection ? 0 : 180
@@ -303,17 +303,16 @@ Rectangle {
                     clip: true
                     anchors.fill: parent
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         id: sortDateText
-                        font.family: ItaloComponents.Style.fontRegular.name
+                        font.family: MoneroComponents.Style.fontRegular.name
                         font.pixelSize: 15
                         text: qsTr("Date") + translationManager.emptyString
-                        color: root.sortBy === "timestamp" ? ItaloComponents.Style.defaultFontColor : ItaloComponents.Style.dimmedFontColor
+                        color: root.sortBy === "timestamp" ? MoneroComponents.Style.defaultFontColor : MoneroComponents.Style.dimmedFontColor
                         themeTransition: false
-                        anchors.verticalCenter: parent.verticalCenter
                     }
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         height: 8
                         width: 12
                         visible: root.sortBy === "timestamp" ? true : false
@@ -321,7 +320,7 @@ Rectangle {
                         image: "qrc:///images/whiteDropIndicator.png"
                         fontAwesomeFallbackIcon: FontAwesome.arrowDown
                         fontAwesomeFallbackSize: 14
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         rotation: {
                             if(root.sortBy === "timestamp"){
                                 return root.sortDirection ? 0 : 180
@@ -363,17 +362,16 @@ Rectangle {
                     clip: true
                     anchors.fill: parent
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         id: sortAmountText
-                        font.family: ItaloComponents.Style.fontRegular.name
+                        font.family: MoneroComponents.Style.fontRegular.name
                         font.pixelSize: 15
                         text: qsTr("Amount") + translationManager.emptyString
-                        color: root.sortBy === "amount" ? ItaloComponents.Style.defaultFontColor : ItaloComponents.Style.dimmedFontColor
+                        color: root.sortBy === "amount" ? MoneroComponents.Style.defaultFontColor : MoneroComponents.Style.dimmedFontColor
                         themeTransition: false
-                        anchors.verticalCenter: parent.verticalCenter
                     }
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         height: 8
                         width: 12
                         visible: root.sortBy === "amount" ? true : false
@@ -381,7 +379,7 @@ Rectangle {
                         image: "qrc:///images/whiteDropIndicator.png"
                         fontAwesomeFallbackIcon: FontAwesome.arrowDown
                         fontAwesomeFallbackSize: 14
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         rotation: {
                             if(root.sortBy === "amount"){
                                 return root.sortDirection ? 0 : 180
@@ -417,13 +415,13 @@ Rectangle {
                 visible: !sortAndFilter.collapsed
                 Layout.preferredHeight: 20
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     // status message
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     font.pixelSize: 15
                     text: root.historyStatusMessage
 
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
@@ -445,11 +443,11 @@ Rectangle {
                     Layout.preferredWidth: childrenRect.width + 2
                     Layout.preferredHeight: 20
 
-                    ItaloComponents.TextPlain {
-                        font.family: ItaloComponents.Style.fontRegular.name
+                    MoneroComponents.TextPlain {
+                        font.family: MoneroComponents.Style.fontRegular.name
                         font.pixelSize: 15
-                        text: qsTr("Page") + ":"
-                        color: ItaloComponents.Style.defaultFontColor
+                        text: qsTr("Page") + ":" + translationManager.emptyString
+                        color: MoneroComponents.Style.defaultFontColor
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -460,10 +458,10 @@ Rectangle {
                     Layout.leftMargin: 4
                     Layout.preferredHeight: 20
 
-                    ItaloComponents.TextPlain {
+                    MoneroComponents.TextPlain {
                         id: paginationText
                         text: root.txPage + "/" + Math.ceil(root.txCount / root.txMax)
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         anchors.verticalCenter: parent.verticalCenter
 
                         MouseArea {
@@ -472,8 +470,8 @@ Rectangle {
                             anchors.fill: parent
                             hoverEnabled: pages > 1
                             cursorShape: hoverEnabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-                            onEntered: parent.color = ItaloComponents.Style.orange
-                            onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                            onEntered: parent.color = MoneroComponents.Style.orange
+                            onExited: parent.color = MoneroComponents.Style.defaultFontColor
                             onClicked: {
                                 if(pages === 1)
                                     return;
@@ -504,7 +502,7 @@ Rectangle {
                     opacity: enabled ? 1.0 : 0.2
                     enabled: false
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         id: prevIcon
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
@@ -513,7 +511,7 @@ Rectangle {
                         image: "qrc:///images/whiteDropIndicator.png"
                         fontAwesomeFallbackIcon: FontAwesome.arrowDown
                         fontAwesomeFallbackSize: 14
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                         rotation: 90
                     }
 
@@ -536,7 +534,7 @@ Rectangle {
                     opacity: enabled ? 1.0 : 0.2
                     enabled: false
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         id: nextIcon
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
@@ -546,7 +544,7 @@ Rectangle {
                         fontAwesomeFallbackIcon: FontAwesome.arrowDown
                         fontAwesomeFallbackSize: 14
                         rotation: 270
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                     }
 
                     MouseArea {
@@ -581,7 +579,7 @@ Rectangle {
                 }
                 color: {
                     if(!collapsed) return "transparent"
-                    return ItaloComponents.Style.blackTheme ? "#06FFFFFF" : "#04000000"
+                    return MoneroComponents.Style.blackTheme ? "#06FFFFFF" : "#04000000"
                 }
 
                 Rectangle {
@@ -633,14 +631,14 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: isout ? qsTr("Sent") : qsTr("Received") + translationManager.emptyString
-                                    color: ItaloComponents.Style.historyHeaderTextColor
+                                    color: MoneroComponents.Style.historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
-                                    themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                    themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                    themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                    themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                 }
                             }
 
@@ -649,19 +647,19 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
-                                    text: _amount + " XTA"
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    text: displayAmount
+                                    color: MoneroComponents.Style.defaultFontColor
                                     anchors.verticalCenter: parent.verticalCenter
 
                                     MouseArea {
                                         state: "copyable"
                                         anchors.fill: parent
                                         hoverEnabled: true
-                                        onEntered: parent.color = ItaloComponents.Style.orange
-                                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                        onEntered: parent.color = MoneroComponents.Style.orange
+                                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                     }
                                 }
                             }
@@ -683,13 +681,13 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: isout ? qsTr("Fee") : confirmationsRequired === 60 ? qsTr("Mined") : qsTr("Fee") + translationManager.emptyString
-                                    color: ItaloComponents.Style.historyHeaderTextColor
-                                    themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                    themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                    color: MoneroComponents.Style.historyHeaderTextColor
+                                    themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                    themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
@@ -699,24 +697,24 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: {
                                         if(!isout && confirmationsRequired === 60) return qsTr("Yes") + translationManager.emptyString;
-                                        if(fee !== "") return fee + " XTA";
+                                        if(fee !== "") return fee + " XMR";
                                         return "-";
                                     }
 
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    color: MoneroComponents.Style.defaultFontColor
                                     anchors.verticalCenter: parent.verticalCenter
 
                                     MouseArea {
                                         state: "copyable"
                                         anchors.fill: parent
                                         hoverEnabled: true
-                                        onEntered: parent.color = ItaloComponents.Style.orange
-                                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                        onEntered: parent.color = MoneroComponents.Style.orange
+                                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                     }
                                 }
                             }
@@ -744,13 +742,13 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: qsTr("Blockheight") + translationManager.emptyString
-                                    color: ItaloComponents.Style.historyHeaderTextColor
-                                    themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                    themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                    color: MoneroComponents.Style.historyHeaderTextColor
+                                    themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                    themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
@@ -760,20 +758,20 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 14
                                     text: blockheight > 0 ? blockheight : qsTr('Pending') + translationManager.emptyString;
 
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    color: MoneroComponents.Style.defaultFontColor
                                     anchors.verticalCenter: parent.verticalCenter
 
                                     MouseArea {
                                         state: "copyable"
                                         anchors.fill: parent
                                         hoverEnabled: true
-                                        onEntered: parent.color = ItaloComponents.Style.orange
-                                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                        onEntered: parent.color = MoneroComponents.Style.orange
+                                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                     }
                                 }
                             }
@@ -795,13 +793,13 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: qsTr("Confirmations") + translationManager.emptyString
-                                    color: ItaloComponents.Style.historyHeaderTextColor
-                                    themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                    themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                    color: MoneroComponents.Style.historyHeaderTextColor
+                                    themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                    themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
@@ -811,20 +809,20 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
+                                MoneroComponents.TextPlain {
                                     property bool confirmed: confirmations < confirmationsRequired ? false : true
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: confirmed ? confirmations : confirmations + "/" + confirmationsRequired
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    color: MoneroComponents.Style.defaultFontColor
                                     anchors.verticalCenter: parent.verticalCenter
 
                                     MouseArea {
                                         state: "copyable"
                                         anchors.fill: parent
                                         hoverEnabled: true
-                                        onEntered: parent.color = ItaloComponents.Style.orange
-                                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                        onEntered: parent.color = MoneroComponents.Style.orange
+                                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                     }
                                 }
                             }
@@ -852,13 +850,13 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
                                     text: qsTr("Date")
-                                    color: ItaloComponents.Style.historyHeaderTextColor
-                                    themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                    themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                    color: MoneroComponents.Style.historyHeaderTextColor
+                                    themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                    themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
                             }
@@ -868,12 +866,12 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 20
 
-                                ItaloComponents.TextPlain {
-                                    font.family: ItaloComponents.Style.fontRegular.name
+                                MoneroComponents.TextPlain {
+                                    font.family: MoneroComponents.Style.fontRegular.name
                                     font.pixelSize: 15
-                                    text: persistentSettings.historyHumanDates ? dateHuman : date + "  " + time
+                                    text: persistentSettings.historyHumanDates ? dateHuman : dateTime
 
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    color: MoneroComponents.Style.defaultFontColor
                                     anchors.verticalCenter: parent.verticalCenter
 
                                     MouseArea {
@@ -881,13 +879,13 @@ Rectangle {
                                         anchors.fill: parent
                                         hoverEnabled: true
                                         onEntered: {
-                                            parent.color = ItaloComponents.Style.orange
+                                            parent.color = MoneroComponents.Style.orange
                                             if (persistentSettings.historyHumanDates) {
-                                                parent.text = date + "  " + time;
+                                                parent.text = dateTime;
                                             }
                                         }
                                         onExited: {
-                                            parent.color = ItaloComponents.Style.defaultFontColor
+                                            parent.color = MoneroComponents.Style.defaultFontColor
                                             if (persistentSettings.historyHumanDates) {
                                                 parent.text = dateHuman
                                             }
@@ -906,7 +904,7 @@ Rectangle {
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 60
 
-                                ItaloComponents.StandardButton {
+                                MoneroComponents.StandardButton {
                                     id: btnDetails
                                     text: FontAwesome.info
                                     small: true
@@ -931,16 +929,16 @@ Rectangle {
                                     anchors.leftMargin: 16
                                     width: 28
                                     height: 28
-                                    source: "qrc:///images/miningxta.png"
+                                    source: "qrc:///images/miningxmr.png"
                                 }
 
-                                ItaloComponents.StandardButton {
+                                MoneroComponents.StandardButton {
                                     visible: isout
                                     anchors.left: btnDetails.right
                                     anchors.leftMargin: 10
                                     text: FontAwesome.productHunt
                                     small: true
-                                    label.font.family: FontAwesome.fontFamily
+                                    label.font.family: FontAwesome.fontFamilyBrands
                                     fontSize: 18
                                     width: 36
 
@@ -968,13 +966,13 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: qsTr("Description") + translationManager.emptyString
-                                color: ItaloComponents.Style.historyHeaderTextColor
-                                themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                color: MoneroComponents.Style.historyHeaderTextColor
+                                themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
@@ -984,31 +982,31 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
+                            MoneroComponents.TextPlain {
                                 id: txNoteText
-                                font.family: ItaloComponents.Style.fontRegular.name
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: tx_note !== "" ? tx_note : "-"
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 MouseArea {
                                     state: "copyable"
                                     anchors.fill: parent
                                     hoverEnabled: true
-                                    onEntered: parent.color = ItaloComponents.Style.orange
-                                    onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                    onEntered: parent.color = MoneroComponents.Style.orange
+                                    onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                 }
                             }
 
-                            ItaloEffects.ImageMask {
+                            MoneroEffects.ImageMask {
                                 anchors.top: parent.top
                                 anchors.left: txNoteText.right
                                 anchors.leftMargin: 12
                                 image: "qrc:///images/edit.svg"
                                 fontAwesomeFallbackIcon: FontAwesome.pencilSquare
                                 fontAwesomeFallbackSize: 22
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 opacity: 0.75
                                 width: 23
                                 height: 21
@@ -1036,13 +1034,13 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: qsTr("Transaction ID") + translationManager.emptyString
-                                color: ItaloComponents.Style.historyHeaderTextColor
-                                themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                color: MoneroComponents.Style.historyHeaderTextColor
+                                themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
@@ -1052,19 +1050,19 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: hash
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 MouseArea {
                                     state: "copyable"
                                     anchors.fill: parent
                                     hoverEnabled: true
-                                    onEntered: parent.color = ItaloComponents.Style.orange
-                                    onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                    onEntered: parent.color = MoneroComponents.Style.orange
+                                    onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                 }
                             }
                         }
@@ -1080,13 +1078,13 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: qsTr("Transaction key") + translationManager.emptyString
-                                color: ItaloComponents.Style.historyHeaderTextColor
-                                themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                color: MoneroComponents.Style.historyHeaderTextColor
+                                themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
@@ -1096,11 +1094,11 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: qsTr("Click to reveal")
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 state: "txkey_hidden"
 
@@ -1108,8 +1106,8 @@ Rectangle {
                                     state: "copyable_txkey"
                                     anchors.fill: parent
                                     hoverEnabled: true
-                                    onEntered: parent.color = ItaloComponents.Style.orange
-                                    onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                    onEntered: parent.color = MoneroComponents.Style.orange
+                                    onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                 }
                             }
                         }
@@ -1126,13 +1124,13 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: qsTr("Address sent to") + translationManager.emptyString
-                                color: ItaloComponents.Style.historyHeaderTextColor
-                                themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
-                                themeTransitionWhiteColor: ItaloComponents.Style._w_historyHeaderTextColor
+                                color: MoneroComponents.Style.historyHeaderTextColor
+                                themeTransitionBlackColor: MoneroComponents.Style._b_historyHeaderTextColor
+                                themeTransitionWhiteColor: MoneroComponents.Style._w_historyHeaderTextColor
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                         }
@@ -1143,8 +1141,8 @@ Rectangle {
                             Layout.fillWidth: true
                             Layout.preferredHeight: 20
 
-                            ItaloComponents.TextPlain {
-                                font.family: ItaloComponents.Style.fontRegular.name
+                            MoneroComponents.TextPlain {
+                                font.family: MoneroComponents.Style.fontRegular.name
                                 font.pixelSize: 15
                                 text: {
                                     if(isout && address !== ""){
@@ -1157,15 +1155,15 @@ Rectangle {
                                         return qsTr("Unknown recipient") + translationManager.emptyString;
                                 }
 
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 MouseArea {
                                     state: "copyable_address"
                                     anchors.fill: parent
                                     hoverEnabled: true
-                                    onEntered: parent.color = ItaloComponents.Style.orange
-                                    onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                                    onEntered: parent.color = MoneroComponents.Style.orange
+                                    onExited: parent.color = MoneroComponents.Style.defaultFontColor
                                 }
                             }
                         }
@@ -1198,7 +1196,7 @@ Rectangle {
                                 if(res[i].state === 'copyable_address') root.toClipboard(address);
                                 if(res[i].state === 'copyable_txkey') root.getTxKey(hash, res[i]);
                                 if(res[i].state === 'set_tx_note') root.editDescription(hash);
-                                if(res[i].state === 'details') root.showTxDetails(hash, paymentId, destinations, subaddrAccount, subaddrIndex);
+                                if(res[i].state === 'details') root.showTxDetails(hash, paymentId, destinations, subaddrAccount, subaddrIndex, dateTime, displayAmount, isout);
                                 if(res[i].state === 'proof') root.showTxProof(hash, paymentId, destinations, subaddrAccount, subaddrIndex);
                                 doCollapse = false;
                                 break;
@@ -1226,7 +1224,7 @@ Rectangle {
 
                     color: "transparent"
 
-                    ItaloEffects.ImageMask {
+                    MoneroEffects.ImageMask {
                         id: collapsedIcon
                         anchors.top: parent.top
                         anchors.topMargin: 24
@@ -1235,7 +1233,7 @@ Rectangle {
                         width: 12
                         image: "qrc:///images/whiteDropIndicator.png"
                         rotation: delegate.collapsed ? 180 : 0
-                        color: ItaloComponents.Style.defaultFontColor
+                        color: MoneroComponents.Style.defaultFontColor
                     }
                 }
 
@@ -1244,12 +1242,12 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     height: 1
-                    color: ItaloComponents.Style.appWindowBorderColor
+                    color: MoneroComponents.Style.appWindowBorderColor
 
-                    ItaloEffects.ColorTransition {
+                    MoneroEffects.ColorTransition {
                         targetObj: parent
-                        blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                        whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                        blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                        whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                     }
                 }
 
@@ -1258,12 +1256,12 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.top: parent.bottom
                     height: 1
-                    color: ItaloComponents.Style.appWindowBorderColor
+                    color: MoneroComponents.Style.appWindowBorderColor
 
-                    ItaloEffects.ColorTransition {
+                    MoneroEffects.ColorTransition {
                         targetObj: parent
-                        blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                        whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                        blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                        whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                     }
                 }
             }
@@ -1276,20 +1274,20 @@ Rectangle {
             Layout.leftMargin: sideMargin
             Layout.rightMargin: sideMargin
 
-            ItaloComponents.TextPlain {
+            MoneroComponents.TextPlain {
                 // status message
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
-                font.family: ItaloComponents.Style.fontRegular.name
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 15
                 text: root.historyStatusMessage;
-                color: ItaloComponents.Style.dimmedFontColor
-                themeTransitionBlackColor: ItaloComponents.Style._b_dimmedFontColor
-                themeTransitionWhiteColor: ItaloComponents.Style._w_dimmedFontColor
+                color: MoneroComponents.Style.dimmedFontColor
+                themeTransitionBlackColor: MoneroComponents.Style._b_dimmedFontColor
+                themeTransitionWhiteColor: MoneroComponents.Style._w_dimmedFontColor
             }
         }
 
-        ItaloComponents.CheckBox2 {
+        MoneroComponents.CheckBox2 {
             id: showAdvancedCheckbox
             Layout.topMargin: 30
             Layout.bottomMargin: 20
@@ -1306,7 +1304,7 @@ Rectangle {
             Layout.rightMargin: sideMargin
             spacing: 20
 
-            ItaloComponents.CheckBox {
+            MoneroComponents.CheckBox {
                 id: humanDatesCheckBox
                 checked: persistentSettings.historyHumanDates
                 onClicked: {
@@ -1316,7 +1314,7 @@ Rectangle {
                 text: qsTr("Human readable date format") + translationManager.emptyString
             }
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 visible: !isIOS && root.txCount > 0
                 small: true
                 text: qsTr("Export all history") + translationManager.emptyString
@@ -1343,13 +1341,14 @@ Rectangle {
         root.updateDisplay(root.txOffset, root.txMax);
     }
 
-    function reset() {
+    function reset(keepDate) {
         root.txOffset = 0;
-        root.txMax = 5;
 
         if (typeof root.model !== 'undefined' && root.model != null) {
-            root.model.dateFromFilter = "2014-04-18" // genesis block
-            root.model.dateToFilter = "9999-09-09" // fix before september 9999
+            if (!keepDate) {
+                root.model.dateFromFilter = "2014-04-18" // genesis block
+                root.model.dateToFilter = "9999-09-09" // fix before september 9999
+            }
             // negative values disable filters here;
             root.model.amountFromFilter = -1;
             root.model.amountToFilter = -1;
@@ -1361,8 +1360,9 @@ Rectangle {
         // applying filters
         root.txData = JSON.parse(JSON.stringify(root.txModelData)); // deepcopy
 
-        var fromDate = fromDatePicker.currentDate.getTime() / 1000;
-        var toDate = toDatePicker.currentDate.getTime() / 1000;
+        const timezoneOffset = new Date().getTimezoneOffset() * 60;
+        var fromDate = Math.floor(fromDatePicker.currentDate.getTime() / 86400000) * 86400 + timezoneOffset;
+        var toDate = (Math.floor(toDatePicker.currentDate.getTime() / 86400000) + 1) * 86400 + timezoneOffset;
 
         var txs = [];
         for (var i = 0; i < root.txData.length; i++){
@@ -1386,6 +1386,8 @@ Rectangle {
                 } else if(item.address !== "" && item.address.startsWith(root.sortSearchString)){
                     txs.push(item);
                 } else if(item.blockheight.toString().startsWith(root.sortSearchString)) {
+                    txs.push(item);
+                } else if(item.tx_note.toLowerCase().indexOf(root.sortSearchString.toLowerCase()) !== -1) {
                     txs.push(item);
                 } else if (item.hash.startsWith(root.sortSearchString)){
                     txs.push(item);
@@ -1477,12 +1479,12 @@ Rectangle {
             var timestamp = new Date(date + " " + time).getTime() / 1000;
             var dateHuman = Utils.ago(timestamp);
 
-            var _amount = amount;
-            if(_amount === 0){
+            var displayAmount = amount;
+            if(displayAmount === 0){
                 // *sometimes* amount is 0, while the 'destinations string'
                 // has the correct amount, so we try to fetch it from that instead.
-                _amount = TxUtils.destinationsToAmount(destinations);
-                _amount = Number(_amount *1);
+                displayAmount = TxUtils.destinationsToAmount(destinations);
+                displayAmount = Number(displayAmount *1);
             }
 
             var tx_note = currentWallet.getUserNote(hash);
@@ -1500,15 +1502,14 @@ Rectangle {
                 "i": i,
                 "isout": isout,
                 "amount": Number(amount),
-                "_amount": _amount,
+                "displayAmount": displayAmount + " XMR",
                 "hash": hash,
                 "paymentId": paymentId,
                 "address": address,
                 "destinations": destinations,
                 "tx_note": tx_note,
-                "time": time,
-                "date": date,
                 "dateHuman": dateHuman,
+                "dateTime": date + " " + time,
                 "blockheight": blockheight,
                 "address": address,
                 "timestamp": timestamp,
@@ -1580,22 +1581,25 @@ Rectangle {
                 elem.parent.text = txKey ? txKey : '-';
                 elem.parent.state = 'ready';
             });
+        } else {
+            toClipboard(elem.parent.text);
         }
-
-        toClipboard(elem.parent.text);
     }
 
-    function showTxDetails(hash, paymentId, destinations, subaddrAccount, subaddrIndex){
+    function showTxDetails(hash, paymentId, destinations, subaddrAccount, subaddrIndex, dateTime, amount, isout) {
         var tx_note = currentWallet.getUserNote(hash)
         var rings = currentWallet.getRings(hash)
         var address_label = subaddrIndex == 0 ? (qsTr("Primary address") + translationManager.emptyString) : currentWallet.getSubaddressLabel(subaddrAccount, subaddrIndex)
         var address = currentWallet.address(subaddrAccount, subaddrIndex)
+        const hasPaymentId = parseInt(paymentId, 16);
+        const integratedAddress = !isout && hasPaymentId ? currentWallet.integratedAddress(paymentId) : null;
+
         if (rings)
             rings = rings.replace(/\|/g, '\n')
 
         currentWallet.getTxKeyAsync(hash, function(hash, tx_key) {
             informationPopup.title = qsTr("Transaction details") + translationManager.emptyString;
-            informationPopup.content = buildTxDetailsString(hash, paymentId, tx_key, tx_note, destinations, rings, address, address_label);
+            informationPopup.content = buildTxDetailsString(hash, paymentId, tx_key, tx_note, destinations, rings, address, address_label, integratedAddress, dateTime, amount);
             informationPopup.onCloseCallback = null
             informationPopup.open();
         });
@@ -1623,16 +1627,18 @@ Rectangle {
         appWindow.showStatusMessage(qsTr("Copied to clipboard"),3);
     }
 
-    function buildTxDetailsString(tx_id, paymentId, tx_key,tx_note, destinations, rings, address, address_label) {
-        var trStart = '<tr><td width="85" style="padding-top:5px"><b>',
+    function buildTxDetailsString(tx_id, paymentId, tx_key,tx_note, destinations, rings, address, address_label, integratedAddress, dateTime, amount) {
+        var trStart = '<tr><td style="white-space: nowrap; padding-top:5px"><b>',
             trMiddle = '</b></td><td style="padding-left:10px;padding-top:5px;">',
             trEnd = "</td></tr>";
 
         return '<table border="0">'
             + (tx_id ? trStart + qsTr("Tx ID:") + trMiddle + tx_id + trEnd : "")
-            + (address_label ? trStart + qsTr("Address label:") + trMiddle + address_label + trEnd : "")
+            + (dateTime ? trStart + qsTr("Date") + ":" + trMiddle + dateTime + trEnd : "")
+            + (amount ? trStart + qsTr("Amount") + ":" + trMiddle + amount + trEnd : "")
             + (address ? trStart + qsTr("Address:") + trMiddle + address + trEnd : "")
             + (paymentId ? trStart + qsTr("Payment ID:") + trMiddle + paymentId + trEnd : "")
+            + (integratedAddress ? trStart + qsTr("Integrated address") + ":" + trMiddle + integratedAddress + trEnd : "")
             + (tx_key ? trStart + qsTr("Tx key:") + trMiddle + tx_key + trEnd : "")
             + (tx_note ? trStart + qsTr("Tx note:") + trMiddle + tx_note + trEnd : "")
             + (destinations ? trStart + qsTr("Destinations:") + trMiddle + destinations + trEnd : "")
@@ -1677,7 +1683,7 @@ Rectangle {
             informationPopup.open();
         }
         Component.onCompleted: {
-            var _folder = 'file://' + italoAccountsDir;
+            var _folder = 'file://' + moneroAccountsDir;
             try {
                 _folder = 'file://' + desktopFolder;
             }
@@ -1704,6 +1710,6 @@ Rectangle {
 
     function onPageClosed(){
         root.initialized = false;
-        root.reset();
+        root.reset(true);
     }
 }

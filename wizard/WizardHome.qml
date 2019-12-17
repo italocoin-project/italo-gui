@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -30,17 +30,18 @@ import QtQuick 2.9
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0
-import italoComponents.NetworkType 1.0
+import moneroComponents.NetworkType 1.0
 
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 Rectangle {
     id: wizardHome
     color: "transparent"
-
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardHome"
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -57,13 +58,13 @@ Rectangle {
 
             WizardHeader {
                 Layout.bottomMargin: 20
-                title: qsTr("Welcome to Italo.") + translationManager.emptyString
+                title: qsTr("Welcome to Monero.") + translationManager.emptyString
                 subtitle: ""
             }
 
             WizardMenuItem {
                 headerText: qsTr("Create a new wallet") + translationManager.emptyString
-                bodyText: qsTr("Choose this option if this is your first time using Italo.") + translationManager.emptyString
+                bodyText: qsTr("Choose this option if this is your first time using Monero.") + translationManager.emptyString
                 imageIcon: "qrc:///images/create-wallet.png"
 
                 onMenuClicked: {
@@ -78,13 +79,13 @@ Rectangle {
                 Layout.topMargin: 3
                 Layout.bottomMargin: 3
                 Layout.fillWidth: true
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
 
             WizardMenuItem {
                 headerText: qsTr("Create a new wallet from hardware") + translationManager.emptyString
-                bodyText: qsTr("Connect your hardware wallet to create a new Italo wallet.") + translationManager.emptyString
+                bodyText: qsTr("Connect your hardware wallet to create a new Monero wallet.") + translationManager.emptyString
                 imageIcon: "qrc:///images/restore-wallet-from-hardware.png"
 
                 onMenuClicked: {
@@ -98,8 +99,8 @@ Rectangle {
                 Layout.topMargin: 3
                 Layout.bottomMargin: 3
                 Layout.fillWidth: true
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
 
             WizardMenuItem {
@@ -117,8 +118,8 @@ Rectangle {
                 Layout.topMargin: 3
                 Layout.bottomMargin: 3
                 Layout.fillWidth: true
-                color: ItaloComponents.Style.dividerColor
-                opacity: ItaloComponents.Style.dividerOpacity
+                color: MoneroComponents.Style.dividerColor
+                opacity: MoneroComponents.Style.dividerOpacity
             }
 
             WizardMenuItem {
@@ -137,7 +138,7 @@ Rectangle {
                 Layout.topMargin: 16
                 spacing: 20
 
-                ItaloComponents.StandardButton {
+                MoneroComponents.StandardButton {
                     small: true
                     text: qsTr("Change wallet mode") + translationManager.emptyString
 
@@ -147,19 +148,17 @@ Rectangle {
                     }                    
                 }
 
-                ItaloComponents.StandardButton {
-                    visible: !persistentSettings.customDecorations
+                MoneroComponents.StandardButton {
                     small: true
                     text: qsTr("Change language") + translationManager.emptyString
 
                     onClicked: {
-                        wizardController.wizardStackView.backTransition = false;
                         appWindow.toggleLanguageView();
                     }
                 }
             }
 
-            ItaloComponents.CheckBox2 {
+            MoneroComponents.CheckBox2 {
                 id: showAdvancedCheckbox
                 Layout.topMargin: 30
                 Layout.fillWidth: true
@@ -185,12 +184,12 @@ Rectangle {
                 ColumnLayout {
                     Layout.topMargin: 4
 
-                    ItaloComponents.Label {
+                    MoneroComponents.Label {
                         text: qsTr("Change Network:") + translationManager.emptyString
                         fontSize: 14
                     }
 
-                    ItaloComponents.StandardDropdown {
+                    MoneroComponents.StandardDropdown {
                         id: networkTypeDropdown
                         dataModel: networkTypeModel
                         Layout.fillWidth: true
@@ -211,7 +210,7 @@ Rectangle {
                     }
                 }
 
-                ItaloComponents.LineEdit {
+                MoneroComponents.LineEdit {
                     id: kdfRoundsText
                     Layout.fillWidth: true
 

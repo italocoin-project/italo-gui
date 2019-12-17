@@ -31,6 +31,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QReadWriteLock>
 #include <QDateTime>
 
 namespace Italo {
@@ -76,6 +77,7 @@ private:
     friend class Wallet;
     Italo::TransactionHistory * m_pimpl;
     mutable QList<TransactionInfo*> m_tinfo;
+    mutable QReadWriteLock m_tinfoLock;
     mutable QDateTime   m_firstDateTime;
     mutable QDateTime   m_lastDateTime;
     mutable int m_minutesToUnlock;

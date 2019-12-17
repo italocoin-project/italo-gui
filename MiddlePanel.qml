@@ -46,11 +46,6 @@ Rectangle {
 
     property Item currentView
     property Item previousView
-    property bool basicMode : isMobile
-    property string balanceLabelText: qsTr("Balance") + translationManager.emptyString
-    property string balanceText
-    property string unlockedBalanceLabelText: qsTr("Unlocked Balance") + translationManager.emptyString
-    property string unlockedBalanceText
     property int minHeight: (appWindow.height > 800) ? appWindow.height : 800
     property alias contentHeight: mainFlickable.contentHeight
     property alias flickable: mainFlickable
@@ -173,23 +168,6 @@ Rectangle {
             }	
         ]
 
-    // color stripe at the top
-    Row {
-        id: styledRow
-        visible: currentView !== merchantView
-        height: 4
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        z: parent.z + 1
-
-        Rectangle { height: 4; width: parent.width / 5; color: "#FFE00A" }
-        Rectangle { height: 4; width: parent.width / 5; color: "#6B0072" }
-        Rectangle { height: 4; width: parent.width / 5; color: "#FF6C3C" }
-        Rectangle { height: 4; width: parent.width / 5; color: "#FFD781" }
-        Rectangle { height: 4; width: parent.width / 5; color: "#FF4F41" }
-    }
-
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: {
@@ -200,6 +178,7 @@ Rectangle {
         }
 
         anchors.topMargin: appWindow.persistentSettings.customDecorations ? 50 : 0
+        anchors.bottomMargin: 0
         spacing: 0
 
         Flickable {
@@ -209,13 +188,13 @@ Rectangle {
             clip: true
 
             ScrollBar.vertical: ScrollBar {
-                parent: mainFlickable.parent
+                parent: root
                 anchors.left: parent.right
-                anchors.leftMargin: 3
+                anchors.leftMargin: -14 // 10 margin + 4 scrollbar width
                 anchors.top: parent.top
-                anchors.topMargin: 4
+                anchors.topMargin: persistentSettings.customDecorations ? 60 : 10
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: persistentSettings.customDecorations ? 4 : 0 
+                anchors.bottomMargin: persistentSettings.customDecorations ? 15 : 10
             }
 
             onFlickingChanged: {
@@ -258,7 +237,7 @@ Rectangle {
     Rectangle {
         id: borderLeft
         visible: middlePanel.state !== "Merchant"
-        anchors.top: styledRow.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         width: 1

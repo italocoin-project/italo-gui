@@ -44,19 +44,21 @@ public:
 
     static DaemonManager * instance(const QStringList *args);
 
-    Q_INVOKABLE bool start(const QString &flags, NetworkType::Type nettype, const QString &dataDir = "", const QString &bootstrapNodeAddress = "");
+    Q_INVOKABLE bool start(const QString &flags, NetworkType::Type nettype, const QString &dataDir = "", const QString &bootstrapNodeAddress = "", bool noSync = false);
     Q_INVOKABLE bool stop(NetworkType::Type nettype);
 
+    Q_INVOKABLE bool noSync() const noexcept;
     // return true if daemon process is started
-    Q_INVOKABLE bool running(NetworkType::Type nettype) const;
+    Q_INVOKABLE void runningAsync(NetworkType::Type nettype, const QJSValue& callback) const;
     // Send daemon command from qml and prints output in console window.
-    Q_INVOKABLE bool sendCommand(const QString &cmd, NetworkType::Type nettype) const;
+    Q_INVOKABLE void sendCommandAsync(const QStringList &cmd, NetworkType::Type nettype, const QJSValue& callback) const;
     Q_INVOKABLE void exit();
     Q_INVOKABLE QVariantMap validateDataDir(const QString &dataDir) const;
 
 private:
 
-    bool sendCommand(const QString &cmd, NetworkType::Type nettype, QString &message) const;
+    bool running(NetworkType::Type nettype) const;
+    bool sendCommand(const QStringList &cmd, NetworkType::Type nettype, QString &message) const;
     bool startWatcher(NetworkType::Type nettype) const;
     bool stopWatcher(NetworkType::Type nettype) const;
 signals:
@@ -81,8 +83,9 @@ private:
     QString m_italod;
     bool m_has_daemon = true;
     bool m_app_exit = false;
+    bool m_noSync = false;
 
-    FutureScheduler m_scheduler;
+    mutable FutureScheduler m_scheduler;
 };
 
 #endif // DAEMONMANAGER_H

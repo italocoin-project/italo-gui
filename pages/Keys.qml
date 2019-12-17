@@ -52,7 +52,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.right: parent.right
 
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 40
 
         spacing: 30
@@ -116,11 +116,11 @@ Rectangle {
 
             ItaloComponents.LineEdit {
                 Layout.fillWidth: true
+                id: walletCreationHeight
                 readOnly: true
                 copyButton: true
                 labelText: qsTr("Block #") + translationManager.emptyString
                 fontSize: 16
-                text: currentWallet.walletCreationHeight
             }
         }
 
@@ -251,7 +251,7 @@ Rectangle {
                 onClicked: {
                     loadPage("Settings")
                 }
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignCenter
                 width: 135
             }
         }
@@ -261,6 +261,7 @@ Rectangle {
     function onPageCompleted() {
         console.log("keys page loaded");
 
+        walletCreationHeight.text = currentWallet.walletCreationHeight
         secretViewKey.text = currentWallet.secretViewKey
         publicViewKey.text = currentWallet.publicViewKey
         secretSpendKey.text = (!currentWallet.viewOnly) ? currentWallet.secretSpendKey : ""

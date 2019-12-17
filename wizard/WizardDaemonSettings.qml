@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -32,7 +32,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0
 
 import "../js/Wizard.js" as Wizard
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 ColumnLayout {
     Layout.fillWidth: true
@@ -46,7 +46,7 @@ ColumnLayout {
         persistentSettings.bootstrapNodeAddress = bootstrapNodeEdit.daemonAddrText ? bootstrapNodeEdit.getAddress() : "";
     }
 
-    ItaloComponents.RadioButton {
+    MoneroComponents.RadioButton {
         id: localNode
         Layout.fillWidth: true
         text: qsTr("Start a node automatically in background (recommended)") + translationManager.emptyString
@@ -67,7 +67,7 @@ ColumnLayout {
         Layout.topMargin: 8
         Layout.fillWidth: true
 
-        ItaloComponents.LineEdit {
+        MoneroComponents.LineEdit {
             id: blockchainFolder
             Layout.fillWidth: true
 
@@ -91,12 +91,12 @@ ColumnLayout {
             Layout.topMargin: 6
             spacing: 0
 
-            TextArea {
+            Text {
                 text: qsTr("Bootstrap node") + translationManager.emptyString
                 Layout.topMargin: 10
                 Layout.fillWidth: true
-                font.family: ItaloComponents.Style.fontRegular.name
-                color: ItaloComponents.Style.defaultFontColor
+                font.family: MoneroComponents.Style.fontRegular.name
+                color: MoneroComponents.Style.defaultFontColor
                 font.pixelSize: {
                     if(wizardController.layoutScale === 2 ){
                         return 22;
@@ -105,25 +105,19 @@ ColumnLayout {
                     }
                 }
 
-                selectionColor: ItaloComponents.Style.textSelectionColor
-                selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-                selectByMouse: true
                 wrapMode: Text.WordWrap
-                textMargin: 0
                 leftPadding: 0
                 topPadding: 0
                 bottomPadding: 0
-                readOnly: true
             }
 
-            TextArea {
-                text: qsTr("Additionally, you may specify a bootstrap node to use Italo immediately.") + translationManager.emptyString
+            Text {
+                text: qsTr("Additionally, you may specify a bootstrap node to use Monero immediately.") + translationManager.emptyString
                 Layout.topMargin: 4
                 Layout.fillWidth: true
 
-                font.family: ItaloComponents.Style.fontRegular.name
-                color: ItaloComponents.Style.dimmedFontColor
+                font.family: MoneroComponents.Style.fontRegular.name
+                color: MoneroComponents.Style.dimmedFontColor
 
                 font.pixelSize: {
                     if(wizardController.layoutScale === 2 ){
@@ -133,16 +127,10 @@ ColumnLayout {
                     }
                 }
 
-                selectionColor: ItaloComponents.Style.textSelectionColor
-                selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-                selectByMouse: true
                 wrapMode: Text.WordWrap
-                textMargin: 0
                 leftPadding: 0
                 topPadding: 0
                 bottomPadding: 0
-                readOnly: true
             }
         }
 
@@ -150,7 +138,7 @@ ColumnLayout {
             spacing: 8
             Layout.fillWidth: true
 
-            ItaloComponents.RemoteNodeEdit {
+            MoneroComponents.RemoteNodeEdit {
                 id: bootstrapNodeEdit
                 Layout.minimumWidth: 300
                 //labelText: qsTr("Bootstrap node (leave blank if not wanted)") + translationManager.emptyString
@@ -168,7 +156,7 @@ ColumnLayout {
         }
     }
 
-    ItaloComponents.RadioButton {
+    MoneroComponents.RadioButton {
         id: remoteNode
         Layout.fillWidth: true
         Layout.topMargin: 8
@@ -188,7 +176,7 @@ ColumnLayout {
         Layout.topMargin: 8
         Layout.fillWidth: true
 
-        ItaloComponents.RemoteNodeEdit {
+        MoneroComponents.RemoteNodeEdit {
             id: remoteNodeEdit
             Layout.fillWidth: true
 

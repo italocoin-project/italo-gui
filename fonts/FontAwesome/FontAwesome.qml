@@ -4,10 +4,23 @@ import QtQuick 2.9
 Object {
 
     FontLoader {
-        source: "./fontawesome-webfont.ttf"
+        id: regular
+        source: "./fa-regular-400.ttf"
     }
 
-    property string fontFamily: "FontAwesome"
+    FontLoader {
+        id: brands
+        source: "./fa-brands-400.ttf"
+    }
+
+    FontLoader {
+        id: solid
+        source: "./fa-solid-900.ttf"
+    }
+
+    property string fontFamily: regular.name
+    property string fontFamilyBrands: brands.name
+    property string fontFamilySolid: solid.name
 
     // Icons 
     property string addressBook : "\uf2b9"
@@ -594,6 +607,7 @@ Object {
     property string shower : "\uf2cc"
     property string signIn : "\uf090"
     property string signLanguage : "\uf2a7"
+    property string signOutAlt : "\uf2f5"
     property string signOut : "\uf08b"
     property string signal : "\uf012"
     property string signing : "\uf2a7"

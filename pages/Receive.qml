@@ -31,6 +31,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
+import FontAwesome 1.0
 
 import "../components" as ItaloComponents
 import "../components/effects/" as ItaloEffects
@@ -65,7 +66,7 @@ Rectangle {
     /* main layout */
     ColumnLayout {
         id: mainLayout
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 40
 
         anchors.left: parent.left
@@ -101,7 +102,7 @@ Rectangle {
                 ListView {
                     id: subaddressListView
                     Layout.fillWidth: true
-                    anchors.fill: parent
+                    Layout.fillHeight: true
                     clip: true
                     boundsBehavior: ListView.StopAtBounds
                     interactive: false
@@ -243,8 +244,9 @@ Rectangle {
             ItaloComponents.CheckBox {
                 id: addNewAddressCheckbox
                 border: false
-                checkedIcon: "qrc:///images/plus-in-circle-medium-white.png"
-                uncheckedIcon: "qrc:///images/plus-in-circle-medium-white.png"
+                uncheckedIcon: FontAwesome.plusCircle
+                toggleOnClick: false
+                fontAwesomeIcons: true
                 fontSize: 16
                 iconOnTheLeft: true
                 Layout.fillWidth: true
@@ -256,6 +258,7 @@ Rectangle {
                     inputDialog.onAcceptedCallback = function() {
                         appWindow.currentWallet.subaddress.addRow(appWindow.currentWallet.currentSubaddressAccount, inputDialog.inputText)
                         current_subaddress_table_index = appWindow.currentWallet.numSubaddresses(appWindow.currentWallet.currentSubaddressAccount) - 1
+                        subaddressListView.currentIndex = current_subaddress_table_index
                     }
                     inputDialog.onRejectedCallback = null;
                     inputDialog.open()
@@ -306,6 +309,20 @@ Rectangle {
                     onClicked: {
                         clipboard.setText(TxUtils.makeQRCodeString(appWindow.current_address));
                         appWindow.showStatusMessage(qsTr("Copied to clipboard") + translationManager.emptyString, 3);
+                    }
+                }
+
+                MoneroComponents.StandardButton {
+                    text: FontAwesome.eye
+                    label.font.family: FontAwesome.fontFamily
+                    fontSize: 24
+                    width: 36
+                    visible: appWindow.currentWallet ? appWindow.currentWallet.isHwBacked() : false
+                    onClicked: {
+                        appWindow.currentWallet.deviceShowAddressAsync(
+                            appWindow.currentWallet.currentSubaddressAccount,
+                            appWindow.current_subaddress_table_index,
+                            '');
                     }
                 }
             }

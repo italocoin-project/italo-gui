@@ -47,7 +47,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 0
         spacing: 10
 
@@ -216,7 +216,11 @@ Rectangle {
             onAccepted: {
                 if(text.length > 0) {
                     consoleArea.logCommand(">>> " + text)
-                    daemonManager.sendCommand(text, currentWallet.nettype);
+                    daemonManager.sendCommandAsync(text.split(" "), currentWallet.nettype, function(result) {
+                        if (!result) {
+                            appWindow.showStatusMessage(qsTr("Failed to send command"), 3);
+                        }
+                    });
                 }
                 text = ""
             }

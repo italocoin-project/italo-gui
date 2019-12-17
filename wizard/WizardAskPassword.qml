@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -32,7 +32,7 @@ import QtQuick.Controls 2.0
 import FontAwesome 1.0
 
 import "../js/Wizard.js" as Wizard
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 ColumnLayout {
     id: root
@@ -83,10 +83,10 @@ ColumnLayout {
 
     WizardHeader{
         title: qsTr("Give your wallet a password") + translationManager.emptyString
-        subtitle: qsTr("This password cannot be recovered. If you forget it then the wallet will have to be restored from its 25 word mnemonic seed.") + translationManager.emptyString
+        subtitle: qsTr("This password cannot be recovered. If you forget it then the wallet will have to be restored from your %1.").arg(!wizardController.walletOptionsIsRecoveringFromDevice ? qsTr("25 word mnemonic seed") : qsTr("hardware wallet"))+ translationManager.emptyString
     }
 
-    ItaloComponents.WarningBox {
+    MoneroComponents.WarningBox {
         text: qsTr("<b>Enter a strong password</b> (Using letters, numbers, and/or symbols).") + translationManager.emptyString
     }
 
@@ -97,23 +97,12 @@ ColumnLayout {
 
         TextInput {
             id: progressText
-            anchors.top: parent.top
-            anchors.topMargin: 6
-            font.family: ItaloComponents.Style.fontMedium.name
+            Layout.topMargin: 6
+            Layout.bottomMargin: 6
+            font.family: MoneroComponents.Style.fontMedium.name
             font.pixelSize: 14
             font.bold: false
-            color: ItaloComponents.Style.defaultFontColor
-            text: root.passwordStrengthText + '-'
-            height: 18
-            passwordCharacter: "*"
-        }
-
-        TextInput {
-            id: progressTextValue
-            font.family: ItaloComponents.Style.fontMedium.name
-            font.pixelSize: 13
-            font.bold: true
-            color: ItaloComponents.Style.defaultFontColor
+            color: MoneroComponents.Style.defaultFontColor
             height: 18
             passwordCharacter: "*"
         }
@@ -124,7 +113,7 @@ ColumnLayout {
             Layout.preferredHeight: 8
 
             radius: 8
-            color: ItaloComponents.Style.progressBarBackgroundColor
+            color: MoneroComponents.Style.progressBarBackgroundColor
 
             Rectangle {
                 id: fillRect
@@ -135,11 +124,11 @@ ColumnLayout {
                 property int maxWidth: bar.width
                 width: (maxWidth * root.passwordFill) / 100
                 radius: 8
-                color: ItaloComponents.Style.orange
+                color: MoneroComponents.Style.orange
             }
 
             Rectangle {
-                color: ItaloComponents.Style.defaultFontColor
+                color: MoneroComponents.Style.defaultFontColor
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.leftMargin: 8
@@ -156,12 +145,12 @@ ColumnLayout {
             Layout.fillWidth: true
 
             font.pixelSize: 14
-            font.family: ItaloComponents.Style.fontLight.name
+            font.family: MoneroComponents.Style.fontLight.name
 
-            color: ItaloComponents.Style.defaultFontColor
+            color: MoneroComponents.Style.defaultFontColor
         }
 
-        TextField {
+        MoneroComponents.Input {
             id: passwordInput
 
             Layout.topMargin: 6
@@ -176,29 +165,30 @@ ColumnLayout {
             echoMode: TextInput.Password
             KeyNavigation.tab: passwordInputConfirm
 
-            font.family: ItaloComponents.Style.fontLight.name
+            font.family: MoneroComponents.Style.fontLight.name
             font.pixelSize: 15
-            color: ItaloComponents.Style.defaultFontColor
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
+            color: MoneroComponents.Style.defaultFontColor
+            selectionColor: MoneroComponents.Style.textSelectionColor
+            selectedTextColor: MoneroComponents.Style.textSelectedColor
 
             text: walletOptionsPassword
 
             background: Rectangle {
                 radius: 4
-                border.color: ItaloComponents.Style.inputBorderColorActive
+                border.color: MoneroComponents.Style.inputBorderColorActive
                 border.width: 1
                 color: "transparent"
 
-                ItaloComponents.Label {
-                    fontSize: 20
+                MoneroComponents.Label {
+                    fontSize: 18
                     text: FontAwesome.lock
                     opacity: 0.5
-                    fontFamily: FontAwesome.fontFamily
+                    fontFamily: FontAwesome.fontFamilySolid
+                    styleName: "Solid"
                     anchors.right: parent.right
-                    anchors.rightMargin: 15
+                    anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 3
+                    anchors.verticalCenterOffset: 1
                 }
             }
         }
@@ -213,12 +203,12 @@ ColumnLayout {
             Layout.fillWidth: true
 
             font.pixelSize: 14
-            font.family: ItaloComponents.Style.fontLight.name
+            font.family: MoneroComponents.Style.fontLight.name
 
-            color: ItaloComponents.Style.defaultFontColor
+            color: MoneroComponents.Style.defaultFontColor
         }
 
-        TextField {
+        MoneroComponents.Input {
             id : passwordInputConfirm
             
             Layout.topMargin: 6
@@ -233,29 +223,30 @@ ColumnLayout {
             echoMode: TextInput.Password
             KeyNavigation.tab: passwordInputConfirm
 
-            font.family: ItaloComponents.Style.fontLight.name
+            font.family: MoneroComponents.Style.fontLight.name
             font.pixelSize: 15
-            color: ItaloComponents.Style.defaultFontColor
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
+            color: MoneroComponents.Style.defaultFontColor
+            selectionColor: MoneroComponents.Style.textSelectionColor
+            selectedTextColor: MoneroComponents.Style.textSelectedColor
 
             text: walletOptionsPassword
 
             background: Rectangle {
                 radius: 4
-                border.color: ItaloComponents.Style.inputBorderColorActive
+                border.color: MoneroComponents.Style.inputBorderColorActive
                 border.width: 1
                 color: "transparent"
 
-                ItaloComponents.Label {
-                    fontSize: 20
+                MoneroComponents.Label {
+                    fontSize: 18
                     text: FontAwesome.lock
                     opacity: 0.5
-                    fontFamily: FontAwesome.fontFamily
+                    fontFamily: FontAwesome.fontFamilySolid
+                    styleName: "Solid"
                     anchors.right: parent.right
-                    anchors.rightMargin: 15
+                    anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 3
+                    anchors.verticalCenterOffset: 1
                 }
             }
         }

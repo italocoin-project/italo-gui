@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -29,19 +29,28 @@
 import QtQuick.Controls 2.0
 import QtQuick 2.9
 
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 TextField {
-    font.family: ItaloComponents.Style.fontRegular.name
+    id: textField
+    font.family: MoneroComponents.Style.fontRegular.name
     font.pixelSize: 18
     font.bold: true
     horizontalAlignment: TextInput.AlignLeft
     selectByMouse: true
-    color: ItaloComponents.Style.defaultFontColor
-    selectionColor: ItaloComponents.Style.textSelectionColor
-    selectedTextColor: ItaloComponents.Style.textSelectedColor
+    color: MoneroComponents.Style.defaultFontColor
+    selectionColor: MoneroComponents.Style.textSelectionColor
+    selectedTextColor: MoneroComponents.Style.textSelectedColor
 
     background: Rectangle {
         color: "transparent"
+    }
+
+    MoneroComponents.ContextMenu {
+        cursorShape: Qt.IBeamCursor
+        onPaste: {
+            textField.clear();
+            textField.paste();
+        }
     }
 }

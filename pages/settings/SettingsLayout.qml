@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -33,7 +33,7 @@ import QtQuick.Dialogs 1.2
 
 import "../../js/Utils.js" as Utils
 import "../../js/Windows.js" as Windows
-import "../../components" as ItaloComponents
+import "../../components" as MoneroComponents
 
 Rectangle {
     color: "transparent"
@@ -47,20 +47,18 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 0
         spacing: 6
 
-        ItaloComponents.CheckBox {
-            visible: !isMobile
+        MoneroComponents.CheckBox {
             id: customDecorationsCheckBox
             checked: persistentSettings.customDecorations
             onClicked: Windows.setCustomWindowDecorations(checked)
             text: qsTr("Custom decorations") + translationManager.emptyString
         }
 
-        ItaloComponents.CheckBox {
-            visible: !isMobile
+        MoneroComponents.CheckBox {
             id: hideBalanceCheckBox
             checked: persistentSettings.hideBalance
             onClicked: {
@@ -70,28 +68,18 @@ Rectangle {
             text: qsTr("Hide balance") + translationManager.emptyString
         }
 
-        ItaloComponents.CheckBox {
-            visible: !isMobile
-            id: showPidCheckBox
-            checked: persistentSettings.showPid
-            onClicked: {
-                persistentSettings.showPid = !persistentSettings.showPid
-            }
-            text: qsTr("Enable transfer with payment ID (OBSOLETE)") + translationManager.emptyString
-        }
-
-        ItaloComponents.CheckBox {
+        MoneroComponents.CheckBox {
             id: themeCheckbox
-            checked: !ItaloComponents.Style.blackTheme
+            checked: !MoneroComponents.Style.blackTheme
             text: qsTr("Light theme") + translationManager.emptyString
+            toggleOnClick: false
             onClicked: {
-                ItaloComponents.Style.blackTheme = !ItaloComponents.Style.blackTheme;
-                persistentSettings.blackTheme = ItaloComponents.Style.blackTheme;
+                MoneroComponents.Style.blackTheme = !MoneroComponents.Style.blackTheme;
+                persistentSettings.blackTheme = MoneroComponents.Style.blackTheme;
             }
         }
 
-        ItaloComponents.CheckBox {
-            visible: !isMobile
+        MoneroComponents.CheckBox {
             id: userInActivityCheckbox
             checked: persistentSettings.lockOnUserInActivity
             onClicked: persistentSettings.lockOnUserInActivity = !persistentSettings.lockOnUserInActivity
@@ -105,7 +93,8 @@ Rectangle {
             Layout.leftMargin: 42
             spacing: 0
 
-            ItaloComponents.TextBlock {
+            Text {
+                color: MoneroComponents.Style.defaultFontColor
                 font.pixelSize: 14
                 Layout.fillWidth: true
                 text: {
@@ -133,12 +122,12 @@ Rectangle {
                     width: parent.availableWidth
                     height: implicitHeight
                     radius: 2
-                    color: ItaloComponents.Style.progressBarBackgroundColor
+                    color: MoneroComponents.Style.progressBarBackgroundColor
 
                     Rectangle {
                         width: parent.visualPosition * parent.width
                         height: parent.height
-                        color: ItaloComponents.Style.green
+                        color: MoneroComponents.Style.green
                         radius: 2
                     }
                 }
@@ -150,16 +139,22 @@ Rectangle {
                     implicitHeight: 18
                     radius: 8
                     color: parent.pressed ? "#f0f0f0" : "#f6f6f6"
-                    border.color: ItaloComponents.Style.grey
+                    border.color: MoneroComponents.Style.grey
                 }
 
                 onMoved: persistentSettings.lockOnUserInActivityInterval = userInactivitySlider.value;
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                }
             }
         }
 
         //! Manage pricing
         RowLayout {
-            ItaloComponents.CheckBox {
+            MoneroComponents.CheckBox {
                 id: enableConvertCurrency
                 text: qsTr("Enable displaying balance in other currencies") + translationManager.emptyString
                 checked: persistentSettings.fiatPriceEnabled
@@ -184,13 +179,13 @@ Rectangle {
                 spacing: 10
                 Layout.fillWidth: true
 
-                ItaloComponents.Label {
+                MoneroComponents.Label {
                     Layout.fillWidth: true
                     fontSize: 14
                     text: qsTr("Price source") + translationManager.emptyString
                 }
 
-                ItaloComponents.StandardDropdown {
+                MoneroComponents.StandardDropdown {
                     id: fiatPriceProviderDropDown
                     Layout.fillWidth: true
                     dataModel: fiatPriceProvidersModel
@@ -208,13 +203,13 @@ Rectangle {
                 spacing: 10
                 Layout.fillWidth: true
 
-                ItaloComponents.Label {
+                MoneroComponents.Label {
                     Layout.fillWidth: true
                     fontSize: 14
                     text: qsTr("Currency") + translationManager.emptyString
                 }
 
-                ItaloComponents.StandardDropdown {
+                MoneroComponents.StandardDropdown {
                     id: fiatPriceCurrencyDropdown
                     Layout.fillWidth: true
                     dataModel: fiatPriceCurrencyModel
@@ -238,11 +233,11 @@ Rectangle {
             Layout.topMargin: 5
             Layout.leftMargin: 36
 
-            ItaloComponents.WarningBox {
+            MoneroComponents.WarningBox {
                 text: qsTr("Enabling price conversion exposes your IP address to the selected price source.") + translationManager.emptyString;
             }
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 Layout.topMargin: 10
                 Layout.bottomMargin: 10
                 small: true
@@ -257,7 +252,7 @@ Rectangle {
             }
         }
 
-        ItaloComponents.StandardButton {
+        MoneroComponents.StandardButton {
             visible: !persistentSettings.customDecorations
             Layout.topMargin: 10
             small: true
@@ -266,14 +261,6 @@ Rectangle {
             onClicked: {
                 appWindow.toggleLanguageView();
             }
-        }
-
-        ItaloComponents.TextBlock {
-            visible: isMobile
-            font.pixelSize: 14
-            textFormat: Text.RichText
-            Layout.fillWidth: true
-            text: qsTr("No Layout options exist yet in mobile mode.") + translationManager.emptyString;
         }
     }
 
@@ -284,11 +271,11 @@ Rectangle {
     ListModel {
         id: fiatPriceCurrencyModel
         ListElement {
-            data: "xtausd"
+            data: "xmrusd"
             column1: "USD"
         }
         ListElement {
-            data: "xtaeur"
+            data: "xmreur"
             column1: "EUR"
         }
     }
@@ -311,7 +298,7 @@ Rectangle {
         }
 
         fiatPriceProviderDropDown.update();
-        fiatPriceCurrencyDropdown.currentIndex = persistentSettings.fiatPriceCurrency === "xtausd" ? 0 : 1;
+        fiatPriceCurrencyDropdown.currentIndex = persistentSettings.fiatPriceCurrency === "xmrusd" ? 0 : 1;
         fiatPriceCurrencyDropdown.update();
 
         console.log('SettingsLayout loaded');

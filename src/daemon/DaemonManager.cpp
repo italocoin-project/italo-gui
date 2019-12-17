@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 //
 // All rights reserved.
 //
@@ -43,7 +43,7 @@
 #include <QMap>
 
 namespace {
-    static const int DAEMON_START_TIMEOUT_SECONDS = 30;
+    static const int DAEMON_START_TIMEOUT_SECONDS = 120;
 }
 
 DaemonManager * DaemonManager::m_instance = nullptr;
@@ -61,9 +61,9 @@ DaemonManager *DaemonManager::instance(const QStringList *args)
     return m_instance;
 }
 
-bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const QString &dataDir, const QString &bootstrapNodeAddress)
+bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const QString &dataDir, const QString &bootstrapNodeAddress, bool noSync /* = false*/)
 {
-    // prepare command line arguments and pass to italod
+    // prepare command line arguments and pass to monerod
     QStringList arguments;
 
     // Start daemon with --detach flag on non-windows platforms
@@ -99,6 +99,10 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
         arguments << "--bootstrap-daemon-address" << bootstrapNodeAddress;
     }
 
+    if (noSync) {
+        arguments << "--no-sync";
+    }
+
     arguments << "--check-updates" << "disabled";
 
     // --max-concurrency based on threads available. max: 6
@@ -108,7 +112,7 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
         arguments << "--max-concurrency" << QString::number(concurrency);
     }
 
-    qDebug() << "starting italod " + m_italod;
+    qDebug() << "starting monerod " + m_monerod;
     qDebug() << "With command line arguments " << arguments;
 
     m_daemon = new QProcess();
@@ -118,8 +122,8 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
     connect (m_daemon, SIGNAL(readyReadStandardOutput()), this, SLOT(printOutput()));
     connect (m_daemon, SIGNAL(readyReadStandardError()), this, SLOT(printError()));
 
-    // Start italod
-    bool started = m_daemon->startDetached(m_italod, arguments);
+    // Start monerod
+    bool started = m_daemon->startDetached(m_monerod, arguments);
 
     // add state changed listener
     connect(m_daemon,SIGNAL(stateChanged(QProcess::ProcessState)),this,SLOT(stateChanged(QProcess::ProcessState)));
@@ -131,11 +135,13 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
     }
 
     // Start start watcher
-    m_scheduler.run([this, nettype] {
-        if (startWatcher(nettype))
+    m_scheduler.run([this, nettype, noSync] {
+        if (startWatcher(nettype)) {
             emit daemonStarted();
-        else
+            m_noSync = noSync;
+        } else {
             emit daemonStartFailure();
+        }
     });
 
     return true;
@@ -144,7 +150,7 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
 bool DaemonManager::stop(NetworkType::Type nettype)
 {
     QString message;
-    sendCommand("exit", nettype, message);
+    sendCommand({"exit"}, nettype, message);
     qDebug() << message;
 
     // Start stop watcher - Will kill if not shutting down
@@ -188,9 +194,9 @@ bool DaemonManager::stopWatcher(NetworkType::Type nettype) const
             if(counter >= 5) {
                 qDebug() << "Killing it! ";
 #ifdef Q_OS_WIN
-                QProcess::execute("taskkill /F /IM italod.exe");
+                QProcess::execute("taskkill /F /IM monerod.exe");
 #else
-                QProcess::execute("pkill italod");
+                QProcess::execute("pkill monerod");
 #endif
             }
 
@@ -234,26 +240,27 @@ void DaemonManager::printError()
 bool DaemonManager::running(NetworkType::Type nettype) const
 { 
     QString status;
-    sendCommand("status", nettype, status);
+    sendCommand({"sync_info"}, nettype, status);
     qDebug() << status;
-    // `./italod status` returns BUSY when syncing.
-    // Treat busy as connected, until fixed upstream.
-    if (status.contains("Height:") || status.contains("BUSY") ) {
-        return true;
-    }
-    return false;
-}
-bool DaemonManager::sendCommand(const QString &cmd, NetworkType::Type nettype) const
-{
-    QString message;
-    return sendCommand(cmd, nettype, message);
+    return status.contains("Height:");
 }
 
-bool DaemonManager::sendCommand(const QString &cmd, NetworkType::Type nettype, QString &message) const
+bool DaemonManager::noSync() const noexcept
+{
+    return m_noSync;
+}
+
+void DaemonManager::runningAsync(NetworkType::Type nettype, const QJSValue& callback) const
+{ 
+    m_scheduler.run([this, nettype] {
+        return QJSValueList({running(nettype)});
+    }, callback);
+}
+
+bool DaemonManager::sendCommand(const QStringList &cmd, NetworkType::Type nettype, QString &message) const
 {
     QProcess p;
-    QStringList external_cmd;
-    external_cmd << cmd;
+    QStringList external_cmd(cmd);
 
     // Add network type flag if needed
     if (nettype == NetworkType::TESTNET)
@@ -264,12 +271,20 @@ bool DaemonManager::sendCommand(const QString &cmd, NetworkType::Type nettype, Q
     qDebug() << "sending external cmd: " << external_cmd;
 
 
-    p.start(m_italod, external_cmd);
+    p.start(m_monerod, external_cmd);
 
     bool started = p.waitForFinished(-1);
     message = p.readAllStandardOutput();
     emit daemonConsoleUpdated(message);
     return started;
+}
+
+void DaemonManager::sendCommandAsync(const QStringList &cmd, NetworkType::Type nettype, const QJSValue& callback) const
+{
+    m_scheduler.run([this, cmd, nettype] {
+        QString message;
+        return QJSValueList({sendCommand(cmd, nettype, message)});
+    }, callback);
 }
 
 void DaemonManager::exit()
@@ -321,14 +336,14 @@ DaemonManager::DaemonManager(QObject *parent)
     , m_scheduler(this)
 {
 
-    // Platform depetent path to italod
+    // Platform depetent path to monerod
 #ifdef Q_OS_WIN
-    m_italod = QApplication::applicationDirPath() + "/italod.exe";
+    m_monerod = QApplication::applicationDirPath() + "/monerod.exe";
 #elif defined(Q_OS_UNIX)
-    m_italod = QApplication::applicationDirPath() + "/italod";
+    m_monerod = QApplication::applicationDirPath() + "/monerod";
 #endif
 
-    if (m_italod.length() == 0) {
+    if (m_monerod.length() == 0) {
         qCritical() << "no daemon binary defined for current platform";
         m_has_daemon = false;
     }

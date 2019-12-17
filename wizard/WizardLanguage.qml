@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -31,18 +31,19 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0
 
 import "../components"
-import "../components" as ItaloComponents
-import "../components/effects/" as ItaloEffects
+import "../components" as MoneroComponents
+import "../components/effects/" as MoneroEffects
 import "../version.js" as Version
 
 Rectangle {
     Layout.fillWidth: true
     color: "transparent"
 
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardLanguage"
 
     ColumnLayout {
-        id: root
+        id: pageRoot
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
@@ -56,24 +57,21 @@ Rectangle {
             color: "transparent"
         }
 
-        TextArea {
+        Text {
             id: textWelcome
             opacity: 0
             Layout.preferredWidth: parent.width / 1.3
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: ItaloComponents.Style.defaultFontColor
+            Layout.alignment: Qt.AlignCenter
+            color: MoneroComponents.Style.defaultFontColor
             text: "Welcome - Wilkommen - Bonvenon - Bienvenido - Bienvenue - Välkommen - Selamat datang - Benvenuto - 歡迎 - Welkom - Bem Vindo - добро пожаловать"
 
-            font.family: ItaloComponents.Style.fontRegular.name
+            font.family: MoneroComponents.Style.fontRegular.name
             font.bold: true
             font.pixelSize: 18
             horizontalAlignment: TextInput.AlignHCenter
-            selectByMouse: false
             wrapMode: Text.WordWrap
-            textMargin: 0
             leftPadding: 0
             topPadding: 0
-            readOnly: true
 
             Behavior on opacity {
                 NumberAnimation {
@@ -97,7 +95,7 @@ Rectangle {
             }
             Layout.preferredWidth: size
             Layout.preferredHeight: size
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignCenter
             mipmap: true
 
             property bool animSlow: false
@@ -148,26 +146,26 @@ Rectangle {
         GridLayout {
             id: buttonsGrid
             opacity: 0
-            columns: isMobile ? 1 : 2
-            anchors.horizontalCenter: parent.horizontalCenter
+            columns: 2
+            Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 20
             Layout.fillWidth: true
             columnSpacing: 20
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 id: idChangeLang
                 Layout.minimumWidth: 150
-                text: "Language"
+                text: qsTr("Language") + translationManager.emptyString
 
                 onClicked: {
                     appWindow.toggleLanguageView();
                 }
             }
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 id: btnContinue
                 Layout.minimumWidth: 150
-                text: "Continue"
+                text: qsTr("Continue") + translationManager.emptyString
 
                 onClicked: {
                     wizardController.wizardStackView.backTransition = false;
@@ -187,14 +185,14 @@ Rectangle {
             }
         }
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             id: versionText
             opacity: 0
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignCenter
             font.bold: true
             font.pixelSize: 12
-            font.family: ItaloComponents.Style.fontRegular.name
-            color: ItaloComponents.Style.defaultFontColor
+            font.family: MoneroComponents.Style.fontRegular.name
+            color: MoneroComponents.Style.defaultFontColor
             text: Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")"
 
             Behavior on opacity {

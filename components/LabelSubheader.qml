@@ -34,8 +34,6 @@ import "../components/effects/" as ItaloEffects
 Label {
     id: item
     fontSize: 18
-    anchors.left: parent.left
-    anchors.right: parent.right
 
     Rectangle {
         anchors.top: item.bottom

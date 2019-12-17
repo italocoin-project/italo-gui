@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 //
 // All rights reserved.
 //
@@ -31,15 +31,16 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
+import FontAwesome 1.0
 
-import "../components" as ItaloComponents
-import "../components/effects/" as ItaloEffects
+import "../components" as MoneroComponents
+import "../components/effects/" as MoneroEffects
 
-import italoComponents.Clipboard 1.0
-import italoComponents.Wallet 1.0
-import italoComponents.WalletManager 1.0
-import italoComponents.TransactionHistory 1.0
-import italoComponents.TransactionHistoryModel 1.0
+import moneroComponents.Clipboard 1.0
+import moneroComponents.Wallet 1.0
+import moneroComponents.WalletManager 1.0
+import moneroComponents.TransactionHistory 1.0
+import moneroComponents.TransactionHistoryModel 1.0
 import "../js/TxUtils.js" as TxUtils
 
 Rectangle {
@@ -48,6 +49,7 @@ Rectangle {
     property var model
     property alias accountHeight: mainLayout.height
     property bool selectAndSend: false
+    property int currentAccountIndex
 
     function renameSubaddressAccountLabel(_index){
         inputDialog.labelText = qsTr("Set the label of the selected account:") + translationManager.emptyString;
@@ -64,7 +66,7 @@ Rectangle {
     /* main layout */
     ColumnLayout {
         id: mainLayout
-        anchors.margins: (isMobile)? 17 : 20
+        anchors.margins: 20
         anchors.topMargin: 40
 
         anchors.left: parent.left
@@ -78,7 +80,7 @@ Rectangle {
             visible: !selectAndSend
             spacing: 0
 
-            ItaloComponents.LabelSubheader {
+            MoneroComponents.LabelSubheader {
                 Layout.fillWidth: true
                 fontSize: 24
                 textFormat: Text.RichText
@@ -88,28 +90,27 @@ Rectangle {
             RowLayout {
                 Layout.topMargin: 22
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     text: qsTr("Total balance: ") + translationManager.emptyString
                     Layout.fillWidth: true
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
                     font.pixelSize: 16
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     themeTransition: false
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: balanceAll
-                    font.family: ItaloComponents.Style.fontMonoRegular.name;
+                    font.family: MoneroComponents.Style.fontMonoRegular.name;
                     font.pixelSize: 16
-                    color: ItaloComponents.Style.dimmedFontColor
-                    themeTransition: false
+                    color: MoneroComponents.Style.defaultFontColor
 
                     MouseArea {
                         hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
-                        onEntered: parent.color = ItaloComponents.Style.orange
-                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                        onEntered: parent.color = MoneroComponents.Style.orange
+                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                         onClicked: {
                             console.log("Copied to clipboard");
                             clipboard.setText(parent.text);
@@ -122,28 +123,27 @@ Rectangle {
             RowLayout {
                 Layout.topMargin: 10
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     text: qsTr("Total unlocked balance: ") + translationManager.emptyString
                     Layout.fillWidth: true
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
                     font.pixelSize: 16
-                    font.family: ItaloComponents.Style.fontRegular.name
+                    font.family: MoneroComponents.Style.fontRegular.name
                     themeTransition: false
                 }
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     id: unlockedBalanceAll
-                    font.family: ItaloComponents.Style.fontMonoRegular.name;
+                    font.family: MoneroComponents.Style.fontMonoRegular.name;
                     font.pixelSize: 16
-                    color: ItaloComponents.Style.dimmedFontColor
-                    themeTransition: false
+                    color: MoneroComponents.Style.defaultFontColor
 
                     MouseArea {
                         hoverEnabled: true
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
-                        onEntered: parent.color = ItaloComponents.Style.orange
-                        onExited: parent.color = ItaloComponents.Style.defaultFontColor
+                        onEntered: parent.color = MoneroComponents.Style.orange
+                        onExited: parent.color = MoneroComponents.Style.defaultFontColor
                         onClicked: {
                             console.log("Copied to clipboard");
                             clipboard.setText(parent.text);
@@ -158,7 +158,7 @@ Rectangle {
             id: addressRow
             spacing: 0
 
-            ItaloComponents.LabelSubheader {
+            MoneroComponents.LabelSubheader {
                 Layout.fillWidth: true
                 fontSize: 24
                 textFormat: Text.RichText
@@ -177,10 +177,11 @@ Rectangle {
                 ListView {
                     id: subaddressAccountListView
                     Layout.fillWidth: true
-                    anchors.fill: parent
+                    Layout.fillHeight: true
                     clip: true
                     boundsBehavior: ListView.StopAtBounds
                     interactive: false
+                    currentIndex: currentAccountIndex
 
                     delegate: Rectangle {
                         id: tableItem2
@@ -190,17 +191,17 @@ Rectangle {
                         color: "transparent"
 
                         Rectangle {
-                            color: ItaloComponents.Style.appWindowBorderColor
+                            color: MoneroComponents.Style.appWindowBorderColor
                             anchors.right: parent.right
                             anchors.left: parent.left
                             anchors.top: parent.top
                             height: 1
                             visible: index !== 0
 
-                            ItaloEffects.ColorTransition {
+                            MoneroEffects.ColorTransition {
                                 targetObj: parent
-                                blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                                whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                                blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                                whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                             }
                         }
 
@@ -210,9 +211,9 @@ Rectangle {
                             anchors.rightMargin: 80
                             color: "transparent"
 
-                            ItaloComponents.Label {
+                            MoneroComponents.Label {
                                 id: idLabel
-                                color: index === appWindow.current_subaddress_account_table_index ? ItaloComponents.Style.defaultFontColor : "#757575"
+                                color: index === currentAccountIndex ? MoneroComponents.Style.defaultFontColor : "#757575"
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left
                                 anchors.leftMargin: 6
@@ -221,9 +222,9 @@ Rectangle {
                                 themeTransition: false
                             }
 
-                            ItaloComponents.Label {
+                            MoneroComponents.Label {
                                 id: nameLabel
-                                color: ItaloComponents.Style.dimmedFontColor
+                                color: MoneroComponents.Style.dimmedFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: idLabel.right
                                 anchors.leftMargin: 6
@@ -234,22 +235,22 @@ Rectangle {
                                 themeTransition: false
                             }
 
-                            ItaloComponents.Label {
+                            MoneroComponents.Label {
                                 id: addressLabel
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: mainLayout.width >= 590 ? balanceTextLabel.left : balanceNumberLabel.left
                                 anchors.leftMargin: -addressLabel.width - 30
                                 fontSize: 16
-                                fontFamily: ItaloComponents.Style.fontMonoRegular.name;
+                                fontFamily: MoneroComponents.Style.fontMonoRegular.name;
                                 text: TxUtils.addressTruncatePretty(address, mainLayout.width < 740 ? 1 : (mainLayout.width < 900 ? 2 : 3))
                                 themeTransition: false
                             }
 
-                            ItaloComponents.Label {
+                            MoneroComponents.Label {
                                 id: balanceTextLabel
                                 visible: mainLayout.width >= 590
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: balanceNumberLabel.left
                                 anchors.leftMargin: -balanceTextLabel.width - 5
@@ -258,14 +259,14 @@ Rectangle {
                                 themeTransition: false
                             }
 
-                            ItaloComponents.Label {
+                            MoneroComponents.Label {
                                 id: balanceNumberLabel
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.right
                                 anchors.leftMargin: -balanceNumberLabel.width
                                 fontSize: 16
-                                fontFamily: ItaloComponents.Style.fontMonoRegular.name;
+                                fontFamily: MoneroComponents.Style.fontMonoRegular.name;
                                 text: balance
                                 elide: Text.ElideRight
                                 textWidth: mainLayout.width < 660 ? 70 : 135
@@ -276,12 +277,12 @@ Rectangle {
                                 cursorShape: Qt.PointingHandCursor
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                onEntered: tableItem2.color = ItaloComponents.Style.titleBarButtonHoverColor
+                                onEntered: tableItem2.color = MoneroComponents.Style.titleBarButtonHoverColor
                                 onExited: tableItem2.color = "transparent"
                                 onClicked: {
-                                    if (index == subaddressAccountListView.currentIndex && selectAndSend)
+                                    appWindow.currentWallet.switchSubaddressAccount(index);
+                                    if (selectAndSend)
                                         appWindow.showPageRequest("Transfer");
-                                    subaddressAccountListView.currentIndex = index;
                                 }
                             }
                         }
@@ -293,10 +294,10 @@ Rectangle {
                             height: 21
                             spacing: 10
 
-                            ItaloComponents.IconButton {
+                            MoneroComponents.IconButton {
                                 id: renameButton
                                 image: "qrc:///images/edit.svg"
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 opacity: 0.5
                                 Layout.preferredWidth: 23
                                 Layout.preferredHeight: 21
@@ -304,10 +305,10 @@ Rectangle {
                                 onClicked: pageAccount.renameSubaddressAccountLabel(index);
                             }
 
-                            ItaloComponents.IconButton {
+                            MoneroComponents.IconButton {
                                 id: copyButton
                                 image: "qrc:///images/copy.svg"
-                                color: ItaloComponents.Style.defaultFontColor
+                                color: MoneroComponents.Style.defaultFontColor
                                 opacity: 0.5
                                 Layout.preferredWidth: 16
                                 Layout.preferredHeight: 21
@@ -320,39 +321,32 @@ Rectangle {
                             }
                         }
                     }
-                    onCurrentItemChanged: {
-                        // reset global vars
-                        appWindow.current_subaddress_account_table_index = subaddressAccountListView.currentIndex;
-                        appWindow.currentWallet.switchSubaddressAccount(appWindow.current_subaddress_account_table_index);
-                        appWindow.onWalletUpdate();
-                    }
 
                     onCurrentIndexChanged: {
-                        if (selectAndSend) {
-                            appWindow.showPageRequest("Transfer");
-                        }
+                        appWindow.onWalletUpdate();
                     }
                 }
             }
 
             Rectangle {
-                color: ItaloComponents.Style.appWindowBorderColor
+                color: MoneroComponents.Style.appWindowBorderColor
                 Layout.fillWidth: true
                 height: 1
 
-                ItaloEffects.ColorTransition {
+                MoneroEffects.ColorTransition {
                     targetObj: parent
-                    blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                    whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                    blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                    whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                 }
             }
 
-            ItaloComponents.CheckBox { 
+            MoneroComponents.CheckBox { 
                 id: addNewAccountCheckbox 
                 visible: !selectAndSend
                 border: false
-                checkedIcon: "qrc:///images/plus-in-circle-medium-white.png" 
-                uncheckedIcon: "qrc:///images/plus-in-circle-medium-white.png" 
+                uncheckedIcon: FontAwesome.plusCircle
+                toggleOnClick: false
+                fontAwesomeIcons: true
                 fontSize: 16
                 iconOnTheLeft: true
                 Layout.fillWidth: true
@@ -364,7 +358,6 @@ Rectangle {
                     inputDialog.onAcceptedCallback = function() {
                         appWindow.currentWallet.subaddressAccount.addRow(inputDialog.inputText)
                         appWindow.currentWallet.switchSubaddressAccount(appWindow.currentWallet.numSubaddressAccounts() - 1)
-                        current_subaddress_account_table_index = appWindow.currentWallet.numSubaddressAccounts() - 1
                         appWindow.onWalletUpdate();
                     }
                     inputDialog.onRejectedCallback = null;

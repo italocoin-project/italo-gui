@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -33,47 +33,45 @@ import QtQuick.XmlListModel 2.0
 import QtQuick.Controls 2.0
 
 import "../js/Wizard.js" as Wizard
-import "../components" as ItaloComponents
-import "../components/effects/" as ItaloEffects
+import "../components" as MoneroComponents
+import "../components/effects/" as MoneroEffects
 
 Rectangle {
     id: langScreen
     color: "transparent"
     anchors.fill: parent
     property int layoutScale: {
-        if(isMobile){
-            return 0;
-        } else if(appWindow.width < 800){
+        if(appWindow.width < 800){
             return 1;
         } else {
             return 2;
         }
     }
 
-    ItaloEffects.GradientBackground {
+    MoneroEffects.GradientBackground {
         anchors.fill: parent
-        fallBackColor: ItaloComponents.Style.middlePanelBackgroundColor
-        initialStartColor: ItaloComponents.Style.wizardBackgroundGradientStart
-        initialStopColor: ItaloComponents.Style.middlePanelBackgroundGradientStop
-        blackColorStart: ItaloComponents.Style._b_wizardBackgroundGradientStart
-        blackColorStop: ItaloComponents.Style._b_middlePanelBackgroundGradientStop
-        whiteColorStart: ItaloComponents.Style._w_wizardBackgroundGradientStart
-        whiteColorStop: ItaloComponents.Style._w_middlePanelBackgroundGradientStop
+        fallBackColor: MoneroComponents.Style.middlePanelBackgroundColor
+        initialStartColor: MoneroComponents.Style.wizardBackgroundGradientStart
+        initialStopColor: MoneroComponents.Style.middlePanelBackgroundGradientStop
+        blackColorStart: MoneroComponents.Style._b_wizardBackgroundGradientStart
+        blackColorStop: MoneroComponents.Style._b_middlePanelBackgroundGradientStop
+        whiteColorStart: MoneroComponents.Style._w_wizardBackgroundGradientStart
+        whiteColorStop: MoneroComponents.Style._w_middlePanelBackgroundGradientStop
         start: Qt.point(0, 0)
         end: Qt.point(height, width)
     }
 
     ColumnLayout {
         anchors.top: parent.top
-        anchors.topMargin: persistentSettings.customDecorations ? 90 : 32
+        anchors.topMargin: persistentSettings.customDecorations ? 65 : 15
         width: parent.width - 100
         anchors.horizontalCenter: parent.horizontalCenter;
 
-        TextArea {
+        Text {
             text: qsTr("Language settings") + translationManager.emptyString
             Layout.fillWidth: true
-            font.family: ItaloComponents.Style.fontRegular.name
-            color: ItaloComponents.Style.defaultFontColor
+            font.family: MoneroComponents.Style.fontRegular.name
+            color: MoneroComponents.Style.defaultFontColor
             font.pixelSize: {
                 if(langScreen.layoutScale === 2 ){
                     return 34;
@@ -82,26 +80,20 @@ Rectangle {
                 }
             }
 
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-            selectByMouse: true
             wrapMode: Text.WordWrap
-            textMargin: 0
             leftPadding: 0
             topPadding: 0
             bottomPadding: 0
-            readOnly: true
         }
 
-        TextArea {
+        Text {
             Layout.fillWidth: true
             visible: parent.subtitle !== ""
 
-            color: ItaloComponents.Style.dimmedFontColor
-            text: qsTr("Change the language of the Italo GUI.") + translationManager.emptyString
+            color: MoneroComponents.Style.dimmedFontColor
+            text: qsTr("Change the language of the Monero GUI.") + translationManager.emptyString
 
-            font.family: ItaloComponents.Style.fontRegular.name
+            font.family: MoneroComponents.Style.fontRegular.name
             font.pixelSize: {
                 if(langScreen.layoutScale === 2 ){
                     return 16;
@@ -110,15 +102,9 @@ Rectangle {
                 }
             }
 
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-            selectByMouse: true
             wrapMode: Text.WordWrap
-            textMargin: 0
             leftPadding: 0
             topPadding: 0
-            readOnly: true
         }
 
         Flow {
@@ -168,11 +154,11 @@ Rectangle {
                         height: parent.height
                         width: langText.width + 22
 
-                        ItaloComponents.TextPlain {
+                        MoneroComponents.TextPlain {
                             id: langText
                             font.bold: true
                             font.pixelSize: 14
-                            color: ItaloComponents.Style.defaultFontColor
+                            color: MoneroComponents.Style.defaultFontColor
                             text: display_name
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -192,7 +178,7 @@ Rectangle {
                             // set wizard language settings
                             wizard.language_locale = locale;
                             wizard.language_wallet = wallet_language;
-                            wizard.language_language = display_name + " (" + locale_spl[1] + ") ";
+                            wizard.language_language = display_name;
 
                             appWindow.showStatusMessage(qsTr("Language changed."), 3);
                             appWindow.toggleLanguageView();
@@ -214,7 +200,7 @@ Rectangle {
             Layout.topMargin: 32
             spacing: 20
 
-            ItaloComponents.StandardButton {
+            MoneroComponents.StandardButton {
                 small: true
                 text: qsTr("Close") + translationManager.emptyString
 

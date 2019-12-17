@@ -2,7 +2,7 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
-import "." as ItaloComponents
+import "." as MoneroComponents
 
 Rectangle {
     id: root
@@ -13,9 +13,9 @@ Rectangle {
     Layout.fillWidth: true
     Layout.preferredHeight: warningLayout.height
 
-    color: ItaloComponents.Style.titleBarButtonHoverColor
+    color: MoneroComponents.Style.titleBarButtonHoverColor
     radius: 4
-    border.color: ItaloComponents.Style.inputBorderColorInActive
+    border.color: MoneroComponents.Style.inputBorderColorInActive
     border.width: 1
 
     signal linkActivated;
@@ -37,26 +37,26 @@ Rectangle {
             source: "qrc:///images/warning.png"
         }
 
-        TextArea {
+        Text {
             id: content
             Layout.fillWidth: true
-            color: ItaloComponents.Style.defaultFontColor
-            font.family: ItaloComponents.Style.fontRegular.name
+            color: MoneroComponents.Style.defaultFontColor
+            font.family: MoneroComponents.Style.fontRegular.name
             font.pixelSize: root.fontSize
             horizontalAlignment: TextInput.AlignLeft
-            selectByMouse: true
             textFormat: Text.RichText
             wrapMode: Text.WordWrap
-            textMargin: 0
             leftPadding: 4
             rightPadding: 18
             topPadding: 10
             bottomPadding: 10
-            readOnly: true
             onLinkActivated: root.linkActivated();
 
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.NoButton
+                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+            }
         }
     }
 }

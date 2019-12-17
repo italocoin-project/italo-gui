@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -28,7 +28,7 @@
 
 import "../js/Wizard.js" as Wizard
 import "../components"
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 import QtQuick 2.9
 import QtQuick.Layouts 1.2
@@ -41,12 +41,12 @@ ColumnLayout {
     spacing: 4
     Layout.maximumWidth: wizardController.wizardSubViewWidth
 
-    TextArea {
+    Text {
         text: title
         Layout.fillWidth: true
-        font.family: ItaloComponents.Style.fontRegular.name
-        color: ItaloComponents.Style.defaultFontColor
-        opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.8
+        font.family: MoneroComponents.Style.fontRegular.name
+        color: MoneroComponents.Style.defaultFontColor
+        opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.8
         font.pixelSize: {
             if(wizardController.layoutScale === 2 ){
                 return 34;
@@ -55,27 +55,21 @@ ColumnLayout {
             }
         }
 
-        selectionColor: ItaloComponents.Style.textSelectionColor
-        selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-        selectByMouse: true
         wrapMode: Text.WordWrap
-        textMargin: 0
         leftPadding: 0
         topPadding: 0
         bottomPadding: 0
-        readOnly: true
     }
 
-    TextArea {
+    Text {
         Layout.fillWidth: true
-        anchors.horizontalCenter: parent.horizontalCenter
+        Layout.alignment: Qt.AlignCenter
         visible: parent.subtitle !== ""
 
-        color: ItaloComponents.Style.dimmedFontColor
+        color: MoneroComponents.Style.dimmedFontColor
         text: subtitle
 
-        font.family: ItaloComponents.Style.fontRegular.name
+        font.family: MoneroComponents.Style.fontRegular.name
         font.pixelSize: {
             if(wizardController.layoutScale === 2 ){
                 return 16;
@@ -84,14 +78,8 @@ ColumnLayout {
             }
         }
 
-        selectionColor: ItaloComponents.Style.textSelectionColor
-        selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-        selectByMouse: true
         wrapMode: Text.WordWrap
-        textMargin: 0
         leftPadding: 0
         topPadding: 0
-        readOnly: true
     }
 }

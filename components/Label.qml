@@ -45,6 +45,7 @@ Item {
     property alias horizontalAlignment: label.horizontalAlignment
     property alias elide: label.elide
     property alias textWidth: label.width
+    property alias styleName: label.font.styleName
     property alias themeTransition: label.themeTransition
     signal linkActivated()
     height: label.height
@@ -68,5 +69,10 @@ Item {
         color: fontColor
         onLinkActivated: item.linkActivated()
         textFormat: parent.textFormat
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.NoButton
+            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+        }
     }
 }

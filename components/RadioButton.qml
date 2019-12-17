@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -29,7 +29,7 @@
 import QtQuick 2.9
 import QtQuick.Layouts 1.1
 
-import "../components" as ItaloComponents
+import "../components" as MoneroComponents
 
 Item {
     id: radioButton
@@ -41,8 +41,8 @@ Item {
     height: 26
     width: layout.width
     // legacy properties
-    property var checkedColor: ItaloComponents.Style.blackTheme ? "white" : "#666666"
-    property var borderColor: checked ? ItaloComponents.Style.inputBorderColorActive : ItaloComponents.Style.inputBorderColorInActive
+    property var checkedColor: MoneroComponents.Style.blackTheme ? "white" : "#666666"
+    property var borderColor: checked ? MoneroComponents.Style.inputBorderColorActive : MoneroComponents.Style.inputBorderColorInActive
 
     function toggle(){
         radioButton.checked = !radioButton.checked
@@ -72,11 +72,11 @@ Item {
             }
         }
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             id: label
-            Layout.leftMargin: (!isMobile ? 10 : 8)
-            color: ItaloComponents.Style.defaultFontColor
-            font.family: ItaloComponents.Style.fontRegular.name
+            Layout.leftMargin: 10
+            color: MoneroComponents.Style.defaultFontColor
+            font.family: MoneroComponents.Style.fontRegular.name
             font.pixelSize: radioButton.fontSize
             wrapMode: Text.Wrap
         }

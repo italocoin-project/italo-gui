@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -28,20 +28,20 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 1.2
+import QtQuick.Controls 2.2 as QtQuickControls2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.2
 
-import "." as ItaloComponents
-import "effects/" as ItaloEffects
+import "." as MoneroComponents
+import "effects/" as MoneroEffects
 
 Item {
     id: datePicker
-    z: parent.z + 1
-    property bool expanded: false
+    readonly property alias expanded: popup.visible
     property date currentDate
     property bool showCurrentDate: true
-    property color backgroundColor : ItaloComponents.Style.appWindowBorderColor
+    property color backgroundColor : MoneroComponents.Style.appWindowBorderColor
     property color errorColor : "red"
     property bool error: false
     property alias inputLabel: inputLabel
@@ -52,35 +52,22 @@ Item {
 
     onExpandedChanged: if(expanded) appWindow.currentItem = datePicker
 
-    function hide() { datePicker.expanded = false }
-    function containsPoint(px, py) {
-        if(px < 0)
-            return false
-        if(px > width)
-            return false
-        if(py < 0)
-            return false
-        if(py > height + calendarRect.height)
-            return false
-        return true
-    }
-
     Rectangle {
         id: inputLabelRect
         color: "transparent"
         height: 22
         width: parent.width
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             id: inputLabel
             anchors.top: parent.top
             anchors.topMargin: 2
             anchors.left: parent.left
-            font.family: ItaloComponents.Style.fontLight.name
+            font.family: MoneroComponents.Style.fontLight.name
             font.pixelSize: 14
             font.bold: false
             textFormat: Text.RichText
-            color: ItaloComponents.Style.defaultFontColor
+            color: MoneroComponents.Style.defaultFontColor
             themeTransition: false
 
             MouseArea {
@@ -117,7 +104,7 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: 2
             anchors.right: parent.right
-            property string headerFontColor: ItaloComponents.Style.blackTheme ? "#e6e6e6" : "#333333"
+            property string headerFontColor: MoneroComponents.Style.blackTheme ? "#e6e6e6" : "#333333"
             spacing: 0
 
             function setDate(date) {
@@ -139,10 +126,10 @@ Item {
                 id: dayInput
                 readOnly: true
                 Layout.preferredWidth: childrenRect.width + 40
-                font.family: ItaloComponents.Style.fontRegular.name
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 14
                 color: datePicker.error ? errorColor : parent.headerFontColor
-                selectionColor: ItaloComponents.Style.dimmedFontColor
+                selectionColor: MoneroComponents.Style.dimmedFontColor
                 selectByMouse: true
                 horizontalAlignment: TextInput.AlignHCenter
                 maximumLength: 2
@@ -163,10 +150,10 @@ Item {
                 }
             }
 
-            ItaloComponents.TextPlain {
-                font.family: ItaloComponents.Style.fontRegular.name
+            MoneroComponents.TextPlain {
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : MoneroComponents.Style.defaultFontColor
                 text: "-"
                 themeTransition: false
             }
@@ -175,10 +162,10 @@ Item {
                 id: monthInput
                 readOnly: true
                 Layout.preferredWidth: childrenRect.width + 40
-                font.family: ItaloComponents.Style.fontRegular.name
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 14
                 color: datePicker.error ? errorColor : parent.headerFontColor
-                selectionColor: ItaloComponents.Style.dimmedFontColor
+                selectionColor: MoneroComponents.Style.dimmedFontColor
                 selectByMouse: true
                 horizontalAlignment: TextInput.AlignHCenter
                 maximumLength: 2
@@ -198,10 +185,10 @@ Item {
                 }
             }
 
-            ItaloComponents.TextPlain {
-                font.family: ItaloComponents.Style.fontRegular.name
+            MoneroComponents.TextPlain {
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 14
-                color: datePicker.error ? errorColor : ItaloComponents.Style.defaultFontColor
+                color: datePicker.error ? errorColor : MoneroComponents.Style.defaultFontColor
                 text: "-"
                 themeTransition: false
             }
@@ -209,10 +196,10 @@ Item {
             TextInput {
                 id: yearInput
                 Layout.preferredWidth: childrenRect.width + 60
-                font.family: ItaloComponents.Style.fontRegular.name
+                font.family: MoneroComponents.Style.fontRegular.name
                 font.pixelSize: 14
                 color: datePicker.error ? errorColor : parent.headerFontColor
-                selectionColor: ItaloComponents.Style.dimmedFontColor
+                selectionColor: MoneroComponents.Style.dimmedFontColor
                 selectByMouse: true
                 horizontalAlignment: TextInput.AlignHCenter
                 maximumLength: 4
@@ -246,14 +233,14 @@ Item {
                 ColorOverlay {
                     source: button
                     anchors.fill: button
-                    color: ItaloComponents.Style.defaultFontColor
+                    color: MoneroComponents.Style.defaultFontColor
                     rotation: datePicker.expanded ? 180 : 0
                     opacity: 1
                 }
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: datePicker.expanded = !datePicker.expanded
+                    onClicked: datePicker.expanded ? popup.close() : popup.open()
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -261,195 +248,204 @@ Item {
         }
     }
 
-    Rectangle {
-        id: calendarRect
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: head.bottom
-        anchors.topMargin: 10
-        color: ItaloComponents.Style.middlePanelBackgroundColor
-        border.width: 1
-        border.color: ItaloComponents.Style.appWindowBorderColor
-        height: datePicker.expanded ? calendar.height + 2 : 0
-        clip: true
-
-        Behavior on height {
-            NumberAnimation { duration: 100; easing.type: Easing.InQuad }
-        }
+    QtQuickControls2.Popup {
+        id: popup
+        padding: 0
 
         Rectangle {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: 1
-            anchors.rightMargin: 1
-            anchors.top: parent.top
-            color: ItaloComponents.Style.appWindowBorderColor
-            height: 1
-        }
+            id: calendarRect
+            width: head.width
+            x: head.x
+            y: head.y + head.height + 10
 
-        Calendar {
-            id: calendar
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.margins: 1
-            anchors.bottomMargin: 10
-            height: 220
-            frameVisible: false
+            color: MoneroComponents.Style.middlePanelBackgroundColor
+            border.width: 1
+            border.color: MoneroComponents.Style.appWindowBorderColor
+            height: datePicker.expanded ? calendar.height + 2 : 0
+            clip: true
 
-            style: CalendarStyle {
-                gridVisible: false
-                background: Rectangle { color: ItaloComponents.Style.middlePanelBackgroundColor }
-                dayDelegate: Item {
-                    z: parent.z + 1
-                    implicitHeight: implicitWidth
-                    implicitWidth: calendar.width / 7
+            Behavior on height {
+                NumberAnimation { duration: 100; easing.type: Easing.InQuad }
+            }
 
-                    Rectangle {
-                        id: dayRect
-                        anchors.fill: parent
-                        radius: parent.implicitHeight / 2
-                        color: {
-                            if(dayArea.pressed && styleData.visibleMonth)
-                                return ItaloComponents.Style.blackTheme ? "#20FFFFFF" : "#10000000"
-                            return "transparent";
+            MouseArea {
+                anchors.fill: parent
+            }
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: 1
+                anchors.rightMargin: 1
+                anchors.top: parent.top
+                color: MoneroComponents.Style.appWindowBorderColor
+                height: 1
+            }
+
+            Calendar {
+                id: calendar
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.margins: 1
+                anchors.bottomMargin: 10
+                height: 220
+                frameVisible: false
+
+                style: CalendarStyle {
+                    gridVisible: false
+                    background: Rectangle { color: MoneroComponents.Style.middlePanelBackgroundColor }
+                    dayDelegate: Item {
+                        z: parent.z + 1
+                        implicitHeight: implicitWidth
+                        implicitWidth: calendar.width / 7
+
+                        Rectangle {
+                            id: dayRect
+                            anchors.fill: parent
+                            radius: parent.implicitHeight / 2
+                            color: {
+                                if(dayArea.pressed && styleData.visibleMonth)
+                                    return MoneroComponents.Style.blackTheme ? "#20FFFFFF" : "#10000000"
+                                return "transparent";
+                            }
+                        }
+
+                        MoneroComponents.TextPlain {
+                            id: dayText
+                            anchors.centerIn: parent
+                            font.family: MoneroComponents.Style.fontMonoRegular.name
+                            font.pixelSize: {
+                                if(!styleData.visibleMonth) return 12
+                                return 14
+                            }
+                            font.bold: {
+                                if(dayArea.pressed || styleData.visibleMonth) return true;
+                                return false;
+                            }
+                            text: styleData.date.getDate()
+                            themeTransition: false
+                            color: {
+                                if(!styleData.visibleMonth) return MoneroComponents.Style.lightGreyFontColor
+                                if(dayArea.pressed) return MoneroComponents.Style.defaultFontColor
+                                if(styleData.today) return MoneroComponents.Style.orange
+                                return MoneroComponents.Style.defaultFontColor
+                            }
+                        }
+
+                        MouseArea {
+                            id: dayArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: dayRect.color = MoneroComponents.Style.blackTheme ? "#20FFFFFF" : "#10000000"
+                            onExited: dayRect.color = "transparent"
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                if(styleData.visibleMonth) {
+                                    currentDate = styleData.date
+                                    popup.close()
+                                } else {
+                                    var date = styleData.date
+                                    if(date.getMonth() > calendar.visibleMonth)
+                                        calendar.showNextMonth()
+                                    else calendar.showPreviousMonth()
+                                }
+
+                                datePicker.dateChanged();
+                            }
                         }
                     }
 
-                    ItaloComponents.TextPlain {
-                        id: dayText
-                        anchors.centerIn: parent
-                        font.family: ItaloComponents.Style.fontMonoRegular.name
-                        font.pixelSize: {
-                            if(!styleData.visibleMonth) return 12
-                            return 14
-                        }
-                        font.bold: {
-                            if(dayArea.pressed || styleData.visibleMonth) return true;
-                            return false;
-                        }
-                        text: styleData.date.getDate()
-                        themeTransition: false
-                        color: {
-                            if(!styleData.visibleMonth) return ItaloComponents.Style.lightGreyFontColor
-                            if(dayArea.pressed) return ItaloComponents.Style.defaultFontColor
-                            if(styleData.today) return ItaloComponents.Style.orange
-                            return ItaloComponents.Style.defaultFontColor
+                    dayOfWeekDelegate: Item {
+                        implicitHeight: 20
+                        implicitWidth: calendar.width / 7
+
+                        MoneroComponents.TextPlain {
+                            anchors.centerIn: parent
+                            elide: Text.ElideRight
+                            font.family: MoneroComponents.Style.fontMonoRegular.name
+                            font.pixelSize: 12
+                            color: MoneroComponents.Style.lightGreyFontColor
+                            themeTransition: false
+                            text: {
+                                var locale = Qt.locale()
+                                return locale.dayName(styleData.dayOfWeek, Locale.ShortFormat)
+                            }
                         }
                     }
 
-                    MouseArea {
-                        id: dayArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: dayRect.color = ItaloComponents.Style.blackTheme ? "#20FFFFFF" : "#10000000"
-                        onExited: dayRect.color = "transparent"
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            if(styleData.visibleMonth) {
-                                currentDate = styleData.date
-                                datePicker.expanded = false
-                            } else {
-                                var date = styleData.date
-                                if(date.getMonth() > calendar.visibleMonth)
-                                    calendar.showNextMonth()
-                                else calendar.showPreviousMonth()
+                    navigationBar: Rectangle {
+                        color: MoneroComponents.Style.middlePanelBackgroundColor
+                        implicitWidth: calendar.width
+                        implicitHeight: 30
+
+                        MoneroComponents.TextPlain {
+                            anchors.centerIn: parent
+                            font.family: MoneroComponents.Style.fontMonoRegular.name
+                            font.pixelSize: 14
+                            color: MoneroComponents.Style.dimmedFontColor
+                            themeTransition: false
+                            text: styleData.title
+                        }
+
+
+                        Item {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 4
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            width: height
+
+                            Image {
+                                id: prevMonthIcon
+                                anchors.centerIn: parent
+                                source: "qrc:///images/prevMonth.png"
+                                visible: false
                             }
 
-                            datePicker.dateChanged();
-                        }
-                    }
-                }
+                            ColorOverlay {
+                                source: prevMonthIcon
+                                anchors.fill: prevMonthIcon
+                                color: MoneroComponents.Style.defaultFontColor
+                                opacity: 0.5
+                            }
 
-                dayOfWeekDelegate: Item {
-                    implicitHeight: 20
-                    implicitWidth: calendar.width / 7
-
-                    ItaloComponents.TextPlain {
-                        anchors.centerIn: parent
-                        elide: Text.ElideRight
-                        font.family: ItaloComponents.Style.fontMonoRegular.name
-                        font.pixelSize: 12
-                        color: ItaloComponents.Style.lightGreyFontColor
-                        themeTransition: false
-                        text: {
-                            var locale = Qt.locale()
-                            return locale.dayName(styleData.dayOfWeek, Locale.ShortFormat)
-                        }
-                    }
-                }
-
-                navigationBar: Rectangle {
-                    color: ItaloComponents.Style.middlePanelBackgroundColor
-                    implicitWidth: calendar.width
-                    implicitHeight: 30
-
-                    ItaloComponents.TextPlain {
-                        anchors.centerIn: parent
-                        font.family: ItaloComponents.Style.fontMonoRegular.name
-                        font.pixelSize: 14
-                        color: ItaloComponents.Style.dimmedFontColor
-                        themeTransition: false
-                        text: styleData.title
-                    }
-
-
-                    Item {
-                        anchors.left: parent.left
-                        anchors.leftMargin: 4
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        width: height
-
-                        Image {
-                            id: prevMonthIcon
-                            anchors.centerIn: parent
-                            source: "qrc:///images/prevMonth.png"
-                            visible: false
+                            MouseArea {
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                anchors.fill: parent
+                                onClicked: calendar.showPreviousMonth()
+                            }
                         }
 
-                        ColorOverlay {
-                            source: prevMonthIcon
-                            anchors.fill: prevMonthIcon
-                            color: ItaloComponents.Style.defaultFontColor
-                            opacity: 0.5
-                        }
+                        Item {
+                            anchors.right: parent.right
+                            anchors.rightMargin: 4
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            width: height
 
-                        MouseArea {
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            anchors.fill: parent
-                            onClicked: calendar.showPreviousMonth()
-                        }
-                    }
+                            Image {
+                                id: nextMonthIcon
+                                anchors.centerIn: parent
+                                source: "qrc:///images/prevMonth.png"
+                                visible: false
+                            }
 
-                    Item {
-                        anchors.right: parent.right
-                        anchors.rightMargin: 4
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        width: height
+                            ColorOverlay {
+                                source: nextMonthIcon
+                                anchors.fill: nextMonthIcon
+                                color: MoneroComponents.Style.defaultFontColor
+                                opacity: 0.5
+                                rotation: 180
+                            }
 
-                        Image {
-                            id: nextMonthIcon
-                            anchors.centerIn: parent
-                            source: "qrc:///images/prevMonth.png"
-                            visible: false
-                        }
-
-                        ColorOverlay {
-                            source: nextMonthIcon
-                            anchors.fill: nextMonthIcon
-                            color: ItaloComponents.Style.defaultFontColor
-                            opacity: 0.5
-                            rotation: 180
-                        }
-
-                        MouseArea {
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            anchors.fill: parent
-                            onClicked: calendar.showNextMonth()
+                            MouseArea {
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                anchors.fill: parent
+                                onClicked: calendar.showNextMonth()
+                            }
                         }
                     }
                 }

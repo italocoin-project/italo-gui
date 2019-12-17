@@ -65,7 +65,7 @@ class Wallet : public QObject
     Q_PROPERTY(Status status READ status)
     Q_PROPERTY(NetworkType::Type nettype READ nettype)
 //    Q_PROPERTY(ConnectionStatus connected READ connected)
-    Q_PROPERTY(quint32 currentSubaddressAccount READ currentSubaddressAccount)
+    Q_PROPERTY(quint32 currentSubaddressAccount READ currentSubaddressAccount NOTIFY currentSubaddressAccountChanged)
     Q_PROPERTY(bool synchronized READ synchronized)
     Q_PROPERTY(QString errorString READ errorString)
     Q_PROPERTY(TransactionHistory * history READ history)
@@ -144,11 +144,8 @@ public:
     //! empty path stores in current location
     Q_INVOKABLE bool store(const QString &path = "");
 
-    //! initializes wallet
-    Q_INVOKABLE bool init(const QString &daemonAddress, quint64 upperTransactionLimit = 0, bool isRecovering = false, bool isRecoveringFromDevice = false, quint64 restoreHeight = 0);
-
     //! initializes wallet asynchronously
-    Q_INVOKABLE void initAsync(const QString &daemonAddress, quint64 upperTransactionLimit = 0, bool isRecovering = false, bool isRecoveringFromDevice = false, quint64 restoreHeight = 0);
+    Q_INVOKABLE void initAsync(const QString &daemonAddress, bool trustedDaemon = false, quint64 upperTransactionLimit = 0, bool isRecovering = false, bool isRecoveringFromDevice = false, quint64 restoreHeight = 0);
 
     // Set daemon rpc user/pass
     Q_INVOKABLE void setDaemonLogin(const QString &daemonUsername = "", const QString &daemonPassword = "");
@@ -179,6 +176,11 @@ public:
     Q_INVOKABLE void addSubaddress(const QString& label);
     Q_INVOKABLE QString getSubaddressLabel(quint32 accountIndex, quint32 addressIndex) const;
     Q_INVOKABLE void setSubaddressLabel(quint32 accountIndex, quint32 addressIndex, const QString &label);
+    Q_INVOKABLE void deviceShowAddressAsync(quint32 accountIndex, quint32 addressIndex, const QString &paymentId);
+
+    //! hw-device backed wallets
+    Q_INVOKABLE bool isHwBacked() const;
+    Q_INVOKABLE bool isLedger() const;
 
     //! returns if view only wallet
     Q_INVOKABLE bool viewOnly() const;
@@ -288,6 +290,10 @@ public:
 
     void setPaymentId(const QString &paymentId);
 
+    //! Namespace your cacheAttribute keys to avoid collisions
+    Q_INVOKABLE bool setCacheAttribute(const QString &key, const QString &val);
+    Q_INVOKABLE QString getCacheAttribute(const QString &key) const;
+
     Q_INVOKABLE bool setUserNote(const QString &txid, const QString &note);
     Q_INVOKABLE QString getUserNote(const QString &txid) const;
     Q_INVOKABLE QString getTxKey(const QString &txid) const;
@@ -351,13 +357,15 @@ signals:
     void walletCreationHeightChanged();
     void deviceButtonRequest(quint64 buttonCode);
     void deviceButtonPressed();
-    void transactionCommitted(bool status, PendingTransaction *t, QStringList txid);
+    void transactionCommitted(bool status, PendingTransaction *t, const QStringList& txid);
     void heightRefreshed(quint64 walletHeight, quint64 daemonHeight, quint64 targetHeight) const;
+    void deviceShowAddressShowed();
 
     // emitted when transaction is created async
     void transactionCreated(PendingTransaction * transaction, QString address, QString paymentId, quint32 mixinCount);
 
     void connectionStatusChanged(int status) const;
+    void currentSubaddressAccountChanged() const;
 
 private:
     Wallet(QObject * parent = nullptr);
@@ -374,6 +382,9 @@ private:
     //! returns daemon's blockchain target height
     quint64 daemonBlockChainTargetHeight() const;
 
+    //! initializes wallet
+    bool init(const QString &daemonAddress, bool trustedDaemon, quint64 upperTransactionLimit, bool isRecovering, bool isRecoveringFromDevice, quint64 restoreHeight);
+
 private:
     friend class WalletManager;
     friend class WalletListenerImpl;
@@ -385,6 +396,8 @@ private:
     mutable TransactionHistoryModel * m_historyModel;
     mutable TransactionHistorySortFilterModel * m_historySortFilterModel;
     QString m_paymentId;
+    AddressBook * m_addressBook;
+    mutable AddressBookModel * m_addressBookModel;
     mutable QTime   m_daemonBlockChainHeightTime;
     mutable quint64 m_daemonBlockChainHeight;
     int     m_daemonBlockChainHeightTtl;
@@ -396,8 +409,6 @@ private:
     mutable QTime   m_connectionStatusTime;
     mutable bool    m_initialized;
     uint32_t m_currentSubaddressAccount;
-    AddressBook * m_addressBook;
-    mutable AddressBookModel * m_addressBookModel;
     Subaddress * m_subaddress;
     mutable SubaddressModel * m_subaddressModel;
     SubaddressAccount * m_subaddressAccount;

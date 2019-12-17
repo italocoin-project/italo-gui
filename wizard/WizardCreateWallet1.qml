@@ -39,10 +39,12 @@ Rectangle {
     id: wizardCreateWallet1
     
     color: "transparent"
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardCreateWallet1"
     property alias seed: seed
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -151,7 +153,7 @@ Rectangle {
                     labelFontSize: 14
                     copyButton: false
                     readOnly: true
-                    text: Utils.roundDownToNearestThousand(wizardController.m_wallet.walletCreationHeight)
+                    text: Utils.roundDownToNearestThousand(wizardController.m_wallet ? wizardController.m_wallet.walletCreationHeight : 0)
                 }
 
                 ItaloComponents.WarningBox {

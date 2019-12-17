@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Italo Project
+// Copyright (c) 2014-2019, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -32,21 +32,23 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.0
 import Qt.labs.folderlistmodel 2.1
-import italoComponents.NetworkType 1.0
+import moneroComponents.NetworkType 1.0
 
 import "../js/Wizard.js" as Wizard
 import "../components"
-import "../components" as ItaloComponents
-import "../components/effects/" as ItaloEffects
+import "../components" as MoneroComponents
+import "../components/effects/" as MoneroEffects
 
 Rectangle {
     id: wizardOpenWallet1
 
     color: "transparent"
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardOpenWallet1"
     property int walletCount: walletKeysFilesModel.rowCount()
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -73,10 +75,10 @@ Rectangle {
                 columnSpacing: 20
                 columns: 2
 
-                ItaloComponents.TextPlain {
+                MoneroComponents.TextPlain {
                     Layout.fillWidth: true
                     text: qsTr("Recently opened") + ":" + translationManager.emptyString
-                    font.family: ItaloComponents.Style.fontLight.name
+                    font.family: MoneroComponents.Style.fontLight.name
                     font.pixelSize: 16
                 }
 
@@ -142,13 +144,13 @@ Rectangle {
                             height: 1
                             width: parent.width
                             anchors.top: parent.top
-                            color: ItaloComponents.Style.appWindowBorderColor
+                            color: MoneroComponents.Style.appWindowBorderColor
                             visible: index <= 2  // top row
 
-                            ItaloEffects.ColorTransition {
+                            MoneroEffects.ColorTransition {
                                 targetObj: parent
-                                blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                                whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                                blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                                whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                             }
                         }
 
@@ -172,13 +174,13 @@ Rectangle {
                                     source: "qrc:///images/open-wallet-from-file.png"
                                     visible: {
                                         if(!isOpenGL) return true;
-                                        if(ItaloComponents.Style.blackTheme) return true;
+                                        if(MoneroComponents.Style.blackTheme) return true;
                                         return false;
                                     }
                                 }
 
                                 Colorize {
-                                    visible: isOpenGL && !ItaloComponents.Style.blackTheme
+                                    visible: isOpenGL && !MoneroComponents.Style.blackTheme
                                     anchors.fill: icon
                                     source: icon
                                     lightness: 0.65 // +65%
@@ -196,7 +198,7 @@ Rectangle {
                                     Layout.fillWidth: true
                                 }
 
-                                TextArea {
+                                Text {
                                     text: {
                                         // truncate on window width
                                         var maxLength = wizardController.layoutScale <= 1 ? 12 : 16
@@ -208,42 +210,30 @@ Rectangle {
                                     Layout.preferredHeight: 26
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                                     Layout.fillWidth: true
-                                    font.family: ItaloComponents.Style.fontRegular.name
-                                    color: ItaloComponents.Style.defaultFontColor
+                                    font.family: MoneroComponents.Style.fontRegular.name
+                                    color: MoneroComponents.Style.defaultFontColor
                                     font.pixelSize: 16
 
-                                    selectionColor: ItaloComponents.Style.dimmedFontColor
-                                    selectedTextColor: ItaloComponents.Style.defaultFontColor
-
-                                    selectByMouse: false
                                     wrapMode: Text.WordWrap
-                                    textMargin: 0
                                     leftPadding: 0
                                     topPadding: networktype !== -1 ? 8 : 4
                                     bottomPadding: 0
-                                    readOnly: true
                                 }
 
-                                TextArea {
+                                Text {
                                     visible: networktype !== -1
                                     Layout.preferredHeight: 24
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                                     Layout.fillWidth: true
                                     text: item.networkType
-                                    font.family: ItaloComponents.Style.fontRegular.name
-                                    color: ItaloComponents.Style.dimmedFontColor
+                                    font.family: MoneroComponents.Style.fontRegular.name
+                                    color: MoneroComponents.Style.dimmedFontColor
                                     font.pixelSize: 14
 
-                                    selectionColor: ItaloComponents.Style.textSelectionColor
-                                    selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-                                    selectByMouse: false
                                     wrapMode: Text.WordWrap
-                                    textMargin: 0
                                     leftPadding: 0
                                     topPadding: 0
                                     bottomPadding: 0
-                                    readOnly: true
                                 }
 
                                 Item {
@@ -256,13 +246,13 @@ Rectangle {
                         Rectangle {
                             height: 1
                             width: parent.width
-                            color: ItaloComponents.Style.appWindowBorderColor
+                            color: MoneroComponents.Style.appWindowBorderColor
                             anchors.bottom: parent.bottom
 
-                            ItaloEffects.ColorTransition {
+                            MoneroEffects.ColorTransition {
                                 targetObj: parent
-                                blackColor: ItaloComponents.Style._b_appWindowBorderColor
-                                whiteColor: ItaloComponents.Style._w_appWindowBorderColor
+                                blackColor: MoneroComponents.Style._b_appWindowBorderColor
+                                whiteColor: MoneroComponents.Style._w_appWindowBorderColor
                             }
                         }
 
@@ -272,7 +262,7 @@ Rectangle {
                             cursorShape: Qt.PointingHandCursor
 
                             onEntered: {
-                                parent.color = ItaloComponents.Style.titleBarButtonHoverColor;
+                                parent.color = MoneroComponents.Style.titleBarButtonHoverColor;
                             }
                             onExited: {
                                 parent.color = "transparent";
@@ -280,16 +270,7 @@ Rectangle {
                             onClicked: {
                                 persistentSettings.nettype = parseInt(networktype)
 
-                                if(appWindow.walletMode === 0 || appWindow.walletMode === 1){
-                                    wizardController.fetchRemoteNodes(function(){
-                                        wizardController.openWalletFile(item.filePath);
-                                    }, function(){
-                                        appWindow.showStatusMessage(qsTr("Failed to fetch remote nodes from third-party server."), 5);
-                                        wizardController.openWalletFile(item.filePath);
-                                    });
-                                } else {
-                                    wizardController.openWalletFile(item.filePath);
-                                }
+                                wizardController.openWalletFile(item.filePath);
                             }
                         }
                     }
@@ -318,7 +299,7 @@ Rectangle {
 
     function onPageCompleted(previousView){
         if(previousView.viewName == "wizardHome"){
-            walletKeysFilesModel.refresh(italoAccountsDir);
+            walletKeysFilesModel.refresh(moneroAccountsDir);
             wizardOpenWallet1.walletCount = walletKeysFilesModel.rowCount();
             flow._height = flow.calcHeight();
         }

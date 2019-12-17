@@ -46,7 +46,6 @@ function showSeedPage() {
         leftPanel.selectItem(middlePanel.state);
     }
     passwordDialog.open();
-    if(isMobile) hideMenu();
     updateBalance();
 }
 
@@ -94,41 +93,12 @@ function netTypeToString(){
     return nettype == 1 ? qsTr("Testnet") : nettype == 2 ? qsTr("Stagenet") : qsTr("Mainnet");
 }
 
-function randomChoice(arr){
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function filterNodes(nodes, port) {
-    if(typeof data === 'number')
-        port = port.toString();
-    return nodes.filter(function(_){return _.indexOf(port) !== -1});
-}
-
 function epoch(){
     return Math.floor((new Date).getTime()/1000);
 }
 
 function roundDownToNearestThousand(_num){
     return Math.floor(_num/1000.0)*1000
-}
-
-function isAlpha(letter){ return letter.match(/^[A-Za-z0-9]+$/) !== null; }
-
-function isLowerCaseChar(letter){ return letter === letter.toLowerCase(); }
-
-function isUpperLock(shift, letter){
-    if(!isAlpha((letter))) return false;
-    if(shift) {
-        if(isLowerCaseChar(letter))
-            return true;
-        else
-            return false;
-    } else {
-        if(isLowerCaseChar(letter))
-            return false;
-        else
-            return true;
-    }
 }
 
 function qmlEach(item, properties, ignoredObjectNames, arr){
@@ -163,15 +133,3 @@ function capitalize(s){
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
-
-function formatMoney(n, c, d, t) {
-    // https://stackoverflow.com/a/149099
-    var c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "." : d,
-        t = t == undefined ? "," : t,
-        s = n < 0 ? "-" : "",
-        i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
-        j = (j = i.length) > 3 ? j % 3 : 0;
-
-    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-};

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Italo Project
+// Copyright (c) 2014-2018, The Monero Project
 // 
 // All rights reserved.
 // 
@@ -27,10 +27,11 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import QtQuick 2.9
+import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 
-import "../components" as ItaloComponents
-import "../components/effects/" as ItaloEffects
+import "../components" as MoneroComponents
+import "../components/effects/" as MoneroEffects
 
 Item {
     id: dropdown
@@ -38,15 +39,15 @@ Item {
     property alias dataModel: repeater.model
     property string shadowPressedColor
     property string shadowReleasedColor
-    property string pressedColor: ItaloComponents.Style.appWindowBorderColor
-    property string releasedColor: ItaloComponents.Style.titleBarButtonHoverColor
-    property string textColor: ItaloComponents.Style.defaultFontColor
+    property string pressedColor: MoneroComponents.Style.appWindowBorderColor
+    property string releasedColor: MoneroComponents.Style.titleBarButtonHoverColor
+    property string textColor: MoneroComponents.Style.defaultFontColor
     property alias currentIndex: columnid.currentIndex
-    property bool expanded: false
+    readonly property alias expanded: popup.visible
     property int dropdownHeight: 42
     property int fontHeaderSize: 16
     property int fontItemSize: 14
-    property string colorBorder: ItaloComponents.Style.inputBorderColorInActive
+    property string colorBorder: MoneroComponents.Style.inputBorderColorInActive
     property string colorHeaderBackground: "transparent"
     property bool headerBorder: true
     property bool headerFontBold: false
@@ -56,18 +57,6 @@ Item {
     signal changed();
 
     onExpandedChanged: if(expanded) appWindow.currentItem = dropdown
-    function hide() { dropdown.expanded = false }
-    function containsPoint(px, py) {
-        if(px < 0)
-            return false
-        if(px > width)
-            return false
-        if(py < 0)
-            return false
-        if(py > height + droplist.height)
-            return false
-        return true
-    }
 
     // Workaroud for suspected memory leak in 5.8 causing malloc crash on app exit
     function update() {
@@ -90,13 +79,13 @@ Item {
             anchors.fill: parent
         }
 
-        ItaloComponents.TextPlain {
+        MoneroComponents.TextPlain {
             id: firstColText
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 12
             elide: Text.ElideRight
-            font.family: ItaloComponents.Style.fontRegular.name
+            font.family: MoneroComponents.Style.fontRegular.name
             font.bold: dropdown.headerFontBold
             font.pixelSize: dropdown.fontHeaderSize
             color: dropdown.textColor
@@ -119,7 +108,7 @@ Item {
             ColorOverlay {
                 source: dropdownIcon
                 anchors.fill: dropdownIcon
-                color: ItaloComponents.Style.defaultFontColor
+                color: MoneroComponents.Style.defaultFontColor
                 rotation: dropdown.expanded ? 180  : 0
                 opacity: 1
             }
@@ -128,118 +117,118 @@ Item {
         MouseArea {
             id: dropArea
             anchors.fill: parent
-            onClicked: dropdown.expanded = !dropdown.expanded
+            onClicked: dropdown.expanded ? popup.close() : popup.open()
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
         }
     }
 
-    Rectangle {
-        id: droplist
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: head.bottom
-        clip: true
-        height: dropdown.expanded ? columnid.height : 0
-        color: dropdown.pressedColor
+    Popup {
+        id: popup
+        padding: 0
 
         Rectangle {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            width: 3; height: 3
+            id: droplist
+            x: dropdown.x
+            width: dropdown.width
+            y: head.y + head.height
+            clip: true
+            height: dropdown.expanded ? columnid.height : 0
             color: dropdown.pressedColor
-        }
 
-        Rectangle {
-            anchors.right: parent.right
-            anchors.top: parent.top
-            width: 3; height: 3
-            color: dropdown.pressedColor
-        }
+            Rectangle {
+                anchors.left: parent.left
+                anchors.top: parent.top
+                width: 3; height: 3
+                color: dropdown.pressedColor
+            }
 
-        Behavior on height {
-            NumberAnimation { duration: 100; easing.type: Easing.InQuad }
-        }
+            Rectangle {
+                anchors.right: parent.right
+                anchors.top: parent.top
+                width: 3; height: 3
+                color: dropdown.pressedColor
+            }
 
-        Column {
-            id: columnid
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            property int currentIndex: 0
+            Behavior on height {
+                NumberAnimation { duration: 100; easing.type: Easing.InQuad }
+            }
 
-            Repeater {
-                id: repeater
+            Column {
+                id: columnid
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                property int currentIndex: 0
 
-                // Workaround for translations in listElements. All translated strings needs to be listed in this file.
-                property string stringLow: qsTr("Low (x1 fee)") + translationManager.emptyString
-                property string stringMedium:  qsTr("Medium (x20 fee)") + translationManager.emptyString
-                property string stringHigh:  qsTr("High (x166 fee)") + translationManager.emptyString
-                property string stringSlow: qsTr("Slow (x0.25 fee)") + translationManager.emptyString
-                property string stringDefault: qsTr("Default (x1 fee)") + translationManager.emptyString
-                property string stringFast: qsTr("Fast (x5 fee)") + translationManager.emptyString
-                property string stringFastest: qsTr("Fastest (x41.5 fee)") + translationManager.emptyString
-                property string stringAll:  qsTr("All") + translationManager.emptyString
-                property string stringSent:  qsTr("Sent") + translationManager.emptyString
-                property string stringReceived:  qsTr("Received") + translationManager.emptyString
+                Repeater {
+                    id: repeater
 
-                delegate: Rectangle {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    height: (dropdown.dropdownHeight * 0.75)
-                    //radius: index === repeater.count - 1 ? 4 : 0
-                    color: itemArea.containsMouse || index === columnid.currentIndex || itemArea.containsMouse ? dropdown.releasedColor : dropdown.pressedColor
+                    // Workaround for translations in listElements. All translated strings needs to be listed in this file.
+                    property string stringAutomatic: qsTr("Automatic") + translationManager.emptyString
+                    property string stringSlow: qsTr("Slow (x0.2 fee)") + translationManager.emptyString
+                    property string stringNormal: qsTr("Normal (x1 fee)")  + translationManager.emptyString
+                    property string stringFast: qsTr("Fast (x5 fee)")  + translationManager.emptyString
+                    property string stringFastest: qsTr("Fastest (x200 fee)") + translationManager.emptyString
 
-                    ItaloComponents.TextPlain {
-                        id: col1Text
-                        anchors.verticalCenter: parent.verticalCenter
+                    delegate: Rectangle {
                         anchors.left: parent.left
-                        anchors.right: col2Text.left
-                        anchors.leftMargin: 12
-                        anchors.rightMargin: 0
-                        font.family: ItaloComponents.Style.fontRegular.name
-                        font.bold: true
-                        font.pixelSize: fontItemSize
-                        color: itemArea.containsMouse || index === columnid.currentIndex || itemArea.containsMouse ? "#FA6800" : "#FFFFFF"
-                        text: qsTr(column1) + translationManager.emptyString
-                    }
-
-                    ItaloComponents.TextPlain {
-                        id: col2Text
-                        anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
-                        anchors.rightMargin: 45
-                        font.family: ItaloComponents.Style.fontRegular.name
-                        font.pixelSize: 14
-                        color: "#FFFFFF"
-                        text: ""
-                    }
+                        height: (dropdown.dropdownHeight * 0.75)
+                        //radius: index === repeater.count - 1 ? 4 : 0
+                        color: itemArea.containsMouse || index === columnid.currentIndex || itemArea.containsMouse ? dropdown.releasedColor : dropdown.pressedColor
 
-                    Rectangle {
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        width: 3; height: 3
-                        color: parent.color
-                    }
+                        MoneroComponents.TextPlain {
+                            id: col1Text
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.right: col2Text.left
+                            anchors.leftMargin: 12
+                            anchors.rightMargin: 0
+                            font.family: MoneroComponents.Style.fontRegular.name
+                            font.bold: true
+                            font.pixelSize: fontItemSize
+                            color: itemArea.containsMouse || index === columnid.currentIndex || itemArea.containsMouse ? "#FA6800" : "#FFFFFF"
+                            text: qsTr(column1) + translationManager.emptyString
+                        }
 
-                    Rectangle {
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        width: 3; height: 3
-                        color: parent.color
-                    }
+                        MoneroComponents.TextPlain {
+                            id: col2Text
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            anchors.rightMargin: 45
+                            font.family: MoneroComponents.Style.fontRegular.name
+                            font.pixelSize: 14
+                            color: "#FFFFFF"
+                            text: ""
+                        }
 
-                    MouseArea {
-                        id: itemArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            width: 3; height: 3
+                            color: parent.color
+                        }
 
-                        onClicked: {
-                            dropdown.expanded = false
-                            columnid.currentIndex = index
-                            changed();
-                            dropdown.update()
+                        Rectangle {
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            width: 3; height: 3
+                            color: parent.color
+                        }
+
+                        MouseArea {
+                            id: itemArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+
+                            onClicked: {
+                                popup.close()
+                                columnid.currentIndex = index
+                                changed();
+                                dropdown.update()
+                            }
                         }
                     }
                 }

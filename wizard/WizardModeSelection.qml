@@ -38,9 +38,11 @@ Rectangle {
     id: wizardModeSelection1
     color: "transparent"
 
+    property alias pageHeight: pageRoot.height
     property string viewName: "wizardModeSelection1"
 
     ColumnLayout {
+        id: pageRoot
         Layout.alignment: Qt.AlignHCenter;
         width: parent.width - 100
         Layout.fillWidth: true
@@ -77,6 +79,7 @@ Rectangle {
                 onMenuClicked: {
                     if(appWindow.persistentSettings.nettype == 0){
                         appWindow.changeWalletMode(0);
+                        wizardController.wizardStackView.backTransition = false;
                         wizardController.wizardState = 'wizardModeRemoteNodeWarning';
                     }
                 }
@@ -106,6 +109,7 @@ Rectangle {
                 onMenuClicked: {
                     if(appWindow.persistentSettings.nettype == 0){
                         appWindow.changeWalletMode(1);
+                        wizardController.wizardStackView.backTransition = false;
                         wizardController.wizardState = 'wizardModeBootstrap';
                     }
                 }
@@ -134,13 +138,13 @@ Rectangle {
 
             WizardNav {
                 Layout.topMargin: 5
-                btnPrevText: qsTr("Change language") + translationManager.emptyString
+                btnPrevText: qsTr("Back to menu") + translationManager.emptyString
                 btnNext.visible: false
                 progressSteps: 0
 
                 onPrevClicked: {
-                    wizardController.wizardStackView.backTransition = true;
-                    wizardController.wizardState = 'wizardLanguage';
+                    wizardController.wizardStackView.backTransition = wizardController.wizardStatePrevious.viewName == 'wizardLanguage';
+                    wizardController.wizardState = wizardController.wizardStatePrevious.viewName == 'wizardLanguage' ? 'wizardLanguage' : 'wizardHome';
                 }
             }
         }

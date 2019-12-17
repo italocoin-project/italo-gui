@@ -7,11 +7,8 @@
         <file>images/download-white@2x.png</file>
         <file>images/external-link-white.png</file>
         <file>images/external-link-white@2x.png</file>
-        <file>images/minus-white.png</file>
-        <file>images/minus-white@2x.png</file>
-        <file>images/plus-white.png</file>
-        <file>images/plus-white@2x.png</file>
         <file>components/Label.qml</file>
+        <file>components/SettingsListItem.qml</file>
         <file>images/whatIsIcon.png</file>
         <file>images/whatIsIcon@2x.png</file>
         <file>images/lockIcon.png</file>
@@ -21,6 +18,8 @@
         <file>pages/History.qml</file>
         <file>pages/AddressBook.qml</file>
         <file>pages/Mining.qml</file>
+        <file>components/ContextMenu.qml</file>
+        <file>components/ContextMenuItem.qml</file>
         <file>components/NetworkStatusItem.qml</file>
         <file>components/Input.qml</file>
         <file>components/StandardButton.qml</file>
@@ -29,7 +28,7 @@
         <file>images/tip.png</file>
         <file>components/Scroll.qml</file>
         <file>components/MenuButtonDivider.qml</file>
-        <file>images/italoIcon.png</file>
+        <file>images/moneroIcon.png</file>
         <file>components/StandardDropdown.qml</file>
         <file>images/whiteDropIndicator.png</file>
         <file>images/whiteDropIndicator@2x.png</file>
@@ -40,7 +39,7 @@
         <file>images/prevMonth.png</file>
         <file>images/prevMonth@2x.png</file>
         <file>components/TitleBar.qml</file>
-        <file>images/italoLogo2.png</file>
+        <file>images/moneroLogo2.png</file>
         <file>images/resize.png</file>
         <file>images/resize@2x.png</file>
         <file>images/resizeHovered.png</file>
@@ -96,9 +95,7 @@
         <file>pages/SharedRingDB.qml</file>
         <file>components/effects/ImageMask.qml</file>
         <file>components/IconButton.qml</file>
-        <file>components/PassphraseDialog.qml</file>
         <file>components/PasswordDialog.qml</file>
-        <file>components/NewPasswordDialog.qml</file>
         <file>components/InputDialog.qml</file>
         <file>components/ProcessingSplash.qml</file>
         <file>components/ProgressBar.qml</file>
@@ -109,14 +106,15 @@
         <file>components/DaemonConsole.qml</file>
         <file>components/QRCodeScanner.qml</file>
         <file>components/Notifier.qml</file>
-        <file>components/MobileHeader.qml</file>
         <file>components/TextBlock.qml</file>
         <file>components/RemoteNodeEdit.qml</file>
         <file>pages/Keys.qml</file>
         <file>images/appicon.ico</file>
-        <file>images/card-background.png</file>
-        <file>images/card-background@2x.png</file>
-        <file>images/italoLogo_white.png</file>
+        <file>images/card-background-black.png</file>
+        <file>images/card-background-black@2x.png</file>
+        <file>images/card-background-white.png</file>
+        <file>images/card-background-white@2x.png</file>
+        <file>images/moneroLogo_white.png</file>
         <file>images/question.png</file>
         <file>images/question@2x.png</file>
         <file>images/titlebarLogo.png</file>
@@ -138,8 +136,8 @@
         <file>images/lightning@2x.png</file>
         <file>images/logout.png</file>
         <file>images/logout@2x.png</file>
-        <file>images/italoIcon-28x28.png</file>
-        <file>images/italoIcon-28x28@2x.png</file>
+        <file>images/moneroIcon-28x28.png</file>
+        <file>images/moneroIcon-28x28@2x.png</file>
         <file>images/lightning-white.png</file>
         <file>images/lightning-white@2x.png</file>
         <file>components/InputMulti.qml</file>
@@ -169,20 +167,18 @@
         <file>pages/settings/SettingsLayout.qml</file>
         <file>pages/settings/SettingsInfo.qml</file>
         <file>pages/settings/Navbar.qml</file>
-        <file>images/settings_local.svg</file>
-        <file>images/settings_remote.svg</file>
         <file>components/WarningBox.qml</file>
-        <file>images/miningxta.png</file>
-        <file>images/miningxta@2x.png</file>
-        <file>images/plus-in-circle-medium-white.png</file>
-        <file>images/plus-in-circle-medium-white@2x.png</file>
+        <file>images/miningxmr.png</file>
+        <file>images/miningxmr@2x.png</file>
         <file>pages/merchant/Merchant.qml</file>
         <file>pages/merchant/MerchantCheckbox.qml</file>
         <file>pages/merchant/MerchantTrackingList.qml</file>
         <file>images/merchant/arrow_right.png</file>
         <file>images/merchant/bg.png</file>
         <file>images/merchant/input_box.png</file>
-        <file>fonts/FontAwesome/fontawesome-webfont.ttf</file>
+        <file>fonts/FontAwesome/fa-brands-400.ttf</file>
+        <file>fonts/FontAwesome/fa-regular-400.ttf</file>
+        <file>fonts/FontAwesome/fa-solid-900.ttf</file>
         <file>fonts/FontAwesome/FontAwesome.qml</file>
         <file>fonts/FontAwesome/Object.qml</file>
         <file>fonts/FontAwesome/qmldir</file>
@@ -238,7 +234,6 @@
         <file>images/middlePanelShadow.png</file>
         <file>images/themes/white/titlebarLogo@2x.png</file>
         <file>images/themes/white/titlebarLogo.png</file>
-        <file>images/sidebar.svg</file>
         <file>images/fullscreen.svg</file>
         <file>images/close.svg</file>
         <file>images/minimize.svg</file>
@@ -246,12 +241,12 @@
         <file>images/themes/white/fullscreen.svg</file>
         <file>images/themes/white/minimize.svg</file>
         <file>images/themes/white/question.svg</file>
-        <file>images/themes/white/expand.svg</file>
         <file>components/effects/ColorTransition.qml</file>
         <file>components/effects/GradientBackground.qml</file>
         <file>images/check-white.svg</file>
         <file>images/copy.svg</file>
         <file>images/edit.svg</file>
         <file>images/arrow-right-in-circle-outline-medium-white.svg</file>
+        <file>images/tails-grey.png</file>
     </qresource>
 </RCC>

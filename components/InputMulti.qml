@@ -57,7 +57,7 @@ TextArea {
     onTextChanged: {
         if(addressValidation){
             // js replacement for `RegExpValidator { regExp: /[0-9A-Fa-f]{95}/g }`
-            if (textArea.text.startsWith("monero:")) {
+            if (textArea.text.startsWith("italo:")) {
                 error = false;
                 return;
             }
@@ -69,7 +69,7 @@ TextArea {
         }
     }
 
-    MoneroComponents.ContextMenu {
+    ItaloComponents.ContextMenu {
         cursorShape: Qt.IBeamCursor
         onPaste: {
             textArea.clear();

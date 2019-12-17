@@ -4,7 +4,7 @@
 ** Contact: https://www.qt.io/licensing/
 **
 ****************************************************************************/
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -45,13 +45,13 @@
 
 static const int settingsWriteDelay = 500; // ms
 
-class MoneroSettings : public QObject, public QQmlParserStatus
+class ItaloSettings : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_INTERFACES(QQmlParserStatus)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName FINAL)
 public:
-    explicit MoneroSettings(QObject *parent = nullptr);
+    explicit ItaloSettings(QObject *parent = nullptr);
 
     QString fileName() const;
     void setFileName(const QString &fileName);

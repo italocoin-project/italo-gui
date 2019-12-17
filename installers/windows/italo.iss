@@ -1,19 +1,19 @@
-; Monero Carbon Chamaeleon GUI Wallet Installer for Windows
-; Copyright (c) 2017-2019, The Monero Project
+; Italo Carbon Chamaeleon GUI Wallet Installer for Windows
+; Copyright (c) 2017-2019, The Italo Project
 ; See LICENSE
-#define GuiVersion GetFileVersion("bin\monero-wallet-gui.exe")
+#define GuiVersion GetFileVersion("bin\italo-wallet-gui.exe")
 
 [Setup]
-AppName=Monero GUI Wallet
+AppName=Italo GUI Wallet
 ; For InnoSetup this is the property that uniquely identifies the application as such
 ; Thus it's important to keep this stable over releases
 ; With a different "AppName" InnoSetup would treat a mere update as a completely new application and thus mess up
 
 AppVersion={#GuiVersion}
 VersionInfoVersion={#GuiVersion}
-DefaultDirName={pf}\Monero GUI Wallet
-DefaultGroupName=Monero GUI Wallet
-UninstallDisplayIcon={app}\monero-wallet-gui.exe
+DefaultDirName={pf}\Italo GUI Wallet
+DefaultGroupName=Italo GUI Wallet
+UninstallDisplayIcon={app}\italo-wallet-gui.exe
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64
 ArchitecturesAllowed=x64
@@ -21,8 +21,8 @@ WizardSmallImageFile=WizardSmallImage.bmp
 WizardImageFile=WelcomeImage.bmp
 DisableWelcomePage=no
 LicenseFile=LICENSE
-AppPublisher=The Monero Developer Community
-AppPublisherURL=https://getmonero.org
+AppPublisher=The Italo Developer Community
+AppPublisherURL=https://getitalo.org
 TimeStampsInUTC=yes
 CompressionThreads=1
 
@@ -32,7 +32,7 @@ UsedUserAreasWarning=no
 ;    are used by the script. Regardless of the version of Windows, if the installation is administrative then you should
 ;    be careful about making any per-user area changes: such changes may not achieve what you are intending.
 ; Background info:
-; This installer indeed asks for admin rights so the Monero files can be copied to a place where they have at least
+; This installer indeed asks for admin rights so the Italo files can be copied to a place where they have at least
 ; a minimum of protection against changes, e.g. by malware, plus it handles things for the currently logged-in user
 ; in the registry (GUI wallet per-user options) and for some of the icons. For reasons too complicated to fully explain
 ; here this does not work as intended if the installing user does not have admin rights and has to provide the password
@@ -62,44 +62,44 @@ Name: "en"; MessagesFile: "compiler:Default.isl"
 ; .exe/.dll file possibly with version info).
 ;
 ; This is far more robust than relying on version info or on file dates (flag "comparetimestamp").
-; As of version 0.15.0.0, the Monero .exe files do not carry version info anyway in their .exe headers.
+; As of version 0.15.0.0, the Italo .exe files do not carry version info anyway in their .exe headers.
 ; The only small drawback seems to be somewhat longer update times because each and every file is
 ; copied again, even if already present with correct file date and identical content.
 ;
 ; Note that it would be very dangerous to use "ignoreversion" on files that may be shared with other
-; applications somehow. Luckily this is no issue here because ALL files are "private" to Monero.
+; applications somehow. Luckily this is no issue here because ALL files are "private" to Italo.
 
 Source: {#file AddBackslash(SourcePath) + "ReadMe.htm"}; DestDir: "{app}"; DestName: "ReadMe.htm"; Flags: ignoreversion
 Source: "FinishImage.bmp"; Flags: dontcopy
 
-; Monero GUI wallet exe and guide
-Source: "bin\monero-wallet-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-gui-wallet-guide.pdf"; DestDir: "{app}"; Flags: ignoreversion
+; Italo GUI wallet exe and guide
+Source: "bin\italo-wallet-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-gui-wallet-guide.pdf"; DestDir: "{app}"; Flags: ignoreversion
 
-; Monero CLI wallet
-Source: "bin\monero-wallet-cli.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-gen-trusted-multisig.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Italo CLI wallet
+Source: "bin\italo-wallet-cli.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-gen-trusted-multisig.exe"; DestDir: "{app}"; Flags: ignoreversion
 
-; Monero wallet RPC interface implementation
-Source: "bin\monero-wallet-rpc.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Italo wallet RPC interface implementation
+Source: "bin\italo-wallet-rpc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
-; Monero daemon
-Source: "bin\monerod.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Italo daemon
+Source: "bin\italod.exe"; DestDir: "{app}"; Flags: ignoreversion
 
-; Monero daemon wrapped in a batch file that stops before the text window closes, to see any error messages
-Source: "monero-daemon.bat"; DestDir: "{app}"; Flags: ignoreversion;
+; Italo daemon wrapped in a batch file that stops before the text window closes, to see any error messages
+Source: "italo-daemon.bat"; DestDir: "{app}"; Flags: ignoreversion;
 
-; Monero blockchain utilities
-Source: "bin\monero-blockchain-export.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-import.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-mark-spent-outputs.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-usage.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-import.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-ancestry.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-depth.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-prune-known-spent-data.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-prune.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "bin\monero-blockchain-stats.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Italo blockchain utilities
+Source: "bin\italo-blockchain-export.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-import.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-mark-spent-outputs.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-usage.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-import.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-ancestry.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-depth.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-prune-known-spent-data.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-prune.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "bin\italo-blockchain-stats.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Qt Quick 2D Renderer fallback for systems / environments with "low-level graphics" i.e. without 3D support
 Source: "bin\start-low-graphics-mode.bat"; DestDir: "{app}"; Flags: ignoreversion
@@ -176,7 +176,7 @@ Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Add
 Filename: "{app}\ReadMe.htm"; Description: "Show ReadMe"; Flags: postinstall shellexec skipifsilent
 
 ; DON'T offer to run the wallet right away, let the people read about initial blockchain download first in the ReadMe
-; Filename: "{app}\monero-wallet-gui.exe"; Description: "Run GUI Wallet now"; Flags: postinstall nowait skipifsilent
+; Filename: "{app}\italo-wallet-gui.exe"; Description: "Run GUI Wallet now"; Flags: postinstall nowait skipifsilent
 
 
 [Code]
@@ -199,8 +199,8 @@ begin
   WizardForm.WizardBitmapImage2.Bitmap.LoadFromFile(ExpandConstant('{tmp}\FinishImage.bmp'));
 
   // Additional wizard page for entering a special blockchain location
-  blockChainDefaultDir := ExpandConstant('{commonappdata}\bitmonero');
-  s := 'The default folder to store the Monero blockchain is ' + blockChainDefaultDir;
+  blockChainDefaultDir := ExpandConstant('{commonappdata}\bititalo');
+  s := 'The default folder to store the Italo blockchain is ' + blockChainDefaultDir;
   s := s + '. As this will need more than 74 GB of free space, you may want to use a folder on a different drive.';
   s := s + ' If yes, specify that folder here.';
 
@@ -212,12 +212,12 @@ begin
 
   // Evaluate proposal for the blockchain location
   // In case of an update take the blockchain location from the actual setting in the registry
-  RegQueryStringValue(HKEY_CURRENT_USER, 'Software\monero-project\monero-core', 'blockchainDataDir', blockChainDir);
+  RegQueryStringValue(HKEY_CURRENT_USER, 'Software\italo-project\italo-core', 'blockchainDataDir', blockChainDir);
   if blockChainDir = '' then begin
     blockChainDir := GetPreviousData('BlockChainDir', '');
   end;
   if blockChainDir = '' then begin
-    // Unfortunately 'TInputDirWizardDirPage' does not allow empty field, so "propose" Monero default location
+    // Unfortunately 'TInputDirWizardDirPage' does not allow empty field, so "propose" Italo default location
     blockChainDir := blockChainDefaultDir;
   end;
   BlockChainDirPage.Values[0] := blockChainDir;
@@ -266,7 +266,7 @@ end;
 function DaemonLog(Param: String) : String;
 // Full filename of the log of the daemon
 begin
-  Result := BlockChainDir('') + '\bitmonero.log';
+  Result := BlockChainDir('') + '\bititalo.log';
   // No quotes for filename with blanks as this is never used as part of a command line
 end;
 
@@ -293,12 +293,12 @@ procedure CurStepChanged(CurStep: TSetupStep);
 var s: TArrayOfString;
 begin
   if CurStep = ssPostInstall then begin
-    // Re-build "monero-daemon.bat" according to actual install and blockchain directory used
+    // Re-build "italo-daemon.bat" according to actual install and blockchain directory used
     SetArrayLength(s, 3);
-    s[0] := 'REM Execute the Monero daemon and then stay with window open after it exits';
-    s[1] := '"' + ExpandConstant('{app}\monerod.exe') + '" ' + DaemonFlags('');
+    s[0] := 'REM Execute the Italo daemon and then stay with window open after it exits';
+    s[1] := '"' + ExpandConstant('{app}\italod.exe') + '" ' + DaemonFlags('');
     s[2] := 'PAUSE';
-    SaveStringsToFile(ExpandConstant('{app}\monero-daemon.bat'), s, false); 
+    SaveStringsToFile(ExpandConstant('{app}\italo-daemon.bat'), s, false); 
   end;
 end;
 
@@ -314,55 +314,55 @@ end;
 
 
 [Icons]
-; Icons in the "Monero GUI Wallet" program group
+; Icons in the "Italo GUI Wallet" program group
 ; Windows will almost always display icons in alphabetical order, per level, so specify the text accordingly
-Name: "{group}\GUI Wallet"; Filename: "{app}\monero-wallet-gui.exe";
-Name: "{group}\GUI Wallet Guide"; Filename: "{app}\monero-gui-wallet-guide.pdf"; IconFilename: "{app}\monero-wallet-gui.exe"
+Name: "{group}\GUI Wallet"; Filename: "{app}\italo-wallet-gui.exe";
+Name: "{group}\GUI Wallet Guide"; Filename: "{app}\italo-gui-wallet-guide.pdf"; IconFilename: "{app}\italo-wallet-gui.exe"
 Name: "{group}\Uninstall GUI Wallet"; Filename: "{uninstallexe}"
 
 ; Sub-folder "Utilities";
 ; Note that Windows 10, unlike Windows 7, ignores such sub-folders completely
 ; and insists on displaying ALL icons on one single level
-Name: "{group}\Utilities\Monero Daemon"; Filename: "{app}\monerod.exe"; Parameters: {code:DaemonFlags}
+Name: "{group}\Utilities\Italo Daemon"; Filename: "{app}\italod.exe"; Parameters: {code:DaemonFlags}
 Name: "{group}\Utilities\Read Me"; Filename: "{app}\ReadMe.htm"
 
 ; CLI wallet: Needs a working directory ("Start in:") set in the icon, because with no such directory set
 ; it tries to create new wallets without a path given in the probably non-writable program folder and will abort with an error
-Name: "{group}\Utilities\Textual (CLI) Wallet"; Filename: "{app}\monero-wallet-cli.exe"; WorkingDir: "{userdocs}\Monero\wallets"
+Name: "{group}\Utilities\Textual (CLI) Wallet"; Filename: "{app}\italo-wallet-cli.exe"; WorkingDir: "{userdocs}\Italo\wallets"
 
 ; Icons for troubleshooting problems / testing / debugging
 ; To show that they are in some way different (not for everyday use), make them visually different
 ; from the others by text, and make them sort at the end by the help of "x" in front 
 Name: "{group}\Utilities\x (Check Blockchain Folder)"; Filename: "{win}\Explorer.exe"; Parameters: {code:BlockChainDir}
 Name: "{group}\Utilities\x (Check Daemon Log)"; Filename: "Notepad"; Parameters: {code:DaemonLog}
-Name: "{group}\Utilities\x (Check Default Wallet Folder)"; Filename: "{win}\Explorer.exe"; Parameters: """{userdocs}\Monero\wallets"""
-Name: "{group}\Utilities\x (Check GUI Wallet Log)"; Filename: "Notepad"; Parameters: """{userappdata}\monero-wallet-gui\monero-wallet-gui.log"""
-Name: "{group}\Utilities\x (Try Daemon, Exit Confirm)"; Filename: "{app}\monero-daemon.bat"
+Name: "{group}\Utilities\x (Check Default Wallet Folder)"; Filename: "{win}\Explorer.exe"; Parameters: """{userdocs}\Italo\wallets"""
+Name: "{group}\Utilities\x (Check GUI Wallet Log)"; Filename: "Notepad"; Parameters: """{userappdata}\italo-wallet-gui\italo-wallet-gui.log"""
+Name: "{group}\Utilities\x (Try Daemon, Exit Confirm)"; Filename: "{app}\italo-daemon.bat"
 Name: "{group}\Utilities\x (Try GUI Wallet Low Graphics Mode)"; Filename: "{app}\start-low-graphics-mode.bat"
-Name: "{group}\Utilities\x (Try Kill Daemon)"; Filename: "Taskkill.exe"; Parameters: "/IM monerod.exe /T /F"
+Name: "{group}\Utilities\x (Try Kill Daemon)"; Filename: "Taskkill.exe"; Parameters: "/IM italod.exe /T /F"
 
 ; Desktop icons, optional with the help of the "Task" section
-Name: "{commondesktop}\GUI Wallet"; Filename: "{app}\monero-wallet-gui.exe"; Tasks: desktopicon
+Name: "{commondesktop}\GUI Wallet"; Filename: "{app}\italo-wallet-gui.exe"; Tasks: desktopicon
 
 
 [Registry]
 ; Store any special flags for the daemon in the registry location where the GUI wallet will take it from
 ; So if the wallet is used to start the daemon instead of the separate icon the wallet will pass the correct flags
 ; Side effect, mostly positive: The uninstaller will clean the registry
-Root: HKCU; Subkey: "Software\monero-project"; Flags: uninsdeletekeyifempty
-Root: HKCU; Subkey: "Software\monero-project\monero-core"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\monero-project\monero-core"; ValueType: string; ValueName: "blockchainDataDir"; ValueData: {code:BlockChainDirOrEmpty};
+Root: HKCU; Subkey: "Software\italo-project"; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: "Software\italo-project\italo-core"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\italo-project\italo-core"; ValueType: string; ValueName: "blockchainDataDir"; ValueData: {code:BlockChainDirOrEmpty};
 
-; Configure a custom URI scheme: Links starting with "monero:" will start the GUI wallet exe with the URI as command-line parameter
-; Used to easily start payments; example URI: "monero://<address>?tx_amount=5.0"
-Root: HKCR; Subkey: "monero"; ValueType: "string"; ValueData: "URL:Monero Payment Protocol"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "monero"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: ""
-Root: HKCR; Subkey: "monero\DefaultIcon"; ValueType: "string"; ValueData: "{app}\monero-wallet-gui.exe,0"
-Root: HKCR; Subkey: "monero\shell\open\command"; ValueType: "string"; ValueData: """{app}\monero-wallet-gui.exe"" ""%1"""
+; Configure a custom URI scheme: Links starting with "italo:" will start the GUI wallet exe with the URI as command-line parameter
+; Used to easily start payments; example URI: "italo://<address>?tx_amount=5.0"
+Root: HKCR; Subkey: "italo"; ValueType: "string"; ValueData: "URL:Italo Payment Protocol"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "italo"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: ""
+Root: HKCR; Subkey: "italo\DefaultIcon"; ValueType: "string"; ValueData: "{app}\italo-wallet-gui.exe,0"
+Root: HKCR; Subkey: "italo\shell\open\command"; ValueType: "string"; ValueData: """{app}\italo-wallet-gui.exe"" ""%1"""
 
-; Configure a custom URI scheme: Links starting with "moneroseed:" will start the GUI wallet exe with the URI as command-line parameter
-; Used to easily hand over custom seed node info to the wallet, with an URI of the form "moneroseed://a.b.c.d:port"
-Root: HKCR; Subkey: "moneroseed"; ValueType: "string"; ValueData: "URL:Monero Seed Node Protocol"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "moneroseed"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: ""
-Root: HKCR; Subkey: "moneroseed\DefaultIcon"; ValueType: "string"; ValueData: "{app}\monero-wallet-gui.exe,0"
-Root: HKCR; Subkey: "moneroseed\shell\open\command"; ValueType: "string"; ValueData: """{app}\monero-wallet-gui.exe"" ""%1"""
+; Configure a custom URI scheme: Links starting with "italoseed:" will start the GUI wallet exe with the URI as command-line parameter
+; Used to easily hand over custom seed node info to the wallet, with an URI of the form "italoseed://a.b.c.d:port"
+Root: HKCR; Subkey: "italoseed"; ValueType: "string"; ValueData: "URL:Italo Seed Node Protocol"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "italoseed"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: ""
+Root: HKCR; Subkey: "italoseed\DefaultIcon"; ValueType: "string"; ValueData: "{app}\italo-wallet-gui.exe,0"
+Root: HKCR; Subkey: "italoseed\shell\open\command"; ValueType: "string"; ValueData: """{app}\italo-wallet-gui.exe"" ""%1"""

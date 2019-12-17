@@ -257,12 +257,12 @@ void Wallet::initAsync(const QString &daemonAddress, bool trustedDaemon, quint64
 
 bool Wallet::isHwBacked() const
 {
-    return m_walletImpl->getDeviceType() != Monero::Wallet::Device_Software;
+    return m_walletImpl->getDeviceType() != Italo::Wallet::Device_Software;
 }
 
 bool Wallet::isLedger() const
 {
-    return m_walletImpl->getDeviceType() == Monero::Wallet::Device_Ledger;
+    return m_walletImpl->getDeviceType() == Italo::Wallet::Device_Ledger;
 }
 
 //! create a view only wallet

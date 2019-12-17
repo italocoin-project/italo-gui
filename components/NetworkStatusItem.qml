@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -30,8 +30,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 
 import FontAwesome 1.0
-import moneroComponents.Wallet 1.0
-import "../components" as MoneroComponents
+import italoComponents.Wallet 1.0
+import "../components" as ItaloComponents
 
 Rectangle {
     id: item
@@ -80,7 +80,7 @@ Rectangle {
                 anchors.rightMargin: !appWindow.isMining ? 11 : 0
                 source: {
                     if(appWindow.isMining) {
-                       return "qrc:///images/miningxmr.png"
+                       return "qrc:///images/miningxta.png"
                     } else if(item.connected == Wallet.ConnectionStatus_Connected) {
                         return "qrc:///images/lightning.png"
                     } else {
@@ -107,30 +107,30 @@ Rectangle {
             height: 40
             width: 260
 
-            MoneroComponents.TextPlain {
+            ItaloComponents.TextPlain {
                 id: statusText
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 0
-                font.family: MoneroComponents.Style.fontMedium.name
+                font.family: ItaloComponents.Style.fontMedium.name
                 font.bold: true
                 font.pixelSize: 13
-                color: MoneroComponents.Style.dimmedFontColor
-                opacity: MoneroComponents.Style.blackTheme ? 0.65 : 0.5
+                color: ItaloComponents.Style.dimmedFontColor
+                opacity: ItaloComponents.Style.blackTheme ? 0.65 : 0.5
                 text: qsTr("Network status") + translationManager.emptyString
                 themeTransition: false
             }
 
-            MoneroComponents.TextPlain {
+            ItaloComponents.TextPlain {
                 id: statusTextVal
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.topMargin: 14
-                font.family: MoneroComponents.Style.fontMedium.name
+                font.family: ItaloComponents.Style.fontMedium.name
                 font.pixelSize: 20
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 text: getConnectionStatusString(item.connected) + translationManager.emptyString
-                opacity: MoneroComponents.Style.blackTheme ? 1.0 : 0.7
+                opacity: ItaloComponents.Style.blackTheme ? 1.0 : 0.7
                 themeTransition: false
 
                 MouseArea {
@@ -152,7 +152,7 @@ Rectangle {
                 anchors.left: statusTextVal.right
                 anchors.leftMargin: 16
                 anchors.verticalCenter: parent.verticalCenter
-                color: refreshMouseArea.containsMouse ?  MoneroComponents.Style.dimmedFontColor : MoneroComponents.Style.defaultFontColor
+                color: refreshMouseArea.containsMouse ?  ItaloComponents.Style.dimmedFontColor : ItaloComponents.Style.defaultFontColor
                 font.family: FontAwesome.fontFamilySolid
                 font.pixelSize: 24
                 font.styleName: "Solid"

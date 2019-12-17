@@ -333,8 +333,8 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
             Rectangle {
@@ -343,21 +343,21 @@ Rectangle {
                 Layout.topMargin: 2
                 Layout.bottomMargin: 2
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dividerColor
-                opacity: MoneroComponents.Style.dividerOpacity
+                color: ItaloComponents.Style.dividerColor
+                opacity: ItaloComponents.Style.dividerOpacity
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 visible: isTails
                 Layout.fillWidth: true
                 font.pixelSize: 14
                 text: qsTr("Tails: ") + translationManager.emptyString
             }
 
-            MoneroComponents.TextBlock {
+            ItaloComponents.TextBlock {
                 visible: isTails
                 Layout.fillWidth: true
-                color: MoneroComponents.Style.dimmedFontColor
+                color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 text: tailsUsePersistence ? qsTr("persistent") + translationManager.emptyString : qsTr("persistence disabled") + translationManager.emptyString;
             }

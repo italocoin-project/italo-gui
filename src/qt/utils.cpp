@@ -71,17 +71,17 @@ QString getAccountName(){
 QString xdgMime(QApplication &app){
     return QString(
         "[Desktop Entry]\n"
-        "Name=Monero GUI\n"
-        "GenericName=Monero-GUI\n"
-        "X-GNOME-FullName=Monero-GUI\n"
-        "Comment=Monero GUI\n"
-        "Keywords=Monero;\n"
+        "Name=Italo GUI\n"
+        "GenericName=Italo-GUI\n"
+        "X-GNOME-FullName=Italo-GUI\n"
+        "Comment=Italo GUI\n"
+        "Keywords=Italo;\n"
         "Exec=%1 %u\n"
         "Terminal=false\n"
         "Type=Application\n"
-        "Icon=monero\n"
+        "Icon=italo\n"
         "Categories=Network;GNOME;Qt;\n"
-        "MimeType=x-scheme-handler/monero;x-scheme-handler/moneroseed\n"
+        "MimeType=x-scheme-handler/italo;x-scheme-handler/italoseed\n"
         "StartupNotify=true\n"
         "X-GNOME-Bugzilla-Bugzilla=GNOME\n"
         "X-GNOME-UsesNotifications=true\n"
@@ -96,7 +96,7 @@ void registerXdgMime(QApplication &app){
     // - Tails written to persistent dotfiles
     QString mime = xdgMime(app);
     QString appPath = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation);
-    QString filePath = QString("%1/monero-gui.desktop").arg(appPath);
+    QString filePath = QString("%1/italo-gui.desktop").arg(appPath);
 
     if (TailsOS::detect() && TailsOS::detectDotPersistence() && TailsOS::usePersistence) {
         TailsOS::persistXdgMime(filePath, mime);

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -32,22 +32,22 @@ import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Dialogs 1.2
 
-import moneroComponents.Wallet 1.0
-import moneroComponents.PendingTransaction 1.0
-import moneroComponents.NetworkType 1.0
-import moneroComponents.Settings 1.0
+import italoComponents.Wallet 1.0
+import italoComponents.PendingTransaction 1.0
+import italoComponents.NetworkType 1.0
+import italoComponents.Settings 1.0
 
 import "components"
-import "components" as MoneroComponents
-import "components/effects" as MoneroEffects
-import "pages/merchant" as MoneroMerchant
+import "components" as ItaloComponents
+import "components/effects" as ItaloEffects
+import "pages/merchant" as ItaloMerchant
 import "wizard"
 import "js/Utils.js" as Utils
 import "js/Windows.js" as Windows
 
 ApplicationWindow {
     id: appWindow
-    title: "Monero" + (walletName ? " - " + walletName : "")
+    title: "Italo" + (walletName ? " - " + walletName : "")
 
     property var currentItem
     property bool hideBalanceForced: false
@@ -95,8 +95,8 @@ ApplicationWindow {
                 "xmreur": "https://api.kraken.com/0/public/Ticker?pair=XMREUR"
             },
             "coingecko": {
-                "xmrusd": "https://api.coingecko.com/api/v3/simple/price?ids=monero&vs_currencies=usd",
-                "xmreur": "https://api.coingecko.com/api/v3/simple/price?ids=monero&vs_currencies=eur"
+                "xmrusd": "https://api.coingecko.com/api/v3/simple/price?ids=italo&vs_currencies=usd",
+                "xmreur": "https://api.coingecko.com/api/v3/simple/price?ids=italo&vs_currencies=eur"
             },
             "cryptocompare": {
                 "xmrusd": "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD",
@@ -254,7 +254,7 @@ ApplicationWindow {
         }  else {
             var wallet_path = walletPath();
             if(isIOS)
-                wallet_path = moneroAccountsDir + wallet_path;
+                wallet_path = italoAccountsDir + wallet_path;
             // console.log("opening wallet at: ", wallet_path, "with password: ", appWindow.walletPassword);
             console.log("opening wallet at: ", wallet_path, ", network type: ", persistentSettings.nettype == NetworkType.MAINNET ? "mainnet" : persistentSettings.nettype == NetworkType.TESTNET ? "testnet" : "stagenet");
 
@@ -422,8 +422,8 @@ ApplicationWindow {
     }
 
     function onUriHandler(uri){
-        if(uri.startsWith("monero://")){
-            var address = uri.substring("monero://".length);
+        if(uri.startsWith("italo://")){
+            var address = uri.substring("italo://".length);
 
             var params = {}
             if(address.length === 0) return;
@@ -727,7 +727,7 @@ ApplicationWindow {
         currentWallet.startRefresh();
         daemonRunning = false;
         informationPopup.title = qsTr("Daemon failed to start") + translationManager.emptyString;
-        informationPopup.text  = qsTr("Please check your wallet and daemon log for errors. You can also try to start %1 manually.").arg((isWindows)? "monerod.exe" : "monerod")
+        informationPopup.text  = qsTr("Please check your wallet and daemon log for errors. You can also try to start %1 manually.").arg((isWindows)? "italod.exe" : "italod")
         informationPopup.icon  = StandardIcon.Critical
         informationPopup.onCloseCallback = null
         informationPopup.open();
@@ -770,7 +770,7 @@ ApplicationWindow {
 
     function onWalletMoneySent(txId, amount) {
         // refresh transaction history here
-        console.log("monero sent found")
+        console.log("italo sent found")
         currentWallet.history.refresh(currentWallet.currentSubaddressAccount); // this will refresh model
 
         if(middlePanel.state == "History")
@@ -780,7 +780,7 @@ ApplicationWindow {
     function walletsFound() {
         if (persistentSettings.wallet_path.length > 0) {
             if(isIOS)
-                return walletManager.walletExists(moneroAccountsDir + persistentSettings.wallet_path);
+                return walletManager.walletExists(italoAccountsDir + persistentSettings.wallet_path);
             else
                 return walletManager.walletExists(persistentSettings.wallet_path);
         }
@@ -895,7 +895,7 @@ ApplicationWindow {
     FileDialog {
         id: saveTxDialog
         title: "Please choose a location"
-        folder: "file://" +moneroAccountsDir
+        folder: "file://" +italoAccountsDir
         selectExisting: false;
 
         onAccepted: {
@@ -983,7 +983,7 @@ ApplicationWindow {
                     txid_text += ", "
                 txid_text += txid[i]
             }
-            informationPopup.text  = (viewOnly)? qsTr("Transaction saved to file: %1").arg(path) : qsTr("Monero sent successfully: %1 transaction(s) ").arg(txid.length) + txid_text + translationManager.emptyString
+            informationPopup.text  = (viewOnly)? qsTr("Transaction saved to file: %1").arg(path) : qsTr("Italo sent successfully: %1 transaction(s) ").arg(txid.length) + txid_text + translationManager.emptyString
             informationPopup.icon  = StandardIcon.Information
             if (transactionDescription.length > 0) {
                 for (var i = 0; i < txid.length; ++i)
@@ -1063,10 +1063,10 @@ ApplicationWindow {
                 informationPopup.icon = StandardIcon.Critical;
             } else if (received > 0) {
                 if (in_pool) {
-                    informationPopup.text = qsTr("This address received %1 monero, but the transaction is not yet mined").arg(walletManager.displayAmount(received));
+                    informationPopup.text = qsTr("This address received %1 italo, but the transaction is not yet mined").arg(walletManager.displayAmount(received));
                 }
                 else {
-                    informationPopup.text = qsTr("This address received %1 monero, with %2 confirmation(s).").arg(walletManager.displayAmount(received)).arg(confirmations);
+                    informationPopup.text = qsTr("This address received %1 italo, with %2 confirmation(s).").arg(walletManager.displayAmount(received)).arg(confirmations);
                 }
             }
             else {
@@ -1128,7 +1128,7 @@ ApplicationWindow {
             wizard.wizardState = "wizardHome";
             rootItem.state = "wizard"
             // reset balance
-            clearMoneroCardLabelText();
+            clearItaloCardLabelText();
             // disable timers
             userInActivityTimer.running = false;
             simpleModeConnectionTimer.running = false;
@@ -1140,7 +1140,7 @@ ApplicationWindow {
     visible: true
     width: screenWidth > 980 ? 980 : 800
     height: screenHeight > maxWindowHeight ? maxWindowHeight : 700
-    color: MoneroComponents.Style.appWindowBackgroundColor
+    color: ItaloComponents.Style.appWindowBackgroundColor
     flags: persistentSettings.customDecorations ? Windows.flagsCustomDecorations : Windows.flags
     onWidthChanged: x -= 0
 
@@ -1169,11 +1169,11 @@ ApplicationWindow {
             return ticker;
         } else if(resp._url.startsWith("https://api.coingecko.com/api/v3/")){
             var key = currency === "xmreur" ? "eur" : "usd";
-            if(!resp.hasOwnProperty("monero") || !resp["monero"].hasOwnProperty(key)){
+            if(!resp.hasOwnProperty("italo") || !resp["italo"].hasOwnProperty(key)){
                 appWindow.fiatApiError("Coingecko API has error(s)");
                 return;
             }
-            return resp["monero"][key];
+            return resp["italo"][key];
         } else if(resp._url.startsWith("https://min-api.cryptocompare.com/data/")){
             var key = currency === "xmreur" ? "EUR" : "USD";
             if(!resp.hasOwnProperty(key)){
@@ -1352,11 +1352,11 @@ ApplicationWindow {
         }
     }
 
-    MoneroSettings {
+    ItaloSettings {
         id: persistentSettings
         fileName: {
             if(isTails && tailsUsePersistence)
-                return homePath + "/Persistent/Monero/monero-core.conf";
+                return homePath + "/Persistent/Italo/italo-core.conf";
             return "";
         }
 
@@ -1404,7 +1404,7 @@ ApplicationWindow {
         property string fiatPriceCurrency: "xmrusd"
 
         Component.onCompleted: {
-            MoneroComponents.Style.blackTheme = persistentSettings.blackTheme
+            ItaloComponents.Style.blackTheme = persistentSettings.blackTheme
         }
     }
 
@@ -1702,7 +1702,7 @@ ApplicationWindow {
         WizardController {
             id: wizard
             anchors.fill: parent
-            onUseMoneroClicked: {
+            onUseItaloClicked: {
                 rootItem.state = "normal";
                 appWindow.initialize();
             }
@@ -1726,11 +1726,11 @@ ApplicationWindow {
             height: 34
             width: 34
 
-            MoneroEffects.ImageMask {
+            ItaloEffects.ImageMask {
                 anchors.centerIn: parent
                 visible: persistentSettings.customDecorations
                 image: "qrc:///images/resize.png"
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 width: 12
                 height: 12
                 opacity: (parent.containsMouse || parent.pressed) ? 0.5 : 1.0
@@ -1773,7 +1773,7 @@ ApplicationWindow {
             onMinimizeClicked: appWindow.visibility = Window.Minimized
         }
 
-        MoneroMerchant.MerchantTitlebar {
+        ItaloMerchant.MerchantTitlebar {
             id: titleBarOrange
             visible: persistentSettings.customDecorations && middlePanel.state === "Merchant"
             anchors.left: parent.left
@@ -1801,7 +1801,7 @@ ApplicationWindow {
                 source: "qrc:///images/tip.png"
             }
 
-            MoneroComponents.TextPlain {
+            ItaloComponents.TextPlain {
                 id: content
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 6
@@ -1908,14 +1908,14 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         width: statusMessageText.contentWidth + 20
         anchors.horizontalCenter: parent.horizontalCenter
-        color: MoneroComponents.Style.blackTheme ? "black" : "white"
+        color: ItaloComponents.Style.blackTheme ? "black" : "white"
         height: 40
-        MoneroComponents.TextPlain {
+        ItaloComponents.TextPlain {
             id: statusMessageText
             anchors.fill: parent
             anchors.margins: 10
             font.pixelSize: 14
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
             themeTransition: false
         }
     }
@@ -2002,9 +2002,9 @@ ApplicationWindow {
             var user_url = parts[2]
             var msg = ""
             if (isMac || isWindows || isLinux) {
-                msg = qsTr("New version of Monero v%1 is available.<br><br>Download:<br>%2<br><br>SHA256 Hash:<br>%3").arg(version).arg(user_url).arg(hash) + translationManager.emptyString
+                msg = qsTr("New version of Italo v%1 is available.<br><br>Download:<br>%2<br><br>SHA256 Hash:<br>%3").arg(version).arg(user_url).arg(hash) + translationManager.emptyString
             } else {
-                msg = qsTr("New version of Monero v%1 is available. Check out getmonero.org").arg(version) + translationManager.emptyString
+                msg = qsTr("New version of Italo v%1 is available. Check out getitalo.org").arg(version) + translationManager.emptyString
             }
             notifier.show(msg)
         } else {
@@ -2013,7 +2013,7 @@ ApplicationWindow {
     }
 
     function checkUpdates() {
-        walletManager.checkUpdatesAsync("monero-gui", "gui")
+        walletManager.checkUpdatesAsync("italo-gui", "gui")
     }
 
     Timer {
@@ -2032,14 +2032,14 @@ ApplicationWindow {
     }
 
     // reset label text. othewise potential privacy leak showing unlock time when switching wallets
-    function clearMoneroCardLabelText(){
+    function clearItaloCardLabelText(){
         leftPanel.balanceString = "?.??"
         leftPanel.balanceFiatString = "?.??"
     }
 
     // some fields need an extra nudge when changing languages
     function resetLanguageFields(){
-        clearMoneroCardLabelText()
+        clearItaloCardLabelText()
         if (currentWallet) {
             onWalletRefresh();
         }
@@ -2119,10 +2119,10 @@ ApplicationWindow {
         visible: false
         anchors.fill: parent
         anchors.topMargin: titleBar.height
-        color: MoneroComponents.Style.blackTheme ? "black" : "white"
-        opacity: MoneroComponents.Style.blackTheme ? 0.8 : 0.9
+        color: ItaloComponents.Style.blackTheme ? "black" : "white"
+        opacity: ItaloComponents.Style.blackTheme ? 0.8 : 0.9
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
             blackColor: "black"
             whiteColor: "white"
@@ -2131,71 +2131,71 @@ ApplicationWindow {
 
     // borders on white theme + linux
     Rectangle {
-        visible: isLinux && !MoneroComponents.Style.blackTheme && middlePanel.state !== "Merchant"
+        visible: isLinux && !ItaloComponents.Style.blackTheme && middlePanel.state !== "Merchant"
         z: parent.z + 1
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         width: 1
-        color: MoneroComponents.Style.appWindowBorderColor
+        color: ItaloComponents.Style.appWindowBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_appWindowBorderColor
-            whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+            blackColor: ItaloComponents.Style._b_appWindowBorderColor
+            whiteColor: ItaloComponents.Style._w_appWindowBorderColor
         }
     }
 
     Rectangle {
-        visible: isLinux && !MoneroComponents.Style.blackTheme && middlePanel.state !== "Merchant"
+        visible: isLinux && !ItaloComponents.Style.blackTheme && middlePanel.state !== "Merchant"
         z: parent.z + 1
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         width: 1
-        color: MoneroComponents.Style.appWindowBorderColor
+        color: ItaloComponents.Style.appWindowBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_appWindowBorderColor
-            whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+            blackColor: ItaloComponents.Style._b_appWindowBorderColor
+            whiteColor: ItaloComponents.Style._w_appWindowBorderColor
         }
     }
 
     Rectangle {
-        visible: isLinux && !MoneroComponents.Style.blackTheme && middlePanel.state !== "Merchant"
+        visible: isLinux && !ItaloComponents.Style.blackTheme && middlePanel.state !== "Merchant"
         z: parent.z + 1
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.left: parent.left
         height: 1
-        color: MoneroComponents.Style.appWindowBorderColor
+        color: ItaloComponents.Style.appWindowBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_appWindowBorderColor
-            whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+            blackColor: ItaloComponents.Style._b_appWindowBorderColor
+            whiteColor: ItaloComponents.Style._w_appWindowBorderColor
         }
     }
 
     Rectangle {
-        visible: isLinux && !MoneroComponents.Style.blackTheme && middlePanel.state !== "Merchant"
+        visible: isLinux && !ItaloComponents.Style.blackTheme && middlePanel.state !== "Merchant"
         z: parent.z + 1
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         height: 1
-        color: MoneroComponents.Style.appWindowBorderColor
+        color: ItaloComponents.Style.appWindowBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_appWindowBorderColor
-            whiteColor: MoneroComponents.Style._w_appWindowBorderColor
+            blackColor: ItaloComponents.Style._b_appWindowBorderColor
+            whiteColor: ItaloComponents.Style._w_appWindowBorderColor
         }
     }
 
 // @TODO: QML type 'Drawer' has issues with buildbot; debug after Qt 5.9 migration
-//    MoneroComponents.LanguageSidebar {
+//    ItaloComponents.LanguageSidebar {
 //        id: languageSidebar
 //    }
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -32,8 +32,8 @@ import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.2
 
 import FontAwesome 1.0
-import "." as MoneroComponents
-import "effects/" as MoneroEffects
+import "." as ItaloComponents
+import "effects/" as ItaloEffects
 
 Rectangle {
     id: root
@@ -72,16 +72,16 @@ Rectangle {
         }
     ]
 
-    MoneroEffects.GradientBackground {
+    ItaloEffects.GradientBackground {
         anchors.fill: parent
         duration: 300
-        fallBackColor: MoneroComponents.Style.middlePanelBackgroundColor
-        initialStartColor: MoneroComponents.Style.titleBarBackgroundGradientStart
-        initialStopColor: MoneroComponents.Style.titleBarBackgroundGradientStop
-        blackColorStart: MoneroComponents.Style._b_titleBarBackgroundGradientStart
-        blackColorStop: MoneroComponents.Style._b_titleBarBackgroundGradientStop
-        whiteColorStart: MoneroComponents.Style._w_titleBarBackgroundGradientStart
-        whiteColorStop: MoneroComponents.Style._w_titleBarBackgroundGradientStop
+        fallBackColor: ItaloComponents.Style.middlePanelBackgroundColor
+        initialStartColor: ItaloComponents.Style.titleBarBackgroundGradientStart
+        initialStopColor: ItaloComponents.Style.titleBarBackgroundGradientStop
+        blackColorStart: ItaloComponents.Style._b_titleBarBackgroundGradientStart
+        blackColorStop: ItaloComponents.Style._b_titleBarBackgroundGradientStop
+        whiteColorStart: ItaloComponents.Style._w_titleBarBackgroundGradientStart
+        whiteColorStop: ItaloComponents.Style._w_titleBarBackgroundGradientStop
         start: Qt.point(width, 0)
         end: Qt.point(0, 0)
     }
@@ -103,7 +103,7 @@ Rectangle {
                 text: FontAwesome.signOutAlt
                 font.family: FontAwesome.fontFamilySolid
                 font.pixelSize: 16
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 font.styleName: "Solid"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -114,7 +114,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: root.closeWalletClicked(leftPanel.visible)
             }
@@ -131,7 +131,7 @@ Rectangle {
                 text: FontAwesome.globe
                 font.family: FontAwesome.fontFamilySolid
                 font.pixelSize: 16
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 font.styleName: "Solid"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -142,7 +142,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: root.languageClicked()
             }
@@ -156,10 +156,10 @@ Rectangle {
 
             Text {
                 text: FontAwesome.moonO
-                font.family: MoneroComponents.Style.blackTheme ? FontAwesome.fontFamilySolid : FontAwesome.fontFamily
-                font.styleName: MoneroComponents.Style.blackTheme ? "Solid" : "Regular"
+                font.family: ItaloComponents.Style.blackTheme ? FontAwesome.fontFamilySolid : FontAwesome.fontFamily
+                font.styleName: ItaloComponents.Style.blackTheme ? "Solid" : "Regular"
                 font.pixelSize: 15
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 opacity: 0.75
@@ -169,11 +169,11 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: {
-                    MoneroComponents.Style.blackTheme = !MoneroComponents.Style.blackTheme;
-                    persistentSettings.blackTheme = MoneroComponents.Style.blackTheme;
+                    ItaloComponents.Style.blackTheme = !ItaloComponents.Style.blackTheme;
+                    persistentSettings.blackTheme = ItaloComponents.Style.blackTheme;
                 }
             }
         }
@@ -181,13 +181,13 @@ Rectangle {
         Item {
             // make dummy space when hiding buttons when titlebar
             // state is 'essentials' in order for the
-            // monero logo to still be centered
+            // italo logo to still be centered
             Layout.preferredWidth: parent.height * 2  // amount of buttons we hide
             Layout.preferredHeight: parent.height
             visible: root.state == "essentials"
         }
 
-        // monero logo
+        // italo logo
         Item {
             visible: walletName.length === 0
             Layout.fillWidth: true
@@ -201,16 +201,16 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
 
-                source: MoneroComponents.Style.titleBarLogoSource
+                source: ItaloComponents.Style.titleBarLogoSource
                 visible: {
                     if(!isOpenGL) return true;
-                    if(!MoneroComponents.Style.blackTheme) return true;
+                    if(!ItaloComponents.Style.blackTheme) return true;
                     return false;
                 }
             }
 
             Colorize {
-                visible: isOpenGL && MoneroComponents.Style.blackTheme
+                visible: isOpenGL && ItaloComponents.Style.blackTheme
                 anchors.fill: imgLogo
                 source: imgLogo
                 saturation: 0.0
@@ -222,7 +222,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height
 
-            MoneroComponents.TextPlain {
+            ItaloComponents.TextPlain {
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -240,17 +240,17 @@ Rectangle {
             Layout.preferredWidth: parent.height
             Layout.preferredHeight: parent.height
 
-            MoneroEffects.ImageMask {
+            ItaloEffects.ImageMask {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 18
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 3
                 width: 15
-                image: MoneroComponents.Style.titleBarMinimizeSource
-                color: MoneroComponents.Style.defaultFontColor
+                image: ItaloComponents.Style.titleBarMinimizeSource
+                color: ItaloComponents.Style.defaultFontColor
                 fontAwesomeFallbackIcon: FontAwesome.minus
                 fontAwesomeFallbackSize: 18
-                fontAwesomeFallbackOpacity: MoneroComponents.Style.blackTheme ? 0.8 : 0.6
+                fontAwesomeFallbackOpacity: ItaloComponents.Style.blackTheme ? 0.8 : 0.6
                 opacity: 0.75
             }
 
@@ -258,7 +258,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: root.minimizeClicked();
             }
@@ -275,7 +275,7 @@ Rectangle {
             Image {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                source: MoneroComponents.Style.titleBarFullscreenSource
+                source: ItaloComponents.Style.titleBarFullscreenSource
                 sourceSize.width: 16
                 sourceSize.height: 16
                 smooth: true
@@ -289,7 +289,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: root.maximizeClicked();
             }
@@ -302,16 +302,16 @@ Rectangle {
             Layout.preferredWidth: parent.height
             Layout.preferredHeight: parent.height
 
-            MoneroEffects.ImageMask {
+            ItaloEffects.ImageMask {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 16
                 width: 16
-                image: MoneroComponents.Style.titleBarCloseSource
-                color: MoneroComponents.Style.defaultFontColor
+                image: ItaloComponents.Style.titleBarCloseSource
+                color: ItaloComponents.Style.defaultFontColor
                 fontAwesomeFallbackIcon: FontAwesome.timesRectangle
                 fontAwesomeFallbackSize: 18
-                fontAwesomeFallbackOpacity: MoneroComponents.Style.blackTheme ? 0.8 : 0.6
+                fontAwesomeFallbackOpacity: ItaloComponents.Style.blackTheme ? 0.8 : 0.6
                 opacity: 0.75
             }
 
@@ -319,7 +319,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onEntered: parent.color = MoneroComponents.Style.titleBarButtonHoverColor
+                onEntered: parent.color = ItaloComponents.Style.titleBarButtonHoverColor
                 onExited: parent.color = "transparent"
                 onClicked: root.closeClicked();
             }
@@ -331,13 +331,13 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: MoneroComponents.Style.blackTheme ? 1 : 1
-        color: MoneroComponents.Style.titleBarBackgroundBorderColor
+        height: ItaloComponents.Style.blackTheme ? 1 : 1
+        color: ItaloComponents.Style.titleBarBackgroundBorderColor
 
-        MoneroEffects.ColorTransition {
+        ItaloEffects.ColorTransition {
             targetObj: parent
-            blackColor: MoneroComponents.Style._b_titleBarBackgroundBorderColor
-            whiteColor: MoneroComponents.Style._w_titleBarBackgroundBorderColor
+            blackColor: ItaloComponents.Style._b_titleBarBackgroundBorderColor
+            whiteColor: ItaloComponents.Style._w_titleBarBackgroundBorderColor
         }
     }
 

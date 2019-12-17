@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// Copyright (c) 2014-2018, The Italo Project
 // 
 // All rights reserved.
 // 
@@ -30,8 +30,8 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import FontAwesome 1.0
 
-import "." as MoneroComponents
-import "effects/" as MoneroEffects
+import "." as ItaloComponents
+import "effects/" as ItaloEffects
 
 Item {
     id: checkBox
@@ -77,19 +77,19 @@ Item {
                 color: "transparent"
                 border.color:
                     if(checkBox.checked){
-                        return MoneroComponents.Style.inputBorderColorActive;
+                        return ItaloComponents.Style.inputBorderColorActive;
                     } else {
-                        return MoneroComponents.Style.inputBorderColorInActive;
+                        return ItaloComponents.Style.inputBorderColorInActive;
                     }
             }
 
-            MoneroEffects.ImageMask {
+            ItaloEffects.ImageMask {
                 id: img
                 visible: checkBox.checked || checkBox.uncheckedIcon != ""
                 anchors.centerIn: parent
                 width: checkBox.imgWidth
                 height: checkBox.imgHeight
-                color: MoneroComponents.Style.defaultFontColor
+                color: ItaloComponents.Style.defaultFontColor
                 fontAwesomeFallbackIcon: checkBox.fontAwesomeIcons ? getIcon() : FontAwesome.plus
                 fontAwesomeFallbackSize: 14
                 image: checkBox.fontAwesomeIcons ? "" : getIcon()
@@ -102,11 +102,11 @@ Item {
             }
         }
 
-        MoneroComponents.TextPlain {
+        ItaloComponents.TextPlain {
             id: label
-            font.family: MoneroComponents.Style.fontRegular.name
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: checkBox.fontSize
-            color: MoneroComponents.Style.defaultFontColor
+            color: ItaloComponents.Style.defaultFontColor
             textFormat: Text.RichText
             wrapMode: Text.Wrap
         }

@@ -312,7 +312,7 @@ Rectangle {
                     }
                 }
 
-                MoneroComponents.StandardButton {
+                ItaloComponents.StandardButton {
                     text: FontAwesome.eye
                     label.font.family: FontAwesome.fontFamily
                     fontSize: 24

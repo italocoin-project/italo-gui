@@ -86,7 +86,7 @@ Item {
                 color: ItaloComponents.Style.defaultFontColor
             }
 
-            MoneroComponents.Input {
+            ItaloComponents.Input {
                 id : input
                 focus: true
                 Layout.topMargin: 6

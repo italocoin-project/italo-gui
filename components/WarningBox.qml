@@ -2,7 +2,7 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
-import "." as MoneroComponents
+import "." as ItaloComponents
 
 Rectangle {
     id: root
@@ -13,9 +13,9 @@ Rectangle {
     Layout.fillWidth: true
     Layout.preferredHeight: warningLayout.height
 
-    color: MoneroComponents.Style.titleBarButtonHoverColor
+    color: ItaloComponents.Style.titleBarButtonHoverColor
     radius: 4
-    border.color: MoneroComponents.Style.inputBorderColorInActive
+    border.color: ItaloComponents.Style.inputBorderColorInActive
     border.width: 1
 
     signal linkActivated;
@@ -40,8 +40,8 @@ Rectangle {
         Text {
             id: content
             Layout.fillWidth: true
-            color: MoneroComponents.Style.defaultFontColor
-            font.family: MoneroComponents.Style.fontRegular.name
+            color: ItaloComponents.Style.defaultFontColor
+            font.family: ItaloComponents.Style.fontRegular.name
             font.pixelSize: root.fontSize
             horizontalAlignment: TextInput.AlignLeft
             textFormat: Text.RichText

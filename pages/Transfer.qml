@@ -146,7 +146,7 @@ Rectangle {
       RowLayout {
           visible: leftPanel.minutesToUnlock !== ""
 
-          MoneroComponents.WarningBox {
+          ItaloComponents.WarningBox {
               text: qsTr("Spendable funds: %1 XMR. Please wait ~%2 minutes for your whole balance to become spendable.").arg(leftPanel.balanceUnlockedString).arg(leftPanel.minutesToUnlock)
           }
       }
@@ -338,7 +338,7 @@ Rectangle {
           }
       }
 
-      MoneroComponents.WarningBox {
+      ItaloComponents.WarningBox {
           text: qsTr("Description field contents match long payment ID format. \
           Please don't paste long payment ID into description field, your funds might be lost.") + translationManager.emptyString;
           visible: warningLongPidDescription

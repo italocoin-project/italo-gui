@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2019, The Monero Project
+# Copyright (c) 2014-2019, The Italo Project
 # 
 # All rights reserved.
 # 
@@ -37,7 +37,7 @@ if(RET)
     message(WARNING "Cannot determine current commit. Make sure that you are building either from a Git working tree or from a source archive.")
     set(VERSIONTAG "unknown")
     set(VERSION_IS_RELEASE "false")
-    configure_file("monero/src/version.cpp.in" "${TO}")
+    configure_file("italo/src/version.cpp.in" "${TO}")
 else()
 	string(SUBSTRING ${COMMIT} 0 9 COMMIT)
 	message(STATUS "You are currently on commit ${COMMIT}")
@@ -64,5 +64,5 @@ else()
         endif()
     endif()	    
 
-    configure_file("monero/src/version.cpp.in" "${TO}")
+    configure_file("italo/src/version.cpp.in" "${TO}")
 endif()

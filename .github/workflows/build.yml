@@ -14,7 +14,7 @@ jobs:
     - name: build
       run: export PATH=$PATH:/usr/local/opt/qt/bin && ./build.sh
     - name: test qml
-      run: build/release/bin/monero-wallet-gui.app/Contents/MacOS/monero-wallet-gui --test-qml
+      run: build/release/bin/monero-wallet-gui.app/Contents/MacOS/italo-wallet-gui --test-qml
 
   build-ubuntu:
  
@@ -33,7 +33,7 @@ jobs:
     - name: build
       run: ./build.sh
     - name: test qml
-      run: xvfb-run -a build/release/bin/monero-wallet-gui --test-qml
+      run: xvfb-run -a build/release/bin/italo-wallet-gui --test-qml
 
   build-windows:
 
@@ -49,4 +49,4 @@ jobs:
     - name: build
       run: msys2do ./build.sh release
     - name: test qml
-      run: msys2do build/release/bin/monero-wallet-gui --test-qml
+      run: msys2do build/release/bin/italo-wallet-gui --test-qml

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(italo-gui)
 
 message(STATUS "Initiating compile using CMake ${CMAKE_VERSION}")
@@ -79,9 +79,14 @@ add_subdirectory(italo)
 set_property(TARGET wallet_merged PROPERTY FOLDER "italo")
 get_directory_property(ARCH_WIDTH DIRECTORY "italo" DEFINITION ARCH_WIDTH)
 
+if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_definitions(-DQT_NO_DEBUG)
+endif()
+
 if(STATIC)
-	message(STATUS "Initiating static build")
-	set(Boost_USE_STATIC_LIBS ON)
+  message(STATUS "Initiating static build")
+  set(Boost_USE_STATIC_LIBS ON)
+  set(Boost_USE_STATIC_RUNTIME ON)
   set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
   add_definitions(-DMONERO_GUI_STATIC)
 endif()
@@ -129,8 +134,6 @@ italo_gui_add_library(gui_version SOURCES version.js DEPENDS genversiongui)
 
 message(STATUS "${CMAKE_MODULE_PATH}")
 
-find_package(X11 REQUIRED)
-
 # OpenSSL
 find_package(OpenSSL REQUIRED)
 message(STATUS "OpenSSL: Version ${OPENSSL_VERSION}")
@@ -174,7 +177,7 @@ find_package(Boost 1.62 REQUIRED COMPONENTS
 		program_options
 		locale)
 
-if(LINUX)
+if(UNIX AND NOT APPLE)
     find_package(X11 REQUIRED)
     message(STATUS "X11_FOUND = ${X11_FOUND}")
     message(STATUS "X11_INCLUDE_DIR = ${X11_INCLUDE_DIR}")
@@ -407,4 +410,3 @@ add_subdirectory(src)
 
 # Required to make wallet_merged build before the gui
 add_dependencies(italo-gui wallet_merged)
-

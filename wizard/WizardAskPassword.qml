@@ -47,7 +47,7 @@ ColumnLayout {
     }
 
     function calcPasswordStrength(inp) {
-        if(isAndroid) return;
+        if(!progressLayout.visible) return;
         if(passwordInput.text.length <= 1){
             root.passwordFill = 0;
             progressText.text = passwordStrengthText + qsTr("Low") + translationManager.emptyString;
@@ -87,12 +87,13 @@ ColumnLayout {
     }
 
     ItaloComponents.WarningBox {
-        text: qsTr("<b>Enter a strong password</b> (Using letters, numbers, and/or symbols).") + translationManager.emptyString
+        text: "<b>%1</b> (%2).".arg(qsTr("Enter a strong password")).arg(qsTr("Using letters, numbers, and/or symbols")) + translationManager.emptyString
     }
 
     ColumnLayout {
+        id: progressLayout
         spacing: 0
-        visible: !isAndroid
+        visible: !isAndroid && walletManager.getPasswordStrength !== undefined
         Layout.fillWidth: true
 
         TextInput {
@@ -136,119 +137,28 @@ ColumnLayout {
         }
     }
 
-    ColumnLayout {
-        spacing: 4
+    ItaloComponents.LineEdit {
+        id: passwordInput
         Layout.fillWidth: true
+        KeyNavigation.tab: passwordInputConfirm
 
-        Label {
-            text: qsTr("Password") + translationManager.emptyString
-            Layout.fillWidth: true
+        labelFontSize: 14
+        password: true
 
-            font.pixelSize: 14
-            font.family: ItaloComponents.Style.fontLight.name
-
-            color: ItaloComponents.Style.defaultFontColor
-        }
-
-        ItaloComponents.Input {
-            id: passwordInput
-
-            Layout.topMargin: 6
-            Layout.fillWidth: true
-
-            bottomPadding: 10
-            leftPadding: 10
-            topPadding: 10
-
-            horizontalAlignment: TextInput.AlignLeft
-            verticalAlignment: TextInput.AlignVCenter
-            echoMode: TextInput.Password
-            KeyNavigation.tab: passwordInputConfirm
-
-            font.family: ItaloComponents.Style.fontLight.name
-            font.pixelSize: 15
-            color: ItaloComponents.Style.defaultFontColor
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-            text: walletOptionsPassword
-
-            background: Rectangle {
-                radius: 4
-                border.color: ItaloComponents.Style.inputBorderColorActive
-                border.width: 1
-                color: "transparent"
-
-                ItaloComponents.Label {
-                    fontSize: 18
-                    text: FontAwesome.lock
-                    opacity: 0.5
-                    fontFamily: FontAwesome.fontFamilySolid
-                    styleName: "Solid"
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 1
-                }
-            }
-        }
+        labelText: qsTr("Password") + translationManager.emptyString
+        text: walletOptionsPassword
     }
 
-    ColumnLayout {
-        spacing: 4
+    ItaloComponents.LineEdit {
+        id: passwordInputConfirm
         Layout.fillWidth: true
+        Layout.topMargin: 8
+        KeyNavigation.tab: passwordInputConfirm
 
-        Label {
-            text: qsTr("Password (confirm)") + translationManager.emptyString
-            Layout.fillWidth: true
+        labelFontSize: 14
+        passwordLinked: passwordInput
 
-            font.pixelSize: 14
-            font.family: ItaloComponents.Style.fontLight.name
-
-            color: ItaloComponents.Style.defaultFontColor
-        }
-
-        ItaloComponents.Input {
-            id : passwordInputConfirm
-            
-            Layout.topMargin: 6
-            Layout.fillWidth: true
-
-            bottomPadding: 10
-            leftPadding: 10
-            topPadding: 10
-
-            horizontalAlignment: TextInput.AlignLeft
-            verticalAlignment: TextInput.AlignVCenter
-            echoMode: TextInput.Password
-            KeyNavigation.tab: passwordInputConfirm
-
-            font.family: ItaloComponents.Style.fontLight.name
-            font.pixelSize: 15
-            color: ItaloComponents.Style.defaultFontColor
-            selectionColor: ItaloComponents.Style.textSelectionColor
-            selectedTextColor: ItaloComponents.Style.textSelectedColor
-
-            text: walletOptionsPassword
-
-            background: Rectangle {
-                radius: 4
-                border.color: ItaloComponents.Style.inputBorderColorActive
-                border.width: 1
-                color: "transparent"
-
-                ItaloComponents.Label {
-                    fontSize: 18
-                    text: FontAwesome.lock
-                    opacity: 0.5
-                    fontFamily: FontAwesome.fontFamilySolid
-                    styleName: "Solid"
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 1
-                }
-            }
-        }
+        labelText: qsTr("Password (confirm)") + translationManager.emptyString
+        text: walletOptionsPassword
     }
 }

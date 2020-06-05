@@ -65,9 +65,9 @@ Rectangle {
 
             WizardNav {
                 Layout.topMargin: 24
-                btnNextText: qsTr("Open wallet") + translationManager.emptyString
-                progressSteps: 4
-                progress: 4
+                btnNextText: qsTr("Create wallet") + translationManager.emptyString
+                progressSteps: appWindow.walletMode <= 1 ? 3 : 4
+                progress: appWindow.walletMode <= 1 ? 2 : 3
 
                 onPrevClicked: {
                     if (appWindow.walletMode <= 1){
@@ -77,9 +77,10 @@ Rectangle {
                     }
                 }
                 onNextClicked: {
-                    wizardController.writeWallet();
-                    wizardController.useItaloClicked();
-                    wizardController.walletOptionsIsRecoveringFromDevice = false;
+                    wizardController.writeWallet(function() {
+                        wizardController.useItaloClicked();
+                        wizardController.walletOptionsIsRecoveringFromDevice = false;
+                    });
                 }
             }
         }

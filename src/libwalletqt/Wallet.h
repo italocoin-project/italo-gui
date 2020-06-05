@@ -29,8 +29,8 @@
 #ifndef WALLET_H
 #define WALLET_H
 
+#include <QElapsedTimer>
 #include <QObject>
-#include <QTime>
 #include <QMutex>
 #include <QList>
 #include <QJSValue>
@@ -41,9 +41,11 @@
 #include "PendingTransaction.h" // we need to have an access to the PendingTransaction::Priority enum here;
 #include "UnsignedTransaction.h"
 #include "NetworkType.h"
+#include "PassphraseHelper.h"
+#include "WalletListenerImpl.h"
 
 namespace Italo {
-    class Wallet; // forward declaration
+struct Wallet; // forward declaration
 }
 
 
@@ -57,9 +59,10 @@ class SubaddressModel;
 class SubaddressAccount;
 class SubaddressAccountModel;
 
-class Wallet : public QObject
+class Wallet : public QObject, public PassprasePrompter
 {
     Q_OBJECT
+    Q_PROPERTY(bool disconnected READ disconnected NOTIFY disconnectedChanged)
     Q_PROPERTY(QString seed READ getSeed)
     Q_PROPERTY(QString seedLanguage READ getSeedLanguage)
     Q_PROPERTY(Status status READ status)
@@ -73,7 +76,7 @@ class Wallet : public QObject
     Q_PROPERTY(TransactionHistorySortFilterModel * historyModel READ historyModel NOTIFY historyModelChanged)
     Q_PROPERTY(QString path READ path)
     Q_PROPERTY(AddressBookModel * addressBookModel READ addressBookModel)
-    Q_PROPERTY(AddressBook * addressBook READ addressBook)
+    Q_PROPERTY(AddressBook * addressBook READ addressBook NOTIFY addressBookChanged)
     Q_PROPERTY(SubaddressModel * subaddressModel READ subaddressModel)
     Q_PROPERTY(Subaddress * subaddress READ subaddress)
     Q_PROPERTY(SubaddressAccountModel * subaddressAccountModel READ subaddressAccountModel)
@@ -100,7 +103,8 @@ public:
     enum ConnectionStatus {
         ConnectionStatus_Connected       = Italo::Wallet::ConnectionStatus_Connected,
         ConnectionStatus_Disconnected    = Italo::Wallet::ConnectionStatus_Disconnected,
-        ConnectionStatus_WrongVersion    = Italo::Wallet::ConnectionStatus_WrongVersion
+        ConnectionStatus_WrongVersion    = Italo::Wallet::ConnectionStatus_WrongVersion,
+        ConnectionStatus_Connecting
     };
 
     Q_ENUM(ConnectionStatus)
@@ -142,7 +146,7 @@ public:
 
     //! saves wallet to the file by given path
     //! empty path stores in current location
-    Q_INVOKABLE bool store(const QString &path = "");
+    Q_INVOKABLE void storeAsync(const QJSValue &callback, const QString &path = "");
 
     //! initializes wallet asynchronously
     Q_INVOKABLE void initAsync(const QString &daemonAddress, bool trustedDaemon = false, quint64 upperTransactionLimit = 0, bool isRecovering = false, bool isRecoveringFromDevice = false, quint64 restoreHeight = 0);
@@ -160,10 +164,12 @@ public:
     Q_INVOKABLE void setTrustedDaemon(bool arg);
 
     //! returns balance
+    Q_INVOKABLE quint64 balance() const;
     Q_INVOKABLE quint64 balance(quint32 accountIndex) const;
     Q_INVOKABLE quint64 balanceAll() const;
 
     //! returns unlocked balance
+    Q_INVOKABLE quint64 unlockedBalance() const;
     Q_INVOKABLE quint64 unlockedBalance(quint32 accountIndex) const;
     Q_INVOKABLE quint64 unlockedBalanceAll() const;
 
@@ -181,6 +187,7 @@ public:
     //! hw-device backed wallets
     Q_INVOKABLE bool isHwBacked() const;
     Q_INVOKABLE bool isLedger() const;
+    Q_INVOKABLE bool isTrezor() const;
 
     //! returns if view only wallet
     Q_INVOKABLE bool viewOnly() const;
@@ -245,6 +252,11 @@ public:
 
     //! deletes unsigned transaction and frees memory
     Q_INVOKABLE void disposeTransaction(UnsignedTransaction * t);
+
+    Q_INVOKABLE void estimateTransactionFeeAsync(const QString &destination,
+                                                 quint64 amount,
+                                                 PendingTransaction::Priority priority,
+                                                 const QJSValue &callback);
 
     //! returns transaction history
     TransactionHistory * history() const;
@@ -339,6 +351,10 @@ public:
     Q_INVOKABLE void segregationHeight(quint64 height);
     Q_INVOKABLE void keyReuseMitigation2(bool mitigation);
 
+    // Passphrase entry for hardware wallets
+    Q_INVOKABLE void onPassphraseEntered(const QString &passphrase, bool enter_on_device, bool entry_abort=false);
+    virtual void onWalletPassphraseNeeded(bool on_device) override;
+
     // TODO: setListenter() when it implemented in API
 signals:
     // emitted on every event happened with wallet
@@ -353,10 +369,12 @@ signals:
     void moneyReceived(const QString &txId, quint64 amount);
     void unconfirmedMoneyReceived(const QString &txId, quint64 amount);
     void newBlock(quint64 height, quint64 targetHeight);
+    void addressBookChanged() const;
     void historyModelChanged() const;
     void walletCreationHeightChanged();
     void deviceButtonRequest(quint64 buttonCode);
     void deviceButtonPressed();
+    void walletPassphraseNeeded(bool onDevice);
     void transactionCommitted(bool status, PendingTransaction *t, const QStringList& txid);
     void heightRefreshed(quint64 walletHeight, quint64 daemonHeight, quint64 targetHeight) const;
     void deviceShowAddressShowed();
@@ -366,6 +384,7 @@ signals:
 
     void connectionStatusChanged(int status) const;
     void currentSubaddressAccountChanged() const;
+    void disconnectedChanged() const;
 
 private:
     Wallet(QObject * parent = nullptr);
@@ -385,6 +404,9 @@ private:
     //! initializes wallet
     bool init(const QString &daemonAddress, bool trustedDaemon, quint64 upperTransactionLimit, bool isRecovering, bool isRecoveringFromDevice, quint64 restoreHeight);
 
+    bool disconnected() const;
+    void setConnectionStatus(ConnectionStatus value);
+
 private:
     friend class WalletManager;
     friend class WalletListenerImpl;
@@ -398,15 +420,16 @@ private:
     QString m_paymentId;
     AddressBook * m_addressBook;
     mutable AddressBookModel * m_addressBookModel;
-    mutable QTime   m_daemonBlockChainHeightTime;
+    mutable QElapsedTimer m_daemonBlockChainHeightTime;
     mutable quint64 m_daemonBlockChainHeight;
     int     m_daemonBlockChainHeightTtl;
-    mutable QTime   m_daemonBlockChainTargetHeightTime;
+    mutable QElapsedTimer m_daemonBlockChainTargetHeightTime;
     mutable quint64 m_daemonBlockChainTargetHeight;
     int     m_daemonBlockChainTargetHeightTtl;
     mutable ConnectionStatus m_connectionStatus;
     int     m_connectionStatusTtl;
-    mutable QTime   m_connectionStatusTime;
+    mutable QElapsedTimer m_connectionStatusTime;
+    bool m_disconnected;
     mutable bool    m_initialized;
     uint32_t m_currentSubaddressAccount;
     Subaddress * m_subaddress;
@@ -417,8 +440,9 @@ private:
     bool m_connectionStatusRunning;
     QString m_daemonUsername;
     QString m_daemonPassword;
-    Italo::WalletListener *m_walletListener;
+    WalletListenerImpl *m_walletListener;
     FutureScheduler m_scheduler;
+    QMutex m_storeMutex;
 };
 
 

@@ -8,8 +8,7 @@ set(VERSION_MINOR "0")
 set(VERSION_REVISION "3")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_REVISION}")
 
-# libwallet requires a static build, so we only allow static compilation
-set(STATIC ON)
+option(STATIC "Link libraries statically, requires static Qt")
 
 option(USE_DEVICE_TREZOR ON)
 option(ENABLE_PASS_STRENGTH_METER "Disable zxcvbn" OFF)
@@ -17,6 +16,11 @@ option(WITH_SCANNER "Enable webcam QR scanner" OFF)
 option(DEV_MODE "Checkout latest italo master on build" OFF)
 
 list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_SOURCE_DIR}/cmake")
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
+include(CheckLinkerFlag)
+include(FindCcache)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -27,7 +31,7 @@ endif()
 set(BUILD_GUI_DEPS ON)
 set(ARCH "x86-64")
 set(BUILD_64 ON)
-set(INSTALL_VENDORED_LIBUNBOUND=ON)
+set(INSTALL_VENDORED_LIBUNBOUND ${STATIC})
 
 function (add_c_flag_if_supported flag var)
   string(REPLACE "-" "_" supported ${flag}_c)
@@ -221,16 +225,22 @@ endif()
 set(QT5_LIBRARIES
   Qt5Core
   Qt5Quick
-  Qt5QuickControls2
   Qt5Widgets
   Qt5Gui
   Qt5Network
   Qt5Qml
-  Qt5Multimedia
-  Qt5Xml
-  Qt5XmlPatterns
   Qt5Svg
 )
+
+if(WITH_SCANNER)
+  list(APPEND QT5_LIBRARIES Qt5Multimedia)
+endif()
+
+# TODO: drop this once we switch to Qt 5.14+
+find_package(Qt5QmlModels QUIET)
+if(Qt5QmlModels_FOUND)
+  list(APPEND QT5_LIBRARIES Qt5QmlModels)
+endif()
 
 foreach(QT5_MODULE ${QT5_LIBRARIES})
   find_package(${QT5_MODULE} REQUIRED)
@@ -337,6 +347,8 @@ if(APPLE)
 endif()
 
 # warnings
+add_c_flag_if_supported(-Werror C_SECURITY_FLAGS)
+add_cxx_flag_if_supported(-Werror CXX_SECURITY_FLAGS)
 add_c_flag_if_supported(-Wformat C_SECURITY_FLAGS)
 add_cxx_flag_if_supported(-Wformat CXX_SECURITY_FLAGS)
 add_c_flag_if_supported(-Wformat-security C_SECURITY_FLAGS)
@@ -382,13 +394,36 @@ if (noexecheap_SUPPORTED)
   set(LD_SECURITY_FLAGS "${LD_SECURITY_FLAGS} -Wl,-z,noexecheap")
 endif()
 
+# some windows linker bits
+if (WIN32)
+  add_linker_flag_if_supported(-Wl,--dynamicbase LD_SECURITY_FLAGS)
+  add_linker_flag_if_supported(-Wl,--nxcompat LD_SECURITY_FLAGS)
+  add_linker_flag_if_supported(-Wl,--high-entropy-va LD_SECURITY_FLAGS)
+endif()
+
+if(STATIC)
+  add_linker_flag_if_supported(-static-libgcc STATIC_FLAGS)
+  add_linker_flag_if_supported(-static-libstdc++ STATIC_FLAGS)
+  if(MINGW)
+    add_linker_flag_if_supported(-static STATIC_FLAGS)
+  endif()
+endif()
+
+# With GCC 6.1.1 the compiled binary malfunctions due to aliasing. Until that
+# is fixed in the code (Issue #847), force compiler to be conservative.
+add_c_flag_if_supported(-fno-strict-aliasing C_SECURITY_FLAGS)
+add_cxx_flag_if_supported(-fno-strict-aliasing CXX_SECURITY_FLAGS)
+
+add_c_flag_if_supported(-fPIC C_SECURITY_FLAGS)
+add_cxx_flag_if_supported(-fPIC CXX_SECURITY_FLAGS)
+
 message(STATUS "Using C security hardening flags: ${C_SECURITY_FLAGS}")
 message(STATUS "Using C++ security hardening flags: ${CXX_SECURITY_FLAGS}")
 message(STATUS "Using linker security hardening flags: ${LD_SECURITY_FLAGS}")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${C_SECURITY_FLAGS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_SECURITY_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LD_SECURITY_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 ${C_SECURITY_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ${CXX_SECURITY_FLAGS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LD_SECURITY_FLAGS} ${STATIC_FLAGS}")
 
 if (HIDAPI_FOUND OR LibUSB_COMPILE_TEST_PASSED)
   if (APPLE)
@@ -409,4 +444,5 @@ endif()
 add_subdirectory(src)
 
 # Required to make wallet_merged build before the gui
-add_dependencies(italo-gui wallet_merged)
+add_dependencies(italo-wallet-gui wallet_merged)
+

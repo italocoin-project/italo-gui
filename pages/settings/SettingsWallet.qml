@@ -30,14 +30,15 @@ import QtQuick 2.9
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 import QtQuick.Dialogs 1.2
+import FontAwesome 1.0
 
 import "../../js/Utils.js" as Utils
 import "../../components" as ItaloComponents
 
 Rectangle {
     color: "transparent"
-    height: 1400
     Layout.fillWidth: true
+    property alias settingsHeight: settingsWallet.height
 
     ColumnLayout {
         id: settingsWallet
@@ -47,23 +48,18 @@ Rectangle {
         anchors.right: parent.right
         anchors.margins: 20
         anchors.topMargin: 0
-        spacing: 8
+        spacing: 0
 
         ItaloComponents.SettingsListItem {
-            buttonText: qsTr("Close wallet") + translationManager.emptyString
+            iconText: FontAwesome.signOutAlt
             description: qsTr("Logs out of this wallet.") + translationManager.emptyString
             title: qsTr("Close this wallet") + translationManager.emptyString
 
-            onClicked: {
-                middlePanel.addressBookView.clearFields();
-                middlePanel.transferView.clearFields();
-                middlePanel.receiveView.clearFields();
-                appWindow.showWizard();
-            }
+            onClicked: appWindow.showWizard()
         }
 
         ItaloComponents.SettingsListItem {
-            buttonText: qsTr("Create wallet") + translationManager.emptyString
+            iconText: FontAwesome.eye
             description: qsTr("Creates a new wallet that can only view and initiate transactions, but requires a spendable wallet to sign transactions before sending.") + translationManager.emptyString
             title: qsTr("Create a view-only wallet") + translationManager.emptyString
             visible: !appWindow.viewOnly
@@ -85,7 +81,7 @@ Rectangle {
         }
 
         ItaloComponents.SettingsListItem {
-            buttonText: qsTr("Show seed") + translationManager.emptyString
+            iconText: FontAwesome.key
             description: qsTr("Store this information safely to recover your wallet in the future.") + translationManager.emptyString
             title: qsTr("Show seed & keys") + translationManager.emptyString
 
@@ -95,7 +91,7 @@ Rectangle {
         }
 
         ItaloComponents.SettingsListItem {
-            buttonText: qsTr("Rescan") + translationManager.emptyString
+            iconText: FontAwesome.repeat
             description: qsTr("Use this feature if you think the shown balance is not accurate.") + translationManager.emptyString
             title: qsTr("Rescan wallet balance") + translationManager.emptyString
             visible: appWindow.walletMode >= 2
@@ -119,7 +115,7 @@ Rectangle {
         }
 
         ItaloComponents.SettingsListItem {
-            buttonText: qsTr("Change password") + translationManager.emptyString
+            iconText: FontAwesome.ellipsisH
             description: qsTr("Change the password of your wallet.") + translationManager.emptyString
             title: qsTr("Change wallet password") + translationManager.emptyString
 
@@ -138,6 +134,19 @@ Rectangle {
                 }
                 passwordDialog.onRejectedCallback = null;
                 passwordDialog.open()
+            }
+        }
+
+        ItaloComponents.SettingsListItem {
+            iconText: FontAwesome.cashRegister
+            isLast: true
+            description: qsTr("Receive Italo for your business, easily.") + translationManager.emptyString
+            title: qsTr("Enter merchant mode") + translationManager.emptyString
+
+            onClicked: {
+                middlePanel.state = "Merchant";
+                middlePanel.flickable.contentY = 0;
+                updateBalance();
             }
         }
     }

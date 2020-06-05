@@ -53,6 +53,7 @@ Item {
     property alias fontPixelSize: inlineText.font.pixelSize
     property alias fontFamily: inlineText.font.family
     property alias buttonColor: rect.color
+    property alias buttonHeight: rect.height
     signal clicked()
 
     function doClick() {
@@ -125,6 +126,8 @@ Item {
         source: rect
     }
 
+    Keys.enabled: inlineButton.visible
     Keys.onSpacePressed: doClick()
+    Keys.onEnterPressed: Keys.onReturnPressed(event)
     Keys.onReturnPressed: doClick()
 }

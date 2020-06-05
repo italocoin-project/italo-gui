@@ -186,6 +186,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
+            boundsBehavior: isMac ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
             ScrollBar.vertical: ScrollBar {
                 parent: root
@@ -195,6 +196,7 @@ Rectangle {
                 anchors.topMargin: persistentSettings.customDecorations ? 60 : 10
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: persistentSettings.customDecorations ? 15 : 10
+                onActiveChanged: if (!active && !isMac) active = true
             }
 
             onFlickingChanged: {

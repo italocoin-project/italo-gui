@@ -309,8 +309,8 @@ Rectangle {
                 width: 16
                 image: ItaloComponents.Style.titleBarCloseSource
                 color: ItaloComponents.Style.defaultFontColor
-                fontAwesomeFallbackIcon: FontAwesome.timesRectangle
-                fontAwesomeFallbackSize: 18
+                fontAwesomeFallbackIcon: FontAwesome.times
+                fontAwesomeFallbackSize: 21
                 fontAwesomeFallbackOpacity: ItaloComponents.Style.blackTheme ? 0.8 : 0.6
                 opacity: 0.75
             }

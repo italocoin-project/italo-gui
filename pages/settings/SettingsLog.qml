@@ -37,8 +37,8 @@ import "../../components" as ItaloComponents
 Rectangle {
     property alias consoleArea: consoleArea
     color: "transparent"
-    height: 1400
     Layout.fillWidth: true
+    property alias logHeight: settingsLog.height
 
     ColumnLayout {
         id: settingsLog
@@ -150,6 +150,7 @@ Rectangle {
             Flickable {
                 id: flickable
                 anchors.fill: parent
+                boundsBehavior: isMac ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
                 TextArea.flickable: TextArea {
                     id : consoleArea
@@ -158,7 +159,7 @@ Rectangle {
                     textFormat: TextEdit.RichText
                     selectByMouse: true
                     selectByKeyboard: true
-                    font.family: ItaloComponents.Style.defaultFontColor
+                    font.family: ItaloComponents.Style.fontRegular.name
                     font.pixelSize: 14
                     wrapMode: TextEdit.Wrap
                     readOnly: true
@@ -203,7 +204,9 @@ Rectangle {
                     }
                 }
 
-                ScrollBar.vertical: ScrollBar {}
+                ScrollBar.vertical: ScrollBar {
+                    onActiveChanged: if (!active && !isMac) active = true
+                }
             }
         }
 
@@ -228,9 +231,6 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        logLevelDropdown.currentIndex = appWindow.persistentSettings.logLevel;
-        logLevelDropdown.update();
-
         if(typeof daemonManager != "undefined")
             daemonManager.daemonConsoleUpdated.connect(onDaemonConsoleUpdated)
     }

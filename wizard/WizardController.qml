@@ -59,6 +59,7 @@ Rectangle {
         wizardController.walletOptionsLocation = '';
         wizardController.walletOptionsPassword = '';
         wizardController.walletOptionsSeed = '';
+        wizardController.walletOptionsSeedOffset = '';
         wizardController.walletOptionsRecoverAddress = ''
         wizardController.walletOptionsRecoverViewkey = ''
         wizardController.walletOptionsRecoverSpendkey = ''
@@ -82,7 +83,6 @@ Rectangle {
 
     property var m_wallet;
     property alias wizardState: wizardStateView.state
-    property alias wizardStatePrevious: wizardStateView.previousView
     property alias wizardStackView: stackView
     property int wizardSubViewWidth: 780
     property int wizardSubViewTopMargin: persistentSettings.customDecorations ? 90 : 32
@@ -93,6 +93,7 @@ Rectangle {
     property string walletOptionsLocation: ''
     property string walletOptionsPassword: ''
     property string walletOptionsSeed: ''
+    property string walletOptionsSeedOffset: ''
     property string walletOptionsRecoverAddress: ''
     property string walletOptionsRecoverViewkey: ''
     property string walletOptionsRecoverSpendkey: ''
@@ -115,8 +116,6 @@ Rectangle {
     // recovery made (restore wallet)
     property string walletRestoreMode: 'seed'  // seed, keys, qr
 
-    // flickable margin
-    property int flickableHeightMargin: 200
 
     property int layoutScale: {
         if(appWindow.width < 800){
@@ -148,18 +147,8 @@ Rectangle {
         property WizardModeBootstrap wizardModeBootstrapView: WizardModeBootstrap {}
         anchors.fill: parent
 
-        signal previousClicked;
-
         color: "transparent"
         state: ''
-
-        onPreviousClicked: {
-            if (previousView && previousView.viewName != null){
-                state = previousView.viewName;
-            } else {
-                state = "wizardHome";
-            }
-        }
 
         onCurrentViewChanged: {
             if (previousView) {
@@ -267,6 +256,7 @@ Rectangle {
             id: wizardFlickable
             anchors.fill: parent
             clip: true
+            boundsBehavior: isMac ? Flickable.DragAndOvershootBounds : Flickable.StopAtBounds
 
             ScrollBar.vertical: ScrollBar {
                 parent: wizardController
@@ -276,6 +266,7 @@ Rectangle {
                 anchors.topMargin: persistentSettings.customDecorations ? 60 : 10
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: persistentSettings.customDecorations ? 15 : 10
+                onActiveChanged: if (!active && !isMac) active = true
             }
 
             onFlickingChanged: {
@@ -353,42 +344,48 @@ Rectangle {
         wizardController.tmpWalletFilename = tmp_wallet_filename
     }
 
-    function writeWallet() {
+    function writeWallet(onSuccess) {
         // Save wallet files in user specified location
         var new_wallet_filename = Wizard.createWalletPath(
             isIOS,
             wizardController.walletOptionsLocation,
             wizardController.walletOptionsName);
 
-        if(isIOS) {
-            console.log("saving in ios: " + italoAccountsDir + new_wallet_filename)
-            wizardController.m_wallet.store(italoAccountsDir + new_wallet_filename);
-        } else {
-            console.log("saving in wizard: " + new_wallet_filename)
-            wizardController.m_wallet.store(new_wallet_filename);
+        const handler = function(success) {
+            if (!success) {
+                appWindow.showStatusMessage(qsTr("Failed to store the wallet"), 3);
+                return;
+            }
+
+            // make sure temporary wallet files are deleted
+            console.log("Removing temporary wallet: " + wizardController.tmpWalletFilename)
+            oshelper.removeTemporaryWallet(wizardController.tmpWalletFilename)
+
+            // protecting wallet with password
+            wizardController.m_wallet.setPassword(wizardController.walletOptionsPassword);
+
+            // save to persistent settings
+            persistentSettings.language = wizardController.language_language
+            persistentSettings.locale   = wizardController.language_locale
+
+            persistentSettings.account_name = wizardController.walletOptionsName
+            persistentSettings.wallet_path = wizardController.m_wallet.path;
+            persistentSettings.restore_height = (isNaN(walletOptionsRestoreHeight))? 0 : walletOptionsRestoreHeight
+
+            persistentSettings.allow_background_mining = false
+            persistentSettings.is_recovering = (wizardController.walletOptionsIsRecovering === undefined) ? false : wizardController.walletOptionsIsRecovering
+            persistentSettings.is_recovering_from_device = (wizardController.walletOptionsIsRecoveringFromDevice === undefined) ? false : wizardController.walletOptionsIsRecoveringFromDevice
+
+            restart();
+
+            onSuccess();
+        };
+
+        if (isIOS) {
+            new_wallet_filename = italoAccountsDir + new_wallet_filename;
         }
-
-        // make sure temporary wallet files are deleted
-        console.log("Removing temporary wallet: " + wizardController.tmpWalletFilename)
-        oshelper.removeTemporaryWallet(wizardController.tmpWalletFilename)
-
-        // protecting wallet with password
-        wizardController.m_wallet.setPassword(wizardController.walletOptionsPassword);
-
-        // Store password in session to be able to use password protected functions (e.g show seed)
-        appWindow.walletPassword = walletOptionsPassword
-
-        // save to persistent settings
-        persistentSettings.language = wizardController.language_language
-        persistentSettings.locale   = wizardController.language_locale
-
-        persistentSettings.account_name = wizardController.walletOptionsName
-        persistentSettings.wallet_path = new_wallet_filename
-        persistentSettings.restore_height = (isNaN(walletOptionsRestoreHeight))? 0 : walletOptionsRestoreHeight
-
-        persistentSettings.allow_background_mining = false
-        persistentSettings.is_recovering = (wizardController.walletOptionsIsRecovering === undefined) ? false : wizardController.walletOptionsIsRecovering
-        persistentSettings.is_recovering_from_device = (wizardController.walletOptionsIsRecoveringFromDevice === undefined) ? false : wizardController.walletOptionsIsRecoveringFromDevice
+        console.log("saving new wallet to", new_wallet_filename);
+        wizardController.m_wallet.storeAsync(handler, new_wallet_filename);
     }
 
     function recoveryWallet() {
@@ -406,7 +403,7 @@ Rectangle {
         var wallet = ''
         // From seed or keys
         if(wizardController.walletRestoreMode === 'seed')
-            wallet = walletManager.recoveryWallet(tmp_wallet_filename, wizardController.walletOptionsSeed, nettype, restoreHeight, kdfRounds)
+            wallet = walletManager.recoveryWallet(tmp_wallet_filename, wizardController.walletOptionsSeed, wizardController.walletOptionsSeedOffset, nettype, restoreHeight, kdfRounds);
         else
             wallet = walletManager.createWalletFromKeys(tmp_wallet_filename, wizardController.language_wallet, nettype,
                                                             wizardController.walletOptionsRecoverAddress, wizardController.walletOptionsRecoverViewkey,
@@ -493,19 +490,24 @@ Rectangle {
         walletCreatedFromDevice(success);
     }
 
-    function onWalletPassphraseNeeded(){
+    function onWalletPassphraseNeeded(on_device){
         splash.close()
 
         console.log(">>> wallet passphrase needed: ");
-        passwordDialog.onAcceptedPassphraseCallback = function() {
-            walletManager.onPassphraseEntered(passwordDialog.password);
+        devicePassphraseDialog.onAcceptedCallback = function(passphrase) {
+            walletManager.onPassphraseEntered(passphrase, false, false);
             creatingWalletDeviceSplash();
         }
-        passwordDialog.onRejectedPassphraseCallback = function() {
-            walletManager.onPassphraseEntered("", true);
+        devicePassphraseDialog.onWalletEntryCallback = function() {
+            walletManager.onPassphraseEntered("", true, false);
             creatingWalletDeviceSplash();
         }
-        passwordDialog.openPassphraseDialog()
+        devicePassphraseDialog.onRejectedCallback = function() {
+            walletManager.onPassphraseEntered("", false, true);
+            creatingWalletDeviceSplash();
+        }
+
+        devicePassphraseDialog.open(on_device)
     }
 
     function onDeviceButtonRequest(code){
@@ -540,20 +542,7 @@ Rectangle {
         if(isIOS)
             persistentSettings.wallet_path = persistentSettings.wallet_path.replace(italoAccountsDir, "");
 
-        console.log(italoAccountsDir);
-        console.log(fn);
-        console.log(persistentSettings.wallet_path);
-
-        passwordDialog.onAcceptedCallback = function() {
-            walletPassword = passwordDialog.password;
-            appWindow.initialize();
-        }
-        passwordDialog.onRejectedCallback = function() {
-            console.log("Canceled");
-            appWindow.viewState = "wizard";
-        }
-
-        passwordDialog.open(appWindow.usefulName(appWindow.walletPath()));
+        appWindow.openWallet();
     }
 
     Component.onCompleted: {

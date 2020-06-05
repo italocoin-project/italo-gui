@@ -4,16 +4,16 @@ Copyright (c) 2014-2019, The Italo Project
 
 ## Development resources
 
-- Web: [italo.network](https://italo.network)
-- Forum: [forum.italo.network](https://forum.italo.network)
-- Mail: [dev@italo.network](mailto:dev@italo.network)
-- Github: [https://github.com/italocoin-project/italo-gui](https://github.com/italocoin-project/italo-gui)
+- Web: [getitalo.org](https://getitalo.org)
+- Mail: [dev@getitalo.org](mailto:dev@getitalo.org)
+- Github: [https://github.com/italo-project/italo-gui](https://github.com/italo-project/italo-gui)
 - IRC: [#italo-dev on Freenode](irc://chat.freenode.net/#italo-dev)
-- Translation platform (Weblate): [translate.italo.network](https://translate.italo.network)
+- Translation platform (Weblate): [translate.getitalo.org](https://translate.getitalo.org)
+- UI Design: [Italo-GUI on Figma](https://www.figma.com/file/DplJ2DDQfIKiuRvolHX2hN/Italo-GUI)
 
 ## Vulnerability response
 
-- Our [Vulnerability Response Process](https://github.com/italocoin-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
+- Our [Vulnerability Response Process](https://github.com/italo-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md) encourages responsible disclosure
 - We are also available via [HackerOne](https://hackerone.com/italo)
 
 ## Introduction
@@ -28,23 +28,27 @@ Italo is a private, secure, untraceable, decentralised digital currency. You are
 
 ## About this project
 
-This is the GUI for the [core Italo implementation](https://github.com/italocoin-project/italo). It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Italo that uses the protocol and network in a compatible manner.
+This is the GUI for the [core Italo implementation](https://github.com/italo-project/italo). It is open source and completely free to use without restrictions, except for those specified in the license agreement below. There are no restrictions on anyone creating an alternative implementation of Italo that uses the protocol and network in a compatible manner.
 
 As with many development projects, the repository on Github is considered to be the "staging" area for the latest changes. Before changes are merged into that branch on the main repository, they are tested by individual developers in their own branches, submitted as a pull request, and then subsequently tested by contributors who focus on testing and code reviews. That having been said, the repository should be carefully considered before using it in a production environment, unless there is a patch in the repository for a particular show-stopping issue you are experiencing. It is generally a better idea to use a tagged release for stability.
 
 ## Supporting the project
 
-Italo is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Italo and Bitcoin donations can be made to **donate.italo.network** if using a client that supports the [OpenAlias](https://openalias.org) standard.
+Italo is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Italo and Bitcoin donations can be made to **donate.getitalo.org** if using a client that supports the [OpenAlias](https://openalias.org) standard.
 
-The Italo donation address is: `ipPQjQYEQsLL7Gv43PpHDLiFLsZzoGuZtEJ8ZCW2is5TGeMNPo66bTKXAAd3m3ceXp4aweqmZnAHt9bWHALkK7xR2MVhF8QFZ` (viewkey: `f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501`)
+The Italo donation address is: `44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A` (viewkey: `f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501`)
 
-The Bitcoin donation address is: `1FgYSKX6hqoxpCba91bigBr7xy9A3e5H1C`
+The Bitcoin donation address is: `1KTexdemPdxSBcG55heUuTjDRYqbC5ZL8H`
 
-The Monero donation address is: `44gNsFFqMf59DiVL3ejpfAdV3H3aFbbYM28XtvBK22SQVESBLpxRrQcFCky2yVH8Wa3FpiBbiNRJ5SQfdsVwJqYpA7XLyec`
+GUI development funding and/or some supporting services are also graciously provided by sponsors:
 
-Core development funding and/or some supporting services are also graciously provided by sponsors:
-
-NONE YET!
+[<img width="80" src="https://static.getitalo.org/images/sponsors/myitalo.png"/>](https://myitalo.com)
+[<img width="150" src="https://static.getitalo.org/images/sponsors/kitware.png?1"/>](http://kitware.com)
+[<img width="100" src="https://static.getitalo.org/images/sponsors/dome9.png"/>](http://dome9.com)
+[<img width="150" src="https://static.getitalo.org/images/sponsors/araxis.png"/>](http://araxis.com)
+[<img width="150" src="https://static.getitalo.org/images/sponsors/jetbrains.png"/>](http://www.jetbrains.com/)
+[<img width="150" src="https://static.getitalo.org/images/sponsors/navicat.png"/>](http://www.navicat.com/)
+[<img width="150" src="https://static.getitalo.org/images/sponsors/symas.png"/>](http://www.symas.com/)
 
 There are also several mining pools that kindly donate a portion of their fees, [a list of them can be found on our Bitcointalk post](https://bitcointalk.org/index.php?topic=583449.0).
 
@@ -54,16 +58,20 @@ See [LICENSE](LICENSE).
 
 ## Translations
 
-Do you speak a second language and would like to help translate the Italo GUI? Check out Pootle, our localization platform, at [translate.italo.network](https://translate.italo.network/projects/italo-gui/). Choose the language and suggest a translation for a string or review an existing one. The Localization Workgroup made [a guide with step-by-step instructions](https://github.com/italo-ecosystem/italo-translations/blob/master/pootle.md) for Pootle.
-&nbsp;
+Do you speak a second language and would like to help translate the Italo GUI? Check out Weblate, our localization platform, at [translate.getitalo.org](https://translate.getitalo.org/). Choose the language and suggest a translation for a string or review an existing one. The Localization Workgroup made [a guide with step-by-step instructions](https://github.com/italo-ecosystem/italo-translations/blob/master/weblate.md) for Weblate.
 
 If you need help/support or any info you can contact the localization workgroup on the IRC channel #italo-translations (relayed on matrix/riot and MatterMost) or by email at translate[at]getitalo[dot]org. For more info about the Localization workgroup: [github.com/italo-ecosystem/italo-translations](https://github.com/italo-ecosystem/italo-translations)
+
+Status of the translations:  
+<a href="https://translate.getitalo.org/engage/italo/?utm_source=widget">
+<img src="https://translate.getitalo.org/widgets/italo/-/gui-wallet/horizontal-auto.svg" alt="Translation status" />
+</a>
 
 ## Installing the Italo GUI from a package
 
 Packages are available for
 
-* Arch Linux via AUR: [italo-wallet-qt](https://aur.archlinux.org/packages/italo-wallet-qt/)
+* Arch Linux: pacman -S italo-gui
 * Void Linux: xbps-install -S italo-core
 * GuixSD: guix package -i italo-core
 
@@ -81,15 +89,15 @@ Packaging for your favorite distribution would be a welcome contribution!
 
   - For Debian distributions (Debian, Ubuntu, Mint, Tails...)
 
-	`sudo apt install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libunwind8-dev pkg-config libssl-dev libzmq3-dev libsodium-dev libhidapi-dev libnorm-dev libusb-1.0-0-dev libpgm-dev`
+	`sudo apt install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libunwind8-dev pkg-config libssl-dev libzmq3-dev libsodium-dev libhidapi-dev libnorm-dev libusb-1.0-0-dev libpgm-dev libprotobuf-dev protobuf-compiler libgcrypt20-dev`
 
   - For Gentoo
 
-	`sudo emerge app-arch/xz-utils app-doc/doxygen dev-cpp/gtest dev-libs/boost dev-libs/expat dev-libs/openssl dev-util/cmake media-gfx/graphviz net-dns/unbound net-libs/ldns net-libs/miniupnpc net-libs/zeromq sys-libs/libunwind dev-libs/libsodium dev-libs/hidapi`
+	`sudo emerge app-arch/xz-utils app-doc/doxygen dev-cpp/gtest dev-libs/boost dev-libs/expat dev-libs/openssl dev-util/cmake media-gfx/graphviz net-dns/unbound net-libs/ldns net-libs/miniupnpc net-libs/zeromq sys-libs/libunwind dev-libs/libsodium dev-libs/hidapi dev-libs/libgcrypt`
 
   - For Fedora
 
-	`sudo dnf install make automake cmake gcc-c++ boost-devel miniupnpc-devel graphviz doxygen unbound-devel libunwind-devel pkgconfig openssl-devel libcurl-devel hidapi-devel libusb-devel zeromq-devel`
+	`sudo dnf install make automake cmake gcc-c++ boost-devel miniupnpc-devel graphviz doxygen unbound-devel libunwind-devel pkgconfig openssl-devel libcurl-devel hidapi-devel libusb-devel zeromq-devel libgcrypt-devel`
 
 2. Install Qt:
 
@@ -122,7 +130,7 @@ The following instructions will fetch Qt from your distribution's repositories i
 
 3. Clone repository
 
-    `git clone https://github.com/italocoin-project/italo-gui.git`
+    `git clone https://github.com/italo-project/italo-gui.git`
 
 4. Build
 
@@ -139,27 +147,13 @@ The executable can be found in the build/release/bin folder.
 
 2. Install [homebrew](http://brew.sh/)
 
-3. Install [italo](https://github.com/italocoin-project/italo) dependencies:
+3. Install [italo](https://github.com/italo-project/italo) dependencies:
 
-  `brew install boost`
-
-  `brew install openssl` - to install openssl headers
-
-  `brew install pkgconfig`
-
-  `brew install cmake`
-
-  `brew install zeromq`
-
-  *Note*: If cmake can not find zmq.hpp file on OS X, installing `zmq.hpp` from https://github.com/zeromq/cppzmq to `/usr/local/include` should fix that error.
+  `brew install boost hidapi zmq libpgm miniupnpc ldns expat libunwind-headers protobuf libgcrypt`
 
 4. Install Qt:
 
   `brew install qt5`  (or download QT 5.9.7+ from [qt.io](https://www.qt.io/download-open-source/))
-
-  If you have an older version of Qt installed via homebrew, you can force it to use 5.x like so:
-  
-  `brew link --force --overwrite qt5`
 
 5. Add the Qt bin directory to your path
 
@@ -168,7 +162,7 @@ The executable can be found in the build/release/bin folder.
 
 6. Grab an up-to-date copy of the italo-gui repository
 
-  `git clone https://github.com/italocoin-project/italo-gui.git`
+  `git clone https://github.com/italo-project/italo-gui.git`
 
 7. Go into the repository
 
@@ -179,19 +173,6 @@ The executable can be found in the build/release/bin folder.
   `./build.sh`
 
 The executable can be found in the `build/release/bin` folder.
-
-**Note:** Workaround for "ERROR: Xcode not set up properly"
-
-Edit `$HOME/Qt/5.9.7/clang_64/mkspecs/features/mac/default_pre.prf`
-
-replace
-`isEmpty($$list($$system("/usr/bin/xcrun -find xcrun 2>/dev/null")))`
-
-with
-`isEmpty($$list($$system("/usr/bin/xcrun -find xcodebuild 2>/dev/null")))`
-
-More info: http://stackoverflow.com/a/35098040/1683164
-
 
 ### On Windows:
 
@@ -204,7 +185,7 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
 3. Install MSYS2 packages for Italo dependencies; the needed 64-bit packages have `x86_64` in their names
 
     ```
-    pacman -S mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-boost mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-libsodium mingw-w64-x86_64-hidapi mingw-w64-x86_64-protobuf-c mingw-w64-x86_64-libusb
+    pacman -S mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-boost mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-libsodium mingw-w64-x86_64-hidapi mingw-w64-x86_64-protobuf-c mingw-w64-x86_64-libusb mingw-w64-x86_64-libgcrypt
     ```
 
     Optional : To build the flag `WITH_SCANNER`
@@ -213,7 +194,7 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
       pacman -S mingw-w64-x86_64-zbar
       ```
 
-    You find more details about those dependencies in the [Italo documentation](https://github.com/italocoin-project/italo). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
+    You find more details about those dependencies in the [Italo documentation](https://github.com/italo-project/italo). Note that that there is no more need to compile Boost from source; like everything else, you can install it now with a MSYS2 package.
 
 4. Install Qt5
 
@@ -232,7 +213,7 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
 6. Clone repository
 
     ```
-    git clone https://github.com/italocoin-project/italo-gui.git
+    git clone https://github.com/italo-project/italo-gui.git
     ```
 
 7. Build
@@ -244,6 +225,6 @@ The Italo GUI on Windows is 64 bits only; 32-bit Windows GUI builds are not offi
     make deploy
     ```
 
-    **Note:** The use of `source` above is a dirty workaround for a suspected bug in the current QT version 5.11.2-3 available in the MSYS2 packaging system, see https://github.com/italocoin-project/italo-gui/issues/1559 for more info.
+    **Note:** The use of `source` above is a dirty workaround for a suspected bug in the current QT version 5.11.2-3 available in the MSYS2 packaging system, see https://github.com/italo-project/italo-gui/issues/1559 for more info.
 
 The executable can be found in the `.\release\bin` directory.

@@ -39,8 +39,8 @@ import "../../components" as ItaloComponents
 
 Rectangle {
     color: "transparent"
-    height: 1400
     Layout.fillWidth: true
+    property alias infoHeight: infoLayout.height
     property string walletModeString: {
         if(appWindow.walletMode === 0){
           return qsTr("Simple mode") + translationManager.emptyString;
@@ -131,15 +131,23 @@ Rectangle {
             }
 
             ItaloComponents.TextBlock {
+                id: walletLocation
                 Layout.fillWidth: true
-                Layout.maximumWidth: 360
                 color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
-                text: {
-                    var wallet_path = walletPath();
-                    if(isIOS)
-                        wallet_path = italoAccountsDir + wallet_path;
-                    return wallet_path;
+                property string walletPath: (isIOS ?  italoAccountsDir : "") + persistentSettings.wallet_path
+                text: "\
+                    <style type='text/css'>\
+                        a {cursor:pointer;text-decoration: none; color: #FF6C3C}\
+                    </style>\
+                    <a href='#'>%1</a>".arg(walletPath)
+                textFormat: Text.RichText
+                onLinkActivated: oshelper.openContainingFolder(walletPath)
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
                 }
             }
 
@@ -175,10 +183,9 @@ Rectangle {
                 color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
                 property var style: "<style type='text/css'>a {cursor:pointer;text-decoration: none; color: #FF6C3C}</style>"
-                text: (currentWallet ? currentWallet.walletCreationHeight : "") + style + qsTr(" <a href='#'> (Click to change)</a>") + translationManager.emptyString
+                text: (currentWallet ? currentWallet.walletCreationHeight : "") + style + " <a href='#'> (%1)</a>".arg(qsTr("Change")) + translationManager.emptyString
                 onLinkActivated: {
                     inputDialog.labelText = qsTr("Set a new restore height.\nYou can enter a block height or a date (YYYY-MM-DD):") + translationManager.emptyString;
-                    inputDialog.inputText = currentWallet ? currentWallet.walletCreationHeight : "0";
                     inputDialog.onAcceptedCallback = function() {
                         var _restoreHeight;
                         if (inputDialog.inputText) {
@@ -206,7 +213,6 @@ Rectangle {
                                                                 + "The old wallet cache file will be renamed and can be restored later.\n"
                                                                 );
                                 confirmationDialog.icon = StandardIcon.Question
-                                confirmationDialog.cancelText = qsTr("Cancel")
                                 confirmationDialog.onAcceptedCallback = function() {
                                     appWindow.closeWallet(function() {
                                         walletManager.clearWalletCache(persistentSettings.wallet_path);
@@ -224,7 +230,7 @@ Rectangle {
                         appWindow.showStatusMessage(qsTr("Invalid restore height specified. Must be a number or a date formatted YYYY-MM-DD"),3);
                     }
                     inputDialog.onRejectedCallback = null;
-                    inputDialog.open()
+                    inputDialog.open(currentWallet ? currentWallet.walletCreationHeight.toFixed(0) : "0")
                 }
 
                 MouseArea {
@@ -262,7 +268,19 @@ Rectangle {
                 Layout.fillWidth: true
                 color: ItaloComponents.Style.dimmedFontColor
                 font.pixelSize: 14
-                text: walletLogPath
+                text: "\
+                    <style type='text/css'>\
+                        a {cursor:pointer;text-decoration: none; color: #FF6C3C}\
+                    </style>\
+                    <a href='#'>%1</a>".arg(walletLogPath)
+                textFormat: Text.RichText
+                onLinkActivated: oshelper.openContainingFolder(walletLogPath)
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
             }
 
             Rectangle {
@@ -371,12 +389,7 @@ Rectangle {
                 var data = "";
                 data += "GUI version: " + Version.GUI_VERSION + " (Qt " + qtRuntimeVersion + ")";
                 data += "\nEmbedded Italo version: " + Version.GUI_MONERO_VERSION;
-                data += "\nWallet path: ";
-
-                var wallet_path = walletPath();
-                if(isIOS)
-                    wallet_path = italoAccountsDir + wallet_path;
-                data += wallet_path;
+                data += "\nWallet path: " + walletLocation.walletPath;
 
                 data += "\nWallet creation height: ";
                 if(currentWallet)

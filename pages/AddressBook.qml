@@ -79,13 +79,6 @@ Rectangle {
                 topPadding: 0
                 text: qsTr("Save your most used addresses here") + translationManager.emptyString
                 width: parent.width
-
-                // @TODO: Legacy. Remove after Qt 5.8.
-                // https://stackoverflow.com/questions/41990013
-                MouseArea {
-                   anchors.fill: parent
-                   enabled: false
-                }
             }
 
             Text {
@@ -99,13 +92,6 @@ Rectangle {
                 topPadding: 0
                 text: qsTr("This makes it easier to send or receive Italo and reduces errors when typing in addresses manually.") + translationManager.emptyString
                 width: parent.width
-
-                // @TODO: Legacy. Remove after Qt 5.8.
-                // https://stackoverflow.com/questions/41990013
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: false
-                }
             }
 
             ItaloComponents.StandardButton {
@@ -306,8 +292,8 @@ Rectangle {
             ItaloComponents.LineEditMulti {
                 id: addressLine
                 Layout.topMargin: 20
-                labelText: qsTr("<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style>\
-                                 Address") + translationManager.emptyString
+                labelText: "<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style> %1"
+                    .arg(qsTr("Address")) + translationManager.emptyString
                 placeholderText: {
                     if(persistentSettings.nettype == NetworkType.MAINNET){
                         return "4.. / 8.. / OpenAlias";
@@ -325,8 +311,6 @@ Rectangle {
                     if (!parsed.error) {
                         addressLine.text = parsed.address;
                         descriptionLine.text = parsed.tx_description;
-                    } else {
-                        addressLine.text = clipboardText;
                     }
                 }
 
@@ -384,8 +368,8 @@ Rectangle {
             ItaloComponents.LineEditMulti {
                 id: descriptionLine
                 Layout.topMargin: 20
-                labelText: qsTr("<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style>\
-                                 Description") + translationManager.emptyString
+                labelText: "<style type='text/css'>a {text-decoration: none; color: #858585; font-size: 14px;}</style> %1"
+                    .arg(qsTr("Description")) + translationManager.emptyString
                 placeholderText: qsTr("Add a name...") + translationManager.emptyString
             }
             RowLayout {

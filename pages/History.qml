@@ -156,7 +156,7 @@ Rectangle {
                 input.bottomPadding: 6
                 fontSize: 16
                 labelFontSize: 14
-                placeholderText: qsTr("Search...") + translationManager.emptyString
+                placeholderText: qsTr("Search by Transaction ID, Address, Description, Amount or Blockheight") + translationManager.emptyString
                 placeholderFontSize: 16
                 inputHeight: 34
                 onTextUpdated: {
@@ -477,7 +477,6 @@ Rectangle {
                                     return;
 
                                 inputDialog.labelText = qsTr("Jump to page (1-%1)").arg(pages) + translationManager.emptyString;
-                                inputDialog.inputText = "1";
                                 inputDialog.onAcceptedCallback = function() {
                                     var pageNumber = parseInt(inputDialog.inputText);
                                     if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pages) {
@@ -634,7 +633,17 @@ Rectangle {
                                 ItaloComponents.TextPlain {
                                     font.family: ItaloComponents.Style.fontRegular.name
                                     font.pixelSize: 15
-                                    text: isout ? qsTr("Sent") : qsTr("Received") + translationManager.emptyString
+                                    text: {
+                                        if (!isout) {
+                                            return qsTr("Received") + translationManager.emptyString;
+                                        }
+                                        const addressBookName = currentWallet ? currentWallet.addressBook.getDescription(address) : null;
+                                        if (!addressBookName)
+                                        {
+                                            return qsTr("Sent") + translationManager.emptyString;
+                                        }
+                                        return addressBookName;
+                                    }
                                     color: ItaloComponents.Style.historyHeaderTextColor
                                     anchors.verticalCenter: parent.verticalCenter
                                     themeTransitionBlackColor: ItaloComponents.Style._b_historyHeaderTextColor
@@ -702,7 +711,7 @@ Rectangle {
                                     font.pixelSize: 15
                                     text: {
                                         if(!isout && confirmationsRequired === 60) return qsTr("Yes") + translationManager.emptyString;
-                                        if(fee !== "") return fee + " XTA";
+                                        if(fee !== "") return fee + " XMR";
                                         return "-";
                                     }
 
@@ -929,7 +938,7 @@ Rectangle {
                                     anchors.leftMargin: 16
                                     width: 28
                                     height: 28
-                                    source: "qrc:///images/miningxta.png"
+                                    source: "qrc:///images/miningxmr.png"
                                 }
 
                                 ItaloComponents.StandardButton {
@@ -1195,7 +1204,7 @@ Rectangle {
                                 if(res[i].state === 'copyable' && res[i].parent.hasOwnProperty('text')) toClipboard(res[i].parent.text);
                                 if(res[i].state === 'copyable_address') root.toClipboard(address);
                                 if(res[i].state === 'copyable_txkey') root.getTxKey(hash, res[i]);
-                                if(res[i].state === 'set_tx_note') root.editDescription(hash);
+                                if(res[i].state === 'set_tx_note') root.editDescription(hash, tx_note);
                                 if(res[i].state === 'details') root.showTxDetails(hash, paymentId, destinations, subaddrAccount, subaddrIndex, dateTime, displayAmount, isout);
                                 if(res[i].state === 'proof') root.showTxProof(hash, paymentId, destinations, subaddrAccount, subaddrIndex);
                                 doCollapse = false;
@@ -1315,7 +1324,7 @@ Rectangle {
             }
 
             ItaloComponents.StandardButton {
-                visible: !isIOS && root.txCount > 0
+                visible: !isIOS
                 small: true
                 text: qsTr("Export all history") + translationManager.emptyString
                 onClicked: {
@@ -1383,7 +1392,7 @@ Rectangle {
             if(root.sortSearchString.length >= 1){
                 if(item.amount && item.amount.toString().startsWith(root.sortSearchString)){
                     txs.push(item);
-                } else if(item.address !== "" && item.address.startsWith(root.sortSearchString)){
+                } else if(item.address !== "" && item.address.toLowerCase().startsWith(root.sortSearchString.toLowerCase())){
                     txs.push(item);
                 } else if(item.blockheight.toString().startsWith(root.sortSearchString)) {
                     txs.push(item);
@@ -1502,7 +1511,7 @@ Rectangle {
                 "i": i,
                 "isout": isout,
                 "amount": Number(amount),
-                "displayAmount": displayAmount + " XTA",
+                "displayAmount": displayAmount + " XMR",
                 "hash": hash,
                 "paymentId": paymentId,
                 "address": address,
@@ -1533,7 +1542,7 @@ Rectangle {
         root.updateFilter();
     }
 
-    function editDescription(_hash){
+    function editDescription(_hash, _tx_note){
         inputDialog.labelText = qsTr("Set description:") + translationManager.emptyString;
         inputDialog.onAcceptedCallback = function() {
             appWindow.currentWallet.setUserNote(_hash, inputDialog.inputText);
@@ -1541,7 +1550,7 @@ Rectangle {
             root.update();
         }
         inputDialog.onRejectedCallback = null;
-        inputDialog.open();
+        inputDialog.open(_tx_note);
     }
 
     function paginationPrevClicked(){
@@ -1599,7 +1608,7 @@ Rectangle {
 
         currentWallet.getTxKeyAsync(hash, function(hash, tx_key) {
             informationPopup.title = qsTr("Transaction details") + translationManager.emptyString;
-            informationPopup.content = buildTxDetailsString(hash, paymentId, tx_key, tx_note, destinations, rings, address, address_label, integratedAddress, dateTime, amount);
+            informationPopup.content = buildTxDetailsString(hash, hasPaymentId ? paymentId : null, tx_key, tx_note, destinations, rings, address, address_label, integratedAddress, dateTime, amount);
             informationPopup.onCloseCallback = null
             informationPopup.open();
         });

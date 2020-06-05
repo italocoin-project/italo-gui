@@ -36,16 +36,16 @@
 #include <QMutex>
 #include <QPointer>
 #include <QWaitCondition>
-#include <QMutex>
 #include "qt/FutureScheduler.h"
 #include "NetworkType.h"
+#include "PassphraseHelper.h"
 
 class Wallet;
 namespace Italo {
-    class WalletManager;
+struct WalletManager;
 }
 
-class WalletManager : public QObject
+class WalletManager : public QObject, public PassprasePrompter
 {
     Q_OBJECT
     Q_PROPERTY(bool connected READ connected)
@@ -83,7 +83,7 @@ public:
     Q_INVOKABLE void openWalletAsync(const QString &path, const QString &password, NetworkType::Type nettype = NetworkType::MAINNET, quint64 kdfRounds = 1);
 
     // wizard: recoveryWallet path; hint: internally it recorvers wallet and set password = ""
-    Q_INVOKABLE Wallet * recoveryWallet(const QString &path, const QString &memo,
+    Q_INVOKABLE Wallet * recoveryWallet(const QString &path, const QString &seed, const QString &seed_offset,
                                        NetworkType::Type nettype = NetworkType::MAINNET, quint64 restoreHeight = 0, quint64 kdfRounds = 1);
 
     Q_INVOKABLE Wallet * createWalletFromKeys(const QString &path,
@@ -135,7 +135,7 @@ public:
     Q_INVOKABLE quint64 maximumAllowedAmount() const;
 
     // QML JS engine doesn't support unsigned integers
-    Q_INVOKABLE QString maximumAllowedAmountAsSting() const;
+    Q_INVOKABLE QString maximumAllowedAmountAsString() const;
 
     Q_INVOKABLE bool paymentIdValid(const QString &payment_id) const;
     Q_INVOKABLE bool addressValid(const QString &address, NetworkType::Type nettype) const;
@@ -176,23 +176,32 @@ public:
     Q_INVOKABLE bool parse_uri(const QString &uri, QString &address, QString &payment_id, uint64_t &amount, QString &tx_description, QString &recipient_name, QVector<QString> &unknown_parameters, QString &error) const;
     Q_INVOKABLE QVariantMap parse_uri_to_object(const QString &uri) const;
     Q_INVOKABLE bool saveQrCode(const QString &, const QString &) const;
-    Q_INVOKABLE void checkUpdatesAsync(const QString &software, const QString &subdir);
+    Q_INVOKABLE void checkUpdatesAsync(
+        const QString &software,
+        const QString &subdir,
+        const QString &buildTag,
+        const QString &version);
     Q_INVOKABLE QString checkUpdates(const QString &software, const QString &subdir) const;
 
     // clear/rename wallet cache
     Q_INVOKABLE bool clearWalletCache(const QString &fileName) const;
 
-    Q_INVOKABLE void onWalletPassphraseNeeded(Italo::Wallet * wallet);
-    Q_INVOKABLE void onPassphraseEntered(const QString &passphrase, bool entry_abort=false);
+    Q_INVOKABLE void onPassphraseEntered(const QString &passphrase, bool enter_on_device, bool entry_abort=false);
+    virtual void onWalletPassphraseNeeded(bool on_device) override;
 
 signals:
 
     void walletOpened(Wallet * wallet);
     void walletCreated(Wallet * wallet);
-    void walletPassphraseNeeded();
+    void walletPassphraseNeeded(bool onDevice);
     void deviceButtonRequest(quint64 buttonCode);
     void deviceButtonPressed();
-    void checkUpdatesComplete(const QString &result) const;
+    void checkUpdatesComplete(
+        const QString &version,
+        const QString &downloadUrl,
+        const QString &hash,
+        const QString &firstSigner,
+        const QString &secondSigner) const;
     void miningStatus(bool isMining) const;
 
 public slots:
@@ -208,12 +217,8 @@ private:
     Italo::WalletManager * m_pimpl;
     mutable QMutex m_mutex;
     QPointer<Wallet> m_currentWallet;
-
-    QWaitCondition m_cond_pass;
-    QMutex m_mutex_pass;
-    QString m_passphrase;
-    bool m_passphrase_abort;
-
+    PassphraseReceiver * m_passphraseReceiver;
+    QMutex m_mutex_passphraseReceiver;
     FutureScheduler m_scheduler;
 };
 

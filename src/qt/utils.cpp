@@ -28,6 +28,7 @@
 
 #include <QtCore>
 #include <QApplication>
+#include <QtGlobal>
 
 #include "TailsOS.h"
 #include "utils.h"
@@ -35,6 +36,24 @@
 bool fileExists(QString path) {
     QFileInfo check_file(path);
     return check_file.exists() && check_file.isFile();
+}
+
+QByteArray fileGetContents(QString path)
+{
+    QFile file(path);
+    if (!file.open(QFile::ReadOnly))
+    {
+        throw std::runtime_error(QString("failed to open %1").arg(path).toStdString());
+    }
+
+    QByteArray data;
+    data.resize(file.size());
+    if (file.read(data.data(), data.size()) != data.size())
+    {
+        throw std::runtime_error(QString("failed to read %1").arg(path).toStdString());
+    }
+
+    return data;
 }
 
 QByteArray fileOpen(QString path) {
@@ -50,7 +69,8 @@ QByteArray fileOpen(QString path) {
 bool fileWrite(QString path, QString data) {
     QFile file(path);
     if(file.open(QIODevice::WriteOnly)){
-        QTextStream out(&file); out << data << endl;
+        QTextStream out(&file);
+        out << data << '\n';
         file.close();
         return true;
     }

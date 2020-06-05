@@ -43,7 +43,9 @@ INCLUDEPATH +=  $$WALLET_ROOT/include \
                 $$PWD/src/libwalletqt \
                 $$PWD/src/QR-Code-generator \
                 $$PWD/src \
-                $$WALLET_ROOT/src
+                $$WALLET_ROOT/src \
+                $$WALLET_ROOT/external/easylogging++ \
+                $$WALLET_ROOT/contrib/epee/include
 
 HEADERS += \
     src/main/filter.h \
@@ -51,6 +53,7 @@ HEADERS += \
     src/main/oscursor.h \
     src/libwalletqt/WalletManager.h \
     src/libwalletqt/Wallet.h \
+    src/libwalletqt/PassphraseHelper.h \
     src/libwalletqt/PendingTransaction.h \
     src/libwalletqt/TransactionHistory.h \
     src/libwalletqt/TransactionInfo.h \
@@ -74,11 +77,12 @@ HEADERS += \
     src/libwalletqt/UnsignedTransaction.h \
     src/main/Logger.h \
     src/main/MainApp.h \
+    src/qt/downloader.h \
     src/qt/FutureScheduler.h \
     src/qt/ipc.h \
     src/qt/KeysFiles.h \
+    src/qt/network.h \
     src/qt/utils.h \
-    src/qt/prices.h \
     src/qt/macoshelper.h \
     src/qt/ItaloSettings.h \
     src/qt/TailsOS.h
@@ -88,12 +92,15 @@ SOURCES += src/main/main.cpp \
     src/main/clipboardAdapter.cpp \
     src/main/oscursor.cpp \
     src/libwalletqt/WalletManager.cpp \
+    src/libwalletqt/WalletListenerImpl.cpp \
     src/libwalletqt/Wallet.cpp \
+    src/libwalletqt/PassphraseHelper.cpp \
     src/libwalletqt/PendingTransaction.cpp \
     src/libwalletqt/TransactionHistory.cpp \
     src/libwalletqt/TransactionInfo.cpp \
     src/libwalletqt/QRCodeImageProvider.cpp \
     src/main/oshelper.cpp \
+    src/openpgp/openpgp.cpp \
     src/TranslationManager.cpp \
     src/model/TransactionHistoryModel.cpp \
     src/model/TransactionHistorySortFilterModel.cpp \
@@ -110,11 +117,13 @@ SOURCES += src/main/main.cpp \
     src/libwalletqt/UnsignedTransaction.cpp \
     src/main/Logger.cpp \
     src/main/MainApp.cpp \
+    src/qt/downloader.cpp \
     src/qt/FutureScheduler.cpp \
     src/qt/ipc.cpp \
     src/qt/KeysFiles.cpp \
+    src/qt/network.cpp \
+    src/qt/updater.cpp \
     src/qt/utils.cpp \
-    src/qt/prices.cpp \
     src/qt/ItaloSettings.cpp \
     src/qt/TailsOS.cpp
 
@@ -155,6 +164,8 @@ ios:arm64 {
 }
 
 LIBS_COMMON = \
+    -lgcrypt \
+    -lgpg-error \
     -lwallet_merged \
     -llmdb \
     -lepee \
@@ -176,8 +187,10 @@ android {
 
 
 
-QMAKE_CXXFLAGS += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -Wformat -Wformat-security
-QMAKE_CFLAGS += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -Wformat -Wformat-security
+QMAKE_CXXFLAGS += -Werror -Wformat -Wformat-security
+QMAKE_CFLAGS += -Werror -Wformat -Wformat-security
+QMAKE_CXXFLAGS_RELEASE += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -O2
+QMAKE_CFLAGS_RELEASE += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -O2
 
 ios {
     message("Host is IOS")
@@ -221,6 +234,14 @@ CONFIG(WITH_SCANNER) {
             LIBS += -lzbarjni -liconv
         } else {
             LIBS += -lzbar
+            macx {
+                ZBAR_DIR = $$system(brew --prefix zbar, lines, EXIT_CODE)
+                equals(EXIT_CODE, 0) {
+                    INCLUDEPATH += $$ZBAR_DIR/include
+                } else {
+                    INCLUDEPATH += /usr/local/include
+                }
+            }
         }
     } else {
         message("Skipping camera scanner because of Incompatible Qt Version !")
@@ -299,7 +320,8 @@ win32 {
         -lssl \
         -lsodium \
         -lcrypto \
-        -lws2_32
+        -lws2_32 \
+        -lole32
     
     !contains(QMAKE_TARGET.arch, x86_64) {
         message("Target is 32bit")
@@ -371,18 +393,42 @@ macx {
     #     LIBS+= -Wl,-Bstatic
     # }
 
-    OPENSSL_LIBRARY_DIRS = $$system(brew --prefix openssl, lines, EXIT_CODE)
+    OPENSSL_DIR = $$system(brew --prefix openssl, lines, EXIT_CODE)
+    !equals(EXIT_CODE, 0) {
+        OPENSSL_DIR = /usr/local/ssl
+    }
+    OPENSSL_LIBRARY_DIR = $$OPENSSL_DIR/lib
+    INCLUDEPATH += $$OPENSSL_DIR/include
+
+    BOOST_DIR = $$system(brew --prefix boost, lines, EXIT_CODE)
     equals(EXIT_CODE, 0) {
-        OPENSSL_LIBRARY_DIRS = $$OPENSSL_LIBRARY_DIRS/lib
+        INCLUDEPATH += $$BOOST_DIR/include
     } else {
-        OPENSSL_LIBRARY_DIRS = /usr/local/ssl/lib
+        INCLUDEPATH += /usr/local/include
+    }
+
+    GCRYPT_DIR = $$system(brew --prefix libgcrypt, lines, EXIT_CODE)
+    equals(EXIT_CODE, 0) {
+        INCLUDEPATH += $$GCRYPT_DIR/include
+    } else {
+        INCLUDEPATH += /usr/local/include
+    }
+
+    GPGP_ERROR_DIR = $$system(brew --prefix libgpg-error, lines, EXIT_CODE)
+    equals(EXIT_CODE, 0) {
+        INCLUDEPATH += $$GPGP_ERROR_DIR/include
+    } else {
+        INCLUDEPATH += /usr/local/include
     }
 
     QT += macextras
     OBJECTIVE_SOURCES += src/qt/macoshelper.mm
+    LIBS+= -Wl,-dead_strip
+    LIBS+= -Wl,-dead_strip_dylibs
+    LIBS+= -Wl,-bind_at_load
     LIBS+= \
         -L/usr/local/lib \
-        -L$$OPENSSL_LIBRARY_DIRS \
+        -L$$OPENSSL_LIBRARY_DIR \
         -L/usr/local/opt/boost/lib \
         -lboost_serialization \
         -lboost_thread-mt \
@@ -514,6 +560,7 @@ DISTFILES += \
 
 VERSION = $$cat('version.js', lines)
 VERSION = $$find(VERSION, 'GUI_VERSION')
+VERSION_LONG = $$replace(VERSION, '.*\"v(.*)\"', '\1') 
 VERSION = $$replace(VERSION, '.*(\d+\.\d+\.\d+\.\d+).*', '\1')
 
 # windows application icon
@@ -521,4 +568,7 @@ RC_ICONS = images/appicon.ico
 
 # mac Info.plist & application icon
 QMAKE_INFO_PLIST = $$PWD/share/Info.plist
+macx {
+    QMAKE_POST_LINK += sed -i "''" -e "s/@VERSION@/$$VERSION/g" -e "s/@VERSION_LONG@/$$VERSION_LONG/g" "$$sprintf("%1/%2/%3.app", $$OUT_PWD, $$DESTDIR, $$TARGET)/Contents/Info.plist";
+}
 ICON = $$PWD/images/appicon.icns

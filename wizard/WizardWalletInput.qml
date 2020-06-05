@@ -55,7 +55,7 @@ GridLayout {
     function reset() {
         walletName.error = !walletName.verify();
         walletLocation.error = walletLocation.text === "";
-        walletLocation.text = italoAccountsDir + "/";
+        walletLocation.text = italoAccountsDir;
         walletName.text = defaultAccountName;
     }
 

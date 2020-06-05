@@ -74,7 +74,7 @@ Item {
                 visible: checkBox.border
                 anchors.fill: parent
                 radius: 3
-                color: "transparent"
+                color: checkBox.enabled ? "transparent" : ItaloComponents.Style.inputBoxBackgroundDisabled
                 border.color:
                     if(checkBox.checked){
                         return ItaloComponents.Style.inputBorderColorActive;
@@ -108,7 +108,7 @@ Item {
             font.pixelSize: checkBox.fontSize
             color: ItaloComponents.Style.defaultFontColor
             textFormat: Text.RichText
-            wrapMode: Text.Wrap
+            wrapMode: Text.NoWrap
         }
     }
 

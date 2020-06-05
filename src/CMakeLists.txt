@@ -3,9 +3,10 @@ add_subdirectory(QR-Code-scanner)
 add_subdirectory(daemon)
 add_subdirectory(libwalletqt)
 add_subdirectory(model)
+add_subdirectory(openpgp)
 add_subdirectory(zxcvbn-c)
 
-qt5_add_resources(QML_QRC ../qml.qrc)
+qt5_add_resources(RESOURCES ../qml.qrc)
 
 # Compile source files (.h/.cpp)
 file(GLOB SOURCE_FILES
@@ -14,7 +15,9 @@ file(GLOB SOURCE_FILES
     "main/*.h"
     "main/*.cpp"
     "libwalletqt/WalletManager.cpp"
+    "libwalletqt/WalletListenerImpl.cpp"
     "libwalletqt/Wallet.cpp"
+    "libwalletqt/PassphraseHelper.cpp"
     "libwalletqt/PendingTransaction.cpp"
     "libwalletqt/TransactionHistory.cpp"
     "libwalletqt/TransactionInfo.cpp"
@@ -28,6 +31,7 @@ file(GLOB SOURCE_FILES
     "libwalletqt/UnsignedTransaction.cpp"
     "libwalletqt/WalletManager.h"
     "libwalletqt/Wallet.h"
+    "libwalletqt/PassphraseHelper.h"
     "libwalletqt/PendingTransaction.h"
     "libwalletqt/TransactionHistory.h"
     "libwalletqt/TransactionInfo.h"
@@ -64,34 +68,41 @@ if(WITH_SCANNER)
     )
 endif()
 
-message(STATUS ${QML_QRC})
-
 set(EXECUTABLE_FLAG)
 if(MINGW)
     set(EXECUTABLE_FLAG WIN32)
+
+    set(ICON ${PROJECT_SOURCE_DIR}/images/appicon.ico)
+    set(ICON_RC ${CMAKE_CURRENT_BINARY_DIR}/icon.rc)
+    set(ICON_RES ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
+    file(WRITE ${ICON_RC} "IDI_ICON1 ICON DISCARDABLE \"${ICON}\"")
+    add_custom_command(OUTPUT ${ICON_RES} COMMAND windres ${ICON_RC} ${ICON_RES} MAIN_DEPENDENCY ${ICON_RC})
+    list(APPEND RESOURCES ${ICON_RES})
 endif()
 
-add_executable(italo-gui ${EXECUTABLE_FLAG} main/main.cpp
+add_executable(italo-wallet-gui ${EXECUTABLE_FLAG} main/main.cpp
     ${SOURCE_FILES}
     ${PASS_STRENGTH_FILES}
     ${QR_CODE_FILES}
-    ${QML_QRC}
+    ${RESOURCES}
 )
-set_property(TARGET italo-gui PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set_property(TARGET italo-wallet-gui PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 # OpenGL
-target_include_directories(italo-gui PUBLIC ${OPENGL_INCLUDE_DIR})
+target_include_directories(italo-wallet-gui PUBLIC ${OPENGL_INCLUDE_DIR})
 message(STATUS "OpenGL: include dir at ${OPENGL_INCLUDE_DIR}")
 message(STATUS "OpenGL: libraries at ${OPENGL_LIBRARIES}")
 
-target_include_directories(italo-gui PUBLIC ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
+target_include_directories(italo-wallet-gui PUBLIC ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 
 file(GLOB_RECURSE SRC_SOURCES *.cpp)
 file(GLOB_RECURSE SRC_HEADERS *.h)
 
-target_include_directories(italo-gui PUBLIC
+target_include_directories(italo-wallet-gui PUBLIC
 	${CMAKE_SOURCE_DIR}/italo/include
     ${CMAKE_SOURCE_DIR}/italo/src
+    ${CMAKE_SOURCE_DIR}/italo/external/easylogging++
+    ${CMAKE_SOURCE_DIR}/italo/contrib/epee/include
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}/daemon
 	${CMAKE_CURRENT_SOURCE_DIR}/libwalletqt
@@ -107,28 +118,33 @@ target_include_directories(italo-gui PUBLIC
     ${ZBAR_INCLUDE_DIR}
 )
 
-target_compile_definitions(italo-gui
+target_compile_definitions(italo-wallet-gui
 	PUBLIC
 	${Qt5Widgets_DEFINITIONS}
     ${Qt5Qml_DEFINITIONS}
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 if(X11_FOUND)
-    target_link_libraries(italo-gui ${X11_LIBRARIES} pthread dl Xt xcb X11)
+    target_link_libraries(italo-wallet-gui ${X11_LIBRARIES} pthread dl xcb X11)
 endif()
 
 if(DEVICE_TREZOR_READY)
-    target_link_libraries(italo-gui ${TREZOR_DEP_LIBS})
+    target_link_libraries(italo-wallet-gui ${TREZOR_DEP_LIBS})
 endif()
 
-target_link_libraries(italo-gui
+if(INSTALL_VENDORED_LIBUNBOUND)
+  set(UNBOUND_LIBRARY ${CMAKE_BINARY_DIR}/italo/external/unbound/libunbound.a)
+else()
+  set(UNBOUND_LIBRARY unbound)
+endif()
+
+target_link_libraries(italo-wallet-gui
     ${CMAKE_BINARY_DIR}/lib/libwallet_merged.a
     ${LMDB_LIBRARY}
     ${CMAKE_BINARY_DIR}/italo/contrib/epee/src/libepee.a
-    ${CMAKE_BINARY_DIR}/italo/external/unbound/libunbound.a
+    ${UNBOUND_LIBRARY}
     ${SODIUM_LIBRARY}
     ${CMAKE_BINARY_DIR}/italo/external/easylogging++/libeasylogging.a
     ${CMAKE_BINARY_DIR}/italo/src/blockchain_db/libblockchain_db.a
@@ -142,10 +158,11 @@ target_link_libraries(italo-gui
     ${QT5_LIBRARIES}
     ${EXTRA_LIBRARIES}
     ${ICU_LIBRARIES}
+    openpgp
 )
 
 if(WITH_SCANNER)
-    target_link_libraries(italo-gui 
+    target_link_libraries(italo-wallet-gui
         ${ZBAR_LIBRARIES}
         jpeg
         v4l2
@@ -154,6 +171,6 @@ if(WITH_SCANNER)
     )
 endif()
 
-install(TARGETS italo-gui
+install(TARGETS italo-wallet-gui
     DESTINATION ${CMAKE_INSTALL_PREFIX}
 )

@@ -53,12 +53,11 @@ Rectangle {
 
     function renameSubaddressLabel(_index){
         inputDialog.labelText = qsTr("Set the label of the selected address:") + translationManager.emptyString;
-        inputDialog.inputText = appWindow.currentWallet.getSubaddressLabel(appWindow.currentWallet.currentSubaddressAccount, _index);
         inputDialog.onAcceptedCallback = function() {
             appWindow.currentWallet.subaddress.setLabel(appWindow.currentWallet.currentSubaddressAccount, _index, inputDialog.inputText);
         }
         inputDialog.onRejectedCallback = null;
-        inputDialog.open()
+        inputDialog.open(appWindow.currentWallet.getSubaddressLabel(appWindow.currentWallet.currentSubaddressAccount, _index))
     }
 
     Clipboard { id: clipboard }
@@ -74,10 +73,6 @@ Rectangle {
         anchors.right: parent.right
 
         spacing: 20
-        property int labelWidth: 120
-        property int editWidth: 400
-        property int lineEditFontSize: 12
-        property int qrCodeSize: 220
 
         ColumnLayout {
             id: addressRow
@@ -254,7 +249,6 @@ Rectangle {
                 text: qsTr("Create new address") + translationManager.emptyString;
                 onClicked: {
                     inputDialog.labelText = qsTr("Set the label of the new address:") + translationManager.emptyString
-                    inputDialog.inputText = qsTr("(Untitled)") + translationManager.emptyString
                     inputDialog.onAcceptedCallback = function() {
                         appWindow.currentWallet.subaddress.addRow(appWindow.currentWallet.currentSubaddressAccount, inputDialog.inputText)
                         current_subaddress_table_index = appWindow.currentWallet.numSubaddresses(appWindow.currentWallet.currentSubaddressAccount) - 1
@@ -296,34 +290,39 @@ Rectangle {
                 }
             }
 
-            RowLayout {
-                spacing: parent.spacing
+            ItaloComponents.StandardButton {
+                Layout.preferredWidth: 220
+                small: true
+                text: FontAwesome.save + "  %1".arg(qsTr("Save as image")) + translationManager.emptyString
+                label.font.family: FontAwesome.fontFamily
+                fontSize: 13
+                onClicked: qrFileDialog.open()
+            }
 
-                ItaloComponents.StandardButton {
-                    rightIcon: "qrc:///images/download-white.png"
-                    onClicked: qrFileDialog.open()
+            ItaloComponents.StandardButton {
+                Layout.preferredWidth: 220
+                small: true
+                text: FontAwesome.clipboard + "  %1".arg(qsTr("Copy to clipboard")) + translationManager.emptyString
+                label.font.family: FontAwesome.fontFamily
+                fontSize: 13
+                onClicked: {
+                    clipboard.setText(TxUtils.makeQRCodeString(appWindow.current_address));
+                    appWindow.showStatusMessage(qsTr("Copied to clipboard") + translationManager.emptyString, 3);
                 }
+            }
 
-                ItaloComponents.StandardButton {
-                    rightIcon: "qrc:///images/external-link-white.png"
-                    onClicked: {
-                        clipboard.setText(TxUtils.makeQRCodeString(appWindow.current_address));
-                        appWindow.showStatusMessage(qsTr("Copied to clipboard") + translationManager.emptyString, 3);
-                    }
-                }
-
-                ItaloComponents.StandardButton {
-                    text: FontAwesome.eye
-                    label.font.family: FontAwesome.fontFamily
-                    fontSize: 24
-                    width: 36
-                    visible: appWindow.currentWallet ? appWindow.currentWallet.isHwBacked() : false
-                    onClicked: {
-                        appWindow.currentWallet.deviceShowAddressAsync(
-                            appWindow.currentWallet.currentSubaddressAccount,
-                            appWindow.current_subaddress_table_index,
-                            '');
-                    }
+            ItaloComponents.StandardButton {
+                Layout.preferredWidth: 220
+                small: true
+                text: FontAwesome.eye + "  %1".arg(qsTr("Show on device")) + translationManager.emptyString
+                label.font.family: FontAwesome.fontFamily
+                fontSize: 13
+                visible: appWindow.currentWallet ? appWindow.currentWallet.isHwBacked() : false
+                onClicked: {
+                    appWindow.currentWallet.deviceShowAddressAsync(
+                        appWindow.currentWallet.currentSubaddressAccount,
+                        appWindow.current_subaddress_table_index,
+                        '');
                 }
             }
         }

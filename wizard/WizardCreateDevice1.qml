@@ -49,13 +49,8 @@ Rectangle {
     ListModel {
         id: deviceNameModel
         ListElement { column1: qsTr("Choose your hardware device"); column2: "";}
-        ListElement { column1: "Ledger"; column2: "Ledger";}
-        ListElement { column1: "Trezor"; column2: "Trezor";}
-    }
-
-    function update(){
-        // update device dropdown
-        deviceNameDropdown.update();
+        ListElement { column1: "Ledger Nano S/X"; column2: "Ledger";}
+        ListElement { column1: "Trezor Model T"; column2: "Trezor";}
     }
 
     ColumnLayout {
@@ -174,8 +169,8 @@ Rectangle {
             }
 
             WizardNav {
-                progressSteps: 4
-                progress: 1
+                progressSteps: appWindow.walletMode <= 1 ? 3 : 4
+                progress: 0
                 btnNext.enabled: walletInput.verify() && wizardCreateDevice1.deviceName;
                 btnPrev.text: qsTr("Back to menu") + translationManager.emptyString
                 btnNext.text: qsTr("Create wallet") + translationManager.emptyString
@@ -208,8 +203,6 @@ Rectangle {
 
     Component.onCompleted: {
         errorMsg.text = "";
-        wizardCreateDevice1.update();
-        console.log()
     }
 
     function onPageCompleted(previousView){

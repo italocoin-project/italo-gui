@@ -36,8 +36,8 @@ import "../../components/effects" as ItaloEffects
 
 Rectangle{
     color: "transparent"
-    height: 1400
     Layout.fillWidth: true
+    property alias nodeHeight: root.height
 
     /* main layout */
     ColumnLayout {
@@ -50,10 +50,6 @@ Rectangle{
         anchors.right: parent.right
 
         spacing: 0
-        property int labelWidth: 120
-        property int editWidth: 400
-        property int lineEditFontSize: 14
-        property int buttonWidth: 110
 
         Rectangle {
             Layout.fillWidth: true
@@ -134,13 +130,6 @@ Rectangle{
                     topPadding: 0
                     text: qsTr("The blockchain is downloaded to your computer. Provides higher security and requires more local storage.") + translationManager.emptyString
                     width: parent.width - (localNodeIcon.width + localNodeIcon.anchors.leftMargin + anchors.leftMargin)
-
-                    // @TODO: Legacy. Remove after Qt 5.8.
-                    // https://stackoverflow.com/questions/41990013
-                    MouseArea {
-                        anchors.fill: parent
-                        enabled: false
-                    }
                 }   
             }
 
@@ -233,13 +222,6 @@ Rectangle{
                     topPadding: 0
                     text: qsTr("Uses a third-party server to connect to the Italo network. Less secure, but easier on your computer.") + translationManager.emptyString
                     width: parent.width - (remoteNodeIcon.width + remoteNodeIcon.anchors.leftMargin + anchors.leftMargin)
-
-                    // @TODO: Legacy. Remove after Qt 5.8.
-                    // https://stackoverflow.com/questions/41990013
-                    MouseArea {
-                        anchors.fill: parent
-                        enabled: false
-                    }
                 }
 
                 MouseArea {
@@ -283,8 +265,8 @@ Rectangle{
                 Layout.minimumWidth: 100
                 placeholderFontSize: 15
 
-                daemonAddrLabelText: qsTr("Address")
-                daemonPortLabelText: qsTr("Port")
+                daemonAddrLabelText: qsTr("Address") + translationManager.emptyString
+                daemonPortLabelText: qsTr("Port") + translationManager.emptyString
 
                 property var rna: persistentSettings.remoteNodeAddress
                 daemonAddrText: rna.search(":") != -1 ? rna.split(":")[0].trim() : ""
@@ -322,7 +304,7 @@ Rectangle{
                     labelText: qsTr("Daemon password") + translationManager.emptyString
                     text: persistentSettings.daemonPassword
                     placeholderText: qsTr("Password") + translationManager.emptyString
-                    echoMode: TextInput.Password
+                    password: true
                     placeholderFontSize: 15
                     labelFontSize: 14
                     fontSize: 15
@@ -385,15 +367,13 @@ Rectangle{
                     fontSize: 15
                     labelFontSize: 14
                     property string style: "<style type='text/css'>a {cursor:pointer;text-decoration: none; color: #FF6C3C}</style>"
-                    labelText: qsTr("Blockchain location") + style + qsTr(" <a href='#'> (change)</a>") + translationManager.emptyString
+                    labelText: qsTr("Blockchain location") + style + " <a href='#'> (%1)</a>".arg(qsTr("Change")) + translationManager.emptyString
+                    labelButtonText: qsTr("Reset") + translationManager.emptyString
+                    labelButtonVisible: text
                     placeholderText: qsTr("(default)") + translationManager.emptyString
                     placeholderFontSize: 15
                     readOnly: true
-                    text: {
-                        if(persistentSettings.blockchainDataDir.length > 0){
-                            return persistentSettings.blockchainDataDir;
-                        } else { return "" }
-                    }
+                    text: persistentSettings.blockchainDataDir
                     addressValidation: false
                     onInputLabelLinkActivated: {
                         //mouse.accepted = false
@@ -403,6 +383,7 @@ Rectangle{
                         blockchainFileDialog.open();
                         blockchainFolder.focus = true;
                     }
+                    onLabelButtonClicked: persistentSettings.blockchainDataDir = ""
                 }
             }
 
@@ -417,7 +398,12 @@ Rectangle{
                 placeholderFontSize: 15
                 text: persistentSettings.daemonFlags
                 addressValidation: false
-                onEditingFinished: persistentSettings.daemonFlags = daemonFlags.text;
+                error: text.match(/(^|\s)--(data-dir|bootstrap-daemon-address)/)
+                onEditingFinished: {
+                    if (!daemonFlags.error) {
+                        persistentSettings.daemonFlags = daemonFlags.text;
+                    }
+                }
             }
 
             RowLayout {
@@ -431,8 +417,8 @@ Rectangle{
                         Layout.minimumWidth: 100
                         Layout.bottomMargin: 20
 
-                        daemonAddrLabelText: qsTr("Bootstrap Address")
-                        daemonPortLabelText: qsTr("Bootstrap Port")
+                        daemonAddrLabelText: qsTr("Bootstrap Address") + translationManager.emptyString
+                        daemonPortLabelText: qsTr("Bootstrap Port") + translationManager.emptyString
                         daemonAddrText: persistentSettings.bootstrapNodeAddress.split(":")[0].trim()
                         daemonPortText: {
                             var node_split = persistentSettings.bootstrapNodeAddress.split(":");

@@ -29,6 +29,9 @@
 #ifndef DAEMONMANAGER_H
 #define DAEMONMANAGER_H
 
+#include <memory>
+
+#include <QMutex>
 #include <QObject>
 #include <QUrl>
 #include <QProcess>
@@ -42,10 +45,10 @@ class DaemonManager : public QObject
 
 public:
 
-    static DaemonManager * instance(const QStringList *args);
+    static DaemonManager * instance(const QStringList *args = nullptr);
 
     Q_INVOKABLE bool start(const QString &flags, NetworkType::Type nettype, const QString &dataDir = "", const QString &bootstrapNodeAddress = "", bool noSync = false);
-    Q_INVOKABLE bool stop(NetworkType::Type nettype);
+    Q_INVOKABLE void stopAsync(NetworkType::Type nettype, const QJSValue& callback);
 
     Q_INVOKABLE bool noSync() const noexcept;
     // return true if daemon process is started
@@ -64,7 +67,7 @@ private:
 signals:
     void daemonStarted() const;
     void daemonStopped() const;
-    void daemonStartFailure() const;
+    void daemonStartFailure(const QString &error) const;
     void daemonConsoleUpdated(QString message) const;
 
 public slots:
@@ -78,10 +81,9 @@ private:
 
     static DaemonManager * m_instance;
     static QStringList m_clArgs;
-    QProcess *m_daemon;
-    bool initialized = false;
+    std::unique_ptr<QProcess> m_daemon;
+    QMutex m_daemonMutex;
     QString m_italod;
-    bool m_has_daemon = true;
     bool m_app_exit = false;
     bool m_noSync = false;
 

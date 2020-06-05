@@ -27,7 +27,9 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "DaemonManager.h"
+#include <QElapsedTimer>
 #include <QFile>
+#include <QMutexLocker>
 #include <QThread>
 #include <QFileInfo>
 #include <QDir>
@@ -36,7 +38,6 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QApplication>
 #include <QProcess>
-#include <QTime>
 #include <QStorageInfo>
 #include <QVariantMap>
 #include <QVariant>
@@ -49,13 +50,15 @@ namespace {
 DaemonManager * DaemonManager::m_instance = nullptr;
 QStringList DaemonManager::m_clArgs;
 
-DaemonManager *DaemonManager::instance(const QStringList *args)
+DaemonManager *DaemonManager::instance(const QStringList *args/* = nullptr*/)
 {
     if (!m_instance) {
         m_instance = new DaemonManager;
         // store command line arguments for later use
-        m_clArgs = *args;
-        m_clArgs.removeFirst();
+        if (args != nullptr)
+        {
+            m_clArgs = *args;
+        }
     }
 
     return m_instance;
@@ -63,6 +66,12 @@ DaemonManager *DaemonManager::instance(const QStringList *args)
 
 bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const QString &dataDir, const QString &bootstrapNodeAddress, bool noSync /* = false*/)
 {
+    if (!QFileInfo(m_italod).isFile())
+    {
+        emit daemonStartFailure("\"" + QDir::toNativeSeparators(m_italod) + "\" " + tr("executable is missing"));
+        return false;
+    }
+
     // prepare command line arguments and pass to italod
     QStringList arguments;
 
@@ -115,22 +124,23 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
     qDebug() << "starting italod " + m_italod;
     qDebug() << "With command line arguments " << arguments;
 
-    m_daemon = new QProcess();
-    initialized = true;
+    QMutexLocker locker(&m_daemonMutex);
+
+    m_daemon.reset(new QProcess());
 
     // Connect output slots
-    connect (m_daemon, SIGNAL(readyReadStandardOutput()), this, SLOT(printOutput()));
-    connect (m_daemon, SIGNAL(readyReadStandardError()), this, SLOT(printError()));
+    connect(m_daemon.get(), SIGNAL(readyReadStandardOutput()), this, SLOT(printOutput()));
+    connect(m_daemon.get(), SIGNAL(readyReadStandardError()), this, SLOT(printError()));
 
     // Start italod
     bool started = m_daemon->startDetached(m_italod, arguments);
 
     // add state changed listener
-    connect(m_daemon,SIGNAL(stateChanged(QProcess::ProcessState)),this,SLOT(stateChanged(QProcess::ProcessState)));
+    connect(m_daemon.get(), SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(stateChanged(QProcess::ProcessState)));
 
     if (!started) {
         qDebug() << "Daemon start error: " + m_daemon->errorString();
-        emit daemonStartFailure();
+        emit daemonStartFailure(m_daemon->errorString());
         return false;
     }
 
@@ -140,35 +150,33 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
             emit daemonStarted();
             m_noSync = noSync;
         } else {
-            emit daemonStartFailure();
+            emit daemonStartFailure(tr("Timed out, local node is not responding after %1 seconds").arg(DAEMON_START_TIMEOUT_SECONDS));
         }
     });
 
     return true;
 }
 
-bool DaemonManager::stop(NetworkType::Type nettype)
+void DaemonManager::stopAsync(NetworkType::Type nettype, const QJSValue& callback)
 {
-    QString message;
-    sendCommand({"exit"}, nettype, message);
-    qDebug() << message;
+    const auto feature = m_scheduler.run([this, nettype] {
+        QString message;
+        sendCommand({"exit"}, nettype, message);
 
-    // Start stop watcher - Will kill if not shutting down
-    m_scheduler.run([this, nettype] {
-        if (stopWatcher(nettype))
-        {
-            emit daemonStopped();
-        }
-    });
+        return QJSValueList({stopWatcher(nettype)});
+    }, callback);
 
-    return true;
+    if (!feature.first)
+    {
+        QJSValue(callback).call(QJSValueList({false}));
+    }
 }
 
 bool DaemonManager::startWatcher(NetworkType::Type nettype) const
 {
     // Check if daemon is started every 2 seconds
-    QTime timer;
-    timer.restart();
+    QElapsedTimer timer;
+    timer.start();
     while(true && !m_app_exit && timer.elapsed() / 1000 < DAEMON_START_TIMEOUT_SECONDS  ) {
         QThread::sleep(2);
         if(!running(nettype)) {
@@ -194,9 +202,9 @@ bool DaemonManager::stopWatcher(NetworkType::Type nettype) const
             if(counter >= 5) {
                 qDebug() << "Killing it! ";
 #ifdef Q_OS_WIN
-                QProcess::execute("taskkill /F /IM italod.exe");
+                QProcess::execute("taskkill",  {"/F", "/IM", "italod.exe"});
 #else
-                QProcess::execute("pkill italod");
+                QProcess::execute("pkill", {"italod"});
 #endif
             }
 
@@ -217,7 +225,10 @@ void DaemonManager::stateChanged(QProcess::ProcessState state)
 
 void DaemonManager::printOutput()
 {
-    QByteArray byteArray = m_daemon->readAllStandardOutput();
+    QByteArray byteArray = [this]() {
+        QMutexLocker locker(&m_daemonMutex);
+        return m_daemon->readAllStandardOutput();
+    }();
     QStringList strLines = QString(byteArray).split("\n");
 
     foreach (QString line, strLines) {
@@ -228,7 +239,10 @@ void DaemonManager::printOutput()
 
 void DaemonManager::printError()
 {
-    QByteArray byteArray = m_daemon->readAllStandardError();
+    QByteArray byteArray = [this]() {
+        QMutexLocker locker(&m_daemonMutex);
+        return m_daemon->readAllStandardError();
+    }();
     QStringList strLines = QString(byteArray).split("\n");
 
     foreach (QString line, strLines) {
@@ -345,7 +359,6 @@ DaemonManager::DaemonManager(QObject *parent)
 
     if (m_italod.length() == 0) {
         qCritical() << "no daemon binary defined for current platform";
-        m_has_daemon = false;
     }
 }
 

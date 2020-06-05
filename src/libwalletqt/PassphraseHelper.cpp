@@ -1,21 +1,21 @@
-// Copyright (c) 2017-2018, The Italo Project
-// 
+// Copyright (c) 2014-2020, The Italo Project
+//
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
-// 
+//
 // 1. Redistributions of source code must retain the above copyright notice, this list of
 //    conditions and the following disclaimer.
-// 
+//
 // 2. Redistributions in binary form must reproduce the above copyright notice, this list
 //    of conditions and the following disclaimer in the documentation and/or other
 //    materials provided with the distribution.
-// 
+//
 // 3. Neither the name of the copyright holder nor the names of its contributors may be
 //    used to endorse or promote products derived from this software without specific
 //    prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
 // EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -26,60 +26,45 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import QtQuick 2.9
-import QtQuick.Controls 1.4
-import italoComponents.Wallet 1.0
-import "." as ItaloComponents
+#include "PassphraseHelper.h"
+#include <QMutexLocker>
+#include <QDebug>
 
-Item {
-    id: item
-    property string message: ""
-    property bool active: false
-    height: 180
-    width: 320
-    property int margin: 15
-    x: parent.width - width - margin
-    y: parent.height - height * scale.yScale - margin * scale.yScale
+Italo::optional<std::string> PassphraseHelper::onDevicePassphraseRequest(bool & on_device)
+{
+    qDebug() << __FUNCTION__;
+    QMutexLocker locker(&m_mutex_pass);
+    m_passphrase_on_device = true;
+    m_passphrase_abort = false;
 
-    Rectangle {
-        color: "#FF6C3C"
-        border.color: "black"
-        anchors.fill: parent
-
-        TextArea {
-            id:versionText
-            readOnly: true
-            backgroundVisible: false
-            textFormat: TextEdit.AutoText
-            anchors.fill: parent
-            font.family: ItaloComponents.Style.fontRegular.name
-            font.pixelSize: 12
-            textMargin: 20
-            textColor: "white"
-            text: item.message
-            wrapMode: Text.WrapAnywhere
-        }
+    if (m_prompter != nullptr){
+        m_prompter->onWalletPassphraseNeeded(on_device);
     }
 
-    transform: Scale {
-        id: scale
-        yScale: item.active ? 1 : 0
+    m_cond_pass.wait(&m_mutex_pass);
 
-        Behavior on yScale {
-            NumberAnimation { duration: 500; easing.type: Easing.InOutCubic }
-        }
+    if (m_passphrase_abort)
+    {
+        throw std::runtime_error("Passphrase entry abort");
     }
 
-    Timer {
-        id: hider
-        interval: 30000; running: false; repeat: false
-        onTriggered: { item.active = false }
+    on_device = m_passphrase_on_device;
+    if (!on_device) {
+        auto tmpPass = m_passphrase.toStdString();
+        m_passphrase = QString();
+        return Italo::optional<std::string>(tmpPass);
+    } else {
+        return Italo::optional<std::string>();
     }
+}
 
-    function show(message) {
-        item.visible = true
-        item.message = message
-        item.active = true
-        hider.running = true
-    }
+void PassphraseHelper::onPassphraseEntered(const QString &passphrase, bool enter_on_device, bool entry_abort)
+{
+    qDebug() << __FUNCTION__;
+    QMutexLocker locker(&m_mutex_pass);
+    m_passphrase = passphrase;
+    m_passphrase_abort = entry_abort;
+    m_passphrase_on_device = enter_on_device;
+
+    m_cond_pass.wakeAll();
 }

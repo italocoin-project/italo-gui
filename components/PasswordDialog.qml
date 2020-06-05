@@ -43,7 +43,6 @@ Item {
     visible: false
     z: parent.z + 2
 
-    property bool isHidden: true
     property alias password: passwordInput1.text
     property string walletName
     property string errorText
@@ -61,14 +60,10 @@ Item {
     signal closeCallback()
 
     function _openInit(walletName, errorText) {
-        isHidden = true
         capsLockTextLabel.visible = oshelper.isCapsLock();
-        passwordInput1.echoMode = TextInput.Password
-        passwordInput2.echoMode = TextInput.Password
-        passwordInput1.text = ""
-        passwordInput2.text = ""
-        passwordInput1.forceActiveFocus();
-        inactiveOverlay.visible = true // draw appwindow inactive
+        passwordInput1.reset();
+        passwordInput2.reset();
+        passwordInput1.input.forceActiveFocus();
         root.walletName = walletName ? walletName : ""
         errorTextLabel.text = errorText ? errorText : "";
         leftPanel.enabled = false
@@ -106,7 +101,6 @@ Item {
     }
 
     function close() {
-        inactiveOverlay.visible = false
         leftPanel.enabled = true
         middlePanel.enabled = true
         wizard.enabled = true
@@ -118,14 +112,32 @@ Item {
         closeCallback();
     }
 
-    function toggleIsHidden() {
-        passwordInput1.echoMode = isHidden ? TextInput.Normal : TextInput.Password;
-        passwordInput2.echoMode = isHidden ? TextInput.Normal : TextInput.Password;
-        isHidden = !isHidden;
+    function onOk() {
+        if (!passwordDialogMode && passwordInput1.text !== passwordInput2.text) {
+            return;
+        }
+        root.close()
+        if (passwordDialogMode) {
+            root.accepted()
+        } else if (newPasswordDialogMode) {
+            root.acceptedNewPassword()
+        } else if (passphraseDialogMode) {
+            root.acceptedPassphrase()
+        }
+    }
+
+    function onCancel() {
+        root.close()
+        if (passwordDialogMode) {
+            root.rejected()
+        } else if (newPasswordDialogMode) {
+            root.rejectedNewPassword()
+        } else if (passphraseDialogMode) {
+            root.rejectedPassphrase()
+        }
     }
 
     ColumnLayout {
-        z: inactiveOverlay.z + 1
         id: mainLayout
         spacing: 10
         anchors { fill: parent; margins: 35 }
@@ -187,15 +199,11 @@ Item {
                 text: qsTr("CAPSLOCKS IS ON.") + translationManager.emptyString;
             }
 
-            ItaloComponents.Input {
+            ItaloComponents.LineEdit {
                 id: passwordInput1
+                password: true
                 Layout.topMargin: 6
                 Layout.fillWidth: true
-                horizontalAlignment: TextInput.AlignLeft
-                verticalAlignment: TextInput.AlignVCenter
-                font.family: ItaloComponents.Style.fontLight.name
-                font.pixelSize: 24
-                echoMode: TextInput.Password
                 KeyNavigation.tab: {
                     if (passwordDialogMode) {
                         return okButton
@@ -203,77 +211,12 @@ Item {
                         return passwordInput2
                     }
                 }
-                implicitHeight: 50
-                bottomPadding: 10
-                leftPadding: 10
-                topPadding: 10
-                color: ItaloComponents.Style.defaultFontColor
-                selectionColor: ItaloComponents.Style.textSelectionColor
-                selectedTextColor: ItaloComponents.Style.textSelectedColor
                 onTextChanged: capsLockTextLabel.visible = oshelper.isCapsLock();
 
-                background: Rectangle {
-                    radius: 2
-                    color: ItaloComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
-                    border.color: ItaloComponents.Style.inputBorderColorInActive
-                    border.width: 1
-
-                    ItaloEffects.ColorTransition {
-                        targetObj: parent
-                        blackColor: "black"
-                        whiteColor: "#A9FFFFFF"
-                    }
-
-                    ItaloComponents.Label {
-                        fontSize: 20
-                        text: isHidden ? FontAwesome.eye : FontAwesome.eyeSlash
-                        opacity: 0.7
-                        fontFamily: FontAwesome.fontFamily
-                        anchors.right: parent.right
-                        anchors.rightMargin: 15
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: 1
-
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            hoverEnabled: true
-                            onClicked: {
-                                toggleIsHidden();
-                            }
-                            onEntered: {
-                                parent.opacity = 0.9
-                                parent.fontSize = 24
-                            }
-                            onExited: {
-                                parent.opacity = 0.7
-                                parent.fontSize = 20
-                            }
-                        }
-                    }
-                }
-
                 Keys.enabled: root.visible
-                Keys.onReturnPressed: {
-                    root.close()
-                    if (passwordDialogMode) {
-                        root.accepted()
-                    } else if (newPasswordDialogMode) {
-                        root.acceptedNewPassword()
-                    } else if (passphraseDialogMode) {
-                        root.acceptedPassphrase()
-                    }
-                }
-                Keys.onEscapePressed: {
-                    root.close()
-                    if (passwordDialogMode) {
-                        root.rejected()
-                    } else if (newPasswordDialogMode) {
-                        root.rejectedNewPassword()
-                    } else if (passphraseDialogMode) {
-                        root.rejectedPassphrase()
-                    }
-                }
+                Keys.onEnterPressed: root.onOk()
+                Keys.onReturnPressed: root.onOk()
+                Keys.onEscapePressed: root.onCancel()
             }
 
             // padding
@@ -297,79 +240,19 @@ Item {
                 color: ItaloComponents.Style.defaultFontColor
             }
 
-            ItaloComponents.Input {
+            ItaloComponents.LineEdit {
                 id: passwordInput2
+                passwordLinked: passwordInput1
                 visible: !passwordDialogMode
                 Layout.topMargin: 6
                 Layout.fillWidth: true
-                horizontalAlignment: TextInput.AlignLeft
-                verticalAlignment: TextInput.AlignVCenter
-                font.family: ItaloComponents.Style.fontLight.name
-                font.pixelSize: 24
-                echoMode: TextInput.Password
                 KeyNavigation.tab: okButton
-                implicitHeight: 50
-                bottomPadding: 10
-                leftPadding: 10
-                topPadding: 10
-                color: ItaloComponents.Style.defaultFontColor
-                selectionColor: ItaloComponents.Style.textSelectionColor
-                selectedTextColor: ItaloComponents.Style.textSelectedColor
                 onTextChanged: capsLockTextLabel.visible = oshelper.isCapsLock();
 
-                background: Rectangle {
-                    radius: 2
-                    border.color: ItaloComponents.Style.inputBorderColorInActive
-                    border.width: 1
-                    color: ItaloComponents.Style.blackTheme ? "black" : "#A9FFFFFF"
-
-                    ItaloComponents.Label {
-                        fontSize: 20
-                        text: isHidden ? FontAwesome.eye : FontAwesome.eyeSlash
-                        opacity: 0.7
-                        fontFamily: FontAwesome.fontFamily
-                        anchors.right: parent.right
-                        anchors.rightMargin: 15
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: 1
-
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            hoverEnabled: true
-                            onClicked: {
-                                toggleIsHidden()
-                            }
-                            onEntered: {
-                                parent.opacity = 0.9
-                                parent.fontSize = 24
-                            }
-                            onExited: {
-                                parent.opacity = 0.7
-                                parent.fontSize = 20
-                            }
-                        }
-                    }
-                }
-
-                Keys.onReturnPressed: {
-                    if (passwordInput1.text === passwordInput2.text) {
-                        root.close()
-                        if (newPasswordDialogMode) {
-                            root.acceptedNewPassword()
-                        } else if (passphraseDialogMode) {
-                            root.acceptedPassphrase()
-                        }
-                    }
-                }
-                Keys.onEscapePressed: {
-                    root.close()
-                    if (newPasswordDialogMode) {
-                        root.rejectedNewPassword()
-                    } else if (passphraseDialogMode) {
-                        root.rejectedPassphrase()
-                    }
-                }
+                Keys.enabled: root.visible
+                Keys.onEnterPressed: root.onOk()
+                Keys.onReturnPressed: root.onOk()
+                Keys.onEscapePressed: root.onCancel()
             }
 
             // padding
@@ -394,16 +277,7 @@ Item {
                     small: true
                     text: qsTr("Cancel") + translationManager.emptyString
                     KeyNavigation.tab: passwordInput1
-                    onClicked: {
-                        root.close()
-                        if (passwordDialogMode) {
-                            root.rejected()
-                        } else if (newPasswordDialogMode) {
-                            root.rejectedNewPassword()
-                        } else if (passphraseDialogMode) {
-                            root.rejectedPassphrase()
-                        }
-                    }
+                    onClicked: onCancel()
                 }
 
                 ItaloComponents.StandardButton {
@@ -412,16 +286,7 @@ Item {
                     text: qsTr("Ok") + translationManager.emptyString
                     KeyNavigation.tab: cancelButton
                     enabled: (passwordDialogMode == true) ? true : passwordInput1.text === passwordInput2.text
-                    onClicked: {
-                        root.close()
-                        if (passwordDialogMode) {
-                            root.accepted()
-                        } else if (newPasswordDialogMode) {
-                            root.acceptedNewPassword()
-                        } else if (passphraseDialogMode) {
-                            root.acceptedPassphrase()
-                        }
-                    }
+                    onClicked: onOk()
                 }
             }
         }

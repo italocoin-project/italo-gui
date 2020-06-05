@@ -58,7 +58,7 @@ Rectangle {
 
             WizardHeader {
                 Layout.bottomMargin: 20
-                title: qsTr("Welcome to Italo.") + translationManager.emptyString
+                title: qsTr("Welcome to Italo") + translationManager.emptyString
                 subtitle: ""
             }
 
@@ -191,6 +191,7 @@ Rectangle {
 
                     ItaloComponents.StandardDropdown {
                         id: networkTypeDropdown
+                        currentIndex: persistentSettings.nettype
                         dataModel: networkTypeModel
                         Layout.fillWidth: true
                         Layout.maximumWidth: 180
@@ -242,11 +243,6 @@ Rectangle {
             duration: 200;
             easing.type: Easing.InCubic;
         }
-    }
-
-    Component.onCompleted: {
-        networkTypeDropdown.currentIndex = persistentSettings.nettype;
-        networkTypeDropdown.update();
     }
 
     function onPageCompleted(){

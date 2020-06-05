@@ -33,11 +33,12 @@ import QtQuick.Controls 2.0
 import "../js/Wizard.js" as Wizard
 import "../components" as ItaloComponents
 
-GridLayout {
+RowLayout {
     id: menuNav
     property alias progressEnabled: wizardProgress.visible
     property int progressSteps: 0
     property int progress: 0
+    property bool autoTransition: true
     property alias btnPrev: btnPrev
     property alias btnNext: btnNext
     property string btnPrevText: qsTr("Previous") + translationManager.emptyString
@@ -45,7 +46,6 @@ GridLayout {
     Layout.topMargin: 20
     Layout.preferredHeight: 70
     Layout.preferredWidth: parent.width
-    columns: 3
 
     signal nextClicked;
     signal prevClicked;
@@ -55,16 +55,15 @@ GridLayout {
     signal m_prevClicked;
 
     onM_prevClicked: {
-        wizardController.wizardStackView.backTransition = true;
+        if (autoTransition) wizardController.wizardStackView.backTransition = true;
     }
 
     onM_nextClicked: {
-        wizardController.wizardStackView.backTransition = false;
+        if (autoTransition) wizardController.wizardStackView.backTransition = false;
     }
 
     Rectangle {
         Layout.preferredHeight: parent.height
-        Layout.fillWidth: true
         color: "transparent"
 
         ItaloComponents.StandardButton {
@@ -88,19 +87,25 @@ GridLayout {
         Layout.fillWidth: true
         color: "transparent"
 
-        RowLayout {
+        PageIndicator {
             id: wizardProgress
-            spacing: 0
-            width: 100  // default, dynamically set later
-            height: 30
+            currentIndex: menuNav.progress
+            count: menuNav.progressSteps
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
+            spacing: 25
+            delegate: Rectangle {
+                implicitWidth: 10
+                implicitHeight: 10
+                radius: 10
+                // @TODO: Qt 5.10+ replace === with <=
+                color: index === menuNav.progress ? ItaloComponents.Style.defaultFontColor : ItaloComponents.Style.progressBarBackgroundColor
+            }
         }
     }
 
     Rectangle {
         Layout.preferredHeight: parent.height
-        Layout.fillWidth: true
         color: "transparent"
 
         ItaloComponents.StandardButton {
@@ -116,15 +121,5 @@ GridLayout {
                 menuNav.nextClicked();
             }
         }
-    }
-
-    Component.onCompleted: {
-        for(var i =0; i < menuNav.progressSteps; i++) {
-            var active = i < menuNav.progress ? 'true' : 'false';
-            Qt.createQmlObject("WizardNavProgressDot { active: " + active + " }", wizardProgress, 'dynamicWizardNavDot');
-        }
-
-        // Set `wizardProgress` width based on amount of progress dots
-        wizardProgress.width = 30 * menuNav.progressSteps;
     }
 }

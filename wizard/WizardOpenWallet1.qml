@@ -45,7 +45,7 @@ Rectangle {
     color: "transparent"
     property alias pageHeight: pageRoot.height
     property string viewName: "wizardOpenWallet1"
-    property int walletCount: walletKeysFilesModel.rowCount()
+    property int walletCount: walletKeysFilesModel ? walletKeysFilesModel.rowCount() : 0
 
     ColumnLayout {
         id: pageRoot
@@ -69,7 +69,7 @@ Rectangle {
             }
 
             GridLayout {
-                visible: walletKeysFilesModel.rowCount() > 0
+                visible: (walletKeysFilesModel ? walletKeysFilesModel.rowCount() : 0) > 0
                 Layout.topMargin: 10
                 Layout.fillWidth: true
                 columnSpacing: 20
@@ -119,7 +119,7 @@ Rectangle {
 
                     delegate: Rectangle {
                         // inherited roles from walletKeysFilesModel:
-                        // index, modified, accessed, path, networktype, address
+                        // index, fileName, modified, accessed, path, networktype, address
                         id: item
                         height: flow.itemHeight
                         width: {
@@ -133,11 +133,6 @@ Rectangle {
                             else if(networktype === 2) return qsTr("Stagenet");
                             return "";
                         }
-                        property string fileName: {
-                            var spl = path.split("/");
-                            return spl[spl.length - 1].replace(".keys", "");
-                        }
-                        property string filePath: { return path }
                         color: "transparent"
 
                         Rectangle {
@@ -202,9 +197,9 @@ Rectangle {
                                     text: {
                                         // truncate on window width
                                         var maxLength = wizardController.layoutScale <= 1 ? 12 : 16
-                                        if(item.fileName.length > maxLength)
-                                            return item.fileName.substring(0, maxLength) + "...";
-                                        return item.fileName;
+                                        if (fileName.length > maxLength)
+                                            return fileName.substring(0, maxLength) + "...";
+                                        return fileName;
                                     }
 
                                     Layout.preferredHeight: 26
@@ -270,7 +265,7 @@ Rectangle {
                             onClicked: {
                                 persistentSettings.nettype = parseInt(networktype)
 
-                                wizardController.openWalletFile(item.filePath);
+                                wizardController.openWalletFile(path);
                             }
                         }
                     }

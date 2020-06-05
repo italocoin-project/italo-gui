@@ -41,10 +41,13 @@
 #include <QMutexLocker>
 #include <QString>
 
-class WalletPassphraseListenerImpl : public  Italo::WalletListener
+#include "qt/updater.h"
+#include "qt/ScopeGuard.h"
+
+class WalletPassphraseListenerImpl : public  Italo::WalletListener, public PassphraseReceiver
 {
 public:
-  WalletPassphraseListenerImpl(WalletManager * mgr): m_mgr(mgr), m_wallet(nullptr) {}
+  WalletPassphraseListenerImpl(WalletManager * mgr): m_mgr(mgr), m_phelper(mgr) {}
 
   virtual void moneySpent(const std::string &txId, uint64_t amount) override { (void)txId; (void)amount; };
   virtual void moneyReceived(const std::string &txId, uint64_t amount) override { (void)txId; (void)amount; };
@@ -53,43 +56,33 @@ public:
   virtual void updated() override {};
   virtual void refreshed() override {};
 
-  virtual Italo::optional<std::string> onDevicePassphraseRequest(bool on_device) override
+  virtual void onPassphraseEntered(const QString &passphrase, bool enter_on_device, bool entry_abort) override
   {
       qDebug() << __FUNCTION__;
-      if (on_device) return Italo::optional<std::string>();
+      m_phelper.onPassphraseEntered(passphrase, enter_on_device, entry_abort);
+  }
 
-      m_mgr->onWalletPassphraseNeeded(m_wallet);
-
-      if (m_mgr->m_passphrase_abort)
-      {
-        throw std::runtime_error("Passphrase entry abort");
-      }
-
-      auto tmpPass = m_mgr->m_passphrase.toStdString();
-      m_mgr->m_passphrase = QString();
-
-      return Italo::optional<std::string>(tmpPass);
+  virtual Italo::optional<std::string> onDevicePassphraseRequest(bool & on_device) override
+  {
+      qDebug() << __FUNCTION__;
+      return m_phelper.onDevicePassphraseRequest(on_device);
   }
 
   virtual void onDeviceButtonRequest(uint64_t code) override
   {
-    emit m_mgr->deviceButtonRequest(code);
+      qDebug() << __FUNCTION__;
+      emit m_mgr->deviceButtonRequest(code);
   }
 
   virtual void onDeviceButtonPressed() override
   {
-    emit m_mgr->deviceButtonPressed();
-  }
-
-  virtual void onSetWallet(Italo::Wallet * wallet) override
-  {
       qDebug() << __FUNCTION__;
-      m_wallet = wallet;
+      emit m_mgr->deviceButtonPressed();
   }
 
 private:
   WalletManager * m_mgr;
-  Italo::Wallet * m_wallet;
+  PassphraseHelper m_phelper;
 };
 
 WalletManager * WalletManager::m_instance = nullptr;
@@ -121,6 +114,13 @@ Wallet *WalletManager::openWallet(const QString &path, const QString &password, 
 {
     QMutexLocker locker(&m_mutex);
     WalletPassphraseListenerImpl tmpListener(this);
+    m_mutex_passphraseReceiver.lock();
+    m_passphraseReceiver = &tmpListener;
+    m_mutex_passphraseReceiver.unlock();
+    const auto cleanup = sg::make_scope_guard([this]() noexcept {
+        QMutexLocker passphrase_locker(&m_mutex_passphraseReceiver);
+        this->m_passphraseReceiver = nullptr;
+    });
 
     if (m_currentWallet) {
         qDebug() << "Closing open m_currentWallet" << m_currentWallet;
@@ -151,14 +151,14 @@ void WalletManager::openWalletAsync(const QString &path, const QString &password
 }
 
 
-Wallet *WalletManager::recoveryWallet(const QString &path, const QString &memo, NetworkType::Type nettype, quint64 restoreHeight, quint64 kdfRounds)
+Wallet *WalletManager::recoveryWallet(const QString &path, const QString &seed, const QString &seed_offset, NetworkType::Type nettype, quint64 restoreHeight, quint64 kdfRounds)
 {
     QMutexLocker locker(&m_mutex);
     if (m_currentWallet) {
         qDebug() << "Closing open m_currentWallet" << m_currentWallet;
         delete m_currentWallet;
     }
-    Italo::Wallet * w = m_pimpl->recoveryWallet(path.toStdString(), "", memo.toStdString(), static_cast<Italo::NetworkType>(nettype), restoreHeight, kdfRounds);
+    Italo::Wallet * w = m_pimpl->recoveryWallet(path.toStdString(), "", seed.toStdString(), static_cast<Italo::NetworkType>(nettype), restoreHeight, kdfRounds, seed_offset.toStdString());
     m_currentWallet = new Wallet(w);
     return m_currentWallet;
 }
@@ -184,6 +184,13 @@ Wallet *WalletManager::createWalletFromDevice(const QString &path, const QString
 {
     QMutexLocker locker(&m_mutex);
     WalletPassphraseListenerImpl tmpListener(this);
+    m_mutex_passphraseReceiver.lock();
+    m_passphraseReceiver = &tmpListener;
+    m_mutex_passphraseReceiver.unlock();
+    const auto cleanup = sg::make_scope_guard([this]() noexcept {
+        QMutexLocker passphrase_locker(&m_mutex_passphraseReceiver);
+        this->m_passphraseReceiver = nullptr;
+    });
 
     if (m_currentWallet) {
         qDebug() << "Closing open m_currentWallet" << m_currentWallet;
@@ -260,7 +267,7 @@ quint64 WalletManager::maximumAllowedAmount() const
     return Italo::Wallet::maximumAllowedAmount();
 }
 
-QString WalletManager::maximumAllowedAmountAsSting() const
+QString WalletManager::maximumAllowedAmountAsString() const
 {
     return WalletManager::displayAmount(WalletManager::maximumAllowedAmount());
 }
@@ -458,18 +465,45 @@ double WalletManager::getPasswordStrength(const QString &password) const
 bool WalletManager::saveQrCode(const QString &code, const QString &path) const
 {
     QSize size;
-    // 240 <=> mainLayout.qrCodeSize (Receive.qml)
     return QRCodeImageProvider::genQrImage(code, &size).scaled(size.expandedTo(QSize(240, 240)), Qt::KeepAspectRatio).save(path, "PNG", 100);
 }
 
-void WalletManager::checkUpdatesAsync(const QString &software, const QString &subdir)
+void WalletManager::checkUpdatesAsync(
+    const QString &software,
+    const QString &subdir,
+    const QString &buildTag,
+    const QString &version)
 {
-    m_scheduler.run([this, software, subdir] {
-        emit checkUpdatesComplete(checkUpdates(software, subdir));
+    m_scheduler.run([this, software, subdir, buildTag, version] {
+        const auto updateInfo = Italo::WalletManager::checkUpdates(
+            software.toStdString(),
+            subdir.toStdString(),
+            buildTag.toStdString().c_str(),
+            version.toStdString().c_str());
+        if (!std::get<0>(updateInfo))
+        {
+            return;
+        }
+
+        const QString version = QString::fromStdString(std::get<1>(updateInfo));
+        const QByteArray hashFromDns = QByteArray::fromHex(QString::fromStdString(std::get<2>(updateInfo)).toUtf8());
+        const QString downloadUrl = QString::fromStdString(std::get<4>(updateInfo));
+
+        try
+        {
+            const QString binaryFilename = QUrl(downloadUrl).fileName();
+            QPair<QString, QString> signers;
+            const QString signedHash = Updater().fetchSignedHash(binaryFilename, hashFromDns, signers).toHex();
+
+            qInfo() << "Update found" << version << downloadUrl << "hash" << signedHash << "signed by" << signers;
+            emit checkUpdatesComplete(version, downloadUrl, signedHash, signers.first, signers.second);
+        }
+        catch (const std::exception &e)
+        {
+            qCritical() << "Failed to fetch and verify signed hash:" << e.what();
+        }
     });
 }
-
-
 
 QString WalletManager::checkUpdates(const QString &software, const QString &subdir) const
 {
@@ -500,6 +534,7 @@ bool WalletManager::clearWalletCache(const QString &wallet_path) const
 
 WalletManager::WalletManager(QObject *parent)
     : QObject(parent)
+    , m_passphraseReceiver(nullptr)
     , m_scheduler(this)
 {
     m_pimpl =  Italo::WalletManagerFactory::getWalletManager();
@@ -510,22 +545,16 @@ WalletManager::~WalletManager()
     m_scheduler.shutdownWaitForFinished();
 }
 
-void WalletManager::onWalletPassphraseNeeded(Italo::Wallet *)
+void WalletManager::onWalletPassphraseNeeded(bool on_device)
 {
-    m_mutex_pass.lock();
-    m_passphrase_abort = false;
-    emit this->walletPassphraseNeeded();
-
-    m_cond_pass.wait(&m_mutex_pass);
-    m_mutex_pass.unlock();
+    emit this->walletPassphraseNeeded(on_device);
 }
 
-void WalletManager::onPassphraseEntered(const QString &passphrase, bool entry_abort)
+void WalletManager::onPassphraseEntered(const QString &passphrase, bool enter_on_device, bool entry_abort)
 {
-    m_mutex_pass.lock();
-    m_passphrase = passphrase;
-    m_passphrase_abort = entry_abort;
-
-    m_cond_pass.wakeAll();
-    m_mutex_pass.unlock();
+    QMutexLocker locker(&m_mutex_passphraseReceiver);
+    if (m_passphraseReceiver != nullptr)
+    {
+        m_passphraseReceiver->onPassphraseEntered(passphrase, enter_on_device, entry_abort);
+    }
 }

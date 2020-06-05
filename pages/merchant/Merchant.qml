@@ -25,6 +25,7 @@ Item {
     anchors.margins: 0
 
     property int    minWidth: 900
+    property int    minHeight: 600
     property int    qrCodeSize: 220
     property bool   enableTracking: false
     property string trackingError: ""  // setting this will show a message @ tracking table
@@ -33,6 +34,9 @@ Item {
     property var    hiddenAmounts: []
 
     function onPageCompleted() {
+        if (appWindow.currentWallet) {
+            appWindow.current_address = appWindow.currentWallet.address(appWindow.currentWallet.currentSubaddressAccount, 0)
+        }
         // prepare tracking
         trackingCheckbox.checked = root.enableTracking
         root.update();
@@ -67,7 +71,7 @@ Item {
 
     ColumnLayout {
         id: mainLayout
-        visible: parent.width >= root.minWidth
+        visible: parent.width >= root.minWidth && appWindow.height >= root.minHeight
         spacing: 0
 
         // emulates max-width + center for container
@@ -151,14 +155,10 @@ Item {
                         model: trackingModel
                         message: {
                             if(!root.enableTracking){
-                                return qsTr(
-                                        "<style>p{font-size:14px;}</style>" +
-                                        "<p>This page will automatically scan the blockchain and the tx pool " +
-                                        "for incoming transactions using the QR code.</p>" +
-                                        "<p>It's up to you whether to accept unconfirmed transactions or not. It is likely they'll be " +
-                                        "confirmed in short order, but there is still a possibility they might not, so for larger " +
-                                        "values you may want to wait for one or more confirmation(s).</p>"
-                                    ) + translationManager.emptyString;
+                                return "<style>p{font-size:14px;}</style> <p>%1</p> <p>%2</p>"
+                                    .arg(qsTr("This page will automatically scan the blockchain and the tx pool for incoming transactions using the QR code."))
+                                    .arg(qsTr("It's up to you whether to accept unconfirmed transactions or not. It is likely they'll be confirmed in short order, but there is still a possibility they might not, so for larger values you may want to wait for one or more confirmation(s)"))
+                                    + translationManager.emptyString;
                             } else if(root.trackingError !== ""){
                                 return root.trackingError;
                             } else if(trackingModel.count < 1){
@@ -265,7 +265,10 @@ Item {
                     font.pixelSize: 12
                     font.bold: false
                     color: "white"
-                    text: qsTr("<style type='text/css'>a {text-decoration: none; color: #FF6C3C; font-size: 12px;}</style>Currently selected address: ") + addressLabel + qsTr(" <a href='#'>(Change)</a>") + translationManager.emptyString
+                    text: "<style type='text/css'>a {text-decoration: none; color: #FF6C3C; font-size: 12px;}</style>%1: %2 <a href='#'>(%3)</a>"
+                        .arg(qsTr("Currently selected address"))
+                        .arg(addressLabel)
+                        .arg(qsTr("Change")) + translationManager.emptyString
                     textFormat: Text.RichText
                     themeTransition: false
 
@@ -545,7 +548,7 @@ Item {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: appWindow.showPageRequest("Receive")
+                        onClicked: appWindow.showPageRequest("Settings")
                     }
                 }
             }
@@ -554,7 +557,7 @@ Item {
 
     Rectangle {
         // Shows when the window is too small
-        visible: parent.width < root.minWidth
+        visible: parent.width < root.minWidth || appWindow.height < root.minHeight
         anchors.top: parent.top
         anchors.topMargin: 100;
         anchors.horizontalCenter: parent.horizontalCenter
@@ -571,6 +574,13 @@ Item {
             text: qsTr("The merchant page requires a larger window") + translationManager.emptyString
             themeTransition: false
         }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: appWindow.showPageRequest("Settings")
+        }
     }
 
     function update() {
@@ -582,7 +592,7 @@ Item {
             return
         }
 
-        if (appWindow.currentWallet.connected() == Wallet.ConnectionStatus_Disconnected) {
+        if (appWindow.disconnected) {
             root.trackingError = qsTr("WARNING: no connection to daemon");
             trackingModel.clear();
             return
@@ -590,9 +600,7 @@ Item {
 
         var model = appWindow.currentWallet.historyModel
         var count = model.rowCount()
-        var totalAmount = 0
         var nTransactions = 0
-        var blockchainHeight = null
         var txs = []
 
         // Currently selected subaddress as per Receive page
@@ -608,8 +616,6 @@ Item {
             var subaddrIndex = model.data(idx, TransactionHistoryModel.TransactionSubaddrIndexRole);
 
             if (!isout && subaddrAccount == appWindow.currentWallet.currentSubaddressAccount && subaddrIndex == current_subaddress_table_index) {
-                var amount = model.data(idx, TransactionHistoryModel.TransactionAtomicAmountRole);
-                totalAmount = walletManager.addi(totalAmount, amount)
                 nTransactions += 1
 
                 var txid = model.data(idx, TransactionHistoryModel.TransactionHashRole);
@@ -617,21 +623,17 @@ Item {
 
                 var in_txpool = false;
                 var confirmations = 0;
-                var displayAmount = 0;
+                var displayAmount = model.data(idx, TransactionHistoryModel.TransactionDisplayAmountRole);
 
-                if (blockHeight == 0) {
+                if (blockHeight === undefined) {
                     in_txpool = true;
                 } else {
-                    if (blockchainHeight == null)
-                        blockchainHeight = walletManager.blockchainHeight()
-                    confirmations = blockchainHeight - blockHeight - 1
-                    displayAmount = model.data(idx, TransactionHistoryModel.TransactionDisplayAmountRole);
+                    confirmations = model.data(idx, TransactionHistoryModel.TransactionConfirmationsRole);
                 }
 
                 txs.push({
                     "amount": displayAmount,
                     "confirmations": confirmations,
-                    "blockheight": blockHeight,
                     "in_txpool": in_txpool,
                     "txid": txid,
                     "time_epoch": timeEpoch,
@@ -651,9 +653,7 @@ Item {
         txs.forEach(function(tx){
             trackingModel.append({
                 "amount": tx.amount,
-                "blockheight": tx.blockheight,
                 "confirmations": tx.confirmations,
-                "blockheight": tx.blockHeight,
                 "in_txpool": tx.in_txpool,
                 "txid": tx.txid,
                 "time_epoch": tx.time_epoch,

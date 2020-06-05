@@ -33,11 +33,17 @@ import "../components" as ItaloComponents
 
 Item {
     id: button
+    property bool primary: true
     property string rightIcon: ""
     property string rightIconInactive: ""
-    property string textColor: button.enabled? ItaloComponents.Style.buttonTextColor: ItaloComponents.Style.buttonTextColorDisabled
+    property color textColor: !button.enabled
+        ? ItaloComponents.Style.buttonTextColorDisabled
+        : primary
+        ? ItaloComponents.Style.buttonTextColor
+        : ItaloComponents.Style.buttonSecondaryTextColor;
     property bool small: false
     property alias text: label.text
+    property alias fontBold: label.font.bold
     property int fontSize: {
         if(small) return 14;
         else return 16;
@@ -70,7 +76,9 @@ Item {
                 when: buttonArea.containsMouse || button.focus
                 PropertyChanges {
                     target: buttonRect
-                    color: ItaloComponents.Style.buttonBackgroundColorHover
+                    color: primary
+                        ? ItaloComponents.Style.buttonBackgroundColorHover
+                        : ItaloComponents.Style.buttonSecondaryBackgroundColorHover
                 }
             },
             State {
@@ -78,7 +86,9 @@ Item {
                 when: button.enabled
                 PropertyChanges {
                     target: buttonRect
-                    color: ItaloComponents.Style.buttonBackgroundColor
+                    color: primary
+                        ? ItaloComponents.Style.buttonBackgroundColor
+                        : ItaloComponents.Style.buttonSecondaryBackgroundColor
                 }
             },
             State {
@@ -146,6 +156,8 @@ Item {
         cursorShape: Qt.PointingHandCursor
     }
 
+    Keys.enabled: button.visible
     Keys.onSpacePressed: doClick()
+    Keys.onEnterPressed: Keys.onReturnPressed(event)
     Keys.onReturnPressed: doClick()
 }

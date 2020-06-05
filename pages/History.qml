@@ -711,7 +711,7 @@ Rectangle {
                                     font.pixelSize: 15
                                     text: {
                                         if(!isout && confirmationsRequired === 60) return qsTr("Yes") + translationManager.emptyString;
-                                        if(fee !== "") return fee + " XMR";
+                                        if(fee !== "") return fee + " XTA";
                                         return "-";
                                     }
 
@@ -938,7 +938,7 @@ Rectangle {
                                     anchors.leftMargin: 16
                                     width: 28
                                     height: 28
-                                    source: "qrc:///images/miningxmr.png"
+                                    source: "qrc:///images/miningxta.png"
                                 }
 
                                 ItaloComponents.StandardButton {
@@ -1511,7 +1511,7 @@ Rectangle {
                 "i": i,
                 "isout": isout,
                 "amount": Number(amount),
-                "displayAmount": displayAmount + " XMR",
+                "displayAmount": displayAmount + " XTA",
                 "hash": hash,
                 "paymentId": paymentId,
                 "address": address,

@@ -2143,7 +2143,7 @@ Možete promeniti lozinku u podešavanjima novčanika.</translation>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="163"/>
-        <source>Spendable funds: %1 XMR. Please wait ~%2 minutes for your whole balance to become spendable.</source>
+        <source>Spendable funds: %1 XTA. Please wait ~%2 minutes for your whole balance to become spendable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2327,7 +2327,7 @@ Možete promeniti lozinku u podešavanjima novčanika.</translation>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="589"/>
-        <source>Spend XMR from a cold (offline) wallet</source>
+        <source>Spend XTA from a cold (offline) wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

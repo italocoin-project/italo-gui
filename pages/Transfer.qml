@@ -159,7 +159,7 @@ Rectangle {
           visible: leftPanel.minutesToUnlock !== ""
 
           ItaloComponents.WarningBox {
-              text: qsTr("Spendable funds: %1 XMR. Please wait ~%2 minutes for your whole balance to become spendable.").arg(leftPanel.balanceUnlockedString).arg(leftPanel.minutesToUnlock)
+              text: qsTr("Spendable funds: %1 XTA. Please wait ~%2 minutes for your whole balance to become spendable.").arg(leftPanel.balanceUnlockedString).arg(leftPanel.minutesToUnlock)
           }
       }
 
@@ -350,7 +350,7 @@ Rectangle {
                         if (!sendButton.enabled || estimatedFee == null) {
                             return ""
                         }
-                        return "%1: ~%2 XMR".arg(qsTr("Fee")).arg(estimatedFee) +
+                        return "%1: ~%2 XTA".arg(qsTr("Fee")).arg(estimatedFee) +
                             estimatedFeeFiat +
                             translationManager.emptyString;
                     }
@@ -586,7 +586,7 @@ Rectangle {
                 console.log("Transfer: submit tx clicked")
                 submitTxDialog.open();
             }
-            helpTextLarge.text: qsTr("Spend XMR from a cold (offline) wallet") + translationManager.emptyString
+            helpTextLarge.text: qsTr("Spend XTA from a cold (offline) wallet") + translationManager.emptyString
             helpTextSmall.text: {
                 var errorMessage = "";
                 if (appWindow.viewOnly && !pageRoot.checkInformation(amountLine.text, addressLine.text, appWindow.persistentSettings.nettype)){

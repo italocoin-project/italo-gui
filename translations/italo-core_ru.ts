@@ -2250,8 +2250,8 @@ Please upgrade or connect to another daemon</source>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="163"/>
-        <source>Spendable funds: %1 XMR. Please wait ~%2 minutes for your whole balance to become spendable.</source>
-        <translation>Отправляемая сумма: %1 XMR. Пожалуйста, подождите ~%2 минут чтобы весь ваш баланс стал доступен для отправки.</translation>
+        <source>Spendable funds: %1 XTA. Please wait ~%2 minutes for your whole balance to become spendable.</source>
+        <translation>Отправляемая сумма: %1 XTA. Пожалуйста, подождите ~%2 минут чтобы весь ваш баланс стал доступен для отправки.</translation>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="354"/>
@@ -2360,8 +2360,8 @@ Please upgrade or connect to another daemon</source>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="589"/>
-        <source>Spend XMR from a cold (offline) wallet</source>
-        <translation>Потратить XMR из оффлайн кошелька</translation>
+        <source>Spend XTA from a cold (offline) wallet</source>
+        <translation>Потратить XTA из оффлайн кошелька</translation>
     </message>
     <message>
         <location filename="../pages/Transfer.qml" line="593"/>
@@ -3685,7 +3685,7 @@ your input may be required.</source>
     <message>
         <location filename="../main.qml" line="1054"/>
         <source>This address received %1 italo, with %2 confirmation(s).</source>
-        <translation>Этот адрес получил %1 XMR, с %2 подтверждениями.</translation>
+        <translation>Этот адрес получил %1 XTA, с %2 подтверждениями.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1065"/>
@@ -3746,7 +3746,7 @@ your input may be required.</source>
     <message>
         <location filename="../main.qml" line="1051"/>
         <source>This address received %1 italo, but the transaction is not yet mined</source>
-        <translation>Этот адрес получил %1 XMR, но транзакции все еще не подтверждены майнерами</translation>
+        <translation>Этот адрес получил %1 XTA, но транзакции все еще не подтверждены майнерами</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1058"/>

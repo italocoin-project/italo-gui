@@ -149,7 +149,6 @@ target_link_libraries(italo-wallet-gui
     ${CMAKE_BINARY_DIR}/italo/external/easylogging++/libeasylogging.a
     ${CMAKE_BINARY_DIR}/italo/src/blockchain_db/libblockchain_db.a
     ${CMAKE_BINARY_DIR}/italo/external/randomx/librandomx.a
-    ${CMAKE_BINARY_DIR}/italo/src/hardforks/libhardforks.a
     ${Boost_LIBRARIES}
     ${OPENSSL_LIBRARIES}
     ${CMAKE_DL_LIBS}

@@ -41,7 +41,6 @@ import "../js/Utils.js" as Utils
 Item {
     id: root
     visible: false
-    z: parent.z + 2
 
     property alias password: passwordInput1.text
     property string walletName
@@ -63,7 +62,8 @@ Item {
         capsLockTextLabel.visible = oshelper.isCapsLock();
         passwordInput1.reset();
         passwordInput2.reset();
-        passwordInput1.input.forceActiveFocus();
+        if(!appWindow.currentWallet || appWindow.active)
+            passwordInput1.input.forceActiveFocus();
         root.walletName = walletName ? walletName : ""
         errorTextLabel.text = errorText ? errorText : "";
         leftPanel.enabled = false

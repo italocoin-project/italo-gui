@@ -51,6 +51,9 @@ class WalletManager : public QObject, public PassprasePrompter
     Q_PROPERTY(bool connected READ connected)
 
 public:
+    explicit WalletManager(QObject *parent = 0);
+    ~WalletManager();
+
     enum LogLevel {
         LogLevel_Silent = Italo::WalletManagerFactory::LogLevel_Silent,
         LogLevel_0 = Italo::WalletManagerFactory::LogLevel_0,
@@ -62,7 +65,6 @@ public:
         LogLevel_Max = Italo::WalletManagerFactory::LogLevel_Max,
     };
 
-    static WalletManager * instance();
     // wizard: createWallet path;
     Q_INVOKABLE Wallet * createWallet(const QString &path, const QString &password,
                                       const QString &language, NetworkType::Type nettype = NetworkType::MAINNET, quint64 kdfRounds = 1);
@@ -129,7 +131,7 @@ public:
     Q_INVOKABLE QString errorString() const;
 
     //! since we can't call static method from QML, move it to this class
-    Q_INVOKABLE QString displayAmount(quint64 amount) const;
+    Q_INVOKABLE static QString displayAmount(quint64 amount);
     Q_INVOKABLE quint64 amountFromString(const QString &amount) const;
     Q_INVOKABLE quint64 amountFromDouble(double amount) const;
     Q_INVOKABLE quint64 maximumAllowedAmount() const;
@@ -207,9 +209,6 @@ signals:
 public slots:
 private:
     friend class WalletPassphraseListenerImpl;
-
-    explicit WalletManager(QObject *parent = 0);
-    ~WalletManager();
 
     bool isMining() const;
 

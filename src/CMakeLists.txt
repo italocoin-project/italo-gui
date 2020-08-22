@@ -44,13 +44,16 @@ file(GLOB SOURCE_FILES
     "libwalletqt/Subaddress.h"
     "libwalletqt/SubaddressAccount.h"
     "libwalletqt/UnsignedTransaction.h"
-	"daemon/*.h"
-	"daemon/*.cpp"
-	"model/*.h"
-	"model/*.cpp"
-	"qt/*.h"
+    "daemon/*.h"
+    "daemon/*.cpp"
+    "model/*.h"
+    "model/*.cpp"
+    "qt/*.h"
     "qt/*.cpp"
 )
+if(APPLE)
+    list(APPEND SOURCE_FILES "qt/macoshelper.mm")
+endif()
 
 if(ENABLE_PASS_STRENGTH_METER)
     file(GLOB PASS_STRENGTH_FILES
@@ -80,13 +83,24 @@ if(MINGW)
     list(APPEND RESOURCES ${ICON_RES})
 endif()
 
+if(APPLE)
+    set(ICON ${PROJECT_SOURCE_DIR}/images/appicon.icns)
+    set_source_files_properties(${ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    list(APPEND RESOURCES ${ICON})
+endif()
+
 add_executable(italo-wallet-gui ${EXECUTABLE_FLAG} main/main.cpp
     ${SOURCE_FILES}
     ${PASS_STRENGTH_FILES}
     ${QR_CODE_FILES}
     ${RESOURCES}
 )
-set_property(TARGET italo-wallet-gui PROPERTY RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+set_target_properties(italo-wallet-gui PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    MACOSX_BUNDLE TRUE
+    MACOSX_BUNDLE_INFO_PLIST "${CMAKE_SOURCE_DIR}/share/Info.plist"
+)
 
 # OpenGL
 target_include_directories(italo-wallet-gui PUBLIC ${OPENGL_INCLUDE_DIR})
@@ -126,29 +140,15 @@ target_compile_definitions(italo-wallet-gui
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
-if(X11_FOUND)
-    target_link_libraries(italo-wallet-gui ${X11_LIBRARIES} pthread dl xcb X11)
-endif()
-
-if(DEVICE_TREZOR_READY)
-    target_link_libraries(italo-wallet-gui ${TREZOR_DEP_LIBS})
-endif()
-
-if(INSTALL_VENDORED_LIBUNBOUND)
-  set(UNBOUND_LIBRARY ${CMAKE_BINARY_DIR}/italo/external/unbound/libunbound.a)
-else()
-  set(UNBOUND_LIBRARY unbound)
-endif()
-
 target_link_libraries(italo-wallet-gui
-    ${CMAKE_BINARY_DIR}/lib/libwallet_merged.a
+    wallet_merged
     ${LMDB_LIBRARY}
-    ${CMAKE_BINARY_DIR}/italo/contrib/epee/src/libepee.a
+    epee
     ${UNBOUND_LIBRARY}
     ${SODIUM_LIBRARY}
-    ${CMAKE_BINARY_DIR}/italo/external/easylogging++/libeasylogging.a
-    ${CMAKE_BINARY_DIR}/italo/src/blockchain_db/libblockchain_db.a
-    ${CMAKE_BINARY_DIR}/italo/external/randomx/librandomx.a
+    easylogging
+    blockchain_db
+    randomx
     ${Boost_LIBRARIES}
     ${OPENSSL_LIBRARIES}
     ${CMAKE_DL_LIBS}
@@ -158,7 +158,16 @@ target_link_libraries(italo-wallet-gui
     ${EXTRA_LIBRARIES}
     ${ICU_LIBRARIES}
     openpgp
+    translations
 )
+
+if(DEVICE_TREZOR_READY)
+    target_link_libraries(italo-wallet-gui ${TREZOR_DEP_LIBS})
+endif()
+
+if(X11_FOUND)
+    target_link_libraries(italo-wallet-gui ${X11_LIBRARIES})
+endif()
 
 if(WITH_SCANNER)
     target_link_libraries(italo-wallet-gui

@@ -85,17 +85,6 @@ private:
   PassphraseHelper m_phelper;
 };
 
-WalletManager * WalletManager::m_instance = nullptr;
-
-WalletManager *WalletManager::instance()
-{
-    if (!m_instance) {
-        m_instance = new WalletManager;
-    }
-
-    return m_instance;
-}
-
 Wallet *WalletManager::createWallet(const QString &path, const QString &password,
                                     const QString &language, NetworkType::Type nettype, quint64 kdfRounds)
 {
@@ -272,7 +261,7 @@ QString WalletManager::maximumAllowedAmountAsString() const
     return WalletManager::displayAmount(WalletManager::maximumAllowedAmount());
 }
 
-QString WalletManager::displayAmount(quint64 amount) const
+QString WalletManager::displayAmount(quint64 amount)
 {
     return QString::fromStdString(Italo::Wallet::displayAmount(amount));
 }
@@ -415,13 +404,27 @@ QVariantMap WalletManager::parse_uri_to_object(const QString &uri) const
     if (this->parse_uri(uri, address, payment_id, amount, tx_description, recipient_name, unknown_parameters, error)) {
         result.insert("address", address);
         result.insert("payment_id", payment_id);
-        result.insert("amount", amount > 0 ? this->displayAmount(amount) : "");
+        result.insert("amount", amount > 0 ? displayAmount(amount) : "");
         result.insert("tx_description", tx_description);
         result.insert("recipient_name", recipient_name);
+
+        QVariantMap extra_parameters;
+        if (unknown_parameters.size() > 0)
+        {
+            for (const QString &item : unknown_parameters)
+            {
+                const auto parsed_item = item.splitRef("=");
+                if (parsed_item.size() == 2)
+                {
+                    extra_parameters.insert(parsed_item[0].toString(), parsed_item[1].toString());
+                }
+            }
+        }
+        result.insert("extra_parameters", extra_parameters);
     } else {
-        result.insert("error", error);
+        result.insert("error", !error.isEmpty() ? error : tr("Unknown error"));
     }
-    
+
     return result;
 }
 

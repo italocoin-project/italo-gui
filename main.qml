@@ -34,6 +34,7 @@ import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.0
 
 import italoComponents.Wallet 1.0
+import italoComponents.WalletManager 1.0
 import italoComponents.PendingTransaction 1.0
 import italoComponents.NetworkType 1.0
 import italoComponents.Settings 1.0
@@ -1523,7 +1524,7 @@ ApplicationWindow {
     PasswordDialog {
         id: passwordDialog
         visible: false
-        z: parent.z + 1
+        z: parent.z + 2
         anchors.fill: parent
         property var onAcceptedCallback
         property var onRejectedCallback
@@ -2139,7 +2140,7 @@ ApplicationWindow {
         if (mode < 2) {
             persistentSettings.useRemoteNode = false;
 
-            if (middlePanel.settingsView.settingsStateViewState === "Node" || middlePanel.settingsView.settingsStateViewState === "Log") {
+            if (middlePanel.settingsView.settingsStateViewState === "Node") {
                 middlePanel.settingsView.settingsStateViewState = "Wallet"
             }
         }
@@ -2234,5 +2235,9 @@ ApplicationWindow {
     ItaloComponents.LanguageSidebar {
         id: languageSidebar
         dragMargin: 0
+    }
+
+    WalletManager {
+        id: walletManager
     }
 }

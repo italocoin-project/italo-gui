@@ -38,6 +38,9 @@
 #include <QScreen>
 #include <QRegExp>
 #include <QThread>
+
+#include <version.h>
+
 #include "clipboardAdapter.h"
 #include "filter.h"
 #include "oscursor.h"
@@ -69,6 +72,7 @@
 #include "qt/TailsOS.h"
 #include "qt/KeysFiles.h"
 #include "qt/ItaloSettings.h"
+#include "qt/NetworkAccessBlockingFactory.h"
 
 // IOS exclusions
 #ifndef Q_OS_IOS
@@ -92,13 +96,12 @@
   Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 #elif defined(Q_OS_LINUX)
   Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QXcbGlxIntegrationPlugin);
 #endif
 Q_IMPORT_PLUGIN(QSvgIconPlugin)
-Q_IMPORT_PLUGIN(QGifPlugin)
 Q_IMPORT_PLUGIN(QICNSPlugin)
 Q_IMPORT_PLUGIN(QICOPlugin)
 Q_IMPORT_PLUGIN(QJpegPlugin)
-Q_IMPORT_PLUGIN(QMngPlugin)
 Q_IMPORT_PLUGIN(QSvgPlugin)
 Q_IMPORT_PLUGIN(QTgaPlugin)
 Q_IMPORT_PLUGIN(QTiffPlugin)
@@ -130,7 +133,9 @@ Q_IMPORT_PLUGIN(QtQuick2PrivateWidgetsPlugin)
 Q_IMPORT_PLUGIN(QtQuickControls2Plugin)
 Q_IMPORT_PLUGIN(QtQuickTemplates2Plugin)
 Q_IMPORT_PLUGIN(QmlXmlListModelPlugin)
+#ifdef WITH_SCANNER
 Q_IMPORT_PLUGIN(QMultimediaDeclarativeModule)
+#endif
 
 #endif
 
@@ -145,6 +150,8 @@ bool isOpenGL = true;
 
 int main(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE(translations);
+
     // platform dependant settings
 #if !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
     bool isDesktop = true;
@@ -350,6 +357,8 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
     // registering types for QML
     qmlRegisterType<clipboardAdapter>("italoComponents.Clipboard", 1, 0, "Clipboard");
     qmlRegisterType<Downloader>("italoComponents.Downloader", 1, 0, "Downloader");
+    qmlRegisterType<WalletKeysFilesModel>("italoComponents.WalletKeysFilesModel", 1, 0, "WalletKeysFilesModel");
+    qmlRegisterType<WalletManager>("italoComponents.WalletManager", 1, 0, "WalletManager");
 
     // Temporary Qt.labs.settings replacement
     qmlRegisterType<ItaloSettings>("italoComponents.Settings", 1, 0, "ItaloSettings");
@@ -363,14 +372,8 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
     qmlRegisterUncreatableType<UnsignedTransaction>("italoComponents.UnsignedTransaction", 1, 0, "UnsignedTransaction",
                                                    "UnsignedTransaction can't be instantiated directly");
 
-    qmlRegisterUncreatableType<WalletManager>("italoComponents.WalletManager", 1, 0, "WalletManager",
-                                                   "WalletManager can't be instantiated directly");
-
     qmlRegisterUncreatableType<TranslationManager>("italoComponents.TranslationManager", 1, 0, "TranslationManager",
                                                    "TranslationManager can't be instantiated directly");
-
-    qmlRegisterUncreatableType<WalletKeysFilesModel>("italoComponents.walletKeysFilesModel", 1, 0, "WalletKeysFilesModel",
-                                                   "walletKeysFilesModel can't be instantiated directly");
 
     qmlRegisterUncreatableType<TransactionHistoryModel>("italoComponents.TransactionHistoryModel", 1, 0, "TransactionHistoryModel",
                                                         "TransactionHistoryModel can't be instantiated directly");
@@ -418,6 +421,9 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
 
     QQmlApplicationEngine engine;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+    engine.setNetworkAccessManagerFactory(new NetworkAccessBlockingFactory);
+#endif
     OSCursor cursor;
     engine.rootContext()->setContextProperty("globalCursor", &cursor);
     OSHelper osHelper;
@@ -426,10 +432,6 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
     engine.addImportPath(":/fonts");
 
     engine.rootContext()->setContextProperty("italoAccountsDir", italoAccountsDir);
-
-    WalletManager *walletManager = WalletManager::instance();
-
-    engine.rootContext()->setContextProperty("walletManager", walletManager);
 
     engine.rootContext()->setContextProperty("translationManager", TranslationManager::instance());
 
@@ -468,11 +470,6 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
         engine.rootContext()->setContextProperty("desktopFolder", desktopFolder);
 #endif
 
-    // Wallet .keys files model (wizard -> open wallet)
-    WalletKeysFilesModel walletKeysFilesModel(walletManager);
-    engine.rootContext()->setContextProperty("walletKeysFilesModel", &walletKeysFilesModel);
-    engine.rootContext()->setContextProperty("walletKeysFilesModelProxy", &walletKeysFilesModel.proxyModel());
-
     // Get default account name
     QString accountName = qgetenv("USER"); // mac/linux
     if (accountName.isEmpty())
@@ -491,6 +488,8 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
     builtWithScanner = true;
 #endif
     engine.rootContext()->setContextProperty("builtWithScanner", builtWithScanner);
+
+    engine.rootContext()->setContextProperty("italoVersion", MONERO_VERSION_FULL);
 
     Network network;
     engine.rootContext()->setContextProperty("Network", &network);

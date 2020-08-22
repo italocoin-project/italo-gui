@@ -17,7 +17,7 @@ if [ ! -d $MONERO_DIR/src ]; then
 fi
 git submodule update --remote
 git -C $MONERO_DIR fetch
-git -C $MONERO_DIR checkout v0.16.0.3
+git -C $MONERO_DIR checkout master
 
 # get italo core tag
 pushd $MONERO_DIR

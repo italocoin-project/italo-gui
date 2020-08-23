@@ -411,7 +411,7 @@ Rectangle {
                 small: true
                 text: qsTr("Donate to Italo") + translationManager.emptyString
                 onClicked: {
-                    middlePanel.sendTo("888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkRxbANsAnjyPbb3iQ1YBRk1UXcdRsiKc9dhwMVgN5S9cQUiyoogDavup3H", "", "Donation to Italo Core Team");
+                    middlePanel.sendTo("ipPQjQYEQsLL7Gv43PpHDLiFLsZzoGuZtEJ8ZCW2is5TGeMNPo66bTKXAAd3m3ceXp4aweqmZnAHt9bWHALkK7xR2MVhF8QFZ", "", "Donation to Italo Core Team");
                 }
             }
         }

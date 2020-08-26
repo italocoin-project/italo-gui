@@ -55,11 +55,6 @@ Do you speak a second language and would like to help translate the Italo GUI? C
 
 If you need help/support or any info you can contact the localization workgroup on the IRC channel #italo-translations (relayed on matrix/riot and MatterMost) or by email at translate[at]getitalo[dot]org. For more info about the Localization workgroup: [github.com/italo-ecosystem/italo-translations](https://github.com/italo-ecosystem/italo-translations)
 
-Status of the translations:  
-<a href="https://translate.italo.network/engage/italo/?utm_source=widget">
-<img src="https://translate.italo.network/widgets/italo/-/gui-wallet/horizontal-auto.svg" alt="Translation status" />
-</a>
-
 ## Installing the Italo GUI from a package
 
 Packages are available for
